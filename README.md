@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CodeMash.MongoDb.Repository is an easy to use library to use MongoDB with .NET.
 It implements a Repository pattern on top of Official MongoDB C# driver. Meaning, CodeMash.MongoDb.Repository serves as an intermidiate layer between Mongo DB and business layer of your .NET aplication.
 
@@ -59,3 +60,7 @@ namespace MongoDB
     }
 }
 ```
+=======
+# CodeMash.Net
+SDK of CodeMash API - http://codemash.io
+>>>>>>> e9c2d4beeca68bd3a432ababdbb8fea9c7f77ef8
