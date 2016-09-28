@@ -1,19 +1,19 @@
-<<<<<<< HEAD
-CodeMash.MongoDb.Repository is an easy to use library to use MongoDB with .NET.
-It implements a Repository pattern on top of Official MongoDB C# driver. Meaning, CodeMash.MongoDb.Repository serves as an intermidiate layer between Mongo DB and business layer of your .NET aplication.
+# CodeMash.Net
+SDK of CodeMash API - http://codemash.io/documentation/api
 
-1. [Getting started](https://bitbucket.org/justinas_jasiunas/test-for-wiki-documentation/wiki/Getting%20started%20)
-2. [Connecting to database](https://bitbucket.org/justinas_jasiunas/test-for-wiki-documentation/wiki/Connecting%20to%20DB)
+CodeMash.Net is an easy C# client for using common task - CRUD operations, emails, notifications, payments, logging.
+
+1. [Getting started](https://github.com/codemash-io/CodeMash.Net/blob/master/1.%20Getting%20started.md)
+2. [Connecting to database](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Connecting%20to%20database.md)
 3. CRUD operations  
-3.1. [Create](https://bitbucket.org/justinas_jasiunas/test-for-wiki-documentation/wiki/Create)  
-3.2. [Read](https://bitbucket.org/justinas_jasiunas/test-for-wiki-documentation/wiki/Read)  
-3.3. [Update](https://bitbucket.org/justinas_jasiunas/test-for-wiki-documentation/wiki/Update)  
-3.4. [Delete](https://bitbucket.org/justinas_jasiunas/test-for-wiki-documentation/wiki/Delete)  
+3.1. [Create](https://github.com/codemash-io/CodeMash.Net/blob/master/3.1.%20Create.md)  
+3.2. [Read](https://github.com/codemash-io/CodeMash.Net/blob/master/3.2.%20Read.md)  
+3.3. [Update](https://github.com/codemash-io/CodeMash.Net/blob/master/3.3.%20Update.md)  
+3.4. [Delete](https://github.com/codemash-io/CodeMash.Net/blob/master/3.4.%20Delete.md)  
 
 **Example**
 
-```
-#!C#
+```csharp
 
 using CodeMash.MongoDB.Repository;
 using MongoDB.Driver;
@@ -60,7 +60,3 @@ namespace MongoDB
     }
 }
 ```
-=======
-# CodeMash.Net
-SDK of CodeMash API - http://codemash.io
->>>>>>> e9c2d4beeca68bd3a432ababdbb8fea9c7f77ef8
