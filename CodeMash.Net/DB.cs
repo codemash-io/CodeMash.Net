@@ -22,75 +22,6 @@ namespace CodeMash.Net
         private static readonly string BaseUrl = Statics.Address;
         public static string ApiKey = Statics.ApiKey;
 
-        public static async Task<TR> SendAsync<TR>(string url, object requestDto = null, string httpMethod = WebRequestMethods.Http.Get) where TR : class
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(httpMethod))
-                {
-                    httpMethod = WebRequestMethods.Http.Get;
-                }
-
-                ApiKey = Statics.ApiKey;
-                
-                // TODO : specify this errors with codes and specify type of exception
-                if (string.IsNullOrEmpty(ApiKey))
-                {
-                    throw new Exception("Please specify api key first");
-                }
-
-                if (string.IsNullOrEmpty(BaseUrl))
-                {
-                    throw new Exception("Please specify api address first");
-                }
-
-                if (httpMethod == "GET" && requestDto != null)
-                {
-                    url += "?" + requestDto.ToQueryString();
-                }
-
-                var serverUri = new Uri(BaseUrl);
-                var relativeUri = new Uri(url, UriKind.Relative);
-                var fullUri = new Uri(serverUri, relativeUri);
-
-                var request = (HttpWebRequest)WebRequest.Create(fullUri);
-
-                request.ContentType = "application/json; charset=utf-8";
-
-                request.Accept = "application/json";
-                request.Method = httpMethod;
-
-                // ApiKey Auth 
-                request.Headers.Add("Authorization", "Bearer " + ApiKey);
-
-                if ((request.Method == WebRequestMethods.Http.Post || request.Method == WebRequestMethods.Http.Put || request.Method == "DELETE") && requestDto != null)
-                {
-                    var requestDtoAsJson = JsonConvert.SerializeObject(requestDto);
-                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                    {
-                        streamWriter.Write(requestDtoAsJson);
-                        streamWriter.Flush();
-                    }
-                }
-
-                var response = (HttpWebResponse)await request.GetResponseAsync();
-
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    var json = sr.ReadToEnd();
-                    return BsonSerializer.Deserialize<TR>(json);
-                }
-            }
-            catch (Exception e)
-            {
-                var errorMessage = e.Message;
-#if DEBUG
-                errorMessage += " " + e.StackTrace;
-#endif
-                throw new CodeMashException(errorMessage, e);
-            }
-        }
-
         public static TR Send<TR>(string url, object requestDto = null, string httpMethod = WebRequestMethods.Http.Get) where TR : class
         {
             try
@@ -102,6 +33,7 @@ namespace CodeMash.Net
 
                 ApiKey = Statics.ApiKey;
 
+                // TODO : specify this errors with codes and specify type of exception
                 if (string.IsNullOrEmpty(ApiKey))
                 {
                     throw new Exception("Please specify api key first");
@@ -159,7 +91,7 @@ namespace CodeMash.Net
             }
         }
 
-        private static async Task<List<TProjection>> FindAsync<T, TProjection>(string collectionName, FilterDefinition<T> filter, SortDefinition<T> sort = null, ProjectionDefinition<T, TProjection> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false) where TProjection : new()
+        private static List<TProjection> Find<T, TProjection>(string collectionName, FilterDefinition<T> filter, SortDefinition<T> sort = null, ProjectionDefinition<T, TProjection> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false) where TProjection : new()
         {
 
             var serializer = BsonSerializer.SerializerRegistry.GetSerializer<T>();
@@ -185,7 +117,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<FindResponse>("entities/" + collectionName + "/find", request, "POST");
+            var response = Send<FindResponse>("entities/" + collectionName + "/find", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -195,7 +127,7 @@ namespace CodeMash.Net
             return new List<TProjection>();
         }
 
-        public static async Task<List<T>> FindAsync<T>(string collectionName, FilterDefinition<T> filter, SortDefinition<T> sort = null, ProjectionDefinition<T> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false)
+        public static List<T> Find<T>(string collectionName, FilterDefinition<T> filter, SortDefinition<T> sort = null, ProjectionDefinition<T> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false)
         {
             var request = new Find
             {
@@ -212,7 +144,7 @@ namespace CodeMash.Net
 
             };
 
-            var response = await SendAsync<FindResponse>("entities/" + collectionName + "/find", request, "POST");
+            var response = Send<FindResponse>("entities/" + collectionName + "/find", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -222,25 +154,25 @@ namespace CodeMash.Net
             return new List<T>();
         }
 
-        public static async Task<List<T>> FindAsync<T>(string collectionName, Expression<Func<T, bool>> filter, SortDefinition<T> sort = null, ProjectionDefinition<T> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false)
+        public static List<T> Find<T>(string collectionName, Expression<Func<T, bool>> filter, SortDefinition<T> sort = null, ProjectionDefinition<T> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false)
         {
             if (filter == null)
             {
-                return await FindAsync(collectionName, new BsonDocument(), sort, projection, pageNumber, pageSize, findOptions, includeSchema);
+                return Find(collectionName, new BsonDocument(), sort, projection, pageNumber, pageSize, findOptions, includeSchema);
             }
-            return await FindAsync(collectionName, new ExpressionFilterDefinition<T>(filter), sort, projection, pageNumber, pageSize, findOptions, includeSchema);
+            return Find(collectionName, new ExpressionFilterDefinition<T>(filter), sort, projection, pageNumber, pageSize, findOptions, includeSchema);
         }
 
-        public static async Task<List<TProjection>> FindAsync<T, TProjection>(string collectionName, Expression<Func<T, bool>> filter, SortDefinition<T> sort = null, Expression<Func<T, TProjection>> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false) where TProjection : new()
+        public static List<TProjection> Find<T, TProjection>(string collectionName, Expression<Func<T, bool>> filter, SortDefinition<T> sort = null, Expression<Func<T, TProjection>> projection = null, int? pageNumber = 0, int? pageSize = 100, FindOptions findOptions = null, bool includeSchema = false) where TProjection : new()
         {
             if (filter == null)
             {
-                return await FindAsync(collectionName, new BsonDocument(), sort, Builders<T>.Projection.Expression(projection), pageNumber, pageSize, findOptions, includeSchema);
+                return Find(collectionName, new BsonDocument(), sort, Builders<T>.Projection.Expression(projection), pageNumber, pageSize, findOptions, includeSchema);
             }
-            return await FindAsync(collectionName, new ExpressionFilterDefinition<T>(filter), sort, Builders<T>.Projection.Expression(projection), pageNumber, pageSize, findOptions, includeSchema);
+            return Find(collectionName, new ExpressionFilterDefinition<T>(filter), sort, Builders<T>.Projection.Expression(projection), pageNumber, pageSize, findOptions, includeSchema);
         }
 
-        public static async Task<T> FindOneAsync<T>(string collectionName, FilterDefinition<T> filter, ProjectionDefinition<BsonDocument> projection, FindOptions findOptions = null, bool includeSchema = false)
+        public static T FindOne<T>(string collectionName, FilterDefinition<T> filter, ProjectionDefinition<BsonDocument> projection, FindOptions findOptions = null, bool includeSchema = false)
         {
             var request = new FindOne
             {
@@ -253,7 +185,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<FindOneResponse>("entities/" + collectionName + "/findOne", request, "POST");
+            var response = Send<FindOneResponse>("entities/" + collectionName + "/findOne", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -263,42 +195,42 @@ namespace CodeMash.Net
             return default(T);
         }
 
-        public static async Task<T> FindOneAsync<T>(string collectionName, Expression<Func<T, bool>> filter, ProjectionDefinition<BsonDocument> projection, FindOptions findOptions = null, bool includeSchema = false)
+        public static T FindOne<T>(string collectionName, Expression<Func<T, bool>> filter, ProjectionDefinition<BsonDocument> projection, FindOptions findOptions = null, bool includeSchema = false)
         {
             if (filter == null)
             {
-                return await FindOneAsync<T>(collectionName, new BsonDocument(), projection, findOptions, includeSchema);
+                return FindOne<T>(collectionName, new BsonDocument(), projection, findOptions, includeSchema);
             }
-            return await FindOneAsync<T>(collectionName, new ExpressionFilterDefinition<T>(filter), projection, findOptions, includeSchema);
+            return FindOne<T>(collectionName, new ExpressionFilterDefinition<T>(filter), projection, findOptions, includeSchema);
         }
 
-        public static async Task<T> FindOneAsync<T>(string collectionName, Expression<Func<T, bool>> filter)
+        public static T FindOne<T>(string collectionName, Expression<Func<T, bool>> filter)
         {
             if (filter == null)
             {
-                return await FindOneAsync<T>(collectionName, new BsonDocument(), null, null, false);
+                return FindOne<T>(collectionName, new BsonDocument(), null, null, false);
             }
-            return await FindOneAsync<T>(collectionName, new ExpressionFilterDefinition<T>(filter), null, null, false);
+            return FindOne<T>(collectionName, new ExpressionFilterDefinition<T>(filter), null, null, false);
         }
 
-        public static async Task<T> FindOneAsync<T>(string collectionName, FilterDefinition<T> filter)
+        public static T FindOne<T>(string collectionName, FilterDefinition<T> filter)
         {
             if (filter == null)
             {
-                return await FindOneAsync<T>(collectionName, new BsonDocument(), null, null, false);
+                return FindOne<T>(collectionName, new BsonDocument(), null, null, false);
             }
-            return await FindOneAsync<T>(collectionName, filter, null, null, false);
+            return FindOne<T>(collectionName, filter, null, null, false);
         }
 
 
-        public static async Task<T> FindOneByIdAsync<T>(string collectionName, string id)
+        public static T FindOneById<T>(string collectionName, string id)
         {
             var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
-            return await FindOneAsync<T>(collectionName, filter, null, null, false);
+            return FindOne<T>(collectionName, filter, null, null, false);
         }
 
 
-        public static async Task<T> FindOneAndReplaceAsync<T>(string token, string collectionName, FilterDefinition<T> filter, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null, Notification notification = null)
+        public static T FindOneAndReplace<T>(string token, string collectionName, FilterDefinition<T> filter, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null, Notification notification = null)
         {
             if (findOneAndReplaceOptions == null)
             {
@@ -320,7 +252,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<FindOneAndReplaceResponse>("entities/" + collectionName + "/findOneAndReplace", request, "POST");
+            var response = Send<FindOneAndReplaceResponse>("entities/" + collectionName + "/findOneAndReplace", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -330,7 +262,7 @@ namespace CodeMash.Net
             return default(T);
         }
 
-        public static async Task<T> FindOneAndDeleteAsync<T>(string token, string collectionName, FilterDefinition<T> filter, FindOneAndDeleteOptions<T> findOneAndReplaceOptions = null, Notification notification = null)
+        public static T FindOneAndDelete<T>(string token, string collectionName, FilterDefinition<T> filter, FindOneAndDeleteOptions<T> findOneAndReplaceOptions = null, Notification notification = null)
         {
             var request = new FindOneAndDelete
             {
@@ -342,7 +274,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<FindOneAndDeleteResponse>("entities/" + collectionName + "/findOneAndDelete", request, "POST");
+            var response = Send<FindOneAndDeleteResponse>("entities/" + collectionName + "/findOneAndDelete", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -354,7 +286,7 @@ namespace CodeMash.Net
 
 
 
-        public static async Task<T> FindOneAndUpdateAsync<T>(string token, string collectionName, FilterDefinition<BsonDocument> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions = null, Notification notification = null)
+        public static T FindOneAndUpdate<T>(string token, string collectionName, FilterDefinition<BsonDocument> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions = null, Notification notification = null)
         {
             if (findOneAndUpdateOptions == null)
             {
@@ -376,7 +308,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<FindOneAndReplaceResponse>("entities/" + collectionName + "/findOneAndReplace", request, "POST");
+            var response = Send<FindOneAndReplaceResponse>("entities/" + collectionName + "/findOneAndReplace", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -386,13 +318,13 @@ namespace CodeMash.Net
             return default(T);
         }
 
-        /*public static async Task<SaveFileResponse> UploadFile(SaveFile request)
+        /*public static  <SaveFileResponse> UploadFile(SaveFile request)
         {
-            var response = await SendAsync<SaveFileResponse>("files", request, "POST");
+            var response =  Send<SaveFileResponse>("files", request, "POST");
             return response;
         }*/
 
-        public static async Task<List<TOutput>> AggregateAsync<TInput, TOutput>(string collectionName, PipelineDefinition<TInput, TOutput> aggregation, AggregateOptions options)
+        public static List<TOutput> Aggregate<TInput, TOutput>(string collectionName, PipelineDefinition<TInput, TOutput> aggregation, AggregateOptions options)
         {
             var request = new Aggregate
             {
@@ -402,7 +334,7 @@ namespace CodeMash.Net
                 OutputMode = JsonOutputMode.Strict,
             };
 
-            var response = await SendAsync<AggregateResponse>("entities/" + collectionName + "/aggregate", request, "POST");
+            var response = Send<AggregateResponse>("entities/" + collectionName + "/aggregate", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -412,7 +344,7 @@ namespace CodeMash.Net
             return new List<TOutput>();
         }
 
-        public static async Task<List<TOutput>> AggregateAsync<TInput, TOutput>(string collectionName, List<BsonDocument> stages, AggregateOptions options)
+        public static List<TOutput> Aggregate<TInput, TOutput>(string collectionName, List<BsonDocument> stages, AggregateOptions options)
         {
             var request = new Aggregate
             {
@@ -422,7 +354,7 @@ namespace CodeMash.Net
                 OutputMode = JsonOutputMode.Strict,
             };
 
-            var response = await SendAsync<AggregateResponse>("entities/" + collectionName + "/aggregate", request, "POST");
+            var response = Send<AggregateResponse>("entities/" + collectionName + "/aggregate", request, "POST");
 
             if (response != null && response.Result.Any())
             {
@@ -432,7 +364,7 @@ namespace CodeMash.Net
             return new List<TOutput>();
         }
 
-        public static async Task<long> CountAsync<T>(string token, string collectionName, FilterDefinition<T> filter, CountOptions options = null)
+        public static long Count<T>(string token, string collectionName, FilterDefinition<T> filter, CountOptions options = null)
         {
             var request = new Count
             {
@@ -443,7 +375,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<CountResponse>("entities/" + collectionName + "/count", request, "POST");
+            var response = Send<CountResponse>("entities/" + collectionName + "/count", request, "POST");
 
             if (response != null)
             {
@@ -452,7 +384,7 @@ namespace CodeMash.Net
             return 0;
         }
 
-        public static async Task<List<string>> DistinctAsync<T>(string token, string collectionName, string field, FilterDefinition<BsonDocument> filter, DistinctOptions options = null)
+        public static List<string> Distinct<T>(string token, string collectionName, string field, FilterDefinition<BsonDocument> filter, DistinctOptions options = null)
         {
             var request = new Distinct
             {
@@ -464,7 +396,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<DistinctResponse>("entities/" + collectionName + "/distinct", request, "POST");
+            var response = Send<DistinctResponse>("entities/" + collectionName + "/distinct", request, "POST");
 
             if (response != null)
             {
@@ -473,7 +405,7 @@ namespace CodeMash.Net
             return new List<string>();
         }
 
-        public static async Task<T> InsertOneAsync<T>(string collectionName, T document, /* InsertOneOptions options, */ Notification notification = null)
+        public static T InsertOne<T>(string collectionName, T document, /* InsertOneOptions options, */ Notification notification = null)
         {
             var request = new InsertOne
             {
@@ -485,7 +417,7 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<InsertOneResponse>("entities/" + collectionName, request, "POST");
+            var response = Send<InsertOneResponse>("entities/" + collectionName, request, "POST");
 
             if (response?.Result == null)
             {
@@ -496,7 +428,7 @@ namespace CodeMash.Net
         }
 
 
-        public static async Task<bool> InsertManyAsync<T>(string collectionName, IEnumerable<T> documents, InsertManyOptions insertManyOptions = null, Notification notification = null)
+        public static bool InsertMany<T>(string collectionName, IEnumerable<T> documents, InsertManyOptions insertManyOptions = null, Notification notification = null)
         {
             var request = new InsertMany
             {
@@ -506,12 +438,12 @@ namespace CodeMash.Net
                 Documents = documents.Select(x => x.ToBsonDocument().ToJson(new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }))
             };
 
-            var response = await SendAsync<InsertManyResponse>("entities/" + collectionName + "/bulk", request, "POST");
+            var response = Send<InsertManyResponse>("entities/" + collectionName + "/bulk", request, "POST");
 
             return response?.Result != null && response.Result;
         }
 
-        public static async Task<T> ReplaceOneAsync<T>(string collectionName, FilterDefinition<T> filter, T document, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
+        public static T ReplaceOne<T>(string collectionName, FilterDefinition<T> filter, T document, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
         {
             var request = new ReplaceOne
             {
@@ -524,7 +456,7 @@ namespace CodeMash.Net
                 SchemaId = schemaId
             };
 
-            var response = await SendAsync<ReplaceOneResponse>("entities/" + collectionName + "/replaceOne", request, "POST");
+            var response = Send<ReplaceOneResponse>("entities/" + collectionName + "/replaceOne", request, "POST");
 
             if (response?.Result == null)
             {
@@ -534,12 +466,12 @@ namespace CodeMash.Net
             return documentAsEntity;
         }
 
-        public static async Task<T> ReplaceOneAsync<T>(string collectionName, Expression<Func<T, bool>> filter, T document, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
+        public static T ReplaceOne<T>(string collectionName, Expression<Func<T, bool>> filter, T document, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
         {
-            return await ReplaceOneAsync(collectionName, new ExpressionFilterDefinition<T>(filter), document, updateOptions, schemaId, notification);
+            return ReplaceOne(collectionName, new ExpressionFilterDefinition<T>(filter), document, updateOptions, schemaId, notification);
         }
 
-        public static async Task<T> FindOneAndReplaceAsync<T>(string collectionName, FilterDefinition<T> filter, T document, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null, string schemaId = "", Notification notification = null)
+        public static T FindOneAndReplace<T>(string collectionName, FilterDefinition<T> filter, T document, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null, string schemaId = "", Notification notification = null)
         {
             var request = new FindOneAndReplace
             {
@@ -551,7 +483,7 @@ namespace CodeMash.Net
                 FindOneAndReplaceOptions = findOneAndReplaceOptions
             };
 
-            var response = await SendAsync<FindOneAndReplaceResponse>("entities/" + collectionName + "/findOneAndReplace", request, "POST");
+            var response = Send<FindOneAndReplaceResponse>("entities/" + collectionName + "/findOneAndReplace", request, "POST");
 
             if (response?.Result == null)
             {
@@ -561,13 +493,13 @@ namespace CodeMash.Net
             return documentAsEntity;
         }
 
-        public static async Task<T> FindOneAndReplaceAsync<T>(string collectionName, Expression<Func<T, bool>> filter, T document, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null, string schemaId = "", Notification notification = null)
+        public static T FindOneAndReplace<T>(string collectionName, Expression<Func<T, bool>> filter, T document, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null, string schemaId = "", Notification notification = null)
         {
-            return await FindOneAndReplaceAsync(collectionName, new ExpressionFilterDefinition<T>(filter), document, findOneAndReplaceOptions, schemaId, notification);
+            return FindOneAndReplace(collectionName, new ExpressionFilterDefinition<T>(filter), document, findOneAndReplaceOptions, schemaId, notification);
         }
 
 
-        public static async Task<DataContracts.UpdateResult> UpdateOneAsync<T>(string collectionName, FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
+        public static DataContracts.UpdateResult UpdateOne<T>(string collectionName, FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
         {
             var request = new UpdateOne
             {
@@ -580,16 +512,16 @@ namespace CodeMash.Net
                 SchemaId = schemaId
             };
 
-            var response = await SendAsync<UpdateOneResponse>("entities/" + collectionName, request, "PUT");
+            var response = Send<UpdateOneResponse>("entities/" + collectionName, request, "PUT");
             return response.Result;
         }
 
-        public static async Task<DataContracts.UpdateResult> UpdateOneAsync<T>(string collectionName, Expression<Func<T, bool>> filter, UpdateDefinition<T> update, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
+        public static DataContracts.UpdateResult UpdateOne<T>(string collectionName, Expression<Func<T, bool>> filter, UpdateDefinition<T> update, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
         {
-            return await UpdateOneAsync(collectionName, new ExpressionFilterDefinition<T>(filter), update, updateOptions, schemaId, notification);
+            return UpdateOne(collectionName, new ExpressionFilterDefinition<T>(filter), update, updateOptions, schemaId, notification);
         }
 
-        public static async Task<DataContracts.UpdateResult> UpdateManyAsync<T>(string collectionName, FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions updateOptions, string schemaId = "", Notification notification = null)
+        public static DataContracts.UpdateResult UpdateMany<T>(string collectionName, FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions updateOptions, string schemaId = "", Notification notification = null)
         {
             var request = new UpdateMany
             {
@@ -603,16 +535,16 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<UpdateOneResponse>("entities/" + collectionName + "/bulk", request, "PUT");
+            var response = Send<UpdateOneResponse>("entities/" + collectionName + "/bulk", request, "PUT");
             return response.Result;
         }
 
-        public static async Task<DataContracts.UpdateResult> UpdateManyAsync<T>(string collectionName, Expression<Func<T, bool>> filter, UpdateDefinition<T> update, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
+        public static DataContracts.UpdateResult UpdateMany<T>(string collectionName, Expression<Func<T, bool>> filter, UpdateDefinition<T> update, UpdateOptions updateOptions = null, string schemaId = "", Notification notification = null)
         {
-            return await UpdateManyAsync(collectionName, new ExpressionFilterDefinition<T>(filter), update, updateOptions, schemaId, notification);
+            return UpdateMany(collectionName, new ExpressionFilterDefinition<T>(filter), update, updateOptions, schemaId, notification);
         }
 
-        public static async Task<DataContracts.DeleteResult> DeleteOneAsync<T>(string collectionName, FilterDefinition<T> filter, Notification notification = null)
+        public static DataContracts.DeleteResult DeleteOne<T>(string collectionName, FilterDefinition<T> filter, Notification notification = null)
         {
             var request = new DeleteOne
             {
@@ -624,22 +556,22 @@ namespace CodeMash.Net
 
             };
 
-            var response = await SendAsync<DeleteOneResponse>("entities/" + collectionName, request, "DELETE");
+            var response = Send<DeleteOneResponse>("entities/" + collectionName, request, "DELETE");
             return response.Result;
         }
 
-        public static async Task<DataContracts.DeleteResult> DeleteOneAsync<T>(string collectionName, Expression<Func<T, bool>> filter, Notification notification = null)
+        public static DataContracts.DeleteResult DeleteOne<T>(string collectionName, Expression<Func<T, bool>> filter, Notification notification = null)
         {
-            return await DeleteOneAsync(collectionName, new ExpressionFilterDefinition<T>(filter), notification);
+            return DeleteOne(collectionName, new ExpressionFilterDefinition<T>(filter), notification);
         }
 
-        public static async Task<DataContracts.DeleteResult> DeleteOneAsync<T>(string collectionName, string id, Notification notification = null)
+        public static DataContracts.DeleteResult DeleteOne<T>(string collectionName, string id, Notification notification = null)
         {
             FilterDefinition<BsonDocument> filter = new BsonDocument("_id", ObjectId.Parse(id));
-            return await DeleteOneAsync(collectionName, filter, notification);
+            return DeleteOne(collectionName, filter, notification);
         }
 
-        public static async Task<DataContracts.DeleteResult> DeleteManyAsync<T>(string collectionName, FilterDefinition<T> filter, Notification notification = null)
+        public static DataContracts.DeleteResult DeleteMany<T>(string collectionName, FilterDefinition<T> filter, Notification notification = null)
         {
             var request = new DeleteMany
             {
@@ -650,13 +582,13 @@ namespace CodeMash.Net
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var response = await SendAsync<DeleteManyResponse>("entities/" + collectionName + "/bulk", request, "DELETE");
+            var response = Send<DeleteManyResponse>("entities/" + collectionName + "/bulk", request, "DELETE");
             return response.Result;
         }
 
-        public static async Task<DataContracts.DeleteResult> DeleteManyAsync<T>(string collectionName, Expression<Func<T, bool>> filter, Notification notification = null)
+        public static DataContracts.DeleteResult DeleteMany<T>(string collectionName, Expression<Func<T, bool>> filter, Notification notification = null)
         {
-            return await DeleteManyAsync<T>(collectionName, new ExpressionFilterDefinition<T>(filter), notification);
+            return DeleteMany<T>(collectionName, new ExpressionFilterDefinition<T>(filter), notification);
         }
 
         /// <summary>
@@ -666,7 +598,7 @@ namespace CodeMash.Net
         /// <param name="subject">The subject of email</param>
         /// <param name="body">The body of email</param>
         /// <param name="fromEmail">From email. - One email</param>
-        /// <returns>Task.</returns>
+        /// <returns>.</returns>
         public static void SendMail(string toEmail, string subject, string body, string fromEmail)
         {
             if (toEmail.Contains(","))
@@ -684,7 +616,7 @@ namespace CodeMash.Net
         /// <param name="subject">The subject of email</param>
         /// <param name="body">The body of email</param>
         /// <param name="fromEmail">From email. - One email</param>
-        /// <returns>Task.</returns>
+        /// <returns>.</returns>
         public static void SendMail(string[] toEmails, string subject, string body, string fromEmail)
         {
             if (toEmails != null && toEmails.Any())
@@ -711,8 +643,8 @@ namespace CodeMash.Net
         /// <param name="body">The body of email</param>
         /// <param name="fromEmail">From email. - One email</param>
         /// <param name="attachments">The attachments.</param>
-        /// <returns>Task.</returns>
-        
+        /// <returns>.</returns>
+
         public static void SendMail(string toEmail, string subject, string body, string fromEmail, string[] attachments)
         {
             if (toEmail.Contains(","))
@@ -722,7 +654,7 @@ namespace CodeMash.Net
             }
             SendMail(new[] { toEmail }, subject, body, fromEmail, attachments);
         }
-        
+
         public static void SendMail(string[] toEmails, string subject, string body, string fromEmail, string[] attachments)
         {
             List<Attachment> mailAttachments = null;
@@ -753,7 +685,7 @@ namespace CodeMash.Net
             {
                 var emails = toEmail.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 SendMail(emails, subject, templateName, model, fromEmail, (string[])null);
-                
+
             }
             SendMail(new[] { toEmail }, subject, templateName, model, fromEmail, (string[])null);
         }
@@ -768,7 +700,7 @@ namespace CodeMash.Net
             }
             SendMail(new[] { toEmail }, subject, templateName, model, fromEmail, attachments);
         }
-        
+
 
         public static void SendMail(string[] toEmails, string subject, string templateName, JObject model, string fromEmail, string[] attachments)
         {
@@ -837,7 +769,7 @@ namespace CodeMash.Net
 
                 message.Attachments = mailAttachments;
             }
-            
+
             Send<SendMailResponse>("mail", message, "POST");
         }
 
