@@ -67,6 +67,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB.cs" />
     <Compile Include="CodeMashExtensions.cs" />
     <Compile Include="ObjectIdConverter.cs" />
     <Compile Include="Statics.cs" />
