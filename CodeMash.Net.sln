@@ -15,6 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{A9F05CD8-2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Net.DataContracts", "CodeMash.Net.DataContracts\CodeMash.Net.DataContracts.csproj", "{6DD367CF-CFE9-4D3E-985C-1153BAD9A42C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{4BF2CF02-E8A6-4F5A-B634-D76067E11447}"
+	ProjectSection(SolutionItems) = preProject
+		1. Getting started.md = 1. Getting started.md
+		2. Connecting to database.md = 2. Connecting to database.md
+		3.1. Create.md = 3.1. Create.md
+		3.2. Read.md = 3.2. Read.md
+		3.3. Update.md = 3.3. Update.md
+		3.4. Delete.md = 3.4. Delete.md
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AppStore|Any CPU = AppStore|Any CPU

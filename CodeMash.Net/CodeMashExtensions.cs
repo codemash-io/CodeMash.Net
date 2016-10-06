@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CodeMash.Net
 {
-    public static class FsClientExtensions
+    public static class CodeMashExtensions
     {
         public static async Task<T> As<T>(this Task<BsonDocument> source)
         {
