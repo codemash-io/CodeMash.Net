@@ -12,7 +12,7 @@ namespace Darymas
 {
     class Program
     {
-        class Project : Entity
+        class Project : EntityBase
         {
             public string Name { get; set; }
         }
@@ -24,7 +24,7 @@ namespace Darymas
 
                 var project = new Project { Name = "My First Project" };
                 var insertedProject = DB.InsertOne("Projects", project);
-                    Console.WriteLine($"Project was inserted : {project.Id}");
+                    Console.WriteLine($"Project was inserted : {insertedProject.Id}");
 
             }
             catch(Exception e)

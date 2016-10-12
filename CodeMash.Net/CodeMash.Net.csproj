@@ -44,10 +44,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeMash.MongoDbRepository, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CodeMash.MongoDb.Repository.2.0.0.14\lib\net45\CodeMash.MongoDbRepository.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="CodeMash.Net.DataContracts, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CodeMash.Net.1.0.0.2\lib\net45\CodeMash.Net.DataContracts.dll</HintPath>
       <Private>True</Private>
@@ -77,7 +73,6 @@
   <ItemGroup>
     <Compile Include="DB.cs" />
     <Compile Include="CodeMashExtensions.cs" />
-    <Compile Include="ObjectIdConverter.cs" />
     <Compile Include="Statics.cs" />
     <Compile Include="Configuration\CodeMashConfigurationElement.cs" />
     <Compile Include="Configuration\CodeMashConfigurationSection.cs" />
