@@ -18,7 +18,9 @@ namespace CodeMash.Net.DataContracts
 
         [DataMember]
         public Notification Notification { get; set; }
+ 
     }
+    
 
 
 
