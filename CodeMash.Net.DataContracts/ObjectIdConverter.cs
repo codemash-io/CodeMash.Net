@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace CodeMash.Net
+namespace CodeMash.Net.DataContracts
 {
     public class ObjectIdConverter : JsonConverter
     {

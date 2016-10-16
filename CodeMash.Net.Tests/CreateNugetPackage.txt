@@ -1,0 +1,7 @@
+How to create nuget package : 
+
+Change Version of assembly information
+
+cd C:\projects\CodeMash\Sdk\Net\CodeMash.Net.Package
+
+nuget pack ..\CodeMash.Net\CodeMash.Net.csproj -IncludeReferencedProjects
