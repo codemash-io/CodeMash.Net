@@ -12,13 +12,8 @@ namespace CodeMash.Net.DataContracts
     [DataContract]
     [Serializable]
     [BsonIgnoreExtraElements(Inherited = true)]
-    public abstract class EntityBase
+    public class EntityBase
     {
-        public EntityBase()
-        {
-            CreatedOn = DateTime.Now;
-        }
-
         [JsonProperty(PropertyName = "_id")]
         [JsonConverter(typeof(ObjectIdConverter))]
         public ObjectId Id { get; protected set; }

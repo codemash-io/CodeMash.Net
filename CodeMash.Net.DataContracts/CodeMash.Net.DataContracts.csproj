@@ -42,10 +42,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeMash.MongoDbRepository, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CodeMash.MongoDb.Repository.2.0.0.14\lib\net45\CodeMash.MongoDbRepository.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="CodeMash.Net, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CodeMash.Net.1.0.0.2\lib\net45\CodeMash.Net.dll</HintPath>
       <Private>True</Private>
@@ -79,9 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\MailAttachmentDataContract.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="IEntity.cs" />
-    <Compile Include="IMongoRepository.cs" />
+    <Compile Include="MessageBase\EntityBase.cs" />
     <Compile Include="MessageBase\ICultureBasedRequest.cs" />
     <Compile Include="MessageBase\IPaginationRequest.cs" />
     <Compile Include="MessageBase\ListRequestBase.cs" />

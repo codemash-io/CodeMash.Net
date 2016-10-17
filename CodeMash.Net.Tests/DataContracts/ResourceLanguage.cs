@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using CodeMash.Net.DataContracts;
 
 namespace CodeMash.Net.Tests
 {
     [DataContract]
-    public class ResourceLanguage : BaseDataContract
+    public class ResourceLanguage : EntityBase
 	{
         public ResourceLanguage()
         {

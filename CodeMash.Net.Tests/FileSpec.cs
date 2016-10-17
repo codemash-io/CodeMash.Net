@@ -49,7 +49,7 @@ namespace CodeMash.Net.Tests
                     TimeStamp = timeStamp.ToString(),
                 };
 
-                Response = await CodeMash.UploadFile(request);
+                Response = CodeMash.UploadFile(request);
             };
 
             It should_return_response = () => Response.ShouldNotBeNull();

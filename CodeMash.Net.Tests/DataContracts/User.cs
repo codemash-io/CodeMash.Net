@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using CodeMash.Net.DataContracts;
 
 namespace CodeMash.Net.Tests
 {
-    public class User : BaseDataContract
+    public class User : EntityBase
     {
         [DataMember]
         public string Name { get; set; }

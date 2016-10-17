@@ -21,7 +21,7 @@ namespace CodeMash.Net.Tests
 
         // Just comment this line in case you want to see results which persist on the mongodb database
         // The same remains for each test separately
-        Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+        Cleanup after = () => Bootstrapper.CleanUpProjectScope();
 
         /*[Subject(typeof(ResourceCategory))]
         public class When_do_projection_per_projects_and_ask_get_resource_categories
@@ -30,7 +30,7 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
@@ -39,7 +39,7 @@ namespace CodeMash.Net.Tests
                 Expression<Func<Project, List<ResourceCategory>>> expr = p => p.Categories;
                 Builders<Project>.Projection.Expression(x => x.Categories);
                 
-                ResourceCategories = CodeMash.FindAsync<Project, ProjectProjectionDataContract>("Projects", x => true, null, x => new ProjectProjectionDataContract { Categories = x.Categories}).Result;
+                ResourceCategories = DB.Find<Project, ProjectProjectionDataContract>("Projects", x => true, null, x => new ProjectProjectionDataContract { Categories = x.Categories});
             };
 
             It should_return_resource_category = () => ResourceCategories.ShouldNotBeNull();
@@ -47,7 +47,7 @@ namespace CodeMash.Net.Tests
             It should_return_right_amount_of_categories = () => ResourceCategories[0].Categories.Count.ShouldEqual(6);
 
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }*/
 
         [Subject(typeof(ResourceCategory))]
@@ -57,7 +57,7 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             // db.Projects.aggregate([
@@ -122,7 +122,7 @@ namespace CodeMash.Net.Tests
 
                 var pipeline = new[] { match, unwind, group, project};
 
-                ProjectsAggregated = CodeMash.AggregateAsync<Project, ProjectAggregatedDataContract>("Projects", pipeline, null).Result;
+                ProjectsAggregated = DB.Aggregate<Project, ProjectAggregatedDataContract>("Projects", pipeline, null);
             };
 
             It should_return_aggregated_data = () => ProjectsAggregated.ShouldNotBeNull();
@@ -130,7 +130,7 @@ namespace CodeMash.Net.Tests
             It should_return_aggregated_data_only_one_record_with6_categories = () => ProjectsAggregated.First().CategoriesCount.ShouldEqual(6);
 
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
 
 
@@ -146,7 +146,7 @@ namespace CodeMash.Net.Tests
 
             Establish context = async() =>
             {
-                Projects = await Bootstrapper.InitializeProjectScope();
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = async () =>
@@ -167,7 +167,7 @@ namespace CodeMash.Net.Tests
                 };
 
 
-                UpdateResult = await CodeMash.UpdateOneAsync("Projects", _ => true, Builders<Project>.Update.Set(x => x.Categories.FirstOrDefault(y => y.Name == "Error Messages"), resourceCategory));
+                UpdateResult = DB.UpdateOne("Projects", _ => true, Builders<Project>.Update.Set(x => x.Categories.FirstOrDefault(y => y.Name == "Error Messages"), resourceCategory));
 
             };
 
@@ -175,7 +175,7 @@ namespace CodeMash.Net.Tests
             It should_return_updated_name = () => UpdateResult.ModifiedCount.ShouldEqual(1);
             
 
-            Cleanup after = async () => await Bootstrapper.CleanUpProjectScope();
+            Cleanup after = async () => Bootstrapper.CleanUpProjectScope();
         }*/
 
         /*

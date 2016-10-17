@@ -17,7 +17,7 @@ namespace CodeMash.Net.Tests
 
         // Just comment this line in case you want to see results which persist on the mongodb database
         // The same remains for each test separately
-        Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+        Cleanup after = () => Bootstrapper.CleanUpProjectScope();
 
         [Tags("FS11000")]
         [Subject(typeof(Project))]
@@ -27,13 +27,13 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
             {
-                var availableLanguages = CodeMash.FindAsync<ResourceLanguage>("Languages", _ => true).Result;
-                var availableUsers = CodeMash.FindAsync<User>("Users", _ => true).Result;
+                var availableLanguages = DB.Find<ResourceLanguage>("Languages", _ => true);
+                var availableUsers = DB.Find<User>("Users", _ => true);
 
                 var project = new Project
                 {
@@ -44,14 +44,14 @@ namespace CodeMash.Net.Tests
                     Users = availableUsers.Select(x => x.Id).ToList()
                 };
 
-                Project = CodeMash.InsertOneAsync("Projects", project).Result;
+                Project = DB.InsertOne("Projects", project);
             };
 
             It should_create_the_project = () => Project.ShouldNotBeNull();
             It should_create_project_with_right_name = () => Project.Name.ShouldEqual("Project1");
             It should_create_project_with_6_categories = () => Project.Categories.Count.ShouldEqual(6);
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
 
         [Tags("FS10010")]
@@ -63,22 +63,22 @@ namespace CodeMash.Net.Tests
             static ObjectId NewLanguageId = ObjectId.GenerateNewId();
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
             
             Because of = () =>
             {
-                var projects = CodeMash.FindAsync("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1).Result;
+                var projects = DB.Find("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1);
                 var project = projects.First();
-                UpdateResult = CodeMash.UpdateOneAsync("Projects", x => x.Id == project.Id, Builders<Project>.Update.AddToSet("SupportedLanguages", NewLanguageId)).Result;
-                Project = CodeMash.FindOneAsync<Project>("Projects", x => x.Id == project.Id).Result;
+                UpdateResult = DB.UpdateOne("Projects", x => x.Id == project.Id, Builders<Project>.Update.AddToSet("SupportedLanguages", NewLanguageId));
+                Project = DB.FindOne<Project>("Projects", x => x.Id == project.Id);
             };
 
             It should_return_project = () => UpdateResult.ShouldNotBeNull();
             It should_update_supported_languages = () => UpdateResult.ModifiedCount.ShouldEqual(1);
             It should_have_3_supported_languages = () => Project.SupportedLanguages.Count.ShouldEqual(2);
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
 
         [Tags("FS10100")]
@@ -87,10 +87,10 @@ namespace CodeMash.Net.Tests
         {
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };                        
             It should_return_projects = () => Projects.ShouldNotBeNull();           
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
         
         [Tags("FS10100")]
@@ -101,20 +101,20 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
             {
-                var projects = CodeMash.FindAsync("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1).Result;
+                var projects = DB.Find("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1);
                 var project = projects.First();
-                Project = CodeMash.FindOneAsync<Project>("Projects", x => x.Id == project.Id).Result;
+                Project = DB.FindOne<Project>("Projects", x => x.Id == project.Id);
             };
             
             It should_return_project_by_id_with_expression = () => Project.ShouldNotBeNull();
             Cleanup
                 
-                after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+                after = () => Bootstrapper.CleanUpProjectScope();
         }
 
         [Tags("FS10100")]
@@ -125,18 +125,18 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
             {
-                var projects = CodeMash.FindAsync("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1).Result;
+                var projects = DB.Find("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1);
                 var project = projects.First();
-                Project = CodeMash.FindOneByIdAsync<Project>("Projects", project.Id.ToString()).Result;
+                Project = DB.FindOneById<Project>("Projects", project.Id.ToString());
             };
 
             It should_return_project_by_id = () => Project.ShouldNotBeNull();
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
 
         [Subject(typeof(Project))]
@@ -147,19 +147,19 @@ namespace CodeMash.Net.Tests
             
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
             {
-                var projects = CodeMash.FindAsync("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1).Result;
+                var projects = DB.Find("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1);
                 var project = projects.First();
-                deleteResult = CodeMash.DeleteOneAsync<Project>("Projects", project.Id.ToString()).Result;
+                deleteResult = DB.DeleteOne<Project>("Projects", project.Id.ToString());
             };
 
             It should_delete_project_by_id = () => deleteResult.DeletedCount.ShouldEqual(1);
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
 
 
@@ -173,19 +173,19 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
             {
-                var projects = CodeMash.FindAsync("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1).Result;
+                var projects = DB.Find("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1);
                 var project = projects.First();
-                deleteResult = CodeMash.DeleteOneAsync<Project>("Projects", x => x.Id == project.Id).Result;
+                deleteResult = DB.DeleteOne<Project>("Projects", x => x.Id == project.Id);
             };
 
             It should_delete_project_by_id_using_expression = () => deleteResult.DeletedCount.ShouldEqual(1);
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
         
         [Subject(typeof(Project))]
@@ -196,19 +196,19 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
             {
-                var projects = CodeMash.FindAsync("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1).Result;
+                var projects = DB.Find("Projects", x => true, Builders<Project>.Sort.Descending(p => p.CreatedOn), null, 0, 1);
                 var project = projects.First();
-                deleteResult = CodeMash.DeleteOneAsync<Project>("Projects", Builders<Project>.Filter.Eq(x => x.Id, project.Id)).Result;
+                deleteResult = DB.DeleteOne<Project>("Projects", Builders<Project>.Filter.Eq(x => x.Id, project.Id));
             };
 
             It should_delete_project_by_id_using_filter_definition = () => deleteResult.DeletedCount.ShouldEqual(1);
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
         
 
@@ -218,20 +218,20 @@ namespace CodeMash.Net.Tests
         {
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
+                Projects = Bootstrapper.InitializeProjectScope();
             };
 
             Because of = () =>
             {
-                var users = CodeMash.FindAsync<User>("Users", _ => true).Result;
+                var users = DB.Find<User>("Users", _ => true);
                 var filter = Builders<Project>.Filter.AnyEq(x => x.Users, users.First().Id);
-                Projects = CodeMash.FindAsync("Projects", filter).Result;
+                Projects = DB.Find("Projects", filter);
             };
 
             It should_return_project_by_user_id = () => Projects.ShouldNotBeNull();
             It should_return_one_project_by_user_id = () => Projects.Count().ShouldEqual(2);
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
         
         [Tags("FS10100")]
@@ -243,9 +243,9 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
-                var availableLanguages = CodeMash.FindAsync<ResourceLanguage>("Languages", _ => true).Result;
-                var availableUsers = CodeMash.FindAsync<User>("Users", _ => true).Result;
+                Projects = Bootstrapper.InitializeProjectScope();
+                var availableLanguages = DB.Find<ResourceLanguage>("Languages", _ => true);
+                var availableUsers = DB.Find<User>("Users", _ => true);
 
                 var project = new Project
                 {
@@ -255,13 +255,13 @@ namespace CodeMash.Net.Tests
                     SupportedLanguages = availableLanguages.Select(x => x.Id).ToList(),
                     Users = availableUsers.Select(x => x.Id).ToList()
                 };
-                Project = CodeMash.InsertOneAsync("Projects", project).Result;
+                Project = DB.InsertOne("Projects", project);
             };
 
             Because of = () =>
             {
-                Projects = CodeMash.FindAsync<Project>("Projects", _ => true).Result;
-                ProjectsWithPage = CodeMash.FindAsync<Project>("Projects", _ => true, null, null, 0, 1).Result;
+                Projects = DB.Find<Project>("Projects", _ => true);
+                ProjectsWithPage = DB.Find<Project>("Projects", _ => true, null, null, 0, 1);
             };
 
             It should_return_projects = () => Projects.ShouldNotBeNull();
@@ -269,7 +269,7 @@ namespace CodeMash.Net.Tests
             It should_return_length_of_3 = () => Projects.Count().ShouldEqual(3);
             It should_return_length_of_1 = () => ProjectsWithPage.Count().ShouldEqual(1);
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
         
         [Tags("FS10100")]
@@ -282,9 +282,9 @@ namespace CodeMash.Net.Tests
 
             Establish context = () =>
             {
-                Projects = Bootstrapper.InitializeProjectScope().Result;
-                var availableLanguages = CodeMash.FindAsync<ResourceLanguage>("Languages", _ => true).Result;
-                var availableUsers = CodeMash.FindAsync<User>("Users", _ => true).Result;
+                Projects = Bootstrapper.InitializeProjectScope();
+                var availableLanguages = DB.Find<ResourceLanguage>("Languages", _ => true);
+                var availableUsers = DB.Find<User>("Users", _ => true);
 
                 var project = new Project
                 {
@@ -294,14 +294,14 @@ namespace CodeMash.Net.Tests
                     SupportedLanguages = availableLanguages.Select(x => x.Id).ToList(),
                     Users = availableUsers.Select(x => x.Id).ToList()
                 };
-                Project = CodeMash.InsertOneAsync("Projects", project).Result;
+                Project = DB.InsertOne("Projects", project);
             };
 
             Because of = () =>
             {
-                Projects = CodeMash.FindAsync<Project>("Projects", _ => true).Result;
-                ProjectsWithPageAscending = CodeMash.FindAsync("Projects", _ => true, Builders<Project>.Sort.Ascending(x => x.Name), null, 0,1).Result;
-                ProjectsWithPageDescending = CodeMash.FindAsync("Projects", _ => true, Builders<Project>.Sort.Descending(x => x.Name), null, 0, 1).Result;
+                Projects = DB.Find<Project>("Projects", _ => true);
+                ProjectsWithPageAscending = DB.Find("Projects", _ => true, Builders<Project>.Sort.Ascending(x => x.Name), null, 0,1);
+                ProjectsWithPageDescending = DB.Find("Projects", _ => true, Builders<Project>.Sort.Descending(x => x.Name), null, 0, 1);
             };
 
             It should_return_projects = () => Projects.ShouldNotBeNull();
@@ -317,7 +317,7 @@ namespace CodeMash.Net.Tests
             It should_return_project_with_right_name_descending =
                 () => ProjectsWithPageDescending.FirstOrDefault().Name.ShouldEqual("TestProject2");
 
-            Cleanup after = () => Bootstrapper.CleanUpProjectScope().GetAwaiter().GetResult();
+            Cleanup after = () => Bootstrapper.CleanUpProjectScope();
         }
         
     }

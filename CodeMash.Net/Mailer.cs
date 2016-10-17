@@ -17,7 +17,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CodeMash.Net
 {
-    public static class Mailler
+    public static class Mailer
     {
         private static readonly string BaseUrl = Statics.Address;
         public static string ApiKey = Statics.ApiKey;

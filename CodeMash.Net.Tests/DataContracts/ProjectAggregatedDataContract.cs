@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using CodeMash.Net.DataContracts;
 
 namespace CodeMash.Net.Tests.DataContracts
 {
@@ -7,7 +8,7 @@ namespace CodeMash.Net.Tests.DataContracts
     /// 
     /// </summary>
     [DataContract]
-    public class ProjectAggregatedDataContract : BaseDataContract
+    public class ProjectAggregatedDataContract : EntityBase
     {
         [DataMember]
         public string Name { get; set; }

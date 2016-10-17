@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using CodeMash.Net.DataContracts;
+using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -6,7 +7,7 @@ using System.Runtime.Serialization;
 namespace CodeMash.Net.Tests
 {
     [DataContract]
-    public class Project : BaseDataContract
+    public class Project : EntityBase
     {
         public Project() : this(new List<ObjectId>(), new List<ObjectId>())
         {

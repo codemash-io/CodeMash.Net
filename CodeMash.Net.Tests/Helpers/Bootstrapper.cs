@@ -11,19 +11,19 @@ namespace CodeMash.Net.Tests
         public static ServiceStackClientType ServiceClientType = ServiceStackClientType.Json;
         public static string ServiceClientBaseUri = ConfigurationManager.AppSettings["CodeMashApiAddress"];
 
-        public static async Task<List<Project>> InitializeProjectScope()
+        public static List<Project> InitializeProjectScope()
         {
             // save english
             var enLanguage = new ResourceLanguage { Name = "English", NativeName = "English", CultureCode = "en" };
             var ltLanguage = new ResourceLanguage { Name = "Lithuanian", NativeName = "Lietuvių", CultureCode = "lt" };
             
             // Prepare Languages
-            enLanguage = await CodeMash.InsertOneAsync("Languages", enLanguage);
-            ltLanguage = await CodeMash.InsertOneAsync("Languages", ltLanguage);
+            enLanguage = DB.InsertOne("Languages", enLanguage);
+            ltLanguage = DB.InsertOne("Languages", ltLanguage);
             
             // Add new users
-            var user1 = await CodeMash.InsertOneAsync("Users", new User { Name = "Domantas", Password = "Very$ecretPa$$w0rd" });
-            var user2 = await CodeMash.InsertOneAsync("Users", new User { Name = "User2", Password = "Very$ecretPa$$w0rdToo" });
+            var user1 = DB.InsertOne("Users", new User { Name = "Domantas", Password = "Very$ecretPa$$w0rd" });
+            var user2 = DB.InsertOne("Users", new User { Name = "User2", Password = "Very$ecretPa$$w0rdToo" });
 
             var supportedLanguages = new List<ObjectId> {enLanguage.Id, ltLanguage.Id};
 
@@ -36,7 +36,7 @@ namespace CodeMash.Net.Tests
                 Users = new List<ObjectId> { user1.Id }
             };
 
-            await  CodeMash.InsertOneAsync("Projects", newProject1);
+             DB.InsertOne("Projects", newProject1);
 
 
             var newProject2 = new Project
@@ -48,17 +48,17 @@ namespace CodeMash.Net.Tests
                 Users = new List<ObjectId> { user1.Id, user2.Id }
             };
 
-            await CodeMash.InsertOneAsync("Projects", newProject2);
+            DB.InsertOne("Projects", newProject2);
 
 
-            return await CodeMash.FindAsync<Project>("Projects", x => true);
+            return DB.Find<Project>("Projects", x => true);
         }
         
-        public static async Task CleanUpProjectScope()
+        public static void CleanUpProjectScope()
         {
-            await CodeMash.DeleteManyAsync<ResourceLanguage>("Languages", _ => true);
-            await CodeMash.DeleteManyAsync<Project>("Projects", _ => true);
-            await CodeMash.DeleteManyAsync<User>("Users", _ => true);
+            DB.DeleteMany<ResourceLanguage>("Languages", _ => true);
+            DB.DeleteMany<Project>("Projects", _ => true);
+            DB.DeleteMany<User>("Users", _ => true);
         }
         
     }

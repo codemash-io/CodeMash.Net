@@ -18,7 +18,7 @@ namespace CodeMash.Net.Tests
             static bool mailIsSent = true;
             Because of = () =>
             {
-                CodeMash.SendMail("domantasjovaisas@gmail.com", "Hi", "This is message without any attachments", "noreply@CodeMash.com");
+                Mailer.SendMail("domantasjovaisas@gmail.com", "Hi", "This is message without any attachments", "noreply@CodeMash.com");
 
             };
 
@@ -30,7 +30,7 @@ namespace CodeMash.Net.Tests
             static bool mailIsSent = true;
             Because of = () =>
             {
-                CodeMash.SendMail("domantasjovaisas@gmail.com,domantas@isidos.lt", "Hi", "This is message without any attachments, to many recipients", "noreply@CodeMash.com");
+                Mailer.SendMail("domantasjovaisas@gmail.com,domantas@isidos.lt", "Hi", "This is message without any attachments, to many recipients", "noreply@CodeMash.com");
             };
 
             It should_send_email = () => mailIsSent.ShouldBeTrue();
@@ -42,7 +42,7 @@ namespace CodeMash.Net.Tests
             Because of = () =>
             {
                 var recipients = new[] { "domantasjovaisas@gmail.com", "domantas@isidos.lt" };
-                CodeMash.SendMail(recipients, "Hi", "This is message without any attachments, to many recipients", "noreply@CodeMash.com");
+                Mailer.SendMail(recipients, "Hi", "This is message without any attachments, to many recipients", "noreply@CodeMash.com");
             };
 
             It should_send_email = () => mailIsSent.ShouldBeTrue();
@@ -57,7 +57,7 @@ namespace CodeMash.Net.Tests
 
                 var attachment1Path = Path.Combine(ExecutingDir, "Resources", attachment1FileName);
 
-                CodeMash.SendMail("domantasjovaisas@gmail.com", "Hi", "This is message body dude", "noreply@CodeMash.com", new[] { attachment1Path });
+                Mailer.SendMail("domantasjovaisas@gmail.com", "Hi", "This is message body dude", "noreply@CodeMash.com", new[] { attachment1Path });
             };
 
             It should_send_email = () => mailIsSent.ShouldBeTrue();
@@ -72,7 +72,7 @@ namespace CodeMash.Net.Tests
 
                 var attachment1Path = Path.Combine(ExecutingDir, "Resources", attachment1FileName);
 
-                CodeMash.SendMail("domantasjovaisas@gmail.com,domantas@isisdos.lt", "Hi", "This is message body dude", "noreply@CodeMash.com", new[] { attachment1Path });
+                Mailer.SendMail("domantasjovaisas@gmail.com,domantas@isisdos.lt", "Hi", "This is message body dude", "noreply@CodeMash.com", new[] { attachment1Path });
             };
 
             It should_send_email = () => mailIsSent.ShouldBeTrue();
@@ -87,7 +87,7 @@ namespace CodeMash.Net.Tests
 
                 var attachment1Path = Path.Combine(ExecutingDir, "Resources", attachment1FileName);
                 var recipients = new[] { "domantasjovaisas@gmail.com", "domantas@isidos.lt" };
-                CodeMash.SendMail(recipients, "Hi", "This is message body dude", "noreply@CodeMash.com", new[] { attachment1Path });
+                Mailer.SendMail(recipients, "Hi", "This is message body dude", "noreply@CodeMash.com", new[] { attachment1Path });
             };
 
             It should_send_email = () => mailIsSent.ShouldBeTrue();
