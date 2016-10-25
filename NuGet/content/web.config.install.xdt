@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections xdt:Transform="InsertIfMissing" >
+    <section name="CodeMash" type="CodeMash.Net.CodeMashConfigurationSection, CodeMash.Net" requirePermission="false"  xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)" />
+  </configSections>
+  <CodeMash xdt:Transform="InsertIfMissing">
+    <client name="Sdk" apiKey="Your ApiKey goes here" address="http://api.codemash.io/1.0/" />
+  </CodeMash>
+</configuration>

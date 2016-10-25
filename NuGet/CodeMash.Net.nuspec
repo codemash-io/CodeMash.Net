@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CodeMash.Net</id>
+	<title>CodeMash Net</title>
+    <version>1.0.1.0</version>  
+	<releaseNotes>Added documentation.</releaseNotes>	
+    <authors>Domantas Jovaisas - Isidos</authors>
+    <owners>Domantas</owners>
+	<language>en-US</language>
+	<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/codemash-io/CodeMash.Net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>CodeMash tools for .NET developers. Access codemash.io tools from .NET SDK</description>    
+	 <summary>
+		CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : MondoDb as a service, one common payment gateway, central logging for whole your company applications, sending mails and sms messages easily, Identity provider, integrate your third party software vendors easily... More about that http://codemash.io
+    </summary>
+    <copyright>Copyright 2016 codemash.io</copyright>
+	<dependencies> 
+	   <group targetFramework="net452">
+			<dependency id="MongoDB.Bson" version="2.3.0" />
+			<dependency id="MongoDB.Driver" version="2.3.0"  />
+			<dependency id="MongoDB.Driver.Core" version="2.3.0"/>
+			<dependency id="Newtonsoft.Json" version="9.0.1" />
+			<dependency id="ServiceStack.Client" version="4.5.4" />
+			<dependency id="ServiceStack.Interfaces" version="4.5.4" />
+			<dependency id="ServiceStack.Text" version="4.5.4" />
+	   </group>
+	</dependencies>
+	<tags>web utility http json mongodb rest</tags>
+	</metadata>
+	 <files>
+		<file src="README.txt" target="" />
+		<file src="..\src\CodeMash.Net\bin\Debug\CodeMash.Net.dll" target="lib\net45" />
+		<file src="..\src\CodeMash.Net.DataContracts\bin\Debug\CodeMash.Net.DataContracts.dll" target="lib\net45" />		
+		<file src="content\app.config.install.xdt" target="content" />
+		<file src="content\app.config.uninstall.xdt" target="content" />
+		<file src="content\web.config.install.xdt" target="content" />
+		<file src="content\web.config.uninstall.xdt" target="content" />
+	</files>
+</package>
