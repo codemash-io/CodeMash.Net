@@ -1,5 +1,5 @@
 # CodeMash.Net
-CodeMash tools for .NET developers - http://codemash.io/documentation/api
+CodeMash tools for .NET developers - <a target="_blank" href="http://codemash.io/documentation/api">http://codemash.io/documentation/api</a> 
 
 CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : MondoDb as a service, one common payment gateway, central logging for whole your company applications, sending mails and sms messages easily, Identity provider, integrate your third party software vendors easily... More about that http://codemash.io
 
@@ -43,11 +43,17 @@ namespace ConsoleApplication
 
             Db.InsertOne(person);
 
-            Mailer.SendMail(person.Email, "CodeMash - it just works", $"Hi Brad, yours id is - {person.Id}", "support@codemash.io");
+            Mailer.SendMail(
+				person.Email, 
+				"CodeMash - it just works", 
+				$"Hi Brad, yours id is - {person.Id}", 
+				"support@codemash.io");
 
             var bradPittByName = Db.FindOne<Person>(x => x.Name == "Brad Pitt");
             var bradPittById = Db.FindOneById<Person>(person.Id.ToString());
-            var bradPittByMongoDbNotation = Db.FindOne<Person>(Builders<Person>.Filter.Eq(x => x.Name, "Brad Pitt"));
+            
+			var filter = Builders<Person>.Filter.Eq(x => x.Name, "Brad Pitt");
+			var bradPittByMongoDbNotation = Db.FindOne<Person>(filter);
 
             var allActorsCount = Db.Count<Person>(x => true);
 
