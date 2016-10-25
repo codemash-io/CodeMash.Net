@@ -12,7 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{4BF2CF02-E8A6-4F5A-B634-D76067E11447}"
 	ProjectSection(SolutionItems) = preProject
 		..\1. Getting started.md = ..\1. Getting started.md
-		..\2. Connecting to database.md = ..\2. Connecting to database.md
+		..\2. Get ApiKey.md = ..\2. Get ApiKey.md
+		..\3. Connecting to database.md = ..\3. Connecting to database.md
 		..\3.1. Create.md = ..\3.1. Create.md
 		..\3.2. Read.md = ..\3.2. Read.md
 		..\3.3. Update.md = ..\3.3. Update.md

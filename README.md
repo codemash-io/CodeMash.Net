@@ -1,11 +1,11 @@
 # CodeMash.Net
-SDK of CodeMash API - http://codemash.io/documentation/api
+CodeMash tools for .NET developers - http://codemash.io/documentation/api
 
-CodeMash.Net is an easy C# client for using common task - CRUD operations, emails, notifications, payments, logging.
+CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : MondoDb as a service, one common payment gateway, central logging for whole your company applications, sending mails and sms messages easily, Identity provider, integrate your third party software vendors easily... More about that http://codemash.io
 
 1. [Getting started](https://github.com/codemash-io/CodeMash.Net/blob/master/1.%20Getting%20started.md)
-2. [Connecting to database](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Connecting%20to%20database.md)
-3. CRUD operations  
+2. [Get ApiKey](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Get%20ApiKey.md)
+3. [Connecting to database](https://github.com/codemash-io/CodeMash.Net/blob/master/3.%20Connecting%20to%20database.md)
 3.1. [Create](https://github.com/codemash-io/CodeMash.Net/blob/master/3.1.%20Create.md)  
 3.2. [Read](https://github.com/codemash-io/CodeMash.Net/blob/master/3.2.%20Read.md)  
 3.3. [Update](https://github.com/codemash-io/CodeMash.Net/blob/master/3.3.%20Update.md)  
@@ -15,48 +15,45 @@ CodeMash.Net is an easy C# client for using common task - CRUD operations, email
 
 ```csharp
 
-using CodeMash.MongoDB.Repository;
-using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using CodeMash.Net;
+using MongoDB.Driver;
 
-namespace MongoDB
+namespace ConsoleApplication
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var repo = new MongoRepository<Person>();
-
-            // adding new entity
-            var person = new Person
-            {
-                Name = "Vardenis",
-                Age = 25
-            };
-            repo.InsertOne(person);
-
-            // searching
-            var result = repo.Find(x => x.Age == 25);
-
-            // updating
-            var filter = Builders<Person>.Filter.Eq("Age", "25");
-            person.Age = 30;
-            var update = Builders<Person>.Update.Set<Person>("Age", person);
-            repo.UpdateOne(filter, update, null);
-        }
-    }
-
-    // The Entity base-class is provided by MongoRepository
-    // for all entities you want to use in MongoDb
-    public class Person : Entity
+    [CollectionName("Actors")]
+    public class Person : EntityBase
     {
         public string Name { get; set; }
         public int Age { get; set; }
+        public string Email { get; set; }
+    }
+
+    class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            var person = new Person
+            {
+                Name = "Brad Pitt",
+                Age = 55,
+                Email = "guessbradsemailaddress@gmail.com"
+            };
+
+            Db.InsertOne(person);
+
+            Mailer.SendMail(person.Email, "CodeMash - it just works", $"Hi Brad, yours id is - {person.Id}", "support@codemash.io");
+
+            var bradPittByName = Db.FindOne<Person>(x => x.Name == "Brad Pitt");
+            var bradPittById = Db.FindOneById<Person>(person.Id.ToString());
+            var bradPittByMongoDbNotation = Db.FindOne<Person>(Builders<Person>.Filter.Eq(x => x.Name, "Brad Pitt"));
+
+            var allActorsCount = Db.Count<Person>(x => true);
+
+            Console.WriteLine($"Actors on database: {allActorsCount}");
+            Console.ReadLine();
+        }
     }
 }
 ```
