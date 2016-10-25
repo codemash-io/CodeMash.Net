@@ -5,11 +5,11 @@ CodeMash is a vital toolset for each developer which wants to achive daily devel
 
 1. [Getting started](https://github.com/codemash-io/CodeMash.Net/blob/master/1.%20Getting%20started.md)
 2. [Get ApiKey](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Get%20ApiKey.md)
-3. [Connecting to database](https://github.com/codemash-io/CodeMash.Net/blob/master/3.%20Connecting%20to%20database.md)
-3.1. [Create](https://github.com/codemash-io/CodeMash.Net/blob/master/3.1.%20Create.md)  
-3.2. [Read](https://github.com/codemash-io/CodeMash.Net/blob/master/3.2.%20Read.md)  
-3.3. [Update](https://github.com/codemash-io/CodeMash.Net/blob/master/3.3.%20Update.md)  
-3.4. [Delete](https://github.com/codemash-io/CodeMash.Net/blob/master/3.4.%20Delete.md)  
+3. [Connecting to database](https://github.com/codemash-io/CodeMash.Net/blob/master/3.%20Connecting%20to%20database.md)  
+	3.1. [Create](https://github.com/codemash-io/CodeMash.Net/blob/master/3.1.%20Create.md)  
+  	3.2. [Read](https://github.com/codemash-io/CodeMash.Net/blob/master/3.2.%20Read.md)  
+  	3.3. [Update](https://github.com/codemash-io/CodeMash.Net/blob/master/3.3.%20Update.md)  
+  	3.4. [Delete](https://github.com/codemash-io/CodeMash.Net/blob/master/3.4.%20Delete.md)  
 
 **Example**
 
