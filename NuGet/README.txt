@@ -9,7 +9,7 @@ add codemash configuration to either web.config or app.config file as follows :
     <section name="CodeMash" type="CodeMash.Net.CodeMashConfigurationSection, CodeMash.Net" requirePermission="false" />
   </configSections>
   <CodeMash>
-    <client apiKey="HP7qoWW**************LctB7IkU" address="http://api.codemash.io/1.0/" />
+    <client name="Sdk" apiKey="HP7qoWW**************LctB7IkU" address="http://api.codemash.io/1.0/" />
   </CodeMash>  
 </configuration>
 
