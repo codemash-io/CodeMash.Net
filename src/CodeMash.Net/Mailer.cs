@@ -11,6 +11,7 @@ namespace CodeMash.Net
 {
     public class Mailer : CodeMashBase
     {
+        public static IDatabaseRepository repo = MongoRepositoryFactory.Create();
         /// <summary>
         /// Sends the mail.
         /// </summary>
@@ -50,7 +51,7 @@ namespace CodeMash.Net
                         Body = body,
                         From = fromEmail
                     };
-                    SendMail(request);
+                    repo.SendMail(request);
                 });
             }
         }
@@ -95,7 +96,7 @@ namespace CodeMash.Net
                         Body = body,
                         From = fromEmail,
                     };
-                    SendMail(request, mailAttachments);
+                    repo.SendMail(request, mailAttachments);
                 });
             }
         }
@@ -148,50 +149,12 @@ namespace CodeMash.Net
                         ModelInJsonAsString = jsonAsString,
                         From = fromEmail,
                     };
-                    SendMail(request, mailAttachments);
+                    repo.SendMail(request, mailAttachments);
                 });
             }
         }
 
-        public static void SendMail(SendMail message, List<Attachment> attachments = null, string token = null)
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException(nameof(message), "You didn't provide message which should be sent.");
-            }
-
-            if (string.IsNullOrEmpty(message.To))
-            {
-                throw new ArgumentNullException(nameof(message.To), "Please provide email of recipient. To who you want send the message ?");
-            }
-
-            if (string.IsNullOrEmpty(message.Subject))
-            {
-                throw new ArgumentNullException(nameof(message.Subject), "Please provide subject of the email.");
-            }
-
-            if (string.IsNullOrEmpty(message.From))
-            {
-                throw new ArgumentNullException(nameof(message.From), "Please provide email of sender. It's not polite send emails as anonymous ;)");
-            }
-
-            if (string.IsNullOrEmpty(message.Body) && string.IsNullOrEmpty(message.TemplateName))
-            {
-                throw new ArgumentNullException(nameof(message.Body), "You didn't provide mail content - body. Consider send something useful and use either body or template property");
-            }
-
-
-            if (attachments != null)
-            {
-                var mailAttachments = (from attachment in attachments
-                                       where attachment.ContentStream != null
-                                       select new MailAttachmentDataContract(attachment.Name, attachment.ContentStream.ReadFully())).ToList();
-
-                message.Attachments = mailAttachments;
-            }
-            
-            Client.Post<SendMailResponse>(message);
-        }
+        
 
     }
 }
