@@ -9,8 +9,9 @@ namespace CodeMash.Net
 {
     public class CodeMashBase
     {
-        protected static readonly string BaseUrl = Statics.Address;
-        protected static string ApiKey = Statics.ApiKey;
+        protected static readonly string BaseUrl = @"http://api.codemash.io/1.0/";//Statics.Address;
+
+        protected static string ApiKey = "68ojXrg5XEUsSnFlHPnGfKcyYk5WA6ck";//Statics.ApiKey;
 
 
         protected static IServiceClient Client

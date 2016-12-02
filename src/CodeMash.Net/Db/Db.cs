@@ -341,25 +341,8 @@ namespace CodeMash.Net
 
         public static void InsertOne<T>(T document, /* InsertOneOptions options, */ Notification notification = null) where T : EntityBase
         {
-            var request = new InsertOne
-            {
-                CollectionName = GetCollectionName<T>(),
-                OutputMode = JsonOutputMode.Strict,
-                Notification = notification,
-                Document = document.ToJson(new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }),
-                //InsertOneOptions = options,
-                CultureCode = CultureInfo.CurrentCulture.Name
-            };
-
-            
-            var response = Client.Post<InsertOneResponse>(request);
-            
-            if (response?.Result == null)
-            {
-                return;
-            }
-            var documentAsEntity = BsonSerializer.Deserialize<T>(response.Result);
-            document.Id = documentAsEntity.Id;
+            IDatabaseRepository repo = MongoRepositoryFactory.Create();
+            repo.InsertOne(document, notification);
         }
 
 
