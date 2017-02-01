@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-	<configSections>
-		<section name="CodeMash" type="CodeMash.Net.CodeMashConfigurationSection, CodeMash.Net" requirePermission="false" xdt:Transform="Insert" />
-	</configSections>
-	<CodeMash>
-		<client name="Sdk" apiKey="HP7qoWWJpG8gTlepFH2hWpQOLctB7IkU" address="http://api.codemash.local/1.0/" xdt:Transform="Insert" />
-	</CodeMash>
-</configuration>

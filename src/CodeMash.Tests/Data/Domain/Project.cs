@@ -1,10 +1,10 @@
 ﻿using MongoDB.Bson;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using CodeMash.Data;
 
-namespace CodeMash.Net.Tests
-{
-    [DataContract]
+namespace CodeMash.Tests.Data
+{    
+    [CollectionName("Projects")]
     public class Project : Entity
     {
         public Project() : this(new List<ObjectId>(), new List<ObjectId>())
@@ -17,19 +17,12 @@ namespace CodeMash.Net.Tests
             SupportedLanguages = availableLanguages ?? new List<ObjectId>();
             Users = users ?? new List<ObjectId>();
         }
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
-        public string Description { get; set; }
-        [DataMember]
-        public List<ObjectId> Users { get; set; }
-        [DataMember]
-        public List<ResourceCategory> Categories { get; set; }
-
-        [DataMember]
-        public List<ObjectId> SupportedLanguages { get; set; }    
-
-        [DataMember]
+        
+        public string Name { get; set; }        
+        public string Description { get; set; }        
+        public List<ObjectId> Users { get; set; }        
+        public List<ResourceCategory> Categories { get; set; }        
+        public List<ObjectId> SupportedLanguages { get; set; }         
         public string ImageId { get; set; }
     }
 

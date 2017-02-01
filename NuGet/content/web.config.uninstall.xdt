@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <configSections>
-    <section name="CodeMash" type="CodeMash.Net.CodeMashConfigurationSection, CodeMash.Net" requirePermission="false" xdt:Transform="Remove" xdt:Locator="Match(name)" />
-  </configSections>
-  <CodeMash xdt:Transform="Remove">
-    <client name="Sdk" apiKey="Your Api Key" address="http://api.codemash.io/1.0/"  />
-  </CodeMash>
-</configuration>

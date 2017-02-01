@@ -3,7 +3,7 @@
   <metadata>
     <id>CodeMash.Net</id>
 	<title>CodeMash Net</title>
-    <version>1.0.1.0</version>  
+    <version>1.0.1.1</version>  
 	<releaseNotes>Added documentation.</releaseNotes>	
     <authors>Domantas Jovaisas - Isidos</authors>
     <owners>Domantas</owners>
@@ -33,9 +33,5 @@
 		<file src="README.txt" target="" />
 		<file src="..\src\CodeMash.Net\bin\Debug\CodeMash.Net.dll" target="lib\net45" />
 		<file src="..\src\CodeMash.Net.DataContracts\bin\Debug\CodeMash.Net.DataContracts.dll" target="lib\net45" />		
-		<file src="content\app.config.install.xdt" target="content" />
-		<file src="content\app.config.uninstall.xdt" target="content" />
-		<file src="content\web.config.install.xdt" target="content" />
-		<file src="content\web.config.uninstall.xdt" target="content" />
 	</files>
 </package>

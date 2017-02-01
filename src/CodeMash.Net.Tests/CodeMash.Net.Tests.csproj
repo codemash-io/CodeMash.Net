@@ -149,16 +149,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CodeMash.Net.DataContracts\CodeMash.Net.DataContracts.csproj">
-      <Project>{6dd367cf-cfe9-4d3e-985c-1153bad9a42c}</Project>
-      <Name>CodeMash.Net.DataContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CodeMash.Net\CodeMash.Net.csproj">
-      <Project>{a80fa817-e433-4766-bec3-6c2c866303af}</Project>
-      <Name>CodeMash.Net</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
