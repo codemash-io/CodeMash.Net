@@ -7,14 +7,14 @@ namespace CodeMash.Tests.Data
     [CollectionName("Projects")]
     public class Project : Entity
     {
-        public Project() : this(new List<ObjectId>(), new List<ObjectId>())
+        public Project() : this(new List<string>(), new List<ObjectId>())
         {
         }
 
-        public Project(List<ObjectId> availableLanguages, List<ObjectId> users )
+        public Project(List<string> availableLanguages, List<ObjectId> users )
         {
             Categories = new List<ResourceCategory>();
-            SupportedLanguages = availableLanguages ?? new List<ObjectId>();
+            SupportedLanguages = availableLanguages ?? new List<string>();
             Users = users ?? new List<ObjectId>();
         }
         
@@ -22,7 +22,7 @@ namespace CodeMash.Tests.Data
         public string Description { get; set; }        
         public List<ObjectId> Users { get; set; }        
         public List<ResourceCategory> Categories { get; set; }        
-        public List<ObjectId> SupportedLanguages { get; set; }         
+        public List<string> SupportedLanguages { get; set; }         
         public string ImageId { get; set; }
     }
 

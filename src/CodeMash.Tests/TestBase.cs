@@ -43,8 +43,9 @@ namespace CodeMash.Tests
         [TearDown]
         public void TearDown()
         {
-            Container.Dispose();
             Dispose();
+            Container.Dispose();
+            
             
         }
 

@@ -103,6 +103,9 @@
     <Compile Include="Data\Domain\ResourceLanguage.cs" />
     <Compile Include="Data\Domain\ResourceValue.cs" />
     <Compile Include="Data\Domain\User.cs" />
+    <Compile Include="Data\GetOne.cs" />
+    <Compile Include="Data\GetOneById.cs" />
+    <Compile Include="Data\InsertMany.cs" />
     <Compile Include="Data\InsertOne.cs" />
     <Compile Include="Extensions\TestExtensions.cs" />
     <Compile Include="Extensions\MoqExtensions.cs" />

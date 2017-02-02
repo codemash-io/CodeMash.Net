@@ -11,6 +11,7 @@ using CodeMash.Interfaces.Data;
 using CodeMash.ServiceModel;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using ServiceStack;
 
 namespace CodeMash.Data
 {
@@ -44,7 +45,7 @@ namespace CodeMash.Data
                     url = new MongoUrl(settings.Result.DatabaseConnectionString);
                 }
             }
-            catch (ConfigurationErrorsException e)
+            catch (Exception e)
             {
                 url = new MongoUrlBuilder().ToMongoUrl();
             }
@@ -91,10 +92,7 @@ namespace CodeMash.Data
             }
             url = mongoUrl ?? throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");
             client = MongoClientFactory.Create(url);
-            if (url.DatabaseName != null)
-            {
-                database = client.GetDatabase(url.DatabaseName);
-            }
+            database = client.GetDatabase(url.DatabaseName ?? "test");
             collection = database.GetCollection<T>(collectionName);
         }
 
@@ -729,8 +727,7 @@ namespace CodeMash.Data
             // TODO : this should be configurable for each client. Lets say fs has limit of 2000 record per call, but for client let's say wise to have 50 per page as default
             mCursor = skip.HasValue ? mCursor.Skip(skip.Value) : mCursor.Skip(0);
             mCursor = limit.HasValue ? mCursor.Limit(limit.Value) : mCursor.Limit(1000/*Extensions.ToInt(AppSettings.DefaultPageSize)*/);
-
-
+            
             var result = mCursor.ToList();
             return result;
         }
@@ -950,7 +947,7 @@ namespace CodeMash.Data
                 mCursor = mCursor.Project()
             }*/
 
-            return mCursor.FirstOrDefault();
+            return mCursor.First();
         }
 
         public virtual T FindOneAndReplace(string id, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null)

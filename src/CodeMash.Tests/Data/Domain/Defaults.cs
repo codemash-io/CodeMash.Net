@@ -28,16 +28,16 @@ namespace CodeMash.Tests.Data
         public static string ErrorMessages = Guid.NewGuid().ToString();
         public static string Messages = Guid.NewGuid().ToString();
 
-        public static Func<List<ObjectId>, List<ResourceValue>> InitValues = laguages =>
+        public static Func<List<string>, List<ResourceValue>> InitValues = laguages =>
                 laguages.Select(laguage => new ResourceValue { ResourceLanguageId = laguage, Value = RandomString(10) }).ToList();
 
-        public static Func<List<ObjectId>, string, List<ResourceKey>> InitKeys = (supportedLaguages, keyName) => new List<ResourceKey>
+        public static Func<List<string>, string, List<ResourceKey>> InitKeys = (supportedLaguages, keyName) => new List<ResourceKey>
 		{
 		    new ResourceKey {Key = Guid.NewGuid().ToString(), Name = keyName + "_1", Values = InitValues(supportedLaguages)},
 		    new ResourceKey {Key = Guid.NewGuid().ToString(), Name = keyName + "_2", Values = InitValues(supportedLaguages)},
 		    new ResourceKey {Key = Guid.NewGuid().ToString(), Name = keyName + "_3", Values = InitValues(supportedLaguages)}
 		};
-        public static IEnumerable<ResourceCategory>  DefaultResourceCategories(List<ObjectId> supportedLanguages)
+        public static IEnumerable<ResourceCategory>  DefaultResourceCategories(List<string> supportedLanguages)
         {
             yield return new ResourceCategory { Key = Labels, Name = "Labels", Keys = InitKeys(supportedLanguages, "Labels") };
             yield return new ResourceCategory { Key = Descriptions, Name = "Descriptions", Keys = InitKeys(supportedLanguages, "Descriptions") };

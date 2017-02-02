@@ -5,6 +5,6 @@ namespace CodeMash.Tests.Data
     public class ResourceValue 
     {       
         public string Value { get; set; }
-        public ObjectId ResourceLanguageId { get; set; }
+        public string ResourceLanguageId { get; set; }
 	}
 }
