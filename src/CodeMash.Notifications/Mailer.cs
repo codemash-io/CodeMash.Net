@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeMash.Net.DataContracts;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 using System.Net.Mail;
 using CodeMash.Core;
-using CodeMash.Core.ServiceModel;
+using CodeMash.ServiceModel;
 using Newtonsoft.Json.Linq;
 using ServiceStack;
 

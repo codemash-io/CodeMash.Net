@@ -8,8 +8,8 @@ using MongoDB.Driver;
 
 namespace CodeMash.Interfaces.Data
 {
-    public interface IMongoRepository<T> : IQueryable<T>
-    {
+    public interface IMongoRepository<T> : IQueryable<T> where T : IEntity<string>, new()
+    { 
         IMongoRepository<T> WithCollection(string collectionName);
 
         T InsertOne(T entity, InsertOneOptions insertOneOptions);
@@ -40,6 +40,7 @@ namespace CodeMash.Interfaces.Data
         //Find One
         T FindOneById(string id);
         T FindOneById(ObjectId id);
+
         T FindOne(FilterDefinition<T> filter, ProjectionDefinition<T> projection = null, FindOptions findOptions = null);
         T FindOne(Expression<Func<T, bool>> filter, ProjectionDefinition<T> projection = null, FindOptions findOptions = null);
 
@@ -73,9 +74,8 @@ namespace CodeMash.Interfaces.Data
         DeleteResult DeleteMany(Expression<Func<T, bool>> filter);
 
         // Aggregate
-        List<T> Aggregate(PipelineDefinition<T, T> aggregation, AggregateOptions aggregateOptions);
-
-
+        List<TA> Aggregate<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions aggregateOptions);
+        
         // Count
         long Count(FilterDefinition<T> filter, CountOptions countOptions = null);
         long Count(Expression<Func<T, bool>> filter, CountOptions countOptions = null);
@@ -150,7 +150,7 @@ namespace CodeMash.Interfaces.Data
         Task<DeleteResult> DeleteManyAsync(Expression<Func<T, bool>> filter);
 
         // Aggregate
-        Task<List<T>> AggregateAsync(PipelineDefinition<T, T> aggregation, AggregateOptions aggregateOptions);
+        Task<List<TA>> AggregateAsync<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions aggregateOptions);
 
 
         // Count

@@ -1,15 +1,17 @@
+using System.Collections.Generic;
 using CodeMash.Interfaces.Data;
 using CodeMash.Tests.Data;
+using MongoDB.Driver;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace CodeMash.Tests
 {
     [TestFixture]
-    public partial class InsertMany : TestBase
+    public partial class Distinct : TestBase
     {
+        
 
-        public InsertMany()
+        public Distinct()
         {
             Projects = new List<Project>();
         }
@@ -28,24 +30,23 @@ namespace CodeMash.Tests
         
             // Arrange
             Project1 = new Project { Name = "My first project" };
-            Project2 = new Project { Name = "My first project" };
-            Project3 = new Project { Name = "My first project" };
+            Project2 = new Project { Name = "My first project2" };
+            Project3 = new Project { Name = "My first project2" };
 
-            Projects = new List<Project>();
             Projects.AddRange(new [] { Project1, Project2, Project3 });
         }
         
         [Test]
         [Category("Data")]
-        public void Can_insert_many_projects()
+        public void Can_get_right_data()
         {
             // Act
             ProjectRepository.InsertMany(Projects);
 
-            var projects = ProjectRepository.Find(x => true);
+            var list = ProjectRepository.Distinct("Name", x => x.Name == "My first project2", new DistinctOptions());
             
             // Assert
-            projects.Count.ShouldEqual(3);
+            list.Count.ShouldEqual(2);
         }
         
         protected override void Dispose()

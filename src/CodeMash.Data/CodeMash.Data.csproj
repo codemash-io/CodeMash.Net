@@ -71,7 +71,6 @@
   <ItemGroup>
     <Compile Include="CollectionName.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="IEntity.cs" />
     <Compile Include="MongoClientFactory.cs" />
     <Compile Include="MongoRepository.cs" />
     <Compile Include="MongoRepositoryFactory.cs" />

@@ -7,7 +7,7 @@ using MongoDB.Bson;
 namespace CodeMash.Tests
 {
     [TestFixture]
-    public class GetOneById : TestBase
+    public partial class FindOneById : TestBase
     {
         private Project Project { get; set; }
         public IMongoRepository<Project> ProjectRepository { get; set; }

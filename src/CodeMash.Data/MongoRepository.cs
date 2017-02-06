@@ -15,7 +15,7 @@ using ServiceStack;
 
 namespace CodeMash.Data
 {
-    public class MongoRepository<T> : IMongoRepository<T>
+    public class MongoRepository<T> : IMongoRepository<T> where T : IEntity<string>, new()
     {
         private MongoClient client { get; set; }
         private MongoUrl url { get; set; }
@@ -806,7 +806,7 @@ namespace CodeMash.Data
             return await FindAsync(new ExpressionFilterDefinition<T>(filter), sort, skip, limit, findOptions);
         }
 
-        public virtual List<T> Aggregate(PipelineDefinition<T, T> aggregation, AggregateOptions options)
+        public virtual List<TA> Aggregate<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions options)
         {
             if (aggregation == null)
             {
@@ -818,7 +818,7 @@ namespace CodeMash.Data
             return result;
         }
 
-        public virtual async Task<List<T>> AggregateAsync(PipelineDefinition<T, T> aggregation, AggregateOptions options)
+        public virtual async Task<List<TA>> AggregateAsync<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions options)
         {
             if (aggregation == null)
             {
@@ -934,7 +934,8 @@ namespace CodeMash.Data
             return UpdateOne(filter, update, updateOptions);
         }
 
-        public virtual T FindOne(FilterDefinition<T> filter, ProjectionDefinition<T> projection = null, FindOptions findOptions = null)
+        public virtual T FindOne(FilterDefinition<T> filter, ProjectionDefinition<T> projection = null,
+            FindOptions findOptions = null) 
         {
             if (filter == null)
             {
@@ -947,7 +948,7 @@ namespace CodeMash.Data
                 mCursor = mCursor.Project()
             }*/
 
-            return mCursor.First();
+            return mCursor.FirstOrDefault();
         }
 
         public virtual T FindOneAndReplace(string id, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null)

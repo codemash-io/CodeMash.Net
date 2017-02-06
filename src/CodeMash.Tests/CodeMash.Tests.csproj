@@ -93,6 +93,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Aggregate.Async.cs" />
+    <Compile Include="Data\Aggregate.cs" />
+    <Compile Include="Data\Count.Async.cs" />
+    <Compile Include="Data\Count.cs" />
+    <Compile Include="Data\Delete.cs" />
+    <Compile Include="Data\Delete.Async.cs" />
+    <Compile Include="Data\DeleteMany.Async.cs" />
+    <Compile Include="Data\DeleteMany.cs" />
+    <Compile Include="Data\Distinct.Async.cs" />
+    <Compile Include="Data\Distinct.cs" />
     <Compile Include="Data\Domain\Defaults.cs" />
     <Compile Include="Data\Domain\Project.cs" />
     <Compile Include="Data\Domain\Project.extensions.cs" />
@@ -103,10 +113,28 @@
     <Compile Include="Data\Domain\ResourceLanguage.cs" />
     <Compile Include="Data\Domain\ResourceValue.cs" />
     <Compile Include="Data\Domain\User.cs" />
-    <Compile Include="Data\GetOne.cs" />
-    <Compile Include="Data\GetOneById.cs" />
+    <Compile Include="Data\Find.Async.cs" />
+    <Compile Include="Data\Find.cs" />
+    <Compile Include="Data\FindAndDeleteOne.Async.cs" />
+    <Compile Include="Data\FindAndDeleteOne.cs" />
+    <Compile Include="Data\FindAndReplaceOne.Async.cs" />
+    <Compile Include="Data\FindAndReplaceOne.cs" />
+    <Compile Include="Data\FindAndUpdateOne.cs" />
+    <Compile Include="Data\FindAndUpdateOne.Async.cs" />
+    <Compile Include="Data\FindOne.Async.cs" />
+    <Compile Include="Data\FindOne.cs" />
+    <Compile Include="Data\FindOneById.Async.cs" />
+    <Compile Include="Data\FindOneById.cs" />
+    <Compile Include="Data\InsertMany.Async.cs" />
     <Compile Include="Data\InsertMany.cs" />
+    <Compile Include="Data\InsertOne.Async.cs" />
     <Compile Include="Data\InsertOne.cs" />
+    <Compile Include="Data\ReplaceOne.Async.cs" />
+    <Compile Include="Data\ReplaceOne.cs" />
+    <Compile Include="Data\UpdateMany.Async.cs" />
+    <Compile Include="Data\UpdateMany.cs" />
+    <Compile Include="Data\UpdateOne.Async.cs" />
+    <Compile Include="Data\UpdateOne.cs" />
     <Compile Include="Extensions\TestExtensions.cs" />
     <Compile Include="Extensions\MoqExtensions.cs" />
     <Compile Include="TestBase.cs" />

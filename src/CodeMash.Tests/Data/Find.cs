@@ -1,15 +1,13 @@
 using System.Linq;
-using CodeMash.Data;
 using CodeMash.Interfaces.Data;
 using CodeMash.Tests.Data;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using NUnit.Framework;
 
 namespace CodeMash.Tests
 {
     [TestFixture]
-    public class GetOne : TestBase
+    public partial class Find : TestBase
     {
         private Project Project { get; set; }
         private Project Project2 { get; set; }
@@ -49,42 +47,6 @@ namespace CodeMash.Tests
             };
 
         }
-        
-        [Test]
-        [Category("Data")]
-        public void Can_get_item_by_specified_name_filter_through_expression()
-        {
-            // Act
-            ProjectRepository.InsertOne(Project);
-            
-            var project = ProjectRepository.FindOne(x => x.Name == "My first project");
-            
-            // Assert
-            project.ShouldNotBeNull();
-            project.Id.ShouldEqual(Project.Id);
-        }
-
-        [Test]
-        [Category("Data")]
-        public void Can_get_item_by_specified_name_filter_through_filter_of_mongodb_driver()
-        {
-            // Act
-            ProjectRepository.InsertOne(Project);
-
-            var filter1 = Builders<Project>.Filter.Eq("Name", "My first project");
-            var projectResult1 = ProjectRepository.FindOne(filter1);
-
-            var filter2 = Builders<Project>.Filter.Eq(x => x.Name, "My first project");
-            var projectResult2 = ProjectRepository.FindOne(filter2);
-
-            // Assert
-            projectResult1.ShouldNotBeNull();
-            projectResult1.Id.ShouldEqual(Project.Id);
-            projectResult2.ShouldNotBeNull();
-            projectResult2.Id.ShouldEqual(Project.Id);
-        }
-
-
         [Test]
         [Category("Data")]
         public void Can_get_item_by_nested_property()
@@ -93,18 +55,18 @@ namespace CodeMash.Tests
             ProjectRepository.InsertOne(Project);
             ProjectRepository.InsertOne(Project2);
 
-            
+
             var filterBuilder = Builders<Project>.Filter;
-            
+
             var ltLanguageId = LanguagesRepository.FindOne(x => x.CultureCode == "lt-LT");
-            var filterByLanguge = filterBuilder.ElemMatch(x => x.SupportedLanguages, ltLanguageId.Id);
+            var filterByLanguge = filterBuilder.ElemMatch(x => x.SupportedLanguages, x => x == ltLanguageId.Id);
             var nestedElementByCategoryNameFilter = filterBuilder.ElemMatch(x => x.Categories, x => x.Name == "Buttons");
             var keysFilter = Builders<ResourceCategory>.Filter.ElemMatch(x => x.Keys, x => x.Name == "Buttons_1");
             var nestedElementByCategoryKeyValueFilter = filterBuilder.ElemMatch(x => x.Categories, keysFilter);
 
             // TODO : bug with Find in Array
-            var filter = "{ 'SupportedLanguages' : '" + ltLanguageId.Id + "'}" &  nestedElementByCategoryNameFilter & nestedElementByCategoryKeyValueFilter;
-            
+            var filter = "{ 'SupportedLanguages' : '" + ltLanguageId.Id + "'}" & nestedElementByCategoryNameFilter & nestedElementByCategoryKeyValueFilter;
+
             var projects = ProjectRepository.Find(filter);
 
             // Assert
@@ -112,21 +74,58 @@ namespace CodeMash.Tests
             projects.Count.ShouldEqual(1);
         }
 
-
         [Test]
         [Category("Data")]
-        public void Cannot_get_item()
+        public void Can_get_items_by_specified_name_filter_through_expression()
         {
             // Act
             ProjectRepository.InsertOne(Project);
             ProjectRepository.InsertOne(Project2);
 
-            var project = ProjectRepository.FindOne(Builders<Project>.Filter.Eq("Categories.Name", "Buttons7"));
+            var projects = ProjectRepository.Find(x => x.Name == "My first project");
 
             // Assert
-            project.ShouldBeNull();
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(2);
         }
-        
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_items_by_specified_name_filter_through_filter_of_mongodb_driver()
+        {
+            // Act
+            ProjectRepository.InsertOne(Project);
+            ProjectRepository.InsertOne(Project2);
+
+            var filter = Builders<Project>.Filter.Eq("Name", "My first project");
+            var projects = ProjectRepository.Find(filter);
+            
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(2);
+        }
+
+        [Test]
+        [Category("Data")]
+        public void Cannot_get_items_when_filter_dont_match()
+        {
+            // Act
+            ProjectRepository.InsertOne(Project);
+            ProjectRepository.InsertOne(Project2);
+
+            var filter = Builders<Project>.Filter.Eq("Name", "My first project11");
+            var projects = ProjectRepository.Find(filter);
+            
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(0);
+        }
+
+
+        // TODO : add tests for paging, sorting, projection
+
         protected override void Dispose()
         {
             base.Dispose();
