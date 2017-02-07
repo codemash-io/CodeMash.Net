@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using ServiceStack;
 
-namespace CodeMash.Core
+namespace CodeMash
 {
     public class CodeMashBase
     {

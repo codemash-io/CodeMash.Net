@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeMash.Core
+namespace CodeMash
 {
     [Serializable]
     public class CodeMashException : Exception

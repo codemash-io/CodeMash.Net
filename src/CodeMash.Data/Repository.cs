@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
-using CodeMash.Core;
+using CodeMash;
 using CodeMash.Extensions;
 using CodeMash.Interfaces.Data;
 using CodeMash.ServiceModel;
@@ -40,9 +40,9 @@ namespace CodeMash.Data
             try
             {
                 var settings = CodeMashBase.Client.Get(new GetAccount());
-                if (settings.HasData())
+                if (settings.HasData() && settings.Result.DataBase != null)
                 {
-                    url = new MongoUrl(settings.Result.DatabaseConnectionString);
+                    url = new MongoUrl(settings.Result.DataBase.ConnectionString);
                 }
             }
             catch (Exception e)
@@ -81,9 +81,9 @@ namespace CodeMash.Data
             };
             
             var accountResponse = jsonClient.Get(new GetAccount());
-            if (accountResponse.HasData())
+            if (accountResponse.HasData() && accountResponse.Result.DataBase != null)
             {
-                url = new MongoUrl(accountResponse.Result.DatabaseConnectionString);
+                url = new MongoUrl(accountResponse.Result.DataBase.ConnectionString);
             }
 
             url = new MongoUrlBuilder().ToMongoUrl();

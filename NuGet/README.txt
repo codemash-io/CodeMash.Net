@@ -6,19 +6,22 @@ add codemash configuration to either web.config or app.config file as follows :
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <configSections>
-    <section name="CodeMash" type="CodeMash.Net.CodeMashConfigurationSection, CodeMash.Net" requirePermission="false" />
+    <section name="CodeMash" type="CodeMash.CodeMashConfigurationSection, CodeMash" requirePermission="false" />
   </configSections>
   <CodeMash>
     <client name="Sdk" apiKey="HP7qoWW**************LctB7IkU" address="http://api.codemash.io/1.0/" />
   </CodeMash>  
 </configuration>
 
-if you don't have apiKey please create an account on http://api.codemash.io and got to http://api.codemash.io/connections/api 
+if you don't have apiKey please create an account on http://cloud.codemash.io and got to http://cloud.codemash.io/connections/api 
 Copy ApiKey and address to your configuration and that's it, you can start using CodeMash
 
 
 using System;
-using CodeMash.Net;
+using CodeMash;
+using CodeMash.Data;
+using CodeMash.Interfaces;
+using CodeMash.Notifications;
 using MongoDB.Driver;
 
 namespace ConsoleApplication
@@ -33,7 +36,7 @@ namespace ConsoleApplication
 
     class Program
     {
-        
+
         static void Main(string[] args)
         {
             var person = new Person
@@ -43,15 +46,26 @@ namespace ConsoleApplication
                 Email = "guessbradsemailaddress@gmail.com"
             };
 
-            Db.InsertOne(person);
+            var personsRepository = CodemashRepositoryFactory.Create<Person>();
+            var notificationsService = CodemashNotificationFactory.Create<Email>();
 
-            Mailer.SendMail(person.Email, "CodeMash - it just works", $"Hi Brad, yours id is - {person.Id}", "support@codemash.io");
+            personsRepository.InsertOne(person);
 
-            var bradPittByName = Db.FindOne<Person>(x => x.Name == "Brad Pitt");
-            var bradPittById = Db.FindOneById<Person>(person.Id.ToString());
-            var bradPittByMongoDbNotation = Db.FindOne<Person>(Builders<Person>.Filter.Eq(x => x.Name, "Brad Pitt"));
+            notificationsService.Send(
+                person.Email, 
+                "CodeMash - it just works", 
+                $"Hi Brad, yours id is - {person.Id}", 
+                "support@codemash.io");
 
-            var allActorsCount = Db.Count<Person>(x => true);
+            // simple way using lambda expressions
+            var bradPittByName = personsRepository.FindOne(x => x.Name == "Brad Pitt");
+            var bradPittById = personsRepository.FindOneById(person.Id);
+
+            // mongo db way
+            var filter = Builders<Person>.Filter.Eq(x => x.Name, "Brad Pitt");
+            var bradPittByMongoDbNotation = personsRepository.FindOne(filter);
+
+            var allActorsCount = personsRepository.Count(x => true);
 
             Console.WriteLine($"Actors on database: {allActorsCount}");
             Console.ReadLine();
