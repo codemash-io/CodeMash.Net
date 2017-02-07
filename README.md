@@ -5,7 +5,8 @@ CodeMash is a vital toolset for each developer which wants to achive daily devel
 
 Prerequisites
 
-[Getting Started](https://github.com/codemash-io/CodeMash.Net/blob/master/Getting%20Started.md)
+[Getting Started](https://github.com/codemash-io/CodeMash.Net/blob/master/Getting%20started.md)
+
 [Get ApiKey](https://github.com/codemash-io/CodeMash.Net/blob/master/Get%20ApiKey.md)
 
 CodeMash Microservices

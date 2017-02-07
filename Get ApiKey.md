@@ -7,7 +7,7 @@
 <?xml version="1.0" encoding="utf-8" ?>  
 <configuration>
   <configSections>
-    <section name="CodeMash" type="CodeMash.Net.CodeMashConfigurationSection, CodeMash.Net" requirePermission="false" />
+    <section name="CodeMash" type="CodeMash.CodeMashConfigurationSection, CodeMash" requirePermission="false" />
   </configSections>
   <CodeMash>
     <client name="CodeMashClient" apiKey="your api token" address="http://api.codemash.io/1.0/" />
