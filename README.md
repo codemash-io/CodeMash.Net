@@ -1,65 +1,19 @@
-# CodeMash.Net
+# CodeMash
 CodeMash tools for .NET developers - <a target="_blank" href="http://codemash.io/documentation/api">http://codemash.io/documentation/api</a> 
 
-CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : MondoDb as a service, one common payment gateway, central logging for whole your company applications, sending mails and sms messages easily, Identity provider, integrate your third party software vendors easily... More about that http://codemash.io
+CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : Database as a Service, Notifications of any Kind, Centric File Storage, Multilingual Apps, Application Insights, Centric Payments Approach, One Identity Provider, Application Builder,... More about that http://codemash.io
 
-1. [Getting started](https://github.com/codemash-io/CodeMash.Net/blob/master/1.%20Getting%20started.md)
-2. [Get ApiKey](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Get%20ApiKey.md)
-3. [Connecting to database](https://github.com/codemash-io/CodeMash.Net/blob/master/3.%20Connecting%20to%20database.md)  
-	3.1. [Create](https://github.com/codemash-io/CodeMash.Net/blob/master/3.1.%20Create.md)  
-  	3.2. [Read](https://github.com/codemash-io/CodeMash.Net/blob/master/3.2.%20Read.md)  
-  	3.3. [Update](https://github.com/codemash-io/CodeMash.Net/blob/master/3.3.%20Update.md)  
-  	3.4. [Delete](https://github.com/codemash-io/CodeMash.Net/blob/master/3.4.%20Delete.md)  
+Prerequisites
 
-**Example**
+[Getting Started](https://github.com/codemash-io/CodeMash.Net/blob/master/Getting%20Started.md)
+[Get ApiKey](https://github.com/codemash-io/CodeMash.Net/blob/master/Get%20ApiKey.md)
 
-```csharp
+CodeMash Microservices
 
-using System;
-using CodeMash.Net;
-using MongoDB.Driver;
-
-namespace ConsoleApplication
-{
-    [CollectionName("Actors")]
-    public class Person : EntityBase
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string Email { get; set; }
-    }
-
-    class Program
-    {
-        
-        static void Main(string[] args)
-        {
-            var person = new Person
-            {
-                Name = "Brad Pitt",
-                Age = 55,
-                Email = "guessbradsemailaddress@gmail.com"
-            };
-
-            Db.InsertOne(person);
-
-            Mailer.SendMail(
-				person.Email, 
-				"CodeMash - it just works", 
-				$"Hi Brad, yours id is - {person.Id}", 
-				"support@codemash.io");
-
-            var bradPittByName = Db.FindOne<Person>(x => x.Name == "Brad Pitt");
-            var bradPittById = Db.FindOneById<Person>(person.Id.ToString());
-            
-			var filter = Builders<Person>.Filter.Eq(x => x.Name, "Brad Pitt");
-			var bradPittByMongoDbNotation = Db.FindOne<Person>(filter);
-
-            var allActorsCount = Db.Count<Person>(x => true);
-
-            Console.WriteLine($"Actors on database: {allActorsCount}");
-            Console.ReadLine();
-        }
-    }
-}
-```
+1. [Database as a Service](https://github.com/codemash-io/CodeMash.Net/blob/master/1.%20Database%20as%20a%20Service.md)
+2. [Notifications of any Kind](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Notifications%20of%20any%20Kind.md)
+3. [Centric File Storage](https://github.com/codemash-io/CodeMash.Net/blob/master/3.%20Centric%20File%20Storage.md)
+4. [Multilingual Apps](https://github.com/codemash-io/CodeMash.Net/blob/master/4.%20Multilingual%20Apps.md)
+5. [Application Insights](https://github.com/codemash-io/CodeMash.Net/blob/master/5.%20Application%20Insights.md)
+6. [Centric Payments Approach](https://github.com/codemash-io/CodeMash.Net/blob/master/6.%20Centric%20Payments%20Approach.md)
+7. [One Identity Provider](https://github.com/codemash-io/CodeMash.Net/blob/master/7.%20One%20Identity%20Provider.md)

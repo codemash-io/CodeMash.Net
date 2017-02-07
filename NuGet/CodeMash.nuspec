@@ -13,7 +13,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>CodeMash tools for .NET developers. Access codemash.io tools from .NET SDK</description>    
 	 <summary>
-		CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : MondoDb as a service, one common payment gateway, central logging for whole your company applications, sending mails and sms messages easily, Identity provider, integrate your third party software vendors easily... More about that http://codemash.io
+		CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : Database as a Service, Notifications of any Kind, Centric File Storage, Multilingual Apps, Application Insights, Centric Payments Approach, One Identity Provider, Application Builder,... More about that http://codemash.io
     </summary>
     <copyright>Copyright 2016 codemash.io</copyright>
 	<dependencies> 
