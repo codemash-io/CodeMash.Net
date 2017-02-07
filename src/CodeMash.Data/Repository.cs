@@ -97,9 +97,13 @@ namespace CodeMash.Data
 
         public Repository(MongoUrl mongoUrl)
         {
-            url = mongoUrl ?? throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");
+            if (mongoUrl == null)
+            {
+                throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");
+            }
+            url = mongoUrl;
             client = MongoClientFactory.Create(url);
-            database = client.GetDatabase(url.DatabaseName ?? "test");
+            database = client.GetDatabase(mongoUrl.DatabaseName ?? "test");
 
         }
 
@@ -109,7 +113,11 @@ namespace CodeMash.Data
             {
                 throw new ArgumentNullException(nameof(collectionName), "collectionName is not provided");
             }
-            url = mongoUrl ?? throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");
+            if (mongoUrl == null)
+            {
+                throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");
+            }
+            url = mongoUrl;
             client = MongoClientFactory.Create(url);
             database = client.GetDatabase(url.DatabaseName ?? "test");
             collection = database.GetCollection<T>(collectionName);

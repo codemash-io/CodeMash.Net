@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 using System.Net.Mail;
-using CodeMash.Core;
+using CodeMash.Interfaces.Notifications;
 using CodeMash.ServiceModel;
 using Newtonsoft.Json.Linq;
 using ServiceStack;
 
-namespace CodeMash.Net
+namespace CodeMash.Notifications
 {
-    public class Mailer : CodeMashBase
+    public class EmailService : CodeMashBase, IEmailService
     {
         /// <summary>
         /// Sends the mail.
@@ -20,7 +20,7 @@ namespace CodeMash.Net
         /// <param name="body">The body of email</param>
         /// <param name="fromEmail">From email. - One email</param>
         /// <returns>.</returns>
-        public static void SendMail(string toEmail, string subject, string body, string fromEmail)
+        public void SendMail(string toEmail, string subject, string body, string fromEmail)
         {
             if (toEmail.Contains(","))
             {
@@ -38,7 +38,7 @@ namespace CodeMash.Net
         /// <param name="body">The body of email</param>
         /// <param name="fromEmail">From email. - One email</param>
         /// <returns>.</returns>
-        public static void SendMail(string[] toEmails, string subject, string body, string fromEmail)
+        public void SendMail(string[] toEmails, string subject, string body, string fromEmail)
         {
             if (toEmails != null && toEmails.Any())
             {
@@ -66,7 +66,7 @@ namespace CodeMash.Net
         /// <param name="attachments">The attachments.</param>
         /// <returns>.</returns>
 
-        public static void SendMail(string toEmail, string subject, string body, string fromEmail, string[] attachments)
+        public void SendMail(string toEmail, string subject, string body, string fromEmail, string[] attachments)
         {
             if (toEmail.Contains(","))
             {
@@ -76,7 +76,7 @@ namespace CodeMash.Net
             SendMail(new[] { toEmail }, subject, body, fromEmail, attachments);
         }
 
-        public static void SendMail(string[] toEmails, string subject, string body, string fromEmail, string[] attachments)
+        public void SendMail(string[] toEmails, string subject, string body, string fromEmail, string[] attachments)
         {
             List<Attachment> mailAttachments = null;
 
@@ -100,7 +100,7 @@ namespace CodeMash.Net
                 });
             }
         }
-        public static void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail)
+        public void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail)
         {
             if (toEmail.Contains(","))
             {
@@ -112,7 +112,7 @@ namespace CodeMash.Net
         }
 
 
-        public static void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail, string[] attachments)
+        public void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail, string[] attachments)
         {
             if (toEmail.Contains(","))
             {
@@ -123,7 +123,7 @@ namespace CodeMash.Net
         }
 
 
-        public static void SendMail(string[] toEmails, string subject, string templateName, JObject model, string fromEmail, string[] attachments)
+        public void SendMail(string[] toEmails, string subject, string templateName, JObject model, string fromEmail, string[] attachments)
         {
             // dynamic input from inbound JSON
             dynamic json = model;
@@ -154,7 +154,7 @@ namespace CodeMash.Net
             }
         }
 
-        public static void SendMail(SendMail message, List<Attachment> attachments = null, string token = null)
+        private void SendMail(SendMail message, List<Attachment> attachments = null)
         {
             if (message == null)
             {

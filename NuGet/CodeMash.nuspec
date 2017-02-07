@@ -3,8 +3,8 @@
   <metadata>
     <id>CodeMash</id>
 	<title>CodeMash</title>
-    <version>1.0.2.2</version>  
-	<releaseNotes>MongoDb repository</releaseNotes>	
+    <version>1.0.2.3</version>  
+	<releaseNotes>SDK for calling CodeMash.io API</releaseNotes>	
     <authors>Domantas Jovaisas - Isidos</authors>
     <owners>Domantas</owners>
 	<language>en-US</language>
