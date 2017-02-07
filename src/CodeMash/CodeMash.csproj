@@ -83,10 +83,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="ServiceModel\DataContracts\MailAttachmentDataContract.cs" />
-    <Compile Include="ServiceModel\DataContracts\UserSettings.cs" />
-    <Compile Include="ServiceModel\Requests\GetClientSettings.cs" />
+    <Compile Include="ServiceModel\DataContracts\Account.cs" />
+    <Compile Include="ServiceModel\Requests\GetAccount.cs" />
     <Compile Include="ServiceModel\Requests\SendMail.cs" />
-    <Compile Include="ServiceModel\Responses\GetClientSettingsResponse.cs" />
+    <Compile Include="ServiceModel\Responses\GetAccountResponse.cs" />
     <Compile Include="ServiceModel\Requests\RequestBase.cs" />
     <Compile Include="ServiceModel\Responses\ResponseBase.cs" />
     <Compile Include="ServiceModel\Responses\SendMailResponse.cs" />

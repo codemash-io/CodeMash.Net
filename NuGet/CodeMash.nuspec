@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>CodeMash.Net</id>
-	<title>CodeMash Net</title>
-    <version>1.0.1.1</version>  
-	<releaseNotes>Added documentation.</releaseNotes>	
+    <id>CodeMash</id>
+	<title>CodeMash</title>
+    <version>1.0.2.1</version>  
+	<releaseNotes>MongoDb repository</releaseNotes>	
     <authors>Domantas Jovaisas - Isidos</authors>
     <owners>Domantas</owners>
 	<language>en-US</language>
@@ -31,7 +31,9 @@
 	</metadata>
 	 <files>
 		<file src="README.txt" target="" />
-		<file src="..\src\CodeMash.Net\bin\Debug\CodeMash.Net.dll" target="lib\net45" />
-		<file src="..\src\CodeMash.Net.DataContracts\bin\Debug\CodeMash.Net.DataContracts.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash\bin\Debug\CodeMash.dll" target="lib\net45" />
+		<file src="..\src\CodeMash.Data\bin\Debug\CodeMash.Data.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash.Interfaces\bin\Debug\CodeMash.Interfaces.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash.Notifications\bin\Debug\CodeMash.Notifications.dll" target="lib\net45" />		
 	</files>
 </package>

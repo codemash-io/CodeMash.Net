@@ -30,6 +30,7 @@ namespace CodeMash.Tests
             Project2 = new Project { Name = "My first project2" };
             Project3 = new Project { Name = "My first project2" };
 
+            Projects = new List<Project>();
             Projects.AddRange(new [] { Project1, Project2, Project3 });
         }
         

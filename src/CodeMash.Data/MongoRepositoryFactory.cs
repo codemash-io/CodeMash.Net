@@ -5,9 +5,8 @@ namespace CodeMash.Data
 {
     public static class MongoRepositoryFactory
     {
-
         /// <summary>
-        /// Get respository instance by reading apiKey from config file. If it's not specified we use connection string : "mongodb://localhost"
+        /// Get respository instance by reading apiKey and apiAddress from config file. As a fallback plan we use connection string of : "mongodb://localhost" 
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
         /// <returns>instance of IMongoRepository</returns>
@@ -17,7 +16,7 @@ namespace CodeMash.Data
         }
 
         /// <summary>
-        /// Get respository instance which is defined in CodeMash. Specify apiKey of CodeMash. More : http://cloud.codemash.io
+        /// Get respository instance which is defined in CodeMash. Specify apiKey of CodeMash. More : http://cloud.codemash.io/connections/api
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
         /// <param name="apiKey">apiKey of CodeMash</param>

@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 using CodeMash.Core;
 using CodeMash.Extensions;
@@ -39,7 +39,7 @@ namespace CodeMash.Data
         {
             try
             {
-                var settings = CodeMashBase.Client.Get(new GetClientSettings());
+                var settings = CodeMashBase.Client.Get(new GetAccount());
                 if (settings.HasData())
                 {
                     url = new MongoUrl(settings.Result.DatabaseConnectionString);
@@ -64,6 +64,28 @@ namespace CodeMash.Data
                 throw new ArgumentNullException(nameof(apiKey), "apiKey is not defined");
             }
 
+            string apiAddress;
+
+            try
+            {
+                apiAddress = Configuration.Address;
+            }
+            catch (Exception e)
+            {
+                apiAddress = "http://api.codemash.io/1.0/";
+            }
+
+            var jsonClient = new JsonServiceClient(apiAddress)
+            {
+                Credentials = new NetworkCredential(apiKey, "")
+            };
+            
+            var accountResponse = jsonClient.Get(new GetAccount());
+            if (accountResponse.HasData())
+            {
+                url = new MongoUrl(accountResponse.Result.DatabaseConnectionString);
+            }
+
             url = new MongoUrlBuilder().ToMongoUrl();
             client = MongoClientFactory.Create(url);
             if (url.DatabaseName != null)
@@ -77,10 +99,7 @@ namespace CodeMash.Data
         {
             url = mongoUrl ?? throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");
             client = MongoClientFactory.Create(url);
-            if (url.DatabaseName != null)
-            {
-                database = client.GetDatabase(url.DatabaseName);
-            }
+            database = client.GetDatabase(url.DatabaseName ?? "test");
 
         }
 
@@ -96,12 +115,12 @@ namespace CodeMash.Data
             collection = database.GetCollection<T>(collectionName);
         }
 
-        private MongoDB.Driver.IMongoCollection<T> GetCollection()
+        private IMongoCollection<T> GetCollection()
         {
             return collection = collection ?? GetDefaultCollection();
         }
 
-        private MongoDB.Driver.IMongoCollection<T> GetDefaultCollection()
+        private IMongoCollection<T> GetDefaultCollection()
         {
             var collectionName = GetCollectionName();
             return Database.GetCollection<T>(collectionName);

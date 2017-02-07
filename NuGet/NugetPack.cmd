@@ -1,2 +1,2 @@
 SET NUGET=..\src\.nuget\nuget
-%NUGET% pack CodeMash.Net.nuspec -IncludeReferencedProjects
+%NUGET% pack CodeMash.nuspec -IncludeReferencedProjects

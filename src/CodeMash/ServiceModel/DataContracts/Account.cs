@@ -3,7 +3,7 @@
 namespace CodeMash.ServiceModel
 {
     [DataContract]
-    public class UserSettings
+    public class Account
     {
         [DataMember]
         public string DatabaseConnectionString { get; set; }
