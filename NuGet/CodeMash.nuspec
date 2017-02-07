@@ -3,7 +3,7 @@
   <metadata>
     <id>CodeMash</id>
 	<title>CodeMash</title>
-    <version>1.0.2.1</version>  
+    <version>1.0.2.2</version>  
 	<releaseNotes>MongoDb repository</releaseNotes>	
     <authors>Domantas Jovaisas - Isidos</authors>
     <owners>Domantas</owners>
@@ -18,13 +18,13 @@
     <copyright>Copyright 2016 codemash.io</copyright>
 	<dependencies> 
 	   <group targetFramework="net452">
-			<dependency id="MongoDB.Bson" version="2.3.0" />
-			<dependency id="MongoDB.Driver" version="2.3.0"  />
-			<dependency id="MongoDB.Driver.Core" version="2.3.0"/>
+			<dependency id="MongoDB.Bson" version="2.4.1" />
+			<dependency id="MongoDB.Driver" version="2.4.1"  />
+			<dependency id="MongoDB.Driver.Core" version="2.4.1"/>
 			<dependency id="Newtonsoft.Json" version="9.0.1" />
-			<dependency id="ServiceStack.Client" version="4.5.4" />
-			<dependency id="ServiceStack.Interfaces" version="4.5.4" />
-			<dependency id="ServiceStack.Text" version="4.5.4" />
+			<dependency id="ServiceStack.Client" version="4.5.6" />
+			<dependency id="ServiceStack.Interfaces" version="4.5.6" />
+			<dependency id="ServiceStack.Text" version="4.5.6" />			
 	   </group>
 	</dependencies>
 	<tags>web utility http json mongodb rest</tags>
