@@ -10,13 +10,13 @@ namespace CodeMash.Tests
     public partial class FindOneById : TestBase
     {
         private Project Project { get; set; }
-        public IMongoRepository<Project> ProjectRepository { get; set; }
+        public IRepository<Project> ProjectRepository { get; set; }
         
         protected override void Initialize()
         {
             base.Initialize();
 
-            ProjectRepository = Resolve<IMongoRepository<Project>>();
+            ProjectRepository = Resolve<IRepository<Project>>();
         
             // Arrange
             Project = new Project { Name = "My first project" };
@@ -56,7 +56,7 @@ namespace CodeMash.Tests
 
             // TODO : drop collections, instead of removing one by one items. 
 
-            var projectsRepo = Resolve<IMongoRepository<Project>>();
+            var projectsRepo = Resolve<IRepository<Project>>();
             projectsRepo?.DeleteMany(_ => true);
             
         }

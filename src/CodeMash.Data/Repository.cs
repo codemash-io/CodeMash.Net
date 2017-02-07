@@ -15,7 +15,7 @@ using ServiceStack;
 
 namespace CodeMash.Data
 {
-    public class MongoRepository<T> : IMongoRepository<T> where T : IEntity<string>, new()
+    public class Repository<T> : IRepository<T> where T : IEntity<string>, new()
     {
         private MongoClient client { get; set; }
         private MongoUrl url { get; set; }
@@ -35,7 +35,7 @@ namespace CodeMash.Data
         }
 
 
-        public MongoRepository()
+        public Repository()
         {
             try
             {
@@ -57,7 +57,7 @@ namespace CodeMash.Data
             }
         }
 
-        public MongoRepository(string apiKey)
+        public Repository(string apiKey)
         {
             if (string.IsNullOrWhiteSpace(apiKey))
             {
@@ -95,7 +95,7 @@ namespace CodeMash.Data
 
         }
 
-        public MongoRepository(MongoUrl mongoUrl)
+        public Repository(MongoUrl mongoUrl)
         {
             url = mongoUrl ?? throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");
             client = MongoClientFactory.Create(url);
@@ -103,7 +103,7 @@ namespace CodeMash.Data
 
         }
 
-        public MongoRepository(MongoUrl mongoUrl, string collectionName)
+        public Repository(MongoUrl mongoUrl, string collectionName)
         {
             if (string.IsNullOrWhiteSpace(collectionName))
             {
@@ -240,7 +240,7 @@ namespace CodeMash.Data
             return await FindOneAsync(new ExpressionFilterDefinition<T>(filter), projection, findOptions);
         }
 
-        public IMongoRepository<T> WithCollection(string collectionName)
+        public IRepository<T> WithCollection(string collectionName)
         {
             Collection = Database.GetCollection<T>(collectionName);
             return this;

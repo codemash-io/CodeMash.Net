@@ -3,16 +3,16 @@ using MongoDB.Driver;
 
 namespace CodeMash.Data
 {
-    public static class MongoRepositoryFactory
+    public static class CodemashRepositoryFactory
     {
         /// <summary>
         /// Get respository instance by reading apiKey and apiAddress from config file. As a fallback plan we use connection string of : "mongodb://localhost" 
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
-        /// <returns>instance of IMongoRepository</returns>
-        public static IMongoRepository<T> Create<T>() where T : IEntity<string>, new()
+        /// <returns>instance of IRepository</returns>
+        public static IRepository<T> Create<T>() where T : IEntity<string>, new()
         {
-            return new MongoRepository<T>();
+            return new Repository<T>();
         }
 
         /// <summary>
@@ -20,10 +20,10 @@ namespace CodeMash.Data
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
         /// <param name="apiKey">apiKey of CodeMash</param>
-        /// <returns>instance of IMongoRepository</returns>
-        public static IMongoRepository<T> Create<T>(string apiKey) where T : IEntity<string>, new()
+        /// <returns>instance of IRepository</returns>
+        public static IRepository<T> Create<T>(string apiKey) where T : IEntity<string>, new()
         {
-            return new MongoRepository<T>(apiKey);
+            return new Repository<T>(apiKey);
         }
 
         /// <summary>
@@ -31,10 +31,10 @@ namespace CodeMash.Data
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="connectionString">Connection string should be provided as MongoUrl instance</param>
-        /// <returns>instance of IMongoRepository</returns>
-        public static IMongoRepository<T> Create<T>(MongoUrl connectionString) where T : IEntity<string>, new()
+        /// <returns>instance of IRepository</returns>
+        public static IRepository<T> Create<T>(MongoUrl connectionString) where T : IEntity<string>, new()
         {
-            return new MongoRepository<T>(connectionString);
+            return new Repository<T>(connectionString);
         }
 
         /// <summary>
@@ -43,10 +43,10 @@ namespace CodeMash.Data
         /// <typeparam name="T">Entity</typeparam>
         /// <param name="connectionString">Connection string should be provided as MongoUrl instance</param>
         /// <param name="collectionName">Separate Collection name separately from entity</param>
-        /// <returns>instance of IMongoRepository</returns>
-        public static IMongoRepository<T> Create<T>(MongoUrl connectionString, string collectionName) where T : IEntity<string>, new()
+        /// <returns>instance of IRepository</returns>
+        public static IRepository<T> Create<T>(MongoUrl connectionString, string collectionName) where T : IEntity<string>, new()
         {
-            return new MongoRepository<T>(connectionString, collectionName);
+            return new Repository<T>(connectionString, collectionName);
         }
     }
 }

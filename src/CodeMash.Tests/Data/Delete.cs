@@ -12,15 +12,15 @@ namespace CodeMash.Tests
     public partial class Delete : TestBase
     {
         private Project Project { get; set; }
-        public IMongoRepository<Project> ProjectRepository { get; set; }
-        public IMongoRepository<ResourceLanguage> LanguagesRepository { get; set; }
+        public IRepository<Project> ProjectRepository { get; set; }
+        public IRepository<ResourceLanguage> LanguagesRepository { get; set; }
         
         protected override void Initialize()
         {
             base.Initialize();
 
-            ProjectRepository = Resolve<IMongoRepository<Project>>();
-            LanguagesRepository = Resolve<IMongoRepository<ResourceLanguage>>();
+            ProjectRepository = Resolve<IRepository<Project>>();
+            LanguagesRepository = Resolve<IRepository<ResourceLanguage>>();
 
             var ltLangage = new ResourceLanguage {Name = "Lithuanian", NativeName = "Lietuviu", CultureCode = "lt-LT"};
             var usLangage = new ResourceLanguage {Name = "English", NativeName = "English", CultureCode = "en-US"};

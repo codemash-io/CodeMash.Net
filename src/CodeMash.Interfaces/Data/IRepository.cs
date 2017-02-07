@@ -8,9 +8,9 @@ using MongoDB.Driver;
 
 namespace CodeMash.Interfaces.Data
 {
-    public interface IMongoRepository<T> : IQueryable<T> where T : IEntity<string>, new()
+    public interface IRepository<T> : IQueryable<T> where T : IEntity<string>, new()
     { 
-        IMongoRepository<T> WithCollection(string collectionName);
+        IRepository<T> WithCollection(string collectionName);
 
         T InsertOne(T entity, InsertOneOptions insertOneOptions);
         T InsertOne(T entity);

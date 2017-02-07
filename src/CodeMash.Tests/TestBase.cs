@@ -20,7 +20,7 @@ namespace CodeMash.Tests
             container.RegisterInstance("MyConnectionString", new MongoUrl("mongodb://localhost"), new ContainerControlledLifetimeManager());
             container.RegisterInstance("Collection", "CollectionName", new ContainerControlledLifetimeManager());
 
-            container.RegisterType(typeof(IMongoRepository<>), typeof(MongoRepository<>), new InjectionConstructor(new ResolvedParameter<MongoUrl>("MyConnectionString")));//, new ResolvedParameter<string>("Collection")));
+            container.RegisterType(typeof(IRepository<>), typeof(Repository<>), new InjectionConstructor(new ResolvedParameter<MongoUrl>("MyConnectionString")));//, new ResolvedParameter<string>("Collection")));
             return container;
         }
 

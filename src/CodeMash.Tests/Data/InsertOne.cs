@@ -12,14 +12,14 @@ namespace CodeMash.Tests
     {
         private Guid UniqueIdentifierForTestSession { get; set; }
         private Project Project { get; set; }
-        public IMongoRepository<Project> ProjectRepository { get; set; }
+        public IRepository<Project> ProjectRepository { get; set; }
         
 
         protected override void Initialize()
         {
             base.Initialize();
 
-            ProjectRepository = Resolve<IMongoRepository<Project>>();
+            ProjectRepository = Resolve<IRepository<Project>>();
 
             // Arrange
             Project = new Project
@@ -47,7 +47,7 @@ namespace CodeMash.Tests
         [Category("Data")]
         public void Can_insert_into_database_when_collection_name_comes_when_initializing_repo()
         {
-            ProjectRepository = MongoRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost"),
+            ProjectRepository = CodemashRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost"),
                 $"LovelyCollection-{UniqueIdentifierForTestSession}");
 
             ProjectRepository.InsertOne(Project);
@@ -62,7 +62,7 @@ namespace CodeMash.Tests
         [Category("Data")]
         public void Can_insert_into_database_when_collection_name_comes_before_we_call_insert_action()
         {
-            var repo = MongoRepositoryFactory.Create<Project>();
+            var repo = CodemashRepositoryFactory.Create<Project>();
             repo.WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}")
                 .InsertOne(Project);
 
@@ -80,7 +80,7 @@ namespace CodeMash.Tests
 
             ProjectRepository.DeleteMany(x => true);
 
-            var bsonRepo = MongoRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost")).WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}");
+            var bsonRepo = CodemashRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost")).WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}");
             bsonRepo?.DeleteMany(_ => true);
         }
     }

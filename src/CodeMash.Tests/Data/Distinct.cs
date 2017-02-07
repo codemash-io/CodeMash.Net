@@ -20,13 +20,13 @@ namespace CodeMash.Tests
         private Project Project2 { get; set; }
         private Project Project3 { get; set; }
         private List<Project> Projects { get; set; }
-        public IMongoRepository<Project> ProjectRepository { get; set; }
+        public IRepository<Project> ProjectRepository { get; set; }
         
         protected override void Initialize()
         {
             base.Initialize();
 
-            ProjectRepository = Resolve<IMongoRepository<Project>>();
+            ProjectRepository = Resolve<IRepository<Project>>();
         
             // Arrange
             Project1 = new Project { Name = "My first project" };

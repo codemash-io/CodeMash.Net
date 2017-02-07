@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using CodeMash.Data;
 using CodeMash.Interfaces.Data;
@@ -28,7 +28,7 @@ namespace CodeMash.Tests
         [Category("Data")]
         public async Task Can_insert_into_database_when_collection_name_comes_when_initializing_repo_async()
         {
-            ProjectRepository = MongoRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost"),
+            ProjectRepository = CodemashRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost"),
                 $"LovelyCollection-{UniqueIdentifierForTestSession}");
 
             await ProjectRepository.InsertOneAsync(Project);
@@ -43,7 +43,7 @@ namespace CodeMash.Tests
         [Category("Data")]
         public async Task Can_insert_into_database_when_collection_name_comes_before_we_call_insert_action_async()
         {
-            var repo = MongoRepositoryFactory.Create<Project>();
+            var repo = CodemashRepositoryFactory.Create<Project>();
             await repo.WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}")
                 .InsertOneAsync(Project);
 
