@@ -52,6 +52,11 @@ namespace CodeMash.Tests
             return Assert.Throws(exceptionType, testDelegate);
         }
 
+        public static Exception ShouldBeThrownByAsync(this Type exceptionType, AsyncTestDelegate testDelegate)
+        {
+            return Assert.ThrowsAsync(exceptionType, testDelegate);
+        }
+
         public static void ShouldBe<T>(this object actual)
         {
             Assert.IsInstanceOf<T>(actual);

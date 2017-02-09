@@ -82,6 +82,7 @@
     <Compile Include="Data\Distinct.Async.cs" />
     <Compile Include="Data\Distinct.cs" />
     <Compile Include="Data\Domain\Defaults.cs" />
+    <Compile Include="Data\Domain\NotCommonMongoEntity.cs" />
     <Compile Include="Data\Domain\Project.cs" />
     <Compile Include="Data\Domain\Project.extensions.cs" />
     <Compile Include="Data\Domain\ProjectAggregatedDataContract.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Data\UpdateMany.cs" />
     <Compile Include="Data\UpdateOne.Async.cs" />
     <Compile Include="Data\UpdateOne.cs" />
+    <Compile Include="Data\WorkWithNotCommonStandardEntity.cs" />
     <Compile Include="Extensions\TestExtensions.cs" />
     <Compile Include="Extensions\MoqExtensions.cs" />
     <Compile Include="TestBase.cs" />

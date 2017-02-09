@@ -47,7 +47,7 @@ namespace CodeMash.Tests
         [Category("Data")]
         public void Can_insert_into_database_when_collection_name_comes_when_initializing_repo()
         {
-            ProjectRepository = CodemashRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost"),
+            ProjectRepository = RepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost"),
                 $"LovelyCollection-{UniqueIdentifierForTestSession}");
 
             ProjectRepository.InsertOne(Project);
@@ -62,7 +62,7 @@ namespace CodeMash.Tests
         [Category("Data")]
         public void Can_insert_into_database_when_collection_name_comes_before_we_call_insert_action()
         {
-            var repo = CodemashRepositoryFactory.Create<Project>();
+            var repo = RepositoryFactory.Create<Project>();
             repo.WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}")
                 .InsertOne(Project);
 
@@ -80,7 +80,7 @@ namespace CodeMash.Tests
 
             ProjectRepository.DeleteMany(x => true);
 
-            var bsonRepo = CodemashRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost")).WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}");
+            var bsonRepo = RepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost")).WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}");
             bsonRepo?.DeleteMany(_ => true);
         }
     }

@@ -5,18 +5,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
-using CodeMash;
 using CodeMash.Extensions;
 using CodeMash.Interfaces.Data;
 using CodeMash.ServiceModel;
-using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
 
 namespace CodeMash.Data
 {
-    public class Repository<T> : IRepository<T> where T : IEntity<string>, new()
+    public class Repository<T> : IRepository<T> where T : /*IEntity<string>,*/ new()
     {
         private MongoClient client { get; set; }
         private MongoUrl url { get; set; }

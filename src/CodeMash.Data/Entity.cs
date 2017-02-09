@@ -6,7 +6,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace CodeMash.Data
 {
-
     /// <summary>
     /// Abstract Entity for all the BusinessEntities.
     /// </summary>
