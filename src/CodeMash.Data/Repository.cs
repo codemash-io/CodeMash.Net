@@ -9,6 +9,7 @@ using CodeMash;
 using CodeMash.Extensions;
 using CodeMash.Interfaces.Data;
 using CodeMash.ServiceModel;
+using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
@@ -735,16 +736,44 @@ namespace CodeMash.Data
             return await DeleteManyAsync(new ExpressionFilterDefinition<T>(filter));
         }
 
-        public virtual List<T> Find(FilterDefinition<T> filter, SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null)
+        public virtual List<TP> Find<TP>(FilterDefinition<T> filter, ProjectionDefinition<T, TP> projection, SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null)
         {
             if (filter == null)
             {
                 filter = Builders<T>.Filter.Empty;
             }
+            
+            var mCursor = Collection
+                .Find(filter, findOptions)
+                .Sort(sort)
+                .Project(projection);
+            
+            mCursor = skip.HasValue ? mCursor.Skip(skip.Value) : mCursor.Skip(0);
+            mCursor = limit.HasValue ? mCursor.Limit(limit.Value) : mCursor.Limit(1000/*Extensions.ToInt(AppSettings.DefaultPageSize)*/);
+            
+            var result = mCursor.ToList();
+            return result;
+        }
 
+        public virtual List<TP> Find<TP>(Expression<Func<T, bool>> filter, Expression<Func<T, TP>> projectionExpression, SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null)
+        {
+            if (filter == null)
+            {
+                filter = _ => true;
+            }
+            var projectionDefinition = new ProjectionDefinitionBuilder<T>().Expression(projectionExpression);
+            return Find(new ExpressionFilterDefinition<T>(filter), projectionDefinition, sort, skip, limit, findOptions);
+        }
+
+        public virtual List<T> Find(FilterDefinition<T> filter, SortDefinition<T> sort, int? skip = null, int? limit = null, FindOptions findOptions = null)
+        {
+            if (filter == null)
+            {
+                filter = Builders<T>.Filter.Empty;
+            }
+            
             var mCursor = Collection.Find(filter, findOptions);
-
-
+            
             if (sort != null)
             {
                 mCursor = mCursor.Sort(sort);
@@ -773,8 +802,7 @@ namespace CodeMash.Data
             return Find(new ExpressionFilterDefinition<T>(filter), null, 0, 1000); // Extensions.ToInt(ConfigurationManager.AppSettings["DefaultPageSize"]));
         }
 
-        public virtual List<T> Find(Expression<Func<T, bool>> filter, SortDefinition<T> sort = null,
-            int? skip = null, int? limit = null, FindOptions findOptions = null)
+        public virtual List<T> Find(Expression<Func<T, bool>> filter, SortDefinition<T> sort, int? skip = null, int? limit = null, FindOptions findOptions = null)
         {
             if (filter == null)
             {
@@ -784,34 +812,40 @@ namespace CodeMash.Data
         }
 
 
-        public virtual async Task<List<T>> FindAsync(FilterDefinition<T> filter, SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null)
+        public virtual async Task<List<TP>> FindAsync<TP>(FilterDefinition<T> filter, FindOptions<T, TP> findOptions)
         {
             if (filter == null)
             {
                 filter = Builders<T>.Filter.Empty;
             }
 
-            var mCursor = Collection.Find(filter, findOptions);
+            var mCursor = await Collection.FindAsync(filter, findOptions);
+            
+            var result = await mCursor.ToListAsync();
+            return result;
+        }
 
-
-            if (sort != null)
+        public virtual async Task<List<TP>> FindAsync<TP>(Expression<Func<T, bool>> filter, FindOptions<T, TP> findOptions)
+        {
+            if (filter == null)
             {
-                mCursor = mCursor.Sort(sort);
+                filter = _ => true;
             }
 
-            // generic constraint to not allow get all database records once
-            // TODO : this should be configurable for each client. Lets say fs has limit of 2000 record per call, but for client let's say wise to have 50 per page as default
-            mCursor = skip.HasValue ? mCursor.Skip(skip.Value) : mCursor.Skip(0);
-            mCursor = limit.HasValue ? mCursor.Limit(limit.Value) : mCursor.Limit(1000/*Extensions.ToInt(AppSettings.DefaultPageSize)*/);
-
-
+            var mCursor = await Collection.FindAsync(new ExpressionFilterDefinition<T>(filter), findOptions);
             var result = await mCursor.ToListAsync();
             return result;
         }
 
         public virtual async Task<List<T>> FindAsync(FilterDefinition<T> filter)
         {
-            return await FindAsync(filter, null, 0, 1000); // Extensions.ToInt(ConfigurationManager.AppSettings["DefaultPageSize"]));
+            var findOptions = new FindOptions<T, T>
+            {
+                Skip = 0,
+                Limit = 1000, //  Extensions.ToInt(ConfigurationManager.AppSettings["DefaultPageSize"])
+                Sort = null
+            };
+            return await FindAsync(filter, findOptions); 
         }
 
         public virtual async Task<List<T>> FindAsync(Expression<Func<T, bool>> filter)
@@ -820,19 +854,15 @@ namespace CodeMash.Data
             {
                 filter = _ => true;
             }
-            return await FindAsync(new ExpressionFilterDefinition<T>(filter), null, 0, 1000); // Extensions.ToInt(ConfigurationManager.AppSettings["DefaultPageSize"]));
-        }
-
-        public virtual async Task<List<T>> FindAsync(Expression<Func<T, bool>> filter, SortDefinition<T> sort = null,
-            int? skip = null, int? limit = null, FindOptions findOptions = null)
-        {
-            if (filter == null)
+            var findOptions = new FindOptions<T, T>
             {
-                filter = _ => true;
-            }
-            return await FindAsync(new ExpressionFilterDefinition<T>(filter), sort, skip, limit, findOptions);
+                Skip = 0,
+                Limit = 1000, //  Extensions.ToInt(ConfigurationManager.AppSettings["DefaultPageSize"])
+                Sort = null
+            };
+            return await FindAsync(new ExpressionFilterDefinition<T>(filter), findOptions);
         }
-
+        
         public virtual List<TA> Aggregate<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions options)
         {
             if (aggregation == null)

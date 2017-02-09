@@ -1,16 +1,37 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using CodeMash.Interfaces.Data;
 using CodeMash.Tests.Data;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using NUnit.Framework;
 
 namespace CodeMash.Tests
 {
+    [BsonIgnoreExtraElements]
+    public class ProjectProjection
+    {
+        public string Name { get; set; }
+        public List<string> SupportedLanguages { get; set; }
+    }
+
     [TestFixture]
     public partial class Find : TestBase
     {
+        public Find()
+        {
+            Projects = new List<Project>();
+        }
+
         private Project Project { get; set; }
         private Project Project2 { get; set; }
+        private Project Project3 { get; set; }
+        private Project Project4 { get; set; }
+        private Project Project5 { get; set; }
+
+        public List<Project> Projects { get; set; }
         public IRepository<Project> ProjectRepository { get; set; }
         public IRepository<ResourceLanguage> LanguagesRepository { get; set; }
         
@@ -45,6 +66,29 @@ namespace CodeMash.Tests
                 Categories = Defaults.DefaultResourceCategories(ids).ToList(),
                 SupportedLanguages = ids
             };
+
+            Project3 = new Project
+            {
+                Name = "A",
+                Categories = Defaults.DefaultResourceCategories(ids).ToList(),
+                SupportedLanguages = ids
+            };
+
+            Project4 = new Project
+            {
+                Name = "B",
+                Categories = Defaults.DefaultResourceCategories(ids).ToList(),
+                SupportedLanguages = ids
+            };
+
+            Project5 = new Project
+            {
+                Name = "C",
+                Categories = Defaults.DefaultResourceCategories(ids).ToList(),
+                SupportedLanguages = ids
+            };
+
+            Projects = new List<Project>(new [] { Project3, Project4, Project5});
 
         }
         [Test]
@@ -121,6 +165,94 @@ namespace CodeMash.Tests
             // Assert
             projects.ShouldNotBeNull();
             projects.Count.ShouldEqual(0);
+        }
+
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_data_using_just_paging()
+        {
+            // Arrange
+            ProjectRepository.InsertMany(Projects);
+
+            var projects = ProjectRepository.Find(x => true, null, 0, 2);
+            
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(2);
+        }
+
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_data_using_paging_and_sorting()
+        {
+            // Arrange
+            ProjectRepository.InsertMany(Projects);
+
+            var sortByName = Builders<Project>.Sort.Ascending(x => x.Name);
+
+            var projects = ProjectRepository.Find(x => true, sortByName, 0, 1);
+            
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(1);
+            projects.First().Name.ShouldEqual("A");
+        }
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_data_using_paging_and_sorting_descending()
+        {
+            // Arrange
+            ProjectRepository.InsertMany(Projects);
+
+            var sortByName = Builders<Project>.Sort.Descending(x => x.Name);
+
+            var projects = ProjectRepository.Find(x => true, sortByName, 0, 1);
+            
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(1);
+            projects.First().Name.ShouldEqual("C");
+        }
+
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_data_using_projection()
+        {
+            // Arrange
+            ProjectRepository.InsertMany(Projects);
+            var projects = ProjectRepository.Find(x => true, x => new ProjectProjection { Name = x.Name, SupportedLanguages = x.SupportedLanguages});
+            
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(3);
+        }
+
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_data_using_projection_sorting_paging()
+        {
+            // Arrange
+            ProjectRepository.InsertMany(Projects);
+
+            Expression<Func<Project, ProjectProjection>> projectionExpression =
+                x => new ProjectProjection {Name = x.Name, SupportedLanguages = x.SupportedLanguages};
+
+            var sorting = Builders<Project>.Sort.Ascending(x => x.Name);
+
+            var projects = ProjectRepository.Find(x => true, projectionExpression, sorting, 0, 3);
+            
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(3);
+            projects.First().Name.ShouldEqual("A");
         }
 
 

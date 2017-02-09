@@ -34,8 +34,13 @@ namespace CodeMash.Interfaces.Data
         // Find
         List<T> Find(FilterDefinition<T> filter);
         List<T> Find(Expression<Func<T, bool>> filter);
-        List<T> Find(FilterDefinition<T> filter, /*ProjectionDefinition<T> projection = null,*/ SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null);
-        List<T> Find(Expression<Func<T, bool>> filter, /*ProjectionDefinition<T> projection = null, */SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null);
+
+        List<TP> Find<TP>(FilterDefinition<T> filter, ProjectionDefinition<T,TP> projection, SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null);
+        
+        List<TP> Find<TP>(Expression<Func<T, bool>> filter, Expression<Func<T, TP>> projection, SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null);
+
+        List<T> Find(FilterDefinition<T> filter, SortDefinition<T> sort, int? skip = null, int? limit = null, FindOptions findOptions = null);
+        List<T> Find(Expression<Func<T, bool>> filter, SortDefinition<T> sort, int? skip = null, int? limit = null, FindOptions findOptions = null);
 
         //Find One
         T FindOneById(string id);
@@ -109,11 +114,12 @@ namespace CodeMash.Interfaces.Data
 
 
         // Find
+        Task<List<TP>> FindAsync<TP>(FilterDefinition<T> filter, FindOptions<T, TP> findOptions);
+        Task<List<TP>> FindAsync<TP>(Expression<Func<T, bool>> filter, FindOptions<T, TP> findOptions);
         Task<List<T>> FindAsync(FilterDefinition<T> filter);
         Task<List<T>> FindAsync(Expression<Func<T, bool>> filter);
-        Task<List<T>> FindAsync(FilterDefinition<T> filter, /*ProjectionDefinition<T> projection = null,*/ SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null);
-        Task<List<T>> FindAsync(Expression<Func<T, bool>> filter, /*ProjectionDefinition<T> projection = null, */SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null);
-
+        
+        
         //Find One
         Task<T> FindOneByIdAsync(string id);
         Task<T> FindOneByIdAsync(ObjectId id);
