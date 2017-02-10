@@ -10,7 +10,7 @@ namespace CodeMash.Data
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
         /// <returns>instance of IRepository</returns>
-        public static IRepository<T> Create<T>() where T : IEntity<string>, new()
+        public static IRepository<T> Create<T>() where T :  new()
         {
             return new Repository<T>();
         }
@@ -21,7 +21,7 @@ namespace CodeMash.Data
         /// <typeparam name="T">Entity</typeparam>
         /// <param name="apiKey">apiKey of CodeMash</param>
         /// <returns>instance of IRepository</returns>
-        public static IRepository<T> Create<T>(string apiKey) where T : IEntity<string>, new()
+        public static IRepository<T> Create<T>(string apiKey) where T : new()
         {
             return new Repository<T>(apiKey);
         }
@@ -32,7 +32,7 @@ namespace CodeMash.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="connectionString">Connection string should be provided as MongoUrl instance</param>
         /// <returns>instance of IRepository</returns>
-        public static IRepository<T> Create<T>(MongoUrl connectionString) where T : IEntity<string>, new()
+        public static IRepository<T> Create<T>(MongoUrl connectionString) where T : new()
         {
             return new Repository<T>(connectionString);
         }
@@ -44,7 +44,7 @@ namespace CodeMash.Data
         /// <param name="connectionString">Connection string should be provided as MongoUrl instance</param>
         /// <param name="collectionName">Separate Collection name separately from entity</param>
         /// <returns>instance of IRepository</returns>
-        public static IRepository<T> Create<T>(MongoUrl connectionString, string collectionName) where T : IEntity<string>, new()
+        public static IRepository<T> Create<T>(MongoUrl connectionString, string collectionName) where T : new()
         {
             return new Repository<T>(connectionString, collectionName);
         }

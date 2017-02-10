@@ -14,7 +14,7 @@ using ServiceStack;
 
 namespace CodeMash.Data
 {
-    public class Repository<T> : IRepository<T> where T : /*IEntity<string>,*/ new()
+    public class Repository<T> : IRepository<T> where T : new()
     {
         private MongoClient client { get; set; }
         private MongoUrl url { get; set; }

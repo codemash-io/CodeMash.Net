@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace CodeMash.Interfaces.Data
 {
-    public interface IRepository<T> : IQueryable<T> where T : /*IEntity<string>,*/ new()
+    public interface IRepository<T> : IQueryable<T> where T : new()
     { 
         IRepository<T> WithCollection(string collectionName);
 
