@@ -3,7 +3,7 @@
   <metadata>
     <id>CodeMash</id>
 	<title>CodeMash</title>
-    <version>1.0.2.6</version>  
+    <version>1.0.2.7</version>  
 	<releaseNotes>SDK for calling CodeMash.io API</releaseNotes>	
     <authors>Domantas Jovaisas - Isidos</authors>
     <owners>Domantas</owners>
