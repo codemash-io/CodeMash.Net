@@ -75,7 +75,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="MongoClientFactory.cs" />
     <Compile Include="Repository.cs" />
-    <Compile Include="RepositoryFactory.cs" />
+    <Compile Include="MongoRepositoryFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

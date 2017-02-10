@@ -1,6 +1,8 @@
 using System;
 using CodeMash.Data;
 using CodeMash.Interfaces.Data;
+using CodeMash.Interfaces.Notifications;
+using CodeMash.Notifications;
 using Microsoft.Practices.Unity;
 using MongoDB.Driver;
 using NUnit.Framework;
@@ -21,6 +23,7 @@ namespace CodeMash.Tests
             container.RegisterInstance("Collection", "CollectionName", new ContainerControlledLifetimeManager());
 
             container.RegisterType(typeof(IRepository<>), typeof(Repository<>), new InjectionConstructor(new ResolvedParameter<MongoUrl>("MyConnectionString")));//, new ResolvedParameter<string>("Collection")));
+            container.RegisterType(typeof(IEmailService), typeof(EmailService));
             return container;
         }
 

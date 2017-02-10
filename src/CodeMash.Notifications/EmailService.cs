@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 using System.Net.Mail;
+using System.Text;
 using CodeMash.Interfaces.Notifications;
 using CodeMash.ServiceModel;
 using Newtonsoft.Json.Linq;
@@ -15,30 +20,30 @@ namespace CodeMash.Notifications
         /// <summary>
         /// Sends the mail.
         /// </summary>
+        /// <param name="fromEmail">From email. - One email</param>
         /// <param name="toEmail">To email. - One recipient. Also you can provide emails comma separated</param>
         /// <param name="subject">The subject of email</param>
         /// <param name="body">The body of email</param>
-        /// <param name="fromEmail">From email. - One email</param>
         /// <returns>.</returns>
-        public void SendMail(string toEmail, string subject, string body, string fromEmail)
+        public void SendMail(string fromEmail, string toEmail, string subject, string body)
         {
             if (toEmail.Contains(","))
             {
                 var emails = toEmail.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                SendMail(emails, subject, body, fromEmail);
+                SendMail(fromEmail, emails, subject, body);
             }
-            SendMail(new[] { toEmail }, subject, body, fromEmail);
+            SendMail(fromEmail, new[] { toEmail }, subject, body);
         }
 
         /// <summary>
         /// Sends the mail.
         /// </summary>
+        /// <param name="fromEmail">From email. - One email</param>
         /// <param name="toEmails">To emails. - You can provide an array of emails. The message will be sent to those recipients</param>
         /// <param name="subject">The subject of email</param>
         /// <param name="body">The body of email</param>
-        /// <param name="fromEmail">From email. - One email</param>
         /// <returns>.</returns>
-        public void SendMail(string[] toEmails, string subject, string body, string fromEmail)
+        public void SendMail(string fromEmail, string[] toEmails, string subject, string body)
         {
             if (toEmails != null && toEmails.Any())
             {
@@ -59,24 +64,23 @@ namespace CodeMash.Notifications
         /// <summary>
         /// Sends the mail.
         /// </summary>
+        /// <param name="fromEmail">From email. - One email</param>
         /// <param name="toEmail">To email. - One recipient. Also you can provide emails comma separated</param>
         /// <param name="subject">The subject of email</param>
         /// <param name="body">The body of email</param>
-        /// <param name="fromEmail">From email. - One email</param>
         /// <param name="attachments">The attachments.</param>
         /// <returns>.</returns>
-
-        public void SendMail(string toEmail, string subject, string body, string fromEmail, string[] attachments)
+        public void SendMail(string fromEmail, string toEmail, string subject, string body,  string[] attachments)
         {
             if (toEmail.Contains(","))
             {
                 var emails = toEmail.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                SendMail(emails, subject, body, fromEmail, attachments);
+                SendMail(fromEmail, emails, subject, body, attachments);
             }
-            SendMail(new[] { toEmail }, subject, body, fromEmail, attachments);
+            SendMail(fromEmail, new[] { toEmail }, subject, body, attachments);
         }
 
-        public void SendMail(string[] toEmails, string subject, string body, string fromEmail, string[] attachments)
+        public void SendMail(string fromEmail, string[] toEmails, string subject, string body, string[] attachments)
         {
             List<Attachment> mailAttachments = null;
 
@@ -100,30 +104,30 @@ namespace CodeMash.Notifications
                 });
             }
         }
-        public void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail)
+        public void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model)
         {
             if (toEmail.Contains(","))
             {
                 var emails = toEmail.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                SendMail(emails, subject, templateName, model, fromEmail, (string[])null);
+                SendMail(fromEmail, emails, subject, templateName, model, (string[])null);
 
             }
-            SendMail(new[] { toEmail }, subject, templateName, model, fromEmail, (string[])null);
+            SendMail(fromEmail, new[] { toEmail }, subject, templateName, model, (string[])null);
         }
 
 
-        public void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail, string[] attachments)
+        public void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model, string[] attachments)
         {
             if (toEmail.Contains(","))
             {
                 var emails = toEmail.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                SendMail(emails, subject, templateName, model, fromEmail, attachments);
+                SendMail(fromEmail, emails, subject, templateName, model, attachments);
             }
-            SendMail(new[] { toEmail }, subject, templateName, model, fromEmail, attachments);
+            SendMail(fromEmail, new[] { toEmail }, subject, templateName, model, attachments);
         }
 
 
-        public void SendMail(string[] toEmails, string subject, string templateName, JObject model, string fromEmail, string[] attachments)
+        public void SendMail(string fromEmail, string[] toEmails, string subject, string templateName, JObject model, string[] attachments)
         {
             // dynamic input from inbound JSON
             dynamic json = model;
@@ -181,17 +185,47 @@ namespace CodeMash.Notifications
                 throw new ArgumentNullException(nameof(message.Body), "You didn't provide mail content - body. Consider send something useful and use either body or template property");
             }
 
+            // Check if smtp configuration exist
 
-            if (attachments != null)
+            var section = ConfigurationManager.GetSection("system.net");
+
+            try
             {
-                var mailAttachments = (from attachment in attachments
-                                       where attachment.ContentStream != null
-                                       select new MailAttachmentDataContract(attachment.Name, StreamExtensions.ReadFully(attachment.ContentStream))).ToList();
 
-                message.Attachments = mailAttachments;
+                var msg = new MailMessage(message.From, message.To, message.Subject, message.Body)
+                {
+                    BodyEncoding = Encoding.UTF8,
+                    DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure,
+                    IsBodyHtml = true
+                };
+
+                var smtp = new SmtpClient();
+
+
+                if (attachments != null)
+                {
+                    foreach (var attachment in attachments)
+                    {
+                        msg.Attachments.Add(attachment);
+                    }
+                }
+
+                smtp.Send(msg);
+            }
+            catch (Exception e)
+            {
+                if (attachments != null)
+                {
+                    var mailAttachments = (from attachment in attachments
+                                           where attachment.ContentStream != null
+                                           select new MailAttachmentDataContract(attachment.Name, StreamExtensions.ReadFully(attachment.ContentStream))).ToList();
+
+                    message.Attachments = mailAttachments;
+                }
+
+                Client.Post<SendMailResponse>(message);
             }
             
-            Client.Post<SendMailResponse>(message);
         }
 
     }

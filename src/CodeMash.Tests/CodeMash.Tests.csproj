@@ -117,6 +117,7 @@
     <Compile Include="Data\WorkWithNotCommonStandardEntity.cs" />
     <Compile Include="Extensions\TestExtensions.cs" />
     <Compile Include="Extensions\MoqExtensions.cs" />
+    <Compile Include="Notifications\SendEmail.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -140,6 +141,10 @@
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj">
       <Project>{bd138835-dfd0-48f4-b8de-2c544054825a}</Project>
       <Name>CodeMash.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeMash.Notifications\CodeMash.Notifications.csproj">
+      <Project>{9fc8adcb-421f-4f7b-8b60-d3edb9fda13a}</Project>
+      <Name>CodeMash.Notifications</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

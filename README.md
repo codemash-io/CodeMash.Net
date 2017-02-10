@@ -12,7 +12,7 @@ Prerequisites
 CodeMash Microservices
 
 1. [Database as a Service](https://github.com/codemash-io/CodeMash.Net/blob/master/1.%20Database%20as%20a%20Service.md)
-2. [Notifications of any Kind](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Notifications%20of%20any%20Kind.md)
+2. [Notifications of any Kind](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Notifications.md)
 3. [Centric File Storage](https://github.com/codemash-io/CodeMash.Net/blob/master/3.%20Centric%20File%20Storage.md)
 4. [Multilingual Apps](https://github.com/codemash-io/CodeMash.Net/blob/master/4.%20Multilingual%20Apps.md)
 5. [Application Insights](https://github.com/codemash-io/CodeMash.Net/blob/master/5.%20Application%20Insights.md)

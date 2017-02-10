@@ -4,19 +4,19 @@ namespace CodeMash.Interfaces.Notifications
 {
     public interface IEmailService
     {
-        void SendMail(string toEmail, string subject, string body, string fromEmail);
-        void SendMail(string[] toEmails, string subject, string body, string fromEmail);
+        void SendMail(string fromEmail, string toEmail, string subject, string body);
+        void SendMail(string fromEmail, string[] toEmails, string subject, string body);
 
-        void SendMail(string toEmail, string subject, string body, string fromEmail, string[] attachments);
+        void SendMail(string fromEmail, string toEmail, string subject, string body, string[] attachments);
 
-        void SendMail(string[] toEmails, string subject, string body, string fromEmail, string[] attachments);
+        void SendMail(string fromEmail, string[] toEmails, string subject, string body, string[] attachments);
 
-        void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail);
+        void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model);
 
-        void SendMail(string toEmail, string subject, string templateName, JObject model, string fromEmail,
+        void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model, 
             string[] attachments);
 
-        void SendMail(string[] toEmails, string subject, string templateName, JObject model, string fromEmail,
+        void SendMail(string fromEmail, string[] toEmails, string subject, string templateName, JObject model, 
             string[] attachments);
     }
 }

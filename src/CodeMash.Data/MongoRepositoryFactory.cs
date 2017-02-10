@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace CodeMash.Data
 {
-    public static class RepositoryFactory
+    public static class MongoRepositoryFactory
     {
         /// <summary>
         /// Get respository instance by reading apiKey and apiAddress from config file. As a fallback plan we use connection string of : "mongodb://localhost" 
