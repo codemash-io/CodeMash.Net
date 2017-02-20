@@ -46,7 +46,7 @@ namespace CodeMash.Tests
             var list = ProjectRepository.Distinct("Name", x => x.Name == "My first project2", new DistinctOptions());
             
             // Assert
-            list.Count.ShouldEqual(2);
+            list.Count.ShouldEqual(1);
         }
         
         protected override void Dispose()
