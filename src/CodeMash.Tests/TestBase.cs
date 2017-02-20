@@ -22,10 +22,23 @@ namespace CodeMash.Tests
             var connectionString = ConfigurationManager.AppSettings["MyConnectionString"];
 
             var container = new UnityContainer();
-            container.RegisterInstance("MyConnectionString", new MongoUrl(connectionString), new ContainerControlledLifetimeManager());
+
+            container.RegisterInstance("MyConnectionString", new MongoUrl(connectionString),
+                   new ContainerControlledLifetimeManager());
+
+
+
             container.RegisterInstance("Collection", "CollectionName", new ContainerControlledLifetimeManager());
 
-            container.RegisterType(typeof(IRepository<>), typeof(Repository<>), new InjectionConstructor(new ResolvedParameter<MongoUrl>("MyConnectionString")));//, new ResolvedParameter<string>("Collection")));
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                container.RegisterType(typeof(IRepository<>), typeof(Repository<>),
+                        new InjectionConstructor(new ResolvedParameter<MongoUrl>("MyConnectionString")));
+            }
+            else
+            {
+                container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
+            }
             container.RegisterType(typeof(IEmailService), typeof(EmailService));
             return container;
         }

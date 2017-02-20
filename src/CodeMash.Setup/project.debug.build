@@ -1,0 +1,30 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<WorkingFolder>$(MSBuildProjectDirectory)</WorkingFolder>
+		<Configuration>Debug</Configuration>
+		<SolutionFile>CodeMash.sln</SolutionFile>
+		<TransformInputFile>..\CodeMash.Tests\App.config</TransformInputFile>
+		<TransformFile>..\CodeMash.Tests\App.$(Configuration).config</TransformFile>
+		<TransformOutputFile>..\CodeMash.Tests\App.config</TransformOutputFile> 
+	</PropertyGroup> 
+
+	<UsingTask TaskName="TransformXml"
+				 AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v12.0\Web\Microsoft.Web.Publishing.Tasks.dll"/>
+	
+	<Target Name="BuildAndTransform" DependsOnTargets="Compile;Transform" />  
+
+	<Target Name="Compile">
+		<Message Text="=== COMPILING $(Configuration) configuration ===" />
+		<MSBuild Projects="..\CodeMash.Tests\CodeMash.Tests.csproj" Properties="Configuration=$(Configuration)" />	
+		<!-- <MSBuild Projects="..\CodeMash.Service.Tests\CodeMash.Service.Tests.csproj" Properties="Configuration=$(Configuration)" /> -->
+		<!-- DONE -->
+	   <Message Text="Finished compiling projects" Importance="high" />
+	</Target>  
+	
+	<Target Name="Transform">
+		 <Message Text="=== TRANSFER THE CONFIGURATION FILE ===" />
+		 <TransformXml Source="$(TransformInputFile)"
+					   Transform="$(TransformFile)"
+					   Destination="$(TransformOutputFile)" />
+	</Target>
+</Project>
