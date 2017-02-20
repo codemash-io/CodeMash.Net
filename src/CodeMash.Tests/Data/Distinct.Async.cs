@@ -17,7 +17,7 @@ namespace CodeMash.Tests
             var list = await ProjectRepository.DistinctAsync("Name", x => x.Name == "My first project2", new DistinctOptions());
             
             // Assert
-            list.Count.ShouldEqual(2);
+            list.Count.ShouldEqual(1);
         }
     }
 }
