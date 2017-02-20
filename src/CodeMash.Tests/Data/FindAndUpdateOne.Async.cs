@@ -21,7 +21,7 @@ namespace CodeMash.Tests
             var updateResult = await ProjectRepository.FindOneAndUpdateAsync(x => x.Name == "My first project", Builders<Project>.Update.AddToSet(x => x.SupportedLanguages, ltLanguageId.Id), new FindOneAndUpdateOptions<Project>());
             
             // Assert
-            updateResult.SupportedLanguages.ShouldEqual(2);
+            updateResult.SupportedLanguages.Count.ShouldEqual(2);
             updateResult.Name.ShouldEqual("My first project");
         }
         
