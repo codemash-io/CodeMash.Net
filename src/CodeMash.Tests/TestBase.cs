@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using CodeMash.Data;
 using CodeMash.Interfaces.Data;
 using CodeMash.Interfaces.Notifications;
@@ -18,8 +19,10 @@ namespace CodeMash.Tests
 
         private static IUnityContainer BuildUnityContainer()
         {
+            var connectionString = ConfigurationManager.AppSettings["MyConnectionString"];
+
             var container = new UnityContainer();
-            container.RegisterInstance("MyConnectionString", new MongoUrl("mongodb://localhost"), new ContainerControlledLifetimeManager());
+            container.RegisterInstance("MyConnectionString", new MongoUrl(connectionString), new ContainerControlledLifetimeManager());
             container.RegisterInstance("Collection", "CollectionName", new ContainerControlledLifetimeManager());
 
             container.RegisterType(typeof(IRepository<>), typeof(Repository<>), new InjectionConstructor(new ResolvedParameter<MongoUrl>("MyConnectionString")));//, new ResolvedParameter<string>("Collection")));
