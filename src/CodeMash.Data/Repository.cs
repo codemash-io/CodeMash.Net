@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
@@ -36,18 +37,23 @@ namespace CodeMash.Data
 
         public Repository()
         {
+            Debug.WriteLine("Repository Initialization ");
             try
             {
                 var settings = CodeMashBase.Client.Get(new GetAccount());
                 if (settings.HasData() && settings.Result.DataBase != null)
                 {
+                    Debug.WriteLine(settings.Result.DataBase.ConnectionString);
                     url = new MongoUrl(settings.Result.DataBase.ConnectionString);
                 }
             }
             catch (Exception e)
             {
+                Debug.WriteLine("Error occured during initialization of Codemash");
                 url = new MongoUrlBuilder().ToMongoUrl();
             }
+            
+            Debug.WriteLine(url);
             
             client = MongoClientFactory.Create(url);
             if (url.DatabaseName != null)
@@ -58,6 +64,8 @@ namespace CodeMash.Data
 
         public Repository(string apiKey)
         {
+            Debug.WriteLine($"Repository Initialization with {apiKey}");
+
             if (string.IsNullOrWhiteSpace(apiKey))
             {
                 throw new ArgumentNullException(nameof(apiKey), "apiKey is not defined");
@@ -96,6 +104,7 @@ namespace CodeMash.Data
 
         public Repository(MongoUrl mongoUrl)
         {
+            Debug.WriteLine($"Repository Initialization with mongo url");
             if (mongoUrl == null)
             {
                 throw new ArgumentNullException(nameof(mongoUrl), "connection string is not provided");

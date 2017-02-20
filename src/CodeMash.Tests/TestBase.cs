@@ -1,5 +1,6 @@
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using CodeMash.Data;
 using CodeMash.Interfaces.Data;
 using CodeMash.Interfaces.Notifications;
@@ -21,10 +22,11 @@ namespace CodeMash.Tests
         {
             var connectionString = ConfigurationManager.AppSettings["MyConnectionString"];
 
+            Debug.WriteLine($"Connection string of database : {connectionString}");
+
             var container = new UnityContainer();
 
             
-
             container.RegisterInstance("Collection", "CollectionName", new ContainerControlledLifetimeManager());
 
             if (!string.IsNullOrEmpty(connectionString))
