@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using CodeMash.Data;
+using CodeMash.Extensions;
 using CodeMash.Interfaces.Data;
+using CodeMash.ServiceModel;
 using CodeMash.Tests.Data;
 using MongoDB.Driver;
 using NUnit.Framework;
@@ -47,7 +51,22 @@ namespace CodeMash.Tests
         [Category("Data")]
         public void Can_insert_into_database_when_collection_name_comes_when_initializing_repo()
         {
-            ProjectRepository = MongoRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost"),
+            var connectionString = ConfigurationManager.AppSettings["MyConnectionString"];
+            MongoUrl url = null;
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                var settings = CodeMashBase.Client.Get(new GetAccount());
+                if (settings.HasData() && settings.Result.DataBase != null)
+                {
+                    url = new MongoUrl(settings.Result.DataBase.ConnectionString);
+                }
+            }
+            else
+            {
+                url = new MongoUrl(connectionString);
+            }
+
+            ProjectRepository = MongoRepositoryFactory.Create<Project>(url,
                 $"LovelyCollection-{UniqueIdentifierForTestSession}");
 
             ProjectRepository.InsertOne(Project);
@@ -80,7 +99,23 @@ namespace CodeMash.Tests
 
             ProjectRepository.DeleteMany(x => true);
 
-            var bsonRepo = MongoRepositoryFactory.Create<Project>(new MongoUrl("mongodb://localhost")).WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}");
+            var connectionString = ConfigurationManager.AppSettings["MyConnectionString"];
+
+            MongoUrl url = null;
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                var settings = CodeMashBase.Client.Get(new GetAccount());
+                if (settings.HasData() && settings.Result.DataBase != null)
+                {
+                    url = new MongoUrl(settings.Result.DataBase.ConnectionString);
+                }
+            }
+            else
+            {
+                url = new MongoUrl(connectionString);
+            }
+
+            var bsonRepo = MongoRepositoryFactory.Create<Project>(url).WithCollection($"LovelyCollection -{UniqueIdentifierForTestSession}");
             bsonRepo?.DeleteMany(_ => true);
         }
     }

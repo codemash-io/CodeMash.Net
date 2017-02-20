@@ -64,6 +64,10 @@
     <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ServiceStack.Interfaces.4.5.6\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -146,6 +150,10 @@
     <ProjectReference Include="..\CodeMash.Notifications\CodeMash.Notifications.csproj">
       <Project>{9fc8adcb-421f-4f7b-8b60-d3edb9fda13a}</Project>
       <Name>CodeMash.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeMash\CodeMash.csproj">
+      <Project>{fb97ffd2-ace5-4294-9564-b0074cc941c9}</Project>
+      <Name>CodeMash</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
