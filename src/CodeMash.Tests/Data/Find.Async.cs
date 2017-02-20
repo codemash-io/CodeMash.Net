@@ -209,6 +209,44 @@ namespace CodeMash.Tests
         }
 
 
+        [Test]
+        [Category("Data")]
+        public async Task Can_get_data_when_property_exist_async()
+        {
+            // Arrange
+            await ProjectRepository.InsertOneAsync(Project);
+
+            var filter = Builders<Project>.Filter.Eq(x => x.Name, "My first project");
+            var filter2 = Builders<Project>.Filter.Exists(x => x.SupportedLanguages);
+
+            var projects = await ProjectRepository.FindAsync(filter & filter2);
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(1);
+            projects.First().Name.ShouldEqual("My first project");
+        }
+
+
+        [Test]
+        [Category("Data")]
+        public async Task Can_get_data_when_property_exist_and_is_null_async()
+        {
+            Project.SupportedLanguages = null;
+            // Arrange
+            await ProjectRepository.InsertOneAsync(Project);
+
+            var filter = Builders<Project>.Filter.Eq(x => x.Name, "My first project");
+            var filter2 = Builders<Project>.Filter.Size(x => x.SupportedLanguages, 0);
+
+            var projects = await ProjectRepository.FindAsync(filter & filter2);
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(0);
+        }
+
+
 
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using CodeMash.Interfaces.Data;
 using CodeMash.Tests.Data;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using NUnit.Framework;
@@ -253,6 +254,44 @@ namespace CodeMash.Tests
             projects.ShouldNotBeNull();
             projects.Count.ShouldEqual(3);
             projects.First().Name.ShouldEqual("A");
+        }
+
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_data_when_property_exist()
+        {
+            // Arrange
+            ProjectRepository.InsertOne(Project);
+            
+            var filter = Builders<Project>.Filter.Eq(x => x.Name, "My first project");
+            var filter2 = Builders<Project>.Filter.Exists(x => x.SupportedLanguages);
+
+            var projects = ProjectRepository.Find(filter & filter2);
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(1);
+            projects.First().Name.ShouldEqual("My first project");
+        }
+
+
+        [Test]
+        [Category("Data")]
+        public void Can_get_data_when_property_exist_and_is_null()
+        {
+            Project.SupportedLanguages = null;
+            // Arrange
+            ProjectRepository.InsertOne(Project);
+            
+            var filter = Builders<Project>.Filter.Eq(x => x.Name, "My first project");
+            var filter2 = Builders<Project>.Filter.Size(x => x.SupportedLanguages, 0);
+
+            var projects = ProjectRepository.Find(filter & filter2);
+
+            // Assert
+            projects.ShouldNotBeNull();
+            projects.Count.ShouldEqual(0);
         }
 
 
