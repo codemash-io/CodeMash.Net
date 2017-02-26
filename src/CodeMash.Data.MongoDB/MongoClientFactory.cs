@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
 
-namespace CodeMash.Data
+namespace CodeMash.Data.MongoDB
 {
     public static class MongoClientFactory
     {

@@ -1,7 +1,7 @@
 using CodeMash.Interfaces.Data;
 using MongoDB.Driver;
 
-namespace CodeMash.Data
+namespace CodeMash.Data.MongoDB
 {
     public static class MongoRepositoryFactory
     {

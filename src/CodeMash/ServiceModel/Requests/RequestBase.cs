@@ -15,7 +15,9 @@ namespace CodeMash.ServiceModel
     {
         protected RequestBase()
         {
+#if !NETSTANDARD1_6
             CultureCode = Thread.CurrentThread.CurrentCulture.Name;
+#endif
         }
 
         [DataMember]

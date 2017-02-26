@@ -1,0 +1,44 @@
+﻿{
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": [
+          "DEBUG",
+          "TRACE"
+        ]
+      }
+    },
+    "Release": {
+      "buildOptions": {
+        "define": [
+          "TRACE"
+        ],
+        "optimize": true
+      }
+    }
+  },
+  "dependencies": {
+    "NETStandard.Library": "1.6.0",
+    "System.Collections.Specialized": "4.0.1",
+    "System.ServiceModel.Primitives": "4.1.0",
+    "System.Xml.XmlSerializer": "4.0.11",
+    "System.Runtime.Serialization.Primitives": "4.1.1",
+    "System.Linq.Queryable": "4.0.1",
+    "System.Threading": "4.0.11",
+    "System.Threading.Thread": "4.0.0",
+    "System.Threading.ThreadPool": "4.0.10",
+    "System.Threading.Tasks": "4.0.11",
+    "MongoDB.Driver.Core": "2.4.2",
+    "MongoDB.Driver": "2.4.2",
+    "MongoDB.Bson": "2.4.2",
+    "CodeMash.Interfaces": "1.0.0",
+    "CodeMash": "1.0.0"
+
+  },
+  "frameworks": {
+    "netstandard1.6": {
+      "dependencies": {}
+    }
+  },
+  "version": "1.0.0"
+}

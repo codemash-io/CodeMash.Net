@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeMash.Data
+namespace CodeMash.Data.MongoDB
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class CollectionName : Attribute

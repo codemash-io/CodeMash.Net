@@ -210,7 +210,7 @@ namespace CodeMash
             }
         }
 
-        public static string ToQueryString(this object request, string separator = ",")
+        /*public static string ToQueryString(this object request, string separator = ",")
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
@@ -255,6 +255,6 @@ namespace CodeMash
                 .Select(x => string.Concat(
                     Uri.EscapeDataString(x.Key), "=",
                     Uri.EscapeDataString(x.Value.ToString()))));
-        }
+        }*/
     }
 }

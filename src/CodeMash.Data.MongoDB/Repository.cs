@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using CodeMash.Extensions;
 using CodeMash.Interfaces.Data;
@@ -13,7 +14,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
 
-namespace CodeMash.Data
+namespace CodeMash.Data.MongoDB
 {
     public class Repository<T> : IRepository<T> where T : new()
     {
@@ -154,7 +155,10 @@ namespace CodeMash.Data
 
         private static string GetCollectionName()
         {
+            #if !NETSTANDARD1_6
             var collectionName = typeof(T).BaseType == typeof(object)
+            #endif
+            var collectionName = typeof(T).BaseType() == typeof(object)
                 ? GetCollectionNameFromInterface()
                 : GetCollectionNameFromType(typeof(T));
 
@@ -168,7 +172,12 @@ namespace CodeMash.Data
         private static string GetCollectionNameFromInterface()
         {
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
+
+            #if !NETSTANDARD1_6
             var att = Attribute.GetCustomAttribute(typeof(T), typeof(CollectionName));
+            #else
+            var att = typeof(T).GetTypeInfo().GetCustomAttribute<CollectionName>();
+            #endif
             var collectionName = att != null ? ((CollectionName)att).Name : typeof(T).Name;
 
             return collectionName;
@@ -179,7 +188,12 @@ namespace CodeMash.Data
             string collectionName = string.Empty;
 
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
+            #if !NETSTANDARD1_6
             var customAttribute = Attribute.GetCustomAttribute(entityType, typeof(CollectionName));
+            #else
+            var customAttribute = entityType.GetTypeInfo().GetCustomAttribute<CollectionName>();
+            #endif
+
             if (customAttribute != null)
             {
                 // It does! Return the value specified by the CollectionName attribute
@@ -189,10 +203,18 @@ namespace CodeMash.Data
             {
                 if (typeof(Entity).IsAssignableFrom(entityType))
                 {
-                    while (entityType != null && entityType.BaseType != typeof(Entity))
-                    {
-                        entityType = entityType.BaseType;
-                    }
+                    #if !NETSTANDARD1_6
+                        while (entityType != null && entityType.BaseType != typeof(Entity))
+                        {
+                            entityType = entityType.BaseType;
+                        }
+                    #else
+                        while (entityType != null && entityType.BaseType() != typeof(Entity))
+                        {
+                            entityType = entityType.BaseType();
+                        }
+                    #endif
+
                 }
                 if (entityType != null) collectionName = entityType.Name;
             }
@@ -207,7 +229,7 @@ namespace CodeMash.Data
 
         public virtual T FindOneById(ObjectId id)
         {
-            return FindOne(MongoDB.Driver.Builders<T>.Filter.Eq("_id", id));
+            return FindOne(Builders<T>.Filter.Eq("_id", id));
         }
 
         public virtual async Task<T> FindOneByIdAsync(string id)
@@ -217,7 +239,7 @@ namespace CodeMash.Data
 
         public virtual async Task<T> FindOneByIdAsync(ObjectId id)
         {
-            return await FindOneAsync(MongoDB.Driver.Builders<T>.Filter.Eq("_id", id));
+            return await FindOneAsync(Builders<T>.Filter.Eq("_id", id));
         }
 
         public virtual T FindOne(Expression<Func<T, bool>> filter, ProjectionDefinition<T> projection = null, FindOptions findOptions = null)

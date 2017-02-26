@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using ServiceStack;
 
@@ -39,19 +38,16 @@ namespace CodeMash.ServiceModel
         /// </summary>
         [DataMember(Name = "version")]
         [BsonElement("version")]
-        public string Version =
-            Assembly.GetExecutingAssembly().GetName().Version.Major + "." +
-            Assembly.GetExecutingAssembly().GetName().Version.Minor;
+        public string Version { get; set; }
 
-        /// <summary>
-        /// Build number of currently executing web service. Used as an indicator
-        /// to client whether certain code fixes are included or not.
-        /// Ebay.com uses this in their API.
-        /// </summary>
+      /// <summary>
+      /// Build number of currently executing web service. Used as an indicator
+      /// to client whether certain code fixes are included or not.
+      /// Ebay.com uses this in their API.
+      /// </summary>
         [DataMember(Name = "build")]
         [BsonElement("build")]
-        public string Build =
-            Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
+        public string Build { get; set; }
 
     }
 }

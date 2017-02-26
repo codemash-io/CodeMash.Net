@@ -1,5 +1,7 @@
 using System.Configuration;
 
+#if !NETSTANDARD1_6
+
 namespace CodeMash
 {
     public class CodeMashElementCollection : ConfigurationElementCollection
@@ -30,3 +32,5 @@ namespace CodeMash
         }
     }
 }
+
+#endif

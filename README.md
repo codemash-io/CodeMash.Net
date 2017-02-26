@@ -5,16 +5,16 @@ CodeMash is a vital toolset for each developer which wants to achive daily devel
 
 Prerequisites
 
-[Getting Started](https://github.com/codemash-io/CodeMash.Net/blob/master/Getting%20started.md)
+[Getting Started](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/Getting%20started.md)
 
-[Get ApiKey](https://github.com/codemash-io/CodeMash.Net/blob/master/Get%20ApiKey.md)
+[Get ApiKey](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/Get%20ApiKey.md)
 
 CodeMash Microservices
 
-1. [Database as a Service](https://github.com/codemash-io/CodeMash.Net/blob/master/1.%20Database%20as%20a%20Service.md)
-2. [Notifications](https://github.com/codemash-io/CodeMash.Net/blob/master/2.%20Notifications.md)
-3. [Centric File Storage](https://github.com/codemash-io/CodeMash.Net/blob/master/3.%20Centric%20File%20Storage.md)
-4. [Multilingual Apps](https://github.com/codemash-io/CodeMash.Net/blob/master/4.%20Multilingual%20Apps.md)
-5. [Application Insights](https://github.com/codemash-io/CodeMash.Net/blob/master/5.%20Application%20Insights.md)
-6. [Centric Payments Approach](https://github.com/codemash-io/CodeMash.Net/blob/master/6.%20Centric%20Payments%20Approach.md)
-7. [One Identity Provider](https://github.com/codemash-io/CodeMash.Net/blob/master/7.%20One%20Identity%20Provider.md)
+1. [Database as a Service](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/1.%20Database%20as%20a%20Service.md)
+2. [Notifications](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/2.%20Notifications.md)
+3. [Centric File Storage](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/3.%20Centric%20File%20Storage.md)
+4. [Multilingual Apps](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/4.%20Multilingual%20Apps.md)
+5. [Application Insights](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/5.%20Application%20Insights.md)
+6. [Centric Payments Approach](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/6.%20Centric%20Payments%20Approach.md)
+7. [One Identity Provider](https://github.com/codemash-io/CodeMash.Net/blob/master/docs/7.%20One%20Identity%20Provider.md)

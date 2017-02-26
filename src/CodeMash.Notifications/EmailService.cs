@@ -1,22 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
+using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Configuration;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
-using System.Net.Mail;
-using System.Text;
 using CodeMash.Interfaces.Notifications;
 using CodeMash.ServiceModel;
 using Newtonsoft.Json.Linq;
-using ServiceStack;
+
+#if !NETSTANDARD1_6
+    using System.Configuration;
+    using System.Net;
+    using System.Net.Configuration;
+    using System.Net.Mail;
+#else
+    using MailKit.Net.Smtp;
+    using MimeKit;
+    using Microsoft.Extensions.Configuration;
+#endif
 
 namespace CodeMash.Notifications
 {
     public class EmailService : CodeMashBase, IEmailService
     {
+#if NETSTANDARD1_6
+        static public IConfigurationRoot ConfigurationRoot { get; set; }
+#endif
+
+        public EmailService()
+        {
+            #if NETSTANDARD1_6
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            ConfigurationRoot = builder.Build();
+            #endif
+
+        }
+
         /// <summary>
         /// Sends the mail.
         /// </summary>
@@ -61,6 +83,8 @@ namespace CodeMash.Notifications
             }
         }
 
+
+
         /// <summary>
         /// Sends the mail.
         /// </summary>
@@ -70,6 +94,7 @@ namespace CodeMash.Notifications
         /// <param name="body">The body of email</param>
         /// <param name="attachments">The attachments.</param>
         /// <returns>.</returns>
+#if !NETSTANDARD1_6
         public void SendMail(string fromEmail, string toEmail, string subject, string body,  string[] attachments)
         {
             if (toEmail.Contains(","))
@@ -79,6 +104,7 @@ namespace CodeMash.Notifications
             }
             SendMail(fromEmail, new[] { toEmail }, subject, body, attachments);
         }
+
 
         public void SendMail(string fromEmail, string[] toEmails, string subject, string body, string[] attachments)
         {
@@ -104,6 +130,8 @@ namespace CodeMash.Notifications
                 });
             }
         }
+
+
         public void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model)
         {
             if (toEmail.Contains(","))
@@ -114,6 +142,7 @@ namespace CodeMash.Notifications
             }
             SendMail(fromEmail, new[] { toEmail }, subject, templateName, model, (string[])null);
         }
+
 
 
         public void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model, string[] attachments)
@@ -129,6 +158,7 @@ namespace CodeMash.Notifications
 
         public void SendMail(string fromEmail, string[] toEmails, string subject, string templateName, JObject model, string[] attachments)
         {
+
             // dynamic input from inbound JSON
             dynamic json = model;
 
@@ -158,7 +188,38 @@ namespace CodeMash.Notifications
             }
         }
 
+
         private void SendMail(SendMail message, List<Attachment> attachments = null)
+#else
+        public void SendMail(string fromEmail, string toEmail, string subject, string body, string[] attachments)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMail(string fromEmail, string[] toEmails, string subject, string body, string[] attachments)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMail(string fromEmail, string toEmail, string subject, string templateName, JObject model,
+            string[] attachments)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMail(string fromEmail, string[] toEmails, string subject, string templateName, JObject model,
+            string[] attachments)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SendMail(SendMail message, string[] attachments = null)
+#endif
         {
             if (message == null)
             {
@@ -185,9 +246,9 @@ namespace CodeMash.Notifications
                 throw new ArgumentNullException(nameof(message.Body), "You didn't provide mail content - body. Consider send something useful and use either body or template property");
             }
 
-            // Check if smtp configuration exist
+#if !NETSTANDARD1_6
 
-            var section = ConfigurationManager.GetSection("system.net");
+             var section = ConfigurationManager.GetSection("system.net");
 
             try
             {
@@ -225,6 +286,49 @@ namespace CodeMash.Notifications
 
                 Client.Post<SendMailResponse>(message);
             }
+
+#else
+
+            // add support of attachments
+
+            // http://stackoverflow.com/questions/37853903/can-i-send-files-via-email-using-mailkit
+
+
+            var email = new MimeMessage ();
+            email.From.Add (new MailboxAddress (message.From));
+            email.To.Add (new MailboxAddress (message.To));
+            email.Subject = message.Subject;
+
+            email.Body = new TextPart ("html") {
+                Text = message.Body
+            };
+
+            using (var client = new SmtpClient ()) {
+                // For demo-purposes, accept all SSL certificates (in case the server supports STARTTLS)
+                client.ServerCertificateValidationCallback = (s,c,h,e) => true;
+
+//                <add key="Smtp.deliveryMethod" value="Network" />
+//                <add key="Smtp.enableSsl" value="true" />
+//                <add key="Smtp.host" value="smtp.sendgrid.net" />
+//                <add key="Smtp.port" value="587" />
+//                <add key="Smtp.userName" value="" />
+//                <add key="Smtp.password" value="" />
+
+                client.Connect (ConfigurationRoot["Smtp.host"], int.Parse(ConfigurationRoot["Smtp.port"]), bool.Parse(ConfigurationRoot["Smtp.enableSsl"]));
+
+                // Note: since we don't have an OAuth2 token, disable
+                // the XOAUTH2 authentication mechanism.
+                client.AuthenticationMechanisms.Remove ("XOAUTH2");
+
+                // Note: only needed if the SMTP server requires authentication
+                client.Authenticate (ConfigurationRoot["Smtp.userName"], ConfigurationRoot["Smtp.password"]);
+
+                client.Send (email);
+                client.Disconnect (true);
+            }
+
+
+#endif
             
         }
 

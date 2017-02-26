@@ -2,7 +2,6 @@
 
 namespace CodeMash
 {
-    [Serializable]
     public class CodeMashException : Exception
     {
         public CodeMashException(Exception originalException, string messageFormatString, params object[] args)

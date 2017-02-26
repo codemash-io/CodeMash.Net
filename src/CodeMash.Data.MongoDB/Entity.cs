@@ -4,13 +4,12 @@ using CodeMash.Interfaces.Data;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace CodeMash.Data
+namespace CodeMash.Data.MongoDB
 {
     /// <summary>
     /// Abstract Entity for all the BusinessEntities.
     /// </summary>
     [DataContract]
-    [Serializable]
     [BsonIgnoreExtraElements(Inherited = true)]
     public abstract class Entity : IEntity<string>
     {
@@ -43,6 +42,7 @@ namespace CodeMash.Data
             return GetType();
         }
 
+        #if !NETSTANDARD1_6
         public virtual bool Equals(Entity other)
         {
             if (other == null)
@@ -63,6 +63,7 @@ namespace CodeMash.Data
 
             return false;
         }
+        #endif
 
         public override int GetHashCode()
         {
