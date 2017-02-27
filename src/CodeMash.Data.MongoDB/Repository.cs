@@ -157,10 +157,13 @@ namespace CodeMash.Data.MongoDB
         {
             #if !NETSTANDARD1_6
             var collectionName = typeof(T).BaseType == typeof(object)
-            #endif
+                ? GetCollectionNameFromInterface()
+                : GetCollectionNameFromType(typeof(T));
+            #else
             var collectionName = typeof(T).BaseType() == typeof(object)
                 ? GetCollectionNameFromInterface()
                 : GetCollectionNameFromType(typeof(T));
+            #endif
 
             if (string.IsNullOrEmpty(collectionName))
             {
@@ -173,11 +176,11 @@ namespace CodeMash.Data.MongoDB
         {
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
 
-            #if !NETSTANDARD1_6
+#if !NETSTANDARD1_6
             var att = Attribute.GetCustomAttribute(typeof(T), typeof(CollectionName));
-            #else
+#else
             var att = typeof(T).GetTypeInfo().GetCustomAttribute<CollectionName>();
-            #endif
+#endif
             var collectionName = att != null ? ((CollectionName)att).Name : typeof(T).Name;
 
             return collectionName;
@@ -188,11 +191,11 @@ namespace CodeMash.Data.MongoDB
             string collectionName = string.Empty;
 
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
-            #if !NETSTANDARD1_6
+#if !NETSTANDARD1_6
             var customAttribute = Attribute.GetCustomAttribute(entityType, typeof(CollectionName));
-            #else
+#else
             var customAttribute = entityType.GetTypeInfo().GetCustomAttribute<CollectionName>();
-            #endif
+#endif
 
             if (customAttribute != null)
             {
@@ -203,17 +206,17 @@ namespace CodeMash.Data.MongoDB
             {
                 if (typeof(Entity).IsAssignableFrom(entityType))
                 {
-                    #if !NETSTANDARD1_6
+#if !NETSTANDARD1_6
                         while (entityType != null && entityType.BaseType != typeof(Entity))
                         {
                             entityType = entityType.BaseType;
                         }
-                    #else
+#else
                         while (entityType != null && entityType.BaseType() != typeof(Entity))
                         {
                             entityType = entityType.BaseType();
                         }
-                    #endif
+#endif
 
                 }
                 if (entityType != null) collectionName = entityType.Name;

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace CodeMash.Tests.Data
+namespace CodeMash.Data.MongoDB.Tests.Data
 {
     public static class ProjectExtensions
     {

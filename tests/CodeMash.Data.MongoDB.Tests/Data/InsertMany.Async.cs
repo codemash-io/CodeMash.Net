@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public partial class InsertMany 

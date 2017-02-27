@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CodeMash.Interfaces.Data;
-using CodeMash.Tests.Data;
+using CodeMash.Data.MongoDB.Tests.Data;
 using MongoDB.Driver;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public partial class UpdateMany

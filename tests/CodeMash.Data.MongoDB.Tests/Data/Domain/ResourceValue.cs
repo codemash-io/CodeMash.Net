@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-
-namespace CodeMash.Tests.Data
+﻿namespace CodeMash.Data.MongoDB.Tests.Data
 {
     public class ResourceValue 
     {       

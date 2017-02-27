@@ -1,5 +1,7 @@
 using System.Configuration;
+#if NETSTANDARD1_6
 using Microsoft.Extensions.Configuration;
+#endif
 using System;
 using System.IO;
 

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Configuration;
-using System.Diagnostics;
-using CodeMash.Data;
-using CodeMash.Extensions;
 using CodeMash.Interfaces.Data;
 using CodeMash.ServiceModel;
-using CodeMash.Tests.Data;
+using CodeMash.Data.MongoDB.Tests.Data;
+using CodeMash.Extensions;
 using MongoDB.Driver;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public partial class InsertOne : TestBase

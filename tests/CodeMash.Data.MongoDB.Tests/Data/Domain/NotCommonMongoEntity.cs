@@ -1,4 +1,4 @@
-﻿namespace CodeMash.Tests.Data.Domain
+﻿namespace CodeMash.Data.MongoDB.Tests.Data
 {
     public class NotCommonMongoEntity
     {

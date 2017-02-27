@@ -1,7 +1,6 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using CodeMash.Data;
 using CodeMash.Interfaces.Data;
 using CodeMash.Interfaces.Notifications;
 using CodeMash.Notifications;
@@ -9,7 +8,7 @@ using Microsoft.Practices.Unity;
 using MongoDB.Driver;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public class TestBase

@@ -1,7 +1,7 @@
 ﻿using CodeMash.Interfaces.Notifications;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public class SendEmail : TestBase

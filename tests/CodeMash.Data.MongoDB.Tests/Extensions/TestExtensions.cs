@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     public static class TestExtensions
     {

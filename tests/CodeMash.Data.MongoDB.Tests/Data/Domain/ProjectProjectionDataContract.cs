@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CodeMash.Tests.Data
+namespace CodeMash.Data.MongoDB.Tests.Data
 {
     public class ProjectProjectionDataContract
     {

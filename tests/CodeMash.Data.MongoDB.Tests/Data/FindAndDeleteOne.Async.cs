@@ -4,7 +4,7 @@ using CodeMash.Interfaces.Data;
 using MongoDB.Bson;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public partial class FindAndDeleteOne

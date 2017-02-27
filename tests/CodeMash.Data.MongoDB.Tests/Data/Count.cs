@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using CodeMash.Data.MongoDB.Tests.Data;
 using CodeMash.Interfaces.Data;
-using CodeMash.Tests.Data;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public partial class Count : TestBase

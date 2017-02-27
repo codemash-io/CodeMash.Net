@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using CodeMash.Data;
 
-namespace CodeMash.Tests.Data
+namespace CodeMash.Data.MongoDB.Tests.Data
 {
     
     public class ResourceLanguage : Entity

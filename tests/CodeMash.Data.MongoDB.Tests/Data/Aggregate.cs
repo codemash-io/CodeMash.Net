@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-using CodeMash.Data;
 using CodeMash.Interfaces.Data;
-using CodeMash.Tests.Data;
+using CodeMash.Data.MongoDB.Tests.Data;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using NUnit.Framework;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [BsonIgnoreExtraElements]
     public class ProjectWithTheSameName

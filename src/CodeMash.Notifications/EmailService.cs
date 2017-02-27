@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Text;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 using CodeMash.Interfaces.Notifications;
 using CodeMash.ServiceModel;
 using Newtonsoft.Json.Linq;
-
+using ServiceStack;
 #if !NETSTANDARD1_6
     using System.Configuration;
     using System.Net;

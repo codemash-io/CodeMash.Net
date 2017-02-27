@@ -1,9 +1,9 @@
 using CodeMash.Interfaces.Data;
-using CodeMash.Tests.Data;
+using CodeMash.Data.MongoDB.Tests.Data;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace CodeMash.Tests
+namespace CodeMash.Data.MongoDB.Tests
 {
     [TestFixture]
     public partial class InsertMany : TestBase

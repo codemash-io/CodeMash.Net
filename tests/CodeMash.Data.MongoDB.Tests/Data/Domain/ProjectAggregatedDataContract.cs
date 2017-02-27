@@ -1,6 +1,6 @@
-using CodeMash.Data;
+using CodeMash.Data.MongoDB;
 
-namespace CodeMash.Tests.Data
+namespace CodeMash.Data.MongoDB.Tests.Data
 {
     public class ProjectAggregatedDataContract : Entity
     {        
