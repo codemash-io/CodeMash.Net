@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>CodeMash</id>
-	<title>CodeMash</title>
-    <version>1.0.2.8</version>  
-	<releaseNotes>SDK for calling CodeMash.io API</releaseNotes>	
+    <id>CodeMash.Core</id>
+	<title>CodeMash.Core</title>
+    <version>1.6.0.8</version>  
+	<releaseNotes>SDK for calling CodeMash API from .NET Core project</releaseNotes>	
     <authors>Domantas Jovaisas - Isidos</authors>
     <owners>Domantas</owners>
 	<language>en-US</language>
 	<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/codemash-io/CodeMash.Net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>CodeMash tools for .NET developers. Access codemash.io tools from .NET SDK</description>    
+    <description>CodeMash tools for .NET developers. Access codemash.io tools from .NET Core</description>    
 	 <summary>
 		CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : Database as a Service, Notifications of any Kind, Centric File Storage, Multilingual Apps, Application Insights, Centric Payments Approach, One Identity Provider, Application Builder,... More about that http://codemash.io
     </summary>
     <copyright>Copyright 2016 codemash.io</copyright>
 	<dependencies> 
 	   <group targetFramework="net452">
-			<dependency id="MongoDB.Bson" version="2.4.1" />
-			<dependency id="MongoDB.Driver" version="2.4.1"  />
-			<dependency id="MongoDB.Driver.Core" version="2.4.1"/>
+			<dependency id="MongoDB.Bson" version="2.4.2" />
+			<dependency id="MongoDB.Driver" version="2.4.2"  />
+			<dependency id="MongoDB.Driver.Core" version="2.4.2"/>
 			<dependency id="Newtonsoft.Json" version="9.0.1" />
 			<dependency id="ServiceStack.Client" version="4.5.6" />
 			<dependency id="ServiceStack.Interfaces" version="4.5.6" />
@@ -32,7 +32,7 @@
 	 <files>
 		<file src="README.txt" target="" />
 		<file src="..\src\CodeMash\bin\Debug\CodeMash.dll" target="lib\net45" />
-		<file src="..\src\CodeMash.Data\bin\Debug\CodeMash.Data.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\CodeMash.Data.MongoDB.dll" target="lib\net45" />		
 		<file src="..\src\CodeMash.Interfaces\bin\Debug\CodeMash.Interfaces.dll" target="lib\net45" />		
 		<file src="..\src\CodeMash.Notifications\bin\Debug\CodeMash.Notifications.dll" target="lib\net45" />		
 	</files>
