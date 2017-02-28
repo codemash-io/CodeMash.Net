@@ -4,8 +4,8 @@
 		<Configuration>Debug</Configuration>
 		<SolutionFile>CodeMash.sln</SolutionFile>
 		<TransformInputFile>..\tests\CodeMash.Tests\App.config</TransformInputFile>
-		<TransformFile>..\CodeMash.Data.MongoDB.Tests\App.$(Configuration).config</TransformFile>
-		<TransformOutputFile>..\CodeMash.Data.MongoDB.Tests\App.config</TransformOutputFile> 
+		<TransformFile>..\tests\CodeMash.Data.MongoDB.Tests\App.$(Configuration).config</TransformFile>
+		<TransformOutputFile>..\tests\CodeMash.Data.MongoDB.Tests\App.config</TransformOutputFile> 
 	</PropertyGroup> 
 
 	<UsingTask TaskName="TransformXml"
@@ -15,7 +15,7 @@
 
 	<Target Name="Compile">
 		<Message Text="=== COMPILING $(Configuration) configuration ===" />
-		<MSBuild Projects="..\CodeMash.Data.MongoDB.Tests\CodeMash.Data.MongoDB.Tests.csproj" Properties="Configuration=$(Configuration)" />			
+		<MSBuild Projects="..\tests\CodeMash.Data.MongoDB.Tests\CodeMash.Data.MongoDB.Tests.csproj" Properties="Configuration=$(Configuration)" />			
 		<!-- DONE -->
 	   <Message Text="Finished compiling projects" Importance="high" />
 	</Target>  
