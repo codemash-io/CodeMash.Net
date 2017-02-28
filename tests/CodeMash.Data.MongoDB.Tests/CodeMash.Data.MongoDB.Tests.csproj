@@ -6,8 +6,8 @@
     <ProjectGuid>{72D1FDC9-EEB3-47A0-96D2-BD3C2BE57E22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeMash.Tests</RootNamespace>
-    <AssemblyName>CodeMash.Tests</AssemblyName>
+    <RootNamespace>CodeMash.Data.MongoDB.Tests</RootNamespace>
+    <AssemblyName>CodeMash.Data.MongoDB.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

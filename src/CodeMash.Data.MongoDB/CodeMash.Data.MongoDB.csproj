@@ -7,8 +7,8 @@
     <ProjectGuid>{FC983D79-F15B-47AD-AE8C-53B2E2B52D2E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeMash.Data</RootNamespace>
-    <AssemblyName>CodeMash.Data</AssemblyName>
+    <RootNamespace>CodeMash.Data.MongoDB</RootNamespace>
+    <AssemblyName>CodeMash.Data.MongoDB</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

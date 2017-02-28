@@ -3,7 +3,7 @@
 		<WorkingFolder>$(MSBuildProjectDirectory)</WorkingFolder>
 		<Configuration>Debug</Configuration>
 		<SolutionFile>CodeMash.sln</SolutionFile>
-		<TransformInputFile>..\tests\\CodeMash.Data.MongoDB.Tests\App.config</TransformInputFile>
+		<TransformInputFile>..\tests\CodeMash.Data.MongoDB.Tests\App.config</TransformInputFile>
 		<TransformFile>..\tests\CodeMash.Data.MongoDB.Tests\App.$(Configuration).config</TransformFile>
 		<TransformOutputFile>..\tests\CodeMash.Data.MongoDB.Tests\App.config</TransformOutputFile> 
 	</PropertyGroup> 
