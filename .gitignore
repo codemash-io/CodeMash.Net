@@ -11,7 +11,7 @@
 [Dd]ebug/
 [Rr]elease/
 x64/
-build/
+#build/
 [Bb]in/
 [Oo]bj/
 NextGenMain/Source/Deploy/
@@ -160,7 +160,7 @@ $RECYCLE.BIN/
 
 
 /vendor/*
-/build/*
+#/build/*
 /web/bundles/*
 /app/cache/*
 /app/logs/*
