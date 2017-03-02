@@ -17,24 +17,23 @@
     </summary>
     <copyright>Copyright 2016 codemash.io</copyright>
 	<dependencies> 
-	   <group targetFramework="net452">
-			<dependency id="MongoDB.Bson" version="2.4.2" />
-			<dependency id="MongoDB.Driver" version="2.4.2"  />
-			<dependency id="MongoDB.Driver.Core" version="2.4.2"/>
-			<dependency id="Newtonsoft.Json" version="9.0.1" />
-			<dependency id="ServiceStack.Client" version="4.5.6" />
-			<dependency id="ServiceStack.Interfaces" version="4.5.6" />
-			<dependency id="ServiceStack.Text" version="4.5.6" />
-			<dependency id="MailKit" version="1.10.2" />						
+	   <group targetFramework=".NETStandard1.6">
+			<dependency id="MongoDB.Bson" version="[2.4.2, )" />
+			<dependency id="MongoDB.Driver" version="[2.4.2, )"  />
+			<dependency id="MongoDB.Driver.Core" version="[2.4.2, )"/>
+			<dependency id="Newtonsoft.Json" version="[9.0.1, )" />
+			<dependency id="ServiceStack.Client" version="[4.5.6, )" />
+			<dependency id="ServiceStack.Interfaces" version="[4.5.6, )" />
+			<dependency id="ServiceStack.Text" version="[4.5.6, )" />
+			<dependency id="MailKit" version="[1.10.2, )" />
 	   </group>
 	</dependencies>
 	<tags>web utility http json mongodb rest</tags>
 	</metadata>
 	 <files>
-		<file src="README.txt" target="" />
-		<file src="..\src\CodeMash\bin\Debug\CodeMash.dll" target="lib\net45" />
-		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\CodeMash.Data.MongoDB.dll" target="lib\net45" />		
-		<file src="..\src\CodeMash.Interfaces\bin\Debug\CodeMash.Interfaces.dll" target="lib\net45" />		
-		<file src="..\src\CodeMash.Notifications\bin\Debug\CodeMash.Notifications.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash\bin\Debug\CodeMash.dll" target="src" />
+		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\CodeMash.Data.MongoDB.dll" target="src" />
+		<file src="..\src\CodeMash.Interfaces\bin\Debug\CodeMash.Interfaces.dll" target="src" />
+		<file src="..\src\CodeMash.Notifications\bin\Debug\CodeMash.Notifications.dll" target="src" />
 	</files>
 </package>
