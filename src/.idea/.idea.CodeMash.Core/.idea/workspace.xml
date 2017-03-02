@@ -67,27 +67,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeController.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApplication/Controllers/HomeController.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="project.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApplication/project.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="6" lean-forward="false" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CodeMash.Core.nuspec" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CodeMash.Core.nuspec" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../NuGet.Core/CodeMash.Core.nuspec">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="480">
@@ -117,12 +97,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="project.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CodeMash.Data.MongoDB/project.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="19" />
+            <state relative-caret-position="195">
+              <caret line="13" column="17" lean-forward="true" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
               <folding>
+                <marker date="1488123856000" expanded="true" signature="0:986" ph="{...}" />
                 <marker date="1488123856000" expanded="true" signature="22:277" ph="{...}" />
                 <marker date="1488123856000" expanded="true" signature="37:143" ph="{...}" />
                 <marker date="1488123856000" expanded="true" signature="61:137" ph="{...}" />
@@ -293,12 +274,12 @@
       <workItem from="1488291930827" duration="1199000" />
       <workItem from="1488377279785" duration="193000" />
       <workItem from="1488379382825" duration="2630000" />
-      <workItem from="1488443240373" duration="3368000" />
+      <workItem from="1488443240373" duration="3514000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20359000" />
+    <option name="totallyTimeSpent" value="20505000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -311,9 +292,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="107" y="44" width="2170" height="1243" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Change Signature" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22979324" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22979324" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32867885" sideWeight="0.8325792" order="7" side_tool="false" content_ui="tabs" />
@@ -589,41 +571,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../tests/CodeMash.Data.MongoDB.Tests2/Tests.cs" />
     <entry file="file://$PROJECT_DIR$/../tests/CodeMash.Data.MongoDB.Tests/CodeMash.Data.MongoDB.Tests2.xproj" />
-    <entry file="file://$PROJECT_DIR$/CodeMash.Data.MongoDB/project.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="19" />
-          <folding>
-            <marker date="1488123856000" expanded="true" signature="22:277" ph="{...}" />
-            <marker date="1488123856000" expanded="true" signature="37:143" ph="{...}" />
-            <marker date="1488123856000" expanded="true" signature="61:137" ph="{...}" />
-            <marker date="1488123856000" expanded="true" signature="81:129" ph="[...]" />
-            <marker date="1488123856000" expanded="true" signature="160:273" ph="{...}" />
-            <marker date="1488123856000" expanded="true" signature="184:267" ph="{...}" />
-            <marker date="1488123856000" expanded="true" signature="204:233" ph="[...]" />
-            <marker date="1488123856000" expanded="true" signature="297:884" ph="{...}" />
-            <marker date="1488123856000" expanded="true" signature="902:962" ph="{...}" />
-            <marker date="1488123856000" expanded="true" signature="926:958" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CodeMash/project.lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CodeMash/Configuration/CodeMashConfigurationSection.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="48" lean-forward="false" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CodeMash/project.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -737,6 +684,42 @@
         <state relative-caret-position="480">
           <caret line="32" column="12" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodeMash/Configuration/CodeMashConfigurationSection.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="48" lean-forward="false" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodeMash/project.lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodeMash.Data.MongoDB/project.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="17" lean-forward="true" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+          <folding>
+            <marker date="1488123856000" expanded="true" signature="0:986" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="22:277" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="37:143" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="61:137" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="81:129" ph="[...]" />
+            <marker date="1488123856000" expanded="true" signature="160:273" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="184:267" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="204:233" ph="[...]" />
+            <marker date="1488123856000" expanded="true" signature="297:884" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="902:962" ph="{...}" />
+            <marker date="1488123856000" expanded="true" signature="926:958" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
