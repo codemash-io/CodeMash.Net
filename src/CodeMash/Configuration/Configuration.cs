@@ -48,11 +48,12 @@ namespace CodeMash
 
         private static IConfigurationRoot AssertIfConfigurationIsSetProperlyOnJsonFile()
         {
-            var builder = new ConfigurationBuilder()
+            /*var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json");*/
 
-            ConfigurationRoot = builder.Build();
+            //ConfigurationRoot = builder.Build();
+            ConfigurationRoot = new ConfigurationBuilder().Build();
 
 
 

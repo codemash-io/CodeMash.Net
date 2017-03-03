@@ -31,11 +31,11 @@ namespace CodeMash.Notifications
         public EmailService()
         {
             #if NETSTANDARD1_6
-            var builder = new ConfigurationBuilder()
+            /*var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json");*/
 
-            ConfigurationRoot = builder.Build();
+            ConfigurationRoot = new ConfigurationBuilder().Build();
             #endif
 
         }
