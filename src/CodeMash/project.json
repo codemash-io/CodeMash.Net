@@ -32,7 +32,11 @@
     "MongoDB.Driver.Core" : "2.4.2",
     "CodeMash.Interfaces" : "1.0.0",
     "Microsoft.Extensions.Configuration" : "1.1.0",
-    "CoreCompat.Newtonsoft.Json" : "9.0.2-beta001"
+    "CoreCompat.Newtonsoft.Json" :
+    {
+        "type": "build",
+        "version": "9.0.2-beta001"
+    }
   },
   "frameworks": {
     "netstandard1.6": {
