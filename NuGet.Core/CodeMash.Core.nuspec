@@ -22,9 +22,9 @@
 			<dependency id="MongoDB.Driver" version="[2.4.2, )"  />
 			<dependency id="MongoDB.Driver.Core" version="[2.4.2, )"/>
 			<dependency id="Newtonsoft.Json" version="[9.0.1, )" />
-			<dependency id="ServiceStack.Client" version="[4.5.6, )" />
-			<dependency id="ServiceStack.Interfaces" version="[4.5.6, )" />
-			<dependency id="ServiceStack.Text" version="[4.5.6, )" />
+			<dependency id="ServiceStack.Client.Core" version="[1.0.37, )" />
+			<dependency id="ServiceStack.Interfaces.Core" version="[1.0.37, )" />
+			<dependency id="ServiceStack.Text.Core" version="[1.0.37, )" />
 			<dependency id="MailKit" version="[1.10.2, )" />
 	   </group>
 	</dependencies>
