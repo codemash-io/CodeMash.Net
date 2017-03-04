@@ -36,12 +36,13 @@
     {
         "type": "build",
         "version": "9.0.2-beta001"
-    },
+    }
   },
   "frameworks": {
-    "netstandard1.6": {
-      "dependencies": {}
-    }
+
+      "netstandard1.6": {
+          "dependencies": {}
+      }
   },
   "version": "1.0.0"
 }
