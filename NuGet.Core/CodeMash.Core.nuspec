@@ -18,7 +18,7 @@
     <copyright>Copyright 2016 codemash.io</copyright>
 	<dependencies> 
 	   <group targetFramework=".NETStandard1.6">
-			<dependency id="MongoDB.Driver.Core" version="[2.4.2, )"/>
+			<dependency id="MongoDB.Driver" version="[2.4.2, )"/>
 			<dependency id="CoreCompat.Newtonsoft.Json" version="[9.0.2-beta001, )" />
 			<dependency id="ServiceStack.Client.Core" version="[1.0.37, )" />
 			<dependency id="ServiceStack.Interfaces.Core" version="[1.0.37, )" />

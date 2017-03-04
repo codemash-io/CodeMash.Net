@@ -29,7 +29,7 @@
     "System.Threading.ThreadPool": "4.3.0",
     "System.Threading.Tasks": "4.3.0",
     "ServiceStack.Core": "1.0.*",
-    "MongoDB.Driver.Core" : "2.4.2",
+    "MongoDB.Driver" : "2.4.2",
     "CodeMash.Interfaces" : "1.0.0",
     "Microsoft.Extensions.Configuration" : "1.1.0",
     "CoreCompat.Newtonsoft.Json" :
