@@ -2779,17 +2779,8 @@
           "MongoDB.Bson": "2.4.2",
           "MongoDB.Driver": "2.4.2",
           "MongoDB.Driver.Core": "2.4.2",
-          "NETStandard.Library": "1.6.1",
-          "ServiceStack.Core": "1.0.0",
-          "System.Collections.Specialized": "4.0.1",
-          "System.Linq.Queryable": "4.0.1",
-          "System.Runtime.Serialization.Primitives": "4.1.1",
-          "System.ServiceModel.Primitives": "4.1.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0",
-          "System.Threading.Thread": "4.3.0",
-          "System.Threading.ThreadPool": "4.3.0",
-          "System.Xml.XmlSerializer": "4.0.11"
+          "NETStandard.Library": "1.6.0",
+          "ServiceStack.Core": "1.0.0"
         },
         "compile": {
           "netstandard1.6/CodeMash.Interfaces.dll": {}
