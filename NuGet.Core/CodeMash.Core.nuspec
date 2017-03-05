@@ -20,11 +20,7 @@
 	   <group targetFramework=".NETStandard1.6">
 			<dependency id="MongoDB.Driver" version="[2.4.2, )"/>
 			<dependency id="CoreCompat.Newtonsoft.Json" version="[9.0.2-beta001, )" />
-			<dependency id="ServiceStack.Client.Core" version="[1.0.37, )" />
-			<dependency id="ServiceStack.Interfaces.Core" version="[1.0.37, )" />
-			<dependency id="ServiceStack.Text.Core" version="[1.0.37, )" />
-			<dependency id="MailKit" version="[1.10.2, )" />
-	   </group>
+			
 	</dependencies>
 	<tags>web utility http json mongodb rest</tags>
 	</metadata>
