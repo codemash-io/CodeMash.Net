@@ -21,8 +21,6 @@
     "NETStandard.Library": "1.6.0",
     "ServiceStack.Core": "1.0.*",
     "MongoDB.Driver": "2.4.2",
-    "MongoDB.Driver.Core": "2.4.2",
-    "MongoDB.Bson": "2.4.2",
     "CoreCompat.Newtonsoft.Json" :
     {
         "type": "build",

@@ -7758,9 +7758,7 @@
   "projectFileDependencyGroups": {
     "": [
       "CoreCompat.Newtonsoft.Json >= 9.0.2-beta001",
-      "MongoDB.Bson >= 2.4.2",
       "MongoDB.Driver >= 2.4.2",
-      "MongoDB.Driver.Core >= 2.4.2",
       "NETStandard.Library >= 1.6.0",
       "ServiceStack.Core >= 1.0.*"
     ],

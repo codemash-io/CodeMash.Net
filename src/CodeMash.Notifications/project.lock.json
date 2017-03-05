@@ -2726,7 +2726,7 @@
         "dependencies": {
           "CodeMash.Interfaces": "1.0.0",
           "Microsoft.Extensions.Configuration": "1.1.0",
-          "MongoDB.Driver.Core": "2.4.2",
+          "MongoDB.Driver": "2.4.2",
           "NETStandard.Library": "1.6.1",
           "ServiceStack.Core": "1.0.0",
           "System.Collections.Specialized": "4.0.1",
