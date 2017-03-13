@@ -93,6 +93,7 @@
     <Compile Include="ServiceModel\DataContracts\Order.cs" />
     <Compile Include="ServiceModel\DataContracts\PlanManagement.cs" />
     <Compile Include="ServiceModel\Requests\GetAccount.cs" />
+    <Compile Include="ServiceModel\Requests\ListRequestBase.cs" />
     <Compile Include="ServiceModel\Requests\SendMail.cs" />
     <Compile Include="ServiceModel\Responses\GetAccountResponse.cs" />
     <Compile Include="ServiceModel\Requests\RequestBase.cs" />

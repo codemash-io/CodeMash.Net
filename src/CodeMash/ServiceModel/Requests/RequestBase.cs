@@ -24,5 +24,4 @@ namespace CodeMash.ServiceModel
         public string CultureCode { get; set; }
 
     }
-
 }
