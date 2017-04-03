@@ -7,9 +7,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using CodeMash.Extensions;
 using CodeMash.Interfaces.Data;
-using CodeMash.ServiceModel;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
@@ -41,7 +39,7 @@ namespace CodeMash.Data.MongoDB
             Debug.WriteLine("Repository Initialization ");
             try
             {
-                var settings = CodeMashBase.Client.Get(new GetAccount());
+                var settings =  CodeMashBase.Client.Get(new Core.GetAccount());
                 if (settings.HasData() && settings.Result.DataBase != null)
                 {
                     Debug.WriteLine(settings.Result.DataBase.ConnectionString);
@@ -88,7 +86,7 @@ namespace CodeMash.Data.MongoDB
                 Credentials = new NetworkCredential(apiKey, "")
             };
             
-            var accountResponse = jsonClient.Get(new GetAccount());
+            var accountResponse = jsonClient.Get(new Core.GetAccount());
             if (accountResponse.HasData() && accountResponse.Result.DataBase != null)
             {
                 url = new MongoUrl(accountResponse.Result.DataBase.ConnectionString);
@@ -155,7 +153,7 @@ namespace CodeMash.Data.MongoDB
 
         private static string GetCollectionName()
         {
-            #if !NETSTANDARD1_6
+            #if NET452
             var collectionName = typeof(T).BaseType == typeof(object)
                 ? GetCollectionNameFromInterface()
                 : GetCollectionNameFromType(typeof(T));
@@ -176,7 +174,7 @@ namespace CodeMash.Data.MongoDB
         {
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
 
-#if !NETSTANDARD1_6
+#if NET452
             var att = Attribute.GetCustomAttribute(typeof(T), typeof(CollectionName));
 #else
             var att = typeof(T).GetTypeInfo().GetCustomAttribute<CollectionName>();
@@ -191,7 +189,7 @@ namespace CodeMash.Data.MongoDB
             string collectionName = string.Empty;
 
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
-#if !NETSTANDARD1_6
+#if NET452
             var customAttribute = Attribute.GetCustomAttribute(entityType, typeof(CollectionName));
 #else
             var customAttribute = entityType.GetTypeInfo().GetCustomAttribute<CollectionName>();
@@ -206,7 +204,7 @@ namespace CodeMash.Data.MongoDB
             {
                 if (typeof(Entity).IsAssignableFrom(entityType))
                 {
-#if !NETSTANDARD1_6
+#if NET452
                         while (entityType != null && entityType.BaseType != typeof(Entity))
                         {
                             entityType = entityType.BaseType;

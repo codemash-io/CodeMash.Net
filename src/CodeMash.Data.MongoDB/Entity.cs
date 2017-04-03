@@ -42,7 +42,7 @@ namespace CodeMash.Data.MongoDB
             return GetType();
         }
 
-        #if !NETSTANDARD1_6
+        #if NET452
         public virtual bool Equals(Entity other)
         {
             if (other == null)

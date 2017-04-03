@@ -1,8 +1,7 @@
 ﻿using System.Runtime.Serialization;
-using System.Threading;
-using CodeMash.Interfaces;
 
-namespace CodeMash.ServiceModel
+
+namespace CodeMash
 {
     /// <summary>
     /// Base class for all client request messages of the web service. It standardizes 
@@ -11,12 +10,12 @@ namespace CodeMash.ServiceModel
     /// default values. 
     /// </summary>
     [DataContract(Namespace = "http://codemash.io/types/")]
-    public abstract class RequestBase : ICultureBasedRequest
+    public abstract class RequestBase  /*: ICultureBasedRequest */
     {
         protected RequestBase()
         {
-#if !NETSTANDARD1_6
-            CultureCode = Thread.CurrentThread.CurrentCulture.Name;
+#if NET452
+            CultureCode = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
 #endif
         }
 

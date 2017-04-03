@@ -4,27 +4,31 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JsonConvert = Newtonsoft.Json.JsonConvert;
 using CodeMash.Interfaces.Notifications;
-using CodeMash.ServiceModel;
-using Newtonsoft.Json.Linq;
+
 using ServiceStack;
-#if !NETSTANDARD1_6
-    using System.Configuration;
+
+#if NETCOREAPP1_1
+using MailKit.Net.Smtp;
+using MimeKit;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
+using Newtonsoft.Json.Linq;
+    
+#else
+using System.Configuration;
     using System.Net;
     using System.Net.Configuration;
     using System.Net.Mail;
-#else
-    using MailKit.Net.Smtp;
-    using MimeKit;
-    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 #endif
 
 namespace CodeMash.Notifications
 {
     public class EmailService : CodeMashBase, IEmailService
     {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
         static public IConfigurationRoot ConfigurationRoot { get; set; }
 #endif
 
@@ -95,7 +99,7 @@ namespace CodeMash.Notifications
         /// <param name="body">The body of email</param>
         /// <param name="attachments">The attachments.</param>
         /// <returns>.</returns>
-#if !NETSTANDARD1_6
+#if NET452
         public void SendMail(string fromEmail, string toEmail, string subject, string body,  string[] attachments)
         {
             if (toEmail.Contains(","))
@@ -247,7 +251,7 @@ namespace CodeMash.Notifications
                 throw new ArgumentNullException(nameof(message.Body), "You didn't provide mail content - body. Consider send something useful and use either body or template property");
             }
 
-#if !NETSTANDARD1_6
+#if NET452
 
              var section = ConfigurationManager.GetSection("system.net");
 
