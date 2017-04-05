@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace CodeMash.Interfaces.Notifications
+namespace CodeMash.Interfaces
 {
     public interface IEmailService
     {

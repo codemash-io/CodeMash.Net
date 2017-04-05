@@ -1,6 +1,6 @@
 ﻿using ServiceStack;
 
-namespace CodeMash.Core
+namespace CodeMash
 {
     public class GetAccount : RequestBase, IReturn<GetAccountResponse>
     {

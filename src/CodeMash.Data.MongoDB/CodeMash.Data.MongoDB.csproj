@@ -34,8 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.Core.csproj" />
-    <ProjectReference Include="..\CodeMash\CodeMash.Core.csproj" />
+    <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
+    <ProjectReference Include="..\CodeMash\CodeMash.csproj" />
   </ItemGroup>
 
 </Project>

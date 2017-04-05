@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace CodeMash.Interfaces.Data
+namespace CodeMash.Interfaces
 {
     public interface IEntity<TKey>
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace CodeMash.Interfaces.Data
+namespace CodeMash.Interfaces
 {
     public interface IRepository<T> : IQueryable<T> where T : new()
     { 

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Core", "CodeMash\CodeMash.Core.csproj", "{2FB9883D-47EA-47CD-B7F1-9B77324B5697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash", "CodeMash\CodeMash.csproj", "{2FB9883D-47EA-47CD-B7F1-9B77324B5697}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Data.MongoDB.Core", "CodeMash.Data.MongoDB\CodeMash.Data.MongoDB.Core.csproj", "{ED396D85-A8A5-4BA9-BBB2-E91832C83596}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Data.MongoDB", "CodeMash.Data.MongoDB\CodeMash.Data.MongoDB.csproj", "{ED396D85-A8A5-4BA9-BBB2-E91832C83596}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Notifications.Core", "CodeMash.Notifications\CodeMash.Notifications.Core.csproj", "{BC48D51C-EBD2-4585-9103-9A0B02E697AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Notifications", "CodeMash.Notifications\CodeMash.Notifications.csproj", "{BC48D51C-EBD2-4585-9103-9A0B02E697AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Interfaces.Core", "CodeMash.Interfaces\CodeMash.Interfaces.Core.csproj", "{1E5DED47-1D2F-468A-82AB-94B83222CDF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Interfaces", "CodeMash.Interfaces\CodeMash.Interfaces.csproj", "{1E5DED47-1D2F-468A-82AB-94B83222CDF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

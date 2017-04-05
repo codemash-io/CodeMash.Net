@@ -49,15 +49,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

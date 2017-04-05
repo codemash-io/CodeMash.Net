@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Text;
-using CodeMash.Interfaces.Notifications;
-
+using CodeMash.Interfaces;
 using ServiceStack;
-
+using System.Text;
+using System.Collections.Generic;
 #if NETCOREAPP1_1
 using MailKit.Net.Smtp;
 using MimeKit;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using Newtonsoft.Json.Linq;
-    
+
 #else
+
 using System.Configuration;
-    using System.Net;
-    using System.Net.Configuration;
-    using System.Net.Mail;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 #endif
 
 namespace CodeMash.Notifications

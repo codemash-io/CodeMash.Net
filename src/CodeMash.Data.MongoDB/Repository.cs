@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using CodeMash.Interfaces.Data;
+using CodeMash.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
@@ -39,7 +39,7 @@ namespace CodeMash.Data.MongoDB
             Debug.WriteLine("Repository Initialization ");
             try
             {
-                var settings =  CodeMashBase.Client.Get(new Core.GetAccount());
+                var settings =  CodeMashBase.Client.Get(new GetAccount());
                 if (settings.HasData() && settings.Result.DataBase != null)
                 {
                     Debug.WriteLine(settings.Result.DataBase.ConnectionString);
@@ -86,7 +86,7 @@ namespace CodeMash.Data.MongoDB
                 Credentials = new NetworkCredential(apiKey, "")
             };
             
-            var accountResponse = jsonClient.Get(new Core.GetAccount());
+            var accountResponse = jsonClient.Get(new GetAccount());
             if (accountResponse.HasData() && accountResponse.Result.DataBase != null)
             {
                 url = new MongoUrl(accountResponse.Result.DataBase.ConnectionString);
