@@ -32,9 +32,9 @@
 	</metadata>
 	 <files>
 		<file src="README.txt" target="" />
-		<file src="..\src\CodeMash\bin\Debug\CodeMash.dll" target="lib\net45" />
-		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\CodeMash.Data.MongoDB.dll" target="lib\net45" />		
-		<file src="..\src\CodeMash.Interfaces\bin\Debug\CodeMash.Interfaces.dll" target="lib\net45" />		
-		<file src="..\src\CodeMash.Notifications\bin\Debug\CodeMash.Notifications.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash\bin\Debug\net452\CodeMash.dll" target="lib\net45" />
+		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\net452\CodeMash.Data.MongoDB.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash.Interfaces\bin\Debug\net452\CodeMash.Interfaces.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash.Notifications\bin\Debug\net452\CodeMash.Notifications.dll" target="lib\net45" />		
 	</files>
 </package>
