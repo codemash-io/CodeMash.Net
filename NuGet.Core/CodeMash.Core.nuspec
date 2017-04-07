@@ -29,7 +29,7 @@
 	<tags>web utility http json mongodb rest</tags>
 	</metadata>
 	 <files>
-		<file src="..\src\CodeMash\bin\Debug\netcoreapp1.1\CodeMash.dll" target="src" />
+		<file src="..\src\CodeMash\bin\Debug\netcoreapp1.1\netcoreapp1.1\CodeMash.dll" target="src" />
 		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\netcoreapp1.1\CodeMash.Data.MongoDB.dll" target="src" />
 		<file src="..\src\CodeMash.Interfaces\bin\Debug\netcoreapp1.1\CodeMash.Interfaces.dll" target="src" />
 		<file src="..\src\CodeMash.Notifications\bin\Debug\netcoreapp1.1\CodeMash.Notifications.dll" target="src" />
