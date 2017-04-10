@@ -26,12 +26,12 @@
 			<dependency id="MailKit" version="[1.10.2, )" />
 		</group>
 	</dependencies>
-	<tags>repository notifications logging emails</tags>
+	<tags>repository notifications logging emails sms payments</tags>
 	</metadata>
 	 <files>
-		<file src="../src/CodeMash/bin/Debug/netcoreapp1.1/netcoreapp1.1/CodeMash.dll" target="lib\netcoreapp11" />
-		<file src="../src/CodeMash.Data.MongoDB/bin/Debug/netcoreapp1.1/CodeMash.Data.MongoDB.dll" target="lib\netcoreapp11" />
-		<file src="../src/CodeMash.Interfaces/bin/Debug/netcoreapp1.1/CodeMash.Interfaces.dll" target="lib\netcoreapp11" />
-		<file src="../src/CodeMash.Notifications/bin/Debug/netcoreapp1.1/CodeMash.Notifications.dll" target="\netcoreapp11" />
+		<file src="../src/CodeMash/bin/Debug/netcoreapp1.1/netcoreapp1.1/CodeMash.dll" target="lib\netstandard1.6" />
+		<file src="../src/CodeMash.Data.MongoDB/bin/Debug/netcoreapp1.1/CodeMash.Data.MongoDB.dll" target="lib\netstandard1.6" />
+		<file src="../src/CodeMash.Interfaces/bin/Debug/netcoreapp1.1/CodeMash.Interfaces.dll" target="lib\netstandard1.6" />
+		<file src="../src/CodeMash.Notifications/bin/Debug/netcoreapp1.1/CodeMash.Notifications.dll" target="\netstandard1.6" />
 	</files>
 </package>

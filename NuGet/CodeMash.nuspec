@@ -28,7 +28,7 @@
 			<dependency id="MailKit" version="1.10.2" />			
 	   </group>
 	</dependencies>
-	<tags>web utility http json mongodb rest</tags>
+	<tags>repository notifications logging emails sms payments</tags>
 	</metadata>
 	 <files>
 		<file src="README.txt" target="" />
