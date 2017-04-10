@@ -18,14 +18,14 @@
     <copyright>Copyright 2017 codemash.io</copyright>
 	<dependencies> 
 	   <group targetFramework="net452">
-			<dependency id="MongoDB.Bson" version="2.4.2" />
-			<dependency id="MongoDB.Driver" version="2.4.2"  />
-			<dependency id="MongoDB.Driver.Core" version="2.4.2"/>
-			<dependency id="Newtonsoft.Json" version="9.0.1" />
-			<dependency id="ServiceStack.Client" version="4.5.6" />
-			<dependency id="ServiceStack.Interfaces" version="4.5.6" />
-			<dependency id="ServiceStack.Text" version="4.5.6" />			
-			<dependency id="MailKit" version="1.10.2" />			
+			<dependency id="MongoDB.Bson" version="2.4.3" />
+			<dependency id="MongoDB.Driver" version="2.4.3"  />
+			<dependency id="MongoDB.Driver.Core" version="2.4.3"/>
+			<dependency id="Newtonsoft.Json" version="10.0.2" />
+			<dependency id="ServiceStack.Client" version="4.5.8" />
+			<dependency id="ServiceStack.Interfaces" version="4.5.8" />
+			<dependency id="ServiceStack.Text" version="4.5.8" />			
+			<dependency id="MailKit" version="1.12.0" />			
 	   </group>
 	</dependencies>
 	<tags>repository notifications logging emails sms payments</tags>
