@@ -15,23 +15,31 @@
 	 <summary>
 		CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : Database as a Service, Notifications of any Kind, Centric File Storage, Multilingual Apps, Application Insights, Centric Payments Approach, One Identity Provider, Application Builder,... More about that http://codemash.io
     </summary>
-    <copyright>Copyright 2016 codemash.io</copyright>
+    <copyright>Copyright 2017 codemash.io</copyright>
 	<dependencies> 
-	   <group targetFramework=".NETStandard1.6">
+		<group targetFramework=".NETStandard1.6">
 			<dependency id="MongoDB.Driver" version="[2.4.2, )"/>
 			<dependency id="CoreCompat.Newtonsoft.Json" version="[9.0.2-beta001, )" />
 			<dependency id="ServiceStack.Client.Core" version="[1.0.37, )" />
 			<dependency id="ServiceStack.Interfaces.Core" version="[1.0.37, )" />
 			<dependency id="ServiceStack.Text.Core" version="[1.0.37, )" />
 			<dependency id="MailKit" version="[1.10.2, )" />
-	   </group>
+		</group>	   
+		<group targetFramework=".NETStandard1.6">
+			<dependency id="MongoDB.Driver" version="[2.4.2, )"/>
+			<dependency id="CoreCompat.Newtonsoft.Json" version="[9.0.2-beta001, )" />
+			<dependency id="ServiceStack.Client.Core" version="[1.0.37, )" />
+			<dependency id="ServiceStack.Interfaces.Core" version="[1.0.37, )" />
+			<dependency id="ServiceStack.Text.Core" version="[1.0.37, )" />
+			<dependency id="MailKit" version="[1.10.2, )" />
+		</group>
 	</dependencies>
 	<tags>web utility http json mongodb rest</tags>
 	</metadata>
 	 <files>
-		<file src="..\src\CodeMash\bin\Debug\netcoreapp1.1\netcoreapp1.1\CodeMash.dll" target="src" />
-		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\netcoreapp1.1\CodeMash.Data.MongoDB.dll" target="src" />
-		<file src="..\src\CodeMash.Interfaces\bin\Debug\netcoreapp1.1\CodeMash.Interfaces.dll" target="src" />
-		<file src="..\src\CodeMash.Notifications\bin\Debug\netcoreapp1.1\CodeMash.Notifications.dll" target="src" />
+		<file src="../src/CodeMash/bin/Debug/netcoreapp1.1/netcoreapp1.1/CodeMash.dll" target="src" />
+		<file src="../src/CodeMash.Data.MongoDB/bin/Debug/netcoreapp1.1/CodeMash.Data.MongoDB.dll" target="src" />
+		<file src="../src/CodeMash.Interfaces/bin/Debug/netcoreapp1.1/CodeMash.Interfaces.dll" target="src" />
+		<file src="../src/CodeMash.Notifications/bin/Debug/netcoreapp1.1/CodeMash.Notifications.dll" target="src" />
 	</files>
 </package>
