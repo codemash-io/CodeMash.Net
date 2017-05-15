@@ -13,6 +13,12 @@ namespace CodeMash
                 {
                     Credentials = new NetworkCredential(Configuration.ApiKey, "")
                 };
+
+                if (!string.IsNullOrEmpty(Configuration.ApplicationId))
+                {
+                    jsonClient.Headers.Add("X-CM-ApplicationId", Configuration.ApplicationId);
+                }
+
                 return jsonClient.WithCache();
             }
         }

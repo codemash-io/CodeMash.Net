@@ -33,6 +33,13 @@ namespace CodeMash
             get { return (string)this["address"]; }
             set { this["address"] = value; }
         }     
+        
+        [ConfigurationProperty("applicationId", IsRequired = false)]
+        public string ApplicationId
+        {
+            get { return (string)this["applicationId"]; }
+            set { this["applicationId"] = value; }
+        }    
     }
 }
 

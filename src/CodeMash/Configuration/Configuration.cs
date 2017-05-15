@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
+
 namespace CodeMash
 {
     public class Configuration
@@ -100,12 +101,29 @@ namespace CodeMash
 #if NET452
                 var config = AssertIfConfigurationIsSetProperly();
                 return config.Client.Address;
+
+                
 #else
                 var config = AssertIfConfigurationIsSetProperlyOnJsonFile();
                 return ConfigurationRoot["CodeMash:Client:Address"];
 #endif
-            }
+                }
             
+        }
+
+        public static string ApplicationId
+        {
+            get
+            {
+#if NET452
+                var config = AssertIfConfigurationIsSetProperly();
+                return config.Client.ApplicationId;
+#else
+                var config = AssertIfConfigurationIsSetProperlyOnJsonFile();
+                return ConfigurationRoot["CodeMash:Client:ApplicationId"];
+#endif
+            }
+
         }
     }
 }

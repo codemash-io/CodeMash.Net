@@ -30,24 +30,5 @@ namespace CodeMash
 
         public T Result { get; set; }
 
-        /// <summary>
-        /// Version number (in major.minor format) of currently executing web service. 
-        /// Used to offer a level of understanding (related to compatibility issues) between
-        /// the client and the web service as the web services evolve over time. 
-        /// Ebay.com uses this in their API.
-        /// </summary>
-        [DataMember(Name = "version")]
-        [BsonElement("version")]
-        public string Version { get; set; }
-
-      /// <summary>
-      /// Build number of currently executing web service. Used as an indicator
-      /// to client whether certain code fixes are included or not.
-      /// Ebay.com uses this in their API.
-      /// </summary>
-        [DataMember(Name = "build")]
-        [BsonElement("build")]
-        public string Build { get; set; }
-
     }
 }
