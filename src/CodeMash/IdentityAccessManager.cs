@@ -131,24 +131,6 @@ namespace CodeMash
             }
 
             var response = CodeMashBase.Client.Post(register);
-            if (response != null && string.IsNullOrEmpty(response.ResponseStatus.ErrorCode))
-            {
-                var user = GetUserById(response.UserId);
-                
-                if (user != null)
-                {
-                    if (user.Meta == null)
-                    {
-                        user.Meta = new Dictionary<string, string>();
-                    }
-
-                    user.Meta.Add("IsConfirmed", confirmEmail?  "false" : "true");
-                    user.Meta.Add("IsEnabled", "true");
-
-                    UpdateUser((UserAuth)user);
-                }
-            }
-
             return response;
         }
 
@@ -183,24 +165,6 @@ namespace CodeMash
             }
 
             var response = CodeMashBase.Client.Post(register);
-            if (response != null && string.IsNullOrEmpty(response.ResponseStatus.ErrorCode))
-            {
-                var user = GetUserById(response.UserId);
-
-                if (user != null)
-                {
-                    if (user.Meta == null)
-                    {
-                        user.Meta = new Dictionary<string, string>();
-                    }
-
-                    user.Meta.Add("IsConfirmed", confirmEmail ? "false" : "true");
-                    user.Meta.Add("IsEnabled", "true");
-
-                    UpdateUser((UserAuth)user);
-                }
-            }
-
             return response;
         }
 
