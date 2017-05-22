@@ -50,6 +50,17 @@ namespace CodeMash
             return null;
         }
 
+        public IUserAuth GetUserByName(string name)
+        {
+            var response = CodeMashBase.Client.Get(new GetUserByName { Name = name });
+
+            if (response != null)
+            {
+                return response.Result;
+            }
+            return null;
+        }
+
         public bool HasPermission(string permission)
         {
             var response = CodeMashBase.Client.Get(new HasPermission { Permission = permission });

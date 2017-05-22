@@ -6,4 +6,9 @@ namespace CodeMash
     {
         public string Id { get; set; }
     }
+
+    public class GetUserByName : IReturn<GetUserResponse>
+    {
+        public string Name { get; set; }
+    }
 }
