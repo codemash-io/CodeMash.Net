@@ -160,6 +160,7 @@ namespace CodeMash
             if (userNameOrEmail.Contains("@"))
             {
                 email = userNameOrEmail;
+                userName = userNameOrEmail.Substring(0, userNameOrEmail.IndexOf("@"));
             }
             else
             {
