@@ -21,7 +21,8 @@ namespace CodeMash.Interfaces.IAM
         bool ChangePassword(string userId, string oldPassword, string newPassword, string newPasswordAgain = "");
 
         IUserAuth GetUserById(string id);
-        IUserAuth GetUserByName(string id);
+        IUserAuth GetUserByName(string name);
+        IUserAuth GetUserByEmail(string email);
 
         bool DeleteUserById(int id);
 

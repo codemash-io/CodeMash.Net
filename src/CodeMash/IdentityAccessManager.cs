@@ -61,6 +61,17 @@ namespace CodeMash
             return null;
         }
 
+        public IUserAuth GetUserByEmail(string email)
+        {
+            var response = CodeMashBase.Client.Get(new GetUserByEmail { Email = email });
+
+            if (response != null)
+            {
+                return response.Result;
+            }
+            return null;
+        }
+
         public bool HasPermission(string permission)
         {
             var response = CodeMashBase.Client.Get(new HasPermission { Permission = permission });

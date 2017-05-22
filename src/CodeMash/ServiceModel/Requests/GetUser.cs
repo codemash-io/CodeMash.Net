@@ -11,4 +11,9 @@ namespace CodeMash
     {
         public string Name { get; set; }
     }
+
+    public class GetUserByEmail : IReturn<GetUserResponse>
+    {
+        public string Email { get; set; }
+    }
 }
