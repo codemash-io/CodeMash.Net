@@ -104,12 +104,12 @@ namespace CodeMash
                 Continue = continueUrl
 
             };
-            return CodeMashBase.Client.Post(authenticate);
+            return CodeMashBase.Client.Post<AuthenticateResponse>("/auth/credentials", authenticate);
         }
 
         public AuthenticateResponse Login(Authenticate authenticate)
         {
-            return CodeMashBase.Client.Post(authenticate);
+            return CodeMashBase.Client.Post<AuthenticateResponse>("/auth/credentials", authenticate);
         }
 
         public void Logout()
