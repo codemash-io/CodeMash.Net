@@ -17,21 +17,21 @@
     </summary>
     <copyright>Copyright 2017 codemash.io</copyright>
 	<dependencies> 
-		<group targetFramework=".NETStandard1.6">
-			<dependency id="MongoDB.Driver" version="[2.4.3, )"/>
-			<dependency id="CoreCompat.Newtonsoft.Json" version="[9.0.2-beta001, )" />
-			<dependency id="ServiceStack.Client.Core" version="[1.0.38, )" />
-			<dependency id="ServiceStack.Interfaces.Core" version="[1.0.38, )" />
-			<dependency id="ServiceStack.Text.Core" version="[1.0.38, )" />
+		<group targetFramework=".NETStandard2.0">
+			<dependency id="MongoDB.Driver" version="[2.4.4, )"/>
+			<dependency id="ServiceStack.Client.Core" version="[4.5.14, )" />
+			<dependency id="ServiceStack.Interfaces.Core" version="[4.5.14, )" />
+			<dependency id="ServiceStack.Text.Core" version="[4.5.14, )" />
 			<dependency id="MailKit" version="[1.12.0, )" />
+			<dependency id="Newtonsoft.Json" version="[10.0.3, )" />
 		</group>
 	</dependencies>
 	<tags>repository notifications logging emails sms payments</tags>
 	</metadata>
 	 <files>
-		<file src="../src/CodeMash/bin/Debug/netcoreapp1.1/netcoreapp1.1/CodeMash.dll" target="lib\netstandard1.6" />
-		<file src="../src/CodeMash.Data.MongoDB/bin/Debug/netcoreapp1.1/CodeMash.Data.MongoDB.dll" target="lib\netstandard1.6" />
-		<file src="../src/CodeMash.Interfaces/bin/Debug/netcoreapp1.1/CodeMash.Interfaces.dll" target="lib\netstandard1.6" />
-		<file src="../src/CodeMash.Notifications/bin/Debug/netcoreapp1.1/CodeMash.Notifications.dll" target="lib\netstandard1.6" />
+		<file src="../src/CodeMash/bin/Debug/netstandard2.0/CodeMash.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Data.MongoDB/bin/Debug/netstandard2.0/CodeMash.Data.MongoDB.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Interfaces/bin/Debug/netstandard2.0/CodeMash.Interfaces.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Notifications/bin/Debug/netstandard2.0/CodeMash.Notifications.dll" target="lib\netstandard2.0" />
 	</files>
 </package>

@@ -17,14 +17,14 @@
     </summary>
     <copyright>Copyright 2017 codemash.io</copyright>
 	<dependencies> 
-	   <group targetFramework="net452">
-			<dependency id="MongoDB.Bson" version="2.4.3" />
-			<dependency id="MongoDB.Driver" version="2.4.3"  />
-			<dependency id="MongoDB.Driver.Core" version="2.4.3"/>
+	   <group targetFramework="net461">
+			<dependency id="MongoDB.Bson" version="2.4.4" />
+			<dependency id="MongoDB.Driver" version="2.4.4"  />
+			<dependency id="MongoDB.Driver.Core" version="2.4.4"/>
 			<dependency id="Newtonsoft.Json" version="10.0.2" />
-			<dependency id="ServiceStack.Client" version="4.5.8" />
-			<dependency id="ServiceStack.Interfaces" version="4.5.8" />
-			<dependency id="ServiceStack.Text" version="4.5.8" />			
+			<dependency id="ServiceStack.Client" version="4.5.14" />
+			<dependency id="ServiceStack.Interfaces" version="4.5.14" />
+			<dependency id="ServiceStack.Text" version="4.5.14" />			
 			<dependency id="MailKit" version="1.12.0" />			
 	   </group>
 	</dependencies>
@@ -32,9 +32,9 @@
 	</metadata>
 	 <files>
 		<file src="README.txt" target="" />
-		<file src="..\src\CodeMash\bin\Debug\net452\CodeMash.dll" target="lib\net45" />
-		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\net452\CodeMash.Data.MongoDB.dll" target="lib\net45" />		
-		<file src="..\src\CodeMash.Interfaces\bin\Debug\net452\CodeMash.Interfaces.dll" target="lib\net45" />		
-		<file src="..\src\CodeMash.Notifications\bin\Debug\net452\CodeMash.Notifications.dll" target="lib\net45" />		
+		<file src="..\src\CodeMash\bin\Debug\net461\CodeMash.dll" target="lib\net461" />
+		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\net461\CodeMash.Data.MongoDB.dll" target="lib\net461" />		
+		<file src="..\src\CodeMash.Interfaces\bin\Debug\net461\CodeMash.Interfaces.dll" target="lib\net461" />		
+		<file src="..\src\CodeMash.Notifications\bin\Debug\net461\CodeMash.Notifications.dll" target="lib\net461" />		
 	</files>
 </package>
