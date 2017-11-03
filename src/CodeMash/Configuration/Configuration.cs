@@ -112,7 +112,7 @@ namespace CodeMash
         {
             get
             {
-#if NET452
+#if NET461
                 var config = AssertIfConfigurationIsSetProperly();
                 return config.Client.ApplicationId;
 #else

@@ -11,12 +11,9 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'" />
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <PackageReference Include="ServiceStack" Version="4.5.14" />
   </ItemGroup>
 </Project>
