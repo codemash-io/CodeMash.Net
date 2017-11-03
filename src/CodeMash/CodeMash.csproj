@@ -1,63 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp1.1|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETCOREAPP1_1</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0</DefineConstants>
     <OutputPath>bin\Debug\netcoreapp1.1\</OutputPath>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="packages.config" />
   </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1'">
-      <PackageReference Include="CoreCompat.Newtonsoft.Json">
-        <Version>9.0.2-beta001</Version>
-      </PackageReference>
-    </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>10.0.2</Version>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.Configuration">
+      <Version>1.1.1</Version>
     </PackageReference>
   </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1'">
-      <PackageReference Include="Microsoft.Extensions.Configuration">
-        <Version>1.1.1</Version>
-      </PackageReference>
-    </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="MongoDB.Driver">
-      <Version>2.4.3</Version>
-    </PackageReference>
-  </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1'">
-      <PackageReference Include="ServiceStack.Core">
-        <Version>1.0.38</Version>
-      </PackageReference>
-    </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
-    <PackageReference Include="ServiceStack">
-      <Version>4.5.8</Version>
-    </PackageReference>
-  </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
-    <Reference Include="System.Configuration" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
+    <PackageReference Include="ServiceStack" Version="4.5.14" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
 </Project>

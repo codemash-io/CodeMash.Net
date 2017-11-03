@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using CodeMash.Interfaces;
-using ServiceStack;
 using System.Text;
 using System.Collections.Generic;
-#if NETCOREAPP1_1
+#if NETSTANDARD2_0
 using MailKit.Net.Smtp;
 using MimeKit;
 using Microsoft.Extensions.Configuration;
@@ -25,13 +24,13 @@ namespace CodeMash.Notifications
 {
     public class EmailService : CodeMashBase, IEmailService
     {
-#if NETCOREAPP1_1
+#if NETSTANDARD2_0
         static public IConfigurationRoot ConfigurationRoot { get; set; }
 #endif
 
         public EmailService()
         {
-            #if NETSTANDARD1_6
+            #if NETSTANDARD2_0
             /*var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");*/
@@ -96,7 +95,7 @@ namespace CodeMash.Notifications
         /// <param name="body">The body of email</param>
         /// <param name="attachments">The attachments.</param>
         /// <returns>.</returns>
-#if NET452
+#if NET461
         public void SendMail(string fromEmail, string toEmail, string subject, string body,  string[] attachments)
         {
             if (toEmail.Contains(","))
@@ -248,7 +247,7 @@ namespace CodeMash.Notifications
                 throw new ArgumentNullException(nameof(message.Body), "You didn't provide mail content - body. Consider send something useful and use either body or template property");
             }
 
-#if NET452
+#if NET461
 
              var section = ConfigurationManager.GetSection("system.net");
 
@@ -281,7 +280,7 @@ namespace CodeMash.Notifications
                 {
                     var mailAttachments = (from attachment in attachments
                                            where attachment.ContentStream != null
-                                           select new MailAttachmentDataContract(attachment.Name, StreamExtensions.ReadFully(attachment.ContentStream))).ToList();
+                                           select new MailAttachmentDataContract(attachment.Name, null /* attachment.ContentStream*/)).ToList();
 
                     message.Attachments = mailAttachments;
                 }

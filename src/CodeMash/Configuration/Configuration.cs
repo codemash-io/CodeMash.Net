@@ -1,7 +1,7 @@
-#if NET452
+#if NET461
 using System.Configuration;
 #endif
-#if NETCOREAPP1_1
+#if NETSTANDARD2_0
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
 #endif
@@ -18,10 +18,9 @@ namespace CodeMash
 
 
 
-#if NET452
+#if NET461
         private static CodeMashConfigurationSection AssertIfConfigurationIsSetProperly()
         {
-
             var section = ConfigurationManager.GetSection("CodeMash");
             if (section == null)
             {
@@ -59,23 +58,21 @@ namespace CodeMash
             //ConfigurationRoot = builder.Build();
             
 
-
-
             var section = ConfigurationRoot["CodeMash"];
             if (string.IsNullOrWhiteSpace(section))
             {
-                throw new ConfigurationErrorsException("Please specify apiKey in CodeMash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
+                throw new Exception("Please specify apiKey in CodeMash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
             }
-
+           
 
             if (string.IsNullOrWhiteSpace(ConfigurationRoot["CodeMash:Client:ApiKey"]))
             {
-                throw new ConfigurationErrorsException("Please specify apiKey in CodeMash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
+                throw new Exception("Please specify apiKey in CodeMash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
             }
 
             if (string.IsNullOrWhiteSpace(ConfigurationRoot["CodeMash:Client:Address"]))
             {
-                throw new ConfigurationErrorsException("Please specify endpoint address of CodeMash in Codemash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
+                throw new Exception("Please specify endpoint address of CodeMash in Codemash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
             }
             return ConfigurationRoot;
         }
@@ -84,7 +81,7 @@ namespace CodeMash
         {
             get
             {
-#if NET452
+#if NET461
                 var config = AssertIfConfigurationIsSetProperly();
                 return config.Client.ApiKey;
 #else
@@ -98,7 +95,7 @@ namespace CodeMash
         {
             get
             {
-#if NET452
+#if NET461
                 var config = AssertIfConfigurationIsSetProperly();
                 return config.Client.Address;
 
