@@ -24,6 +24,7 @@
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="7.2.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="ServiceStack" Version="5.0.0" />

@@ -11,7 +11,7 @@ namespace CodeMash
     /// values if necessary.
     /// </summary>
     [DataContract(Namespace = "http://www.CodeMash.com/types/")]
-    public class ResponseBase<T> 
+    public class ResponseBase<T> : IHasResponseStatus
     {
         [DataMember]
         public ResponseStatus ResponseStatus { get; set; }
