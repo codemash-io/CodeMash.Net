@@ -11,7 +11,7 @@ namespace CodeMash.Data.MongoDB
     /// </summary>
     [DataContract]
     [BsonIgnoreExtraElements(Inherited = true)]
-    public abstract class Entity : IEntity<string>
+    public abstract class Entity : IEntity<string>, IEntityWithCreatedOn
     {
         protected Entity()
         {
@@ -34,15 +34,14 @@ namespace CodeMash.Data.MongoDB
 
         private static bool IsTransient(Entity obj)
         {
-            return obj != null && Equals(obj.Id, default(int));
+            return obj != null && (obj.Id == string.Empty || ObjectId.Parse(obj.Id) == ObjectId.Empty);
         }
 
         private Type GetUnproxiedType()
         {
             return GetType();
         }
-
-        #if NET452
+        
         public virtual bool Equals(Entity other)
         {
             if (other == null)
@@ -51,25 +50,20 @@ namespace CodeMash.Data.MongoDB
             if (ReferenceEquals(this, other))
                 return true;
 
-            if (!IsTransient(this) &&
-                !IsTransient(other) &&
-                Equals(Id, other.Id))
-            {
-                var otherType = other.GetUnproxiedType();
-                var thisType = GetUnproxiedType();
-                return thisType.IsAssignableFrom(otherType) ||
-                        otherType.IsAssignableFrom(thisType);
-            }
+            if (IsTransient(this) || IsTransient(other) || !Equals(Id, other.Id)) 
+                return false;
+            
+            var otherType = other.GetUnproxiedType();
+            var thisType = GetUnproxiedType();
+            return thisType.IsAssignableFrom(otherType) ||
+                   otherType.IsAssignableFrom(thisType);
 
-            return false;
         }
-        #endif
+        
 
         public override int GetHashCode()
         {
-            if (Equals(Id, default(int)))
-                return base.GetHashCode();
-            return Id.GetHashCode();
+            return Id == string.Empty ? base.GetHashCode() : Id.GetHashCode();
         }
 
         public static bool operator ==(Entity x, Entity y)

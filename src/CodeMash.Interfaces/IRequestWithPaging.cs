@@ -1,6 +1,6 @@
 ﻿namespace CodeMash.Interfaces
 {
-    public interface IPaginationRequest
+    public interface IRequestWithPaging : IRequestBase
     {
         int PageSize { get; set; }
         int PageNumber { get; set; }
