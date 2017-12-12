@@ -7,7 +7,7 @@ namespace CodeMash.Data.MongoDB
 {
     public static class FilterBackgroundFactory
     {
-        public static List<FilterDefinition<T>> CreateFilter<T>(IRequestBase request, IIdentityProvider identityProvider) where T : Entity
+        public static List<FilterDefinition<T>> CreateFilter<T>(IRequestBase request, IIdentityProvider identityProvider) where T : EntityBase
         {
             var filterList = new List<FilterDefinition<T>>();
 

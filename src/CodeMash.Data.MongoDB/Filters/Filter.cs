@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace CodeMash.Data.MongoDB
 {
-    public class Filter<T> where T : Entity
+    public class Filter<T> where T : EntityBase
     {
         private readonly IFilterStrategy<T> _strategy;
         

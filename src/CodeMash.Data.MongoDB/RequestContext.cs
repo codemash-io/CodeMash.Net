@@ -6,7 +6,7 @@ using ServiceStack;
 
 namespace CodeMash.Data.MongoDB
 {
-    public class RequestContext<T> : IRequestContext<T> where T : Entity
+    public class RequestContext<T> : IRequestContext<T> where T : EntityBase
     {
         public RequestContext() { }
 

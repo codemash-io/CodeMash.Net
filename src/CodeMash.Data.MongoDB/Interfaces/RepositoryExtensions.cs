@@ -11,7 +11,7 @@ namespace CodeMash.Data.MongoDB
 {
     public static class RepositoryExtensions
     {
-        public static IRequestContext<T> ToRequestContext<T>(this IRequestBase request, AuthUserSession session = null) where T : Entity
+        public static IRequestContext<T> ToRequestContext<T>(this IRequestBase request, AuthUserSession session = null) where T : EntityBase
         {
             return RequestContext<T>
                 .Create(request)
@@ -218,7 +218,7 @@ namespace CodeMash.Data.MongoDB
             return repo.FindOne(filter, projection, findOptions);
         }
 
-        public static T FindOneById<T>(this IRepository<T> repo, string id, IRequestContext<T> requestContext) where T : Entity, new()
+        public static T FindOneById<T>(this IRepository<T> repo, string id, IRequestContext<T> requestContext) where T : EntityBase, new()
         {
             if (requestContext == null)
             {
@@ -228,7 +228,7 @@ namespace CodeMash.Data.MongoDB
             return repo.FindOne(x => x.Id == id, requestContext);
         }
 
-        public static T FindOneById<T>(this IRepository<T> repo, ObjectId id, IRequestContext<T> requestContext) where T : Entity, new()
+        public static T FindOneById<T>(this IRepository<T> repo, ObjectId id, IRequestContext<T> requestContext) where T : EntityBase, new()
         {
             if (requestContext == null)
             {

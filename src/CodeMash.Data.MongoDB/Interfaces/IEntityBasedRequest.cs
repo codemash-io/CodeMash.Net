@@ -2,7 +2,7 @@
 
 namespace CodeMash.Data.MongoDB
 {
-    public interface IEntityBasedRequest<T> : IRequestBase where T : Entity
+    public interface IEntityBasedRequest<T> : IRequestBase where T : EntityBaseBase
     {
     }
 }
