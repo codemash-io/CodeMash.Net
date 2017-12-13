@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using CodeMash.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 

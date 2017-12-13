@@ -1,5 +1,4 @@
 ﻿using CodeMash.Interfaces;
-using CodeMash.Interfaces.IAM;
 using MongoDB.Driver;
 
 namespace CodeMash.Data.MongoDB

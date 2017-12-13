@@ -1,4 +1,4 @@
-﻿namespace CodeMash.Interfaces
+﻿namespace CodeMash.Data.MongoDB
 {
     public interface IEntityWithResponsibleUser
     {

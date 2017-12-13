@@ -7,7 +7,8 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using CodeMash.Interfaces;
+using CodeMash.ServiceModel;
+using CodeMash.Utils;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
@@ -39,7 +40,7 @@ namespace CodeMash.Data.MongoDB
             Debug.WriteLine("Repository Initialization ");
             try
             {
-                var settings =  CodeMashBase.Client.Get(new GetAccount());
+                var settings =  CodeMashService.Client.Get(new GetAccount());
                 if (settings.HasData() && settings.Result.DataBase != null)
                 {
                     Debug.WriteLine(settings.Result.DataBase.ConnectionString);

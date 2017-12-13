@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Data.MongoDB", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Notifications", "CodeMash.Notifications\CodeMash.Notifications.csproj", "{BC48D51C-EBD2-4585-9103-9A0B02E697AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Interfaces", "CodeMash.Interfaces\CodeMash.Interfaces.csproj", "{1E5DED47-1D2F-468A-82AB-94B83222CDF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.ServiceModel", "CodeMash.ServiceModel\CodeMash.ServiceModel.csproj", "{BE47191A-FF43-4C8B-9BE5-135F7838D76F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Auth", "CodeMash.Auth\CodeMash.Auth.csproj", "{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Interfaces", "CodeMash.Interfaces\CodeMash.Interfaces.csproj", "{73D1FB67-9427-467D-B297-497C8C48C3B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Utils", "CodeMash.Utils\CodeMash.Utils.csproj", "{8A866FD7-283F-45B7-B3C9-0F504E4DE13F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +35,22 @@ Global
 		{BC48D51C-EBD2-4585-9103-9A0B02E697AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC48D51C-EBD2-4585-9103-9A0B02E697AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC48D51C-EBD2-4585-9103-9A0B02E697AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E5DED47-1D2F-468A-82AB-94B83222CDF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E5DED47-1D2F-468A-82AB-94B83222CDF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E5DED47-1D2F-468A-82AB-94B83222CDF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E5DED47-1D2F-468A-82AB-94B83222CDF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D1FB67-9427-467D-B297-497C8C48C3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D1FB67-9427-467D-B297-497C8C48C3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D1FB67-9427-467D-B297-497C8C48C3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D1FB67-9427-467D-B297-497C8C48C3B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A866FD7-283F-45B7-B3C9-0F504E4DE13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A866FD7-283F-45B7-B3C9-0F504E4DE13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A866FD7-283F-45B7-B3C9-0F504E4DE13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A866FD7-283F-45B7-B3C9-0F504E4DE13F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

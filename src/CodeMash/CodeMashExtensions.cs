@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -8,11 +6,27 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CodeMash.Data.MongoDB;
+using CodeMash.Interfaces;
+using CodeMash.ServiceModel;
+using ServiceStack;
 
 namespace CodeMash
 {
     public static class CodeMashExtensions
     {
+        
+        public static IRequestContext<T> ToRequestContext<T>(this IRequestBase request, AuthUserSession session = null) where T : EntityBase
+        {
+            return RequestContext<T>
+                .Create(request)
+                .WithPagination(request as IRequestWithPaging)
+                .WithSorting(request as IRequestWithSorting)
+                .WithSession(session)
+                .WithFilter()
+                .Build();
+        }
+        
         public static async Task<T> As<T>(this Task<BsonDocument> source)
         {
             var doc = await source;
@@ -20,7 +34,7 @@ namespace CodeMash
             {
                 return default(T);
             }
-            var json = doc.ToJson();
+            var json = BsonExtensionMethods.ToJson(doc);
             T entity = BsonSerializer.Deserialize<T>(json);
             return entity;
         }

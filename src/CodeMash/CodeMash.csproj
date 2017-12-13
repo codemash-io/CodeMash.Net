@@ -11,21 +11,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="packages.config" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Extensions.Configuration">
-      <Version>1.1.1</Version>
-    </PackageReference>
-  </ItemGroup>
+  </ItemGroup>  
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeMash.Auth\CodeMash.Auth.csproj" />
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
+    <ProjectReference Include="..\CodeMash.ServiceModel\CodeMash.ServiceModel.csproj" />
+    <ProjectReference Include="..\CodeMash.Data.MongoDB\CodeMash.Data.MongoDB.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="7.2.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="ServiceStack" Version="5.0.0" />
     <Reference Include="System.Configuration" />
