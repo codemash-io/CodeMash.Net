@@ -18,14 +18,10 @@
     <copyright>Copyright 2017 codemash.io</copyright>
 	<dependencies> 
 	   <group targetFramework="net461">
-			<dependency id="MongoDB.Bson" version="2.4.4" />
-			<dependency id="MongoDB.Driver" version="2.4.4"  />
-			<dependency id="MongoDB.Driver.Core" version="2.4.4"/>
-			<dependency id="Newtonsoft.Json" version="10.0.2" />
-			<dependency id="ServiceStack.Client" version="4.5.14" />
-			<dependency id="ServiceStack.Interfaces" version="4.5.14" />
-			<dependency id="ServiceStack.Text" version="4.5.14" />			
-			<dependency id="MailKit" version="1.12.0" />			
+			<dependency id="MongoDB.Driver" version="[2.5.0, )"/>
+			<dependency id="ServiceStack" version="[5.0.0, )" />
+			<dependency id="MailKit" version="[1.12.0, )" />
+			<dependency id="Newtonsoft.Json" version="[10.0.3, )" />	
 	   </group>
 	</dependencies>
 	<tags>repository notifications logging emails sms payments</tags>
@@ -35,6 +31,9 @@
 		<file src="..\src\CodeMash\bin\Debug\net461\CodeMash.dll" target="lib\net461" />
 		<file src="..\src\CodeMash.Data.MongoDB\bin\Debug\net461\CodeMash.Data.MongoDB.dll" target="lib\net461" />		
 		<file src="..\src\CodeMash.Interfaces\bin\Debug\net461\CodeMash.Interfaces.dll" target="lib\net461" />		
-		<file src="..\src\CodeMash.Notifications\bin\Debug\net461\CodeMash.Notifications.dll" target="lib\net461" />		
+		<file src="..\src\CodeMash.Notifications\bin\Debug\net461\CodeMash.Notifications.dll" target="lib\net461" />	
+		<file src="..\src\CodeMash.Utils\bin\Debug\net461\CodeMash.Utils.dll" target="lib\net461" />
+		<file src="..\src\CodeMash.ServiceModel\bin\Debug\net461\CodeMash.ServiceModel.dll" target="lib\net461" />
+		<file src="..\src\CodeMash.Auth\bin\Debug\net461\CodeMash.Auth.dll" target="lib\net461" />			
 	</files>
 </package>
