@@ -4,7 +4,7 @@ using CodeMash.ServiceModel;
 
 namespace CodeMash.Notifications.Email
 {
-    public class SendMail : RequestBase
+    public class SendEmail : RequestBase
     { 
 
         public string[] Recipients { get; set; }

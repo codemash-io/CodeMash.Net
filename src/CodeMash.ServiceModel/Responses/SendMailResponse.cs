@@ -2,7 +2,7 @@
 
 namespace CodeMash.Notifications.Email
 {
-    public class SendMailResponse : ResponseBase<bool>
+    public class SendEmailResponse : ResponseBase<bool>
     {
     }
 }

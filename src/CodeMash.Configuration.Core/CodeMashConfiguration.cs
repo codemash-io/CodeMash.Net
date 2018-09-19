@@ -33,10 +33,7 @@ namespace CodeMash.Configuration.Core
         {
             get
             {
-                var jsonClient = new JsonServiceClient(ApiUrl)
-                {
-                    Credentials = new NetworkCredential(ApiKey, "")
-                };
+                var jsonClient = new JsonServiceClient(ApiUrl);
 
                 if (ProjectId != Guid.Empty)
                 {
@@ -45,7 +42,7 @@ namespace CodeMash.Configuration.Core
                 
                 if (!string.IsNullOrEmpty(ApiKey))
                 {
-                    jsonClient.Headers.Add("Authorization", $"Bearer: {ApiKey}");
+                    jsonClient.BearerToken = ApiKey;
                 }
                 
                 return jsonClient.WithCache();

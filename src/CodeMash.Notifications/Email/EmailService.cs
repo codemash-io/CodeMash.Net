@@ -8,7 +8,7 @@ namespace CodeMash.Notifications.Email
     {
         public ICodeMashSettings CodeMashSettings { get; set; }
         
-        public bool SendMail(string[] recipients, string templateName, Dictionary<string, object> tokens, Guid? accountId)
+        public bool SendMail(string[] recipients, string templateName, Dictionary<string, object> tokens = null, Guid? accountId = null)
         {
             // TODO : use FluentValidation instead
             if (recipients == null)
@@ -16,7 +16,7 @@ namespace CodeMash.Notifications.Email
                 throw new ArgumentNullException();
             }
             
-            var response = CodeMashSettings.Client.Post<SendMailResponse>(new SendMail
+            var response = CodeMashSettings.Client.Post<SendEmailResponse>("/email/send", new SendEmail
             {
                 Recipients = recipients,
                 TemplateName = templateName,
