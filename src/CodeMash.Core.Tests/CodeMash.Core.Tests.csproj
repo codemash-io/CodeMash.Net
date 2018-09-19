@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+        <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
+        <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+        <PackageReference Include="NSubstitute" Version="3.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CodeMash.Configuration.Core\CodeMash.Configuration.Core.csproj" />
+      <ProjectReference Include="..\CodeMash.Configuration\CodeMash.Configuration.csproj" />
+      <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
+      <ProjectReference Include="..\CodeMash.Notifications\CodeMash.Notifications.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="appsettings.Production.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="appsettings.Staging.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

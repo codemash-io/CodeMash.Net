@@ -5,15 +5,9 @@ namespace CodeMash.Utils
 {
     public class CodeMashElementCollection : ConfigurationElementCollection
     {
-        public override ConfigurationElementCollectionType CollectionType
-        {
-            get { return ConfigurationElementCollectionType.BasicMap; }
-        }
+        public override ConfigurationElementCollectionType CollectionType => ConfigurationElementCollectionType.BasicMap;
 
-        public CodeMashConfigurationElement this[object key]
-        {
-            get { return this.BaseGet(key) as CodeMashConfigurationElement; }
-        }
+        public CodeMashConfigurationElement this[object key] => this.BaseGet(key) as CodeMashConfigurationElement;
 
         protected override ConfigurationElement CreateNewElement()
         {

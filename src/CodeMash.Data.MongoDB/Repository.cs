@@ -7,8 +7,8 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using CodeMash.Interfaces;
 using CodeMash.ServiceModel;
-using CodeMash.Utils;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
@@ -22,6 +22,8 @@ namespace CodeMash.Data.MongoDB
 
         private IMongoDatabase database { get; set; }
         protected IMongoDatabase Database => GetDatabase();
+
+        public ICodeMashSettings Settings { get; set; }
 
         private IMongoCollection<T> collection { get; set; }
 
@@ -40,7 +42,7 @@ namespace CodeMash.Data.MongoDB
             Debug.WriteLine("Repository Initialization ");
             try
             {
-                var settings =  CodeMashService.Client.Get(new GetAccount());
+                var settings =  Settings.Client.Get(new GetAccount());
                 if (settings.HasData() && settings.Result.DataBase != null)
                 {
                     Debug.WriteLine(settings.Result.DataBase.ConnectionString);
@@ -75,11 +77,11 @@ namespace CodeMash.Data.MongoDB
 
             try
             {
-                apiAddress = Configuration.Address;
+                apiAddress = Settings.ApiUrl;
             }
             catch (Exception e)
             {
-                apiAddress = "http://api.codemash.io/1.0/";
+                apiAddress = "https://api.codemash.io/";
             }
 
             var jsonClient = new JsonServiceClient(apiAddress)

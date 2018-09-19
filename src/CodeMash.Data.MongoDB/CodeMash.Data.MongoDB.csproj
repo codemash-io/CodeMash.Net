@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -14,10 +14,9 @@
   <ItemGroup>
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
     <ProjectReference Include="..\CodeMash.ServiceModel\CodeMash.ServiceModel.csproj" />
-    <ProjectReference Include="..\CodeMash.Utils\CodeMash.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
-    <PackageReference Include="ServiceStack" Version="5.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    <PackageReference Include="ServiceStack.Core" Version="5.4.0" />
   </ItemGroup>
 </Project>

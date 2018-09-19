@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using CodeMash.Interfaces;
-using CodeMash.Utils;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -24,7 +23,8 @@ namespace CodeMash.Data.MongoDB
             {
                 return result.DeletedCount == 1;
             }
-            throw new BusinessException("Cannot perform delete action");
+            //throw new BusinessException("Cannot perform delete action");
+            throw new Exception("Cannot perform delete action");
         }
         
         private static SortDefinition<T> ToSortDefinition<T>(this IRequestWithSorting sorting)

@@ -14,13 +14,16 @@ namespace CodeMash.Utils
                      Credentials = new NetworkCredential(Configuration.ApiKey, "")
                 };
 
-                if (!string.IsNullOrEmpty(Configuration.ApplicationId))
+                if (!string.IsNullOrEmpty(Configuration.ProjectId))
                 {
-                    jsonClient.Headers.Add("X-CM-ApplicationId", Configuration.ApplicationId);
+                    jsonClient.Headers.Add("X-CM-ProjectId", Configuration.ProjectId);
                 }
-
-                //jsonClient.Headers.Add("Authorization", $"Bearer: {Configuration.ApiKey}");
-
+                
+                if (!string.IsNullOrEmpty(Configuration.ApiKey))
+                {
+                    jsonClient.Headers.Add("Authorization", $"Bearer: {Configuration.ApiKey}");
+                }
+                
                 return jsonClient.WithCache();
             }
         }

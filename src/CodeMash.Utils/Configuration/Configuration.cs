@@ -1,13 +1,8 @@
-#if NET461
-using System.Configuration;
-#endif
-#if NETSTANDARD2_0
-using System.Configuration;
-using Microsoft.Extensions.Configuration;
-#endif
+
+
 using System;
 using System.IO;
-
+using Microsoft.Extensions.Configuration;
 
 namespace CodeMash.Utils
 {
@@ -17,45 +12,16 @@ namespace CodeMash.Utils
             (CodeMashConfigurationSection)ConfigurationManager.GetSection("CodeMash"));*/
 
 
-
-#if NET461
-        private static CodeMashConfigurationSection AssertIfConfigurationIsSetProperly()
-        {
-            var section = ConfigurationManager.GetSection("CodeMash");
-            if (section == null)
-            {
-                throw new ConfigurationErrorsException("Please specify apiKey in CodeMash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
-            }
-
-            var codeMashConfigSection = section as CodeMashConfigurationSection;
-
-            if (codeMashConfigSection == null)
-            {
-                throw new ConfigurationErrorsException("CodeMash configuration is not set properly. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
-            }
-
-            if (string.IsNullOrWhiteSpace(codeMashConfigSection.Client.ApiKey))
-            {
-                throw new ConfigurationErrorsException("Please specify apiKey in CodeMash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
-            }
-
-            if (string.IsNullOrWhiteSpace(codeMashConfigSection.Client.Address))
-            {
-                throw new ConfigurationErrorsException("Please specify endpoint address of CodeMash in Codemash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
-            }
-            return codeMashConfigSection;
-        }
-#else
-
         static public IConfigurationRoot ConfigurationRoot { get; set; }
 
         private static IConfigurationRoot AssertIfConfigurationIsSetProperlyOnJsonFile()
         {
-            /*var builder = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");*/
-
-            //ConfigurationRoot = builder.Build();
+                .AddJsonFile("appsettings.json");
+            
+            
+            ConfigurationRoot = builder.Build();
             
 
             var section = ConfigurationRoot["CodeMash"];
@@ -65,29 +31,25 @@ namespace CodeMash.Utils
             }
            
 
-            if (string.IsNullOrWhiteSpace(ConfigurationRoot["CodeMash:Client:ApiKey"]))
+            if (string.IsNullOrWhiteSpace(ConfigurationRoot["CodeMash:ApiKey"]))
             {
                 throw new Exception("Please specify apiKey in CodeMash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
             }
 
-            if (string.IsNullOrWhiteSpace(ConfigurationRoot["CodeMash:Client:Address"]))
+            if (string.IsNullOrWhiteSpace(ConfigurationRoot["CodeMash:Address"]))
             {
                 throw new Exception("Please specify endpoint address of CodeMash in Codemash configuration. More about configuration of CodeMash at http://codemash.io/documentation/api/net/configuration");
             }
             return ConfigurationRoot;
         }
-#endif
+
         public static string ApiKey
         {
             get
             {
-#if NET461
-                var config = AssertIfConfigurationIsSetProperly();
-                return config.Client.ApiKey;
-#else
                 var config = AssertIfConfigurationIsSetProperlyOnJsonFile();
-                return ConfigurationRoot["CodeMash:Client:ApiKey"];
-#endif
+                return config["CodeMash:ApiKey"];
+
             }
         }
 
@@ -95,30 +57,18 @@ namespace CodeMash.Utils
         {
             get
             {
-#if NET461
-                var config = AssertIfConfigurationIsSetProperly();
-                return config.Client.Address;
-
-                
-#else
                 var config = AssertIfConfigurationIsSetProperlyOnJsonFile();
-                return ConfigurationRoot["CodeMash:Client:Address"];
-#endif
-                }
+                return config["CodeMash:Address"];
+            }
             
         }
 
-        public static string ApplicationId
+        public static string ProjectId
         {
             get
             {
-#if NET461
-                var config = AssertIfConfigurationIsSetProperly();
-                return config.Client.ApplicationId;
-#else
                 var config = AssertIfConfigurationIsSetProperlyOnJsonFile();
-                return ConfigurationRoot["CodeMash:Client:ApplicationId"];
-#endif
+                return config["CodeMash:ProjectId"];
             }
 
         }
