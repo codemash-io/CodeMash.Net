@@ -3,7 +3,7 @@
   <metadata>
     <id>CodeMash.Core</id>
 	<title>CodeMash.Core</title>
-    <version>1.6.0.8</version>  
+    <version>1.6.0.9</version>  
 	<releaseNotes>SDK for calling CodeMash API from .NET Core project</releaseNotes>	
     <authors>Domantas Jovaisas - Isidos</authors>
     <owners>Domantas</owners>

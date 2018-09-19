@@ -1,7 +1,6 @@
 ﻿using System;
 using CodeMash.Interfaces;
 using CodeMash.ServiceModel;
-using CodeMash.Utils;
 using ServiceStack;
 using ServiceStack.Auth;
 
@@ -9,6 +8,8 @@ namespace CodeMash.Auth
 {
     public class IdentityAccessManager : IIdentityAccessManager
     {
+        public ICodeMashSettings CodeMashSettings { get; set; }
+        
         public bool ChangePassword(string userId, string oldPassword, string newPassword, string newPasswordAgain = "")
         {
             if (!string.IsNullOrEmpty(newPasswordAgain))
@@ -19,7 +20,7 @@ namespace CodeMash.Auth
                 }
             }
 
-            var response = CodeMashService.Client.Put(new ChangePassword { NewPassword1 = newPassword, OldPassword = oldPassword, NewPassword2 = newPassword });
+            var response = CodeMashSettings.Client.Put(new ChangePassword { NewPassword1 = newPassword, OldPassword = oldPassword, NewPassword2 = newPassword });
 
             if (response != null)
             {
@@ -30,7 +31,7 @@ namespace CodeMash.Auth
 
         public bool DeleteUserById(int id)
         {
-            var response = CodeMashService.Client.Delete(new DeleteUser { Id = id });
+            var response = CodeMashSettings.Client.Delete(new DeleteUser { Id = id });
 
             if (response != null)
             {
@@ -41,7 +42,7 @@ namespace CodeMash.Auth
 
         public IUserAuth GetUserById(string id)
         {
-            var response = CodeMashService.Client.Get(new GetUser { Id = id });
+            var response = CodeMashSettings.Client.Get(new GetUser { Id = id });
 
             if (response != null)
             {
@@ -52,7 +53,7 @@ namespace CodeMash.Auth
 
         public IUserAuth GetUserByName(string name)
         {
-            var response = CodeMashService.Client.Get(new GetUserByName { Name = name });
+            var response = CodeMashSettings.Client.Get(new GetUserByName { Name = name });
 
             if (response != null)
             {
@@ -63,7 +64,7 @@ namespace CodeMash.Auth
 
         public IUserAuth GetUserByEmail(string email)
         {
-            var response = CodeMashService.Client.Get(new GetUserByEmail { Email = email });
+            var response = CodeMashSettings.Client.Get(new GetUserByEmail { Email = email });
 
             if (response != null)
             {
@@ -74,7 +75,7 @@ namespace CodeMash.Auth
 
         public bool HasPermission(string permission)
         {
-            var response = CodeMashService.Client.Get(new HasPermission { Permission = permission });
+            var response = CodeMashSettings.Client.Get(new HasPermission { Permission = permission });
 
             if (response != null)
             {
@@ -85,7 +86,7 @@ namespace CodeMash.Auth
 
         public bool IsInRole(string role)
         {
-            var response = CodeMashService.Client.Get(new HasRole { Role = role });
+            var response = CodeMashSettings.Client.Get(new HasRole { Role = role });
 
             if (response != null)
             {
@@ -104,12 +105,12 @@ namespace CodeMash.Auth
                 Continue = continueUrl
 
             };
-            return CodeMashService.Client.Post<AuthenticateResponse>("/auth/credentials", authenticate);
+            return CodeMashSettings.Client.Post<AuthenticateResponse>("/auth/credentials", authenticate);
         }
 
         public AuthenticateResponse Login(Authenticate authenticate)
         {
-            return CodeMashService.Client.Post<AuthenticateResponse>("/auth/credentials", authenticate);
+            return CodeMashSettings.Client.Post<AuthenticateResponse>("/auth/credentials", authenticate);
         }
 
         public void Logout()
@@ -120,7 +121,7 @@ namespace CodeMash.Auth
 //#if NETCOREAPP1_1
 //            CodeMashBase.Client.Post(new Authenticate() { provider = AuthenticateService.LogoutAction });
 //#endif
-            CodeMashService.Client.Post(new Authenticate() { provider = AuthenticateService.LogoutAction });
+            CodeMashSettings.Client.Post(new Authenticate() { provider = AuthenticateService.LogoutAction });
         }
 
         public RegisterResponse Register(Register register, bool confirmEmail = false)
@@ -130,7 +131,7 @@ namespace CodeMash.Auth
                 register.AutoLogin = false;
             }
 
-            var response = CodeMashService.Client.Post(register);
+            var response = CodeMashSettings.Client.Post(register);
             return response;
         }
 
@@ -164,13 +165,13 @@ namespace CodeMash.Auth
                 register.AutoLogin = false;
             }
 
-            var response = CodeMashService.Client.Post(register);
+            var response = CodeMashSettings.Client.Post(register);
             return response;
         }
 
         public void UpdateUser(UserAuth userAuth)
         {
-            CodeMashService.Client.Put<UserAuth>("/iam/users", userAuth);
+            CodeMashSettings.Client.Put<UserAuth>("/iam/users", userAuth);
         }
     }
 }
