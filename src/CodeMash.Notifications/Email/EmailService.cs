@@ -15,6 +15,11 @@ namespace CodeMash.Notifications.Email
             {
                 throw new ArgumentNullException();
             }
+
+            if (CodeMashSettings == null)
+            {
+                throw new ArgumentNullException("CodeMashSettings", "CodeMash settings is not set");
+            }
             
             var response = CodeMashSettings.Client.Post<SendEmailResponse>("/email/send", new SendEmail
             {
