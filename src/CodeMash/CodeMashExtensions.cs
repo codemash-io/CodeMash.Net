@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeMash.Data.MongoDB;
 using CodeMash.Interfaces;
-using CodeMash.ServiceModel;
 using ServiceStack;
 
 namespace CodeMash
