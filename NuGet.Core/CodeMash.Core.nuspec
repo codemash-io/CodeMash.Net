@@ -36,6 +36,7 @@
 		<file src="../src/CodeMash.Configuration/bin/Debug/netstandard2.0/CodeMash.Configuration.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Configuration.Core/bin/Debug/netcoreapp2.1/CodeMash.Configuration.Core.dll" target="lib\netcoreapp2.1" />
 		<file src="../src/CodeMash.Data.MongoDB/bin/Debug/netstandard2.0/CodeMash.Data.MongoDB.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Data.MongoDB/bin/Debug/netcoreapp2.1/CodeMash.Data.MongoDB.dll" target="lib\netcoreapp2.1" />
 		<file src="../src/CodeMash.Notifications/bin/Debug/netstandard2.0/CodeMash.Notifications.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Notifications/bin/Debug/netcoreapp2.1/CodeMash.Notifications.dll" target="lib\netcoreapp2.1" />
 		<file src="../src/CodeMash.Auth/bin/Debug/netstandard2.0/CodeMash.Auth.dll" target="lib\netstandard2.0" />
