@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeMash.Configuration.Core;
 using CodeMash.Interfaces;
@@ -72,6 +73,31 @@ namespace CodeMash.Core.Tests
             
             Assert.AreEqual("NotificationId", result.Result);
 
+        }
+        
+        [TestMethod]
+        [TestCategory("Integration")]
+        public void Can_save_push_notification_integration()
+        {
+            var pushNotificationsService = new PushNotificationsService
+            {
+                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+            };
+            
+            var createDeviceResponse = pushNotificationsService.CreateNotificationDevice(new CreateNotificationDevice());
+
+            var request = new CreateNotification
+            {
+                Title = "title",
+                Body = "body",
+                Devices = new List<Guid> { createDeviceResponse.Result },
+                Data = "{ \"customData\" : \"ok\"}",
+            };
+            
+            var response = pushNotificationsService.CreateNotification(request);
+            
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Result);
         }
         
     }

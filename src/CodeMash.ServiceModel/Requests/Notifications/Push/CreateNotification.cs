@@ -20,18 +20,25 @@ namespace CodeMash.ServiceModel.Requests.Notifications.Push
     }
     
     [DataContract]
+    [Api("Creates push notification which will be sent to the device of recipient(s)")]
+    [Route("/notifications/push", "POST", Summary = "Creates push notification which will be sent to the device of recipient(s)")]
     public class CreateNotification : CodeMashRequestBase
     {
         [DataMember]
+        [ApiMember(DataType = "NotificationSound", Description = @"Notification sound (None = 0, Default = 1).", IsRequired = false, Name = "Sound", ParameterType = "form")]
         public NotificationSound Sound { get; set; }
         
         [DataMember]
+        [ApiMember(DataType = "NotificationPriority", Description = @"Notification priority (None = 0, Default = 1, Normal = 2, High = 3", IsRequired = false, Name = "Priority", ParameterType = "form")]
         public NotificationPriority Priority { get; set; }
         
         [DataMember]
+        [ApiMember(DataType = "string", Description = @"Title of notification", IsRequired = true, Name = "Title", ParameterType = "form")]
+
         public string Title { get; set; }
         
         [DataMember]
+        [ApiMember(DataType = "string", Description = @"Body of notification", IsRequired = true, Name = "Body", ParameterType = "body")]
         public string Body { get; set; }
         
         [DataMember]
@@ -72,7 +79,10 @@ namespace CodeMash.ServiceModel.Requests.Notifications.Push
         
         [DataMember]
         [ApiMember(DataType = "List", Description = @"Messages to be delivered into specified devices.", IsRequired = false, Name = "Devices", ParameterType = "body")]
-
         public List<Guid> Devices { get; set; } // Gets devices by device ids
+        
+        [DataMember]
+        [ApiMember(DataType = "bool", Description = @"If true, then this notification cannot bet pushed.", IsRequired = false, Name = "IsStatic", ParameterType = "body")]
+        public bool IsStatic { get; set; }
     }
 }
