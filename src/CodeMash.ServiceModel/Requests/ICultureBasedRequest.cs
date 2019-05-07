@@ -1,4 +1,4 @@
-﻿namespace CodeMash.Interfaces
+namespace CodeMash.ServiceModel
 {
     public interface ICultureBasedRequest : IRequestBase
     {

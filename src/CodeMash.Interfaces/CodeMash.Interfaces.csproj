@@ -15,4 +15,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
     <PackageReference Include="ServiceStack" Version="5.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeMash.ServiceModel\CodeMash.ServiceModel.csproj" />
+  </ItemGroup>
 </Project>

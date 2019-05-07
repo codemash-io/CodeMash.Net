@@ -1,5 +1,4 @@
-﻿using CodeMash.Interfaces;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
 namespace CodeMash.ServiceModel
 {

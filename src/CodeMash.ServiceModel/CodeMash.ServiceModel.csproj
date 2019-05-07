@@ -3,10 +3,8 @@
     <TargetFrameworks>netstandard2.0;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="ServiceStack.Core" Version="5.4.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />    
   </ItemGroup>
 </Project>

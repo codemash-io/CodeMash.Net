@@ -10,7 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
     <ProjectReference Include="..\CodeMash.ServiceModel\CodeMash.ServiceModel.csproj" />

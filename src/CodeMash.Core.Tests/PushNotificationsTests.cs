@@ -1,0 +1,78 @@
+using System;
+using System.Linq;
+using CodeMash.Configuration.Core;
+using CodeMash.Interfaces;
+using CodeMash.Notifications.Push;
+using CodeMash.ServiceModel.Requests.Notifications.Push;
+using CodeMash.ServiceModel.Responses.Notifications.Push;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+
+namespace CodeMash.Core.Tests
+{
+    [TestClass]
+    public class PushNotificationsTests
+    {
+        [TestMethod]
+        public void Can_create_notification_device()
+        {
+            var deviceId = Guid.NewGuid();
+            
+            var mock = Substitute.For<ICodeMashSettings>();
+            
+            mock.Client.Post<CreateNotificationDeviceResponse>(Arg.Any<CreateNotificationDevice>())
+                .Returns(info => new CreateNotificationDeviceResponse {Result = deviceId});
+            
+            var pushNotificationsService = new PushNotificationsService
+            {
+                CodeMashSettings = mock
+            };
+            
+            var response = pushNotificationsService.CreateNotificationDevice(new CreateNotificationDevice());
+            
+            Assert.AreEqual(deviceId, response.Result);
+
+        }
+        
+        [TestMethod]
+        [TestCategory("Integration")]
+        public void Can_create_notification_device_integration()
+        {
+            var pushNotificationsService = new PushNotificationsService
+            {
+                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+            };
+
+            var request = new CreateNotificationDevice
+            {
+                TimeZone = "timzone"
+            };
+
+            var response = pushNotificationsService.CreateNotificationDevice(request);
+
+            Assert.IsInstanceOfType(response.Result, typeof(Guid));
+
+        }
+        
+        
+        [TestMethod]
+        public void Can_save_push_notification()
+        {
+            var mock = Substitute.For<ICodeMashSettings>();
+            
+            mock.Client.Post<CreateNotificationResponse>(Arg.Any<CreateNotification>())
+                .Returns(info => new CreateNotificationResponse {Result = "NotificationId"});
+            
+            var pushNotificationsService = new PushNotificationsService
+            {
+                CodeMashSettings = mock
+            };
+            
+            var result = pushNotificationsService.CreateNotification(new CreateNotification());
+            
+            Assert.AreEqual("NotificationId", result.Result);
+
+        }
+        
+    }
+}

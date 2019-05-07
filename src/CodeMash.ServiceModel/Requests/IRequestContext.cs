@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using CodeMash.Interfaces;
 using MongoDB.Driver;
 
-namespace CodeMash.Interfaces
+namespace CodeMash.ServiceModel
 {
     public interface IRequestContext<T>
     {

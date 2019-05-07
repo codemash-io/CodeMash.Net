@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace CodeMash.Interfaces
+namespace CodeMash.ServiceModel
 {
     public interface IRequestWithSorting : IRequestBase
     {

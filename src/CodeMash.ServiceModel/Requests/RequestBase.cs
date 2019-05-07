@@ -1,6 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using CodeMash.Interfaces;
-
 
 namespace CodeMash.ServiceModel
 {
@@ -11,7 +9,7 @@ namespace CodeMash.ServiceModel
     /// default values. 
     /// </summary>
     [DataContract(Namespace = "http://codemash.io/types/")]
-    public class RequestBase  : IRequestBase, ICultureBasedRequest 
+    public class RequestBase : ICultureBasedRequest 
     {
         protected RequestBase()
         {

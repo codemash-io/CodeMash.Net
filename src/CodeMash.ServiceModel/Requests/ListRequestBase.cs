@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using CodeMash.Interfaces;
 using MongoDB.Driver;
 
 namespace CodeMash.ServiceModel 

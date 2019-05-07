@@ -49,6 +49,7 @@ namespace CodeMash.Core.Tests
         
         
         [TestMethod]
+        [TestCategory("Integration")]
         public void Can_send_email_integration_test()
         {
             var emailService = new EmailService

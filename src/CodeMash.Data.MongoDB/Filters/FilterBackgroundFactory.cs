@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CodeMash.Interfaces;
+using CodeMash.ServiceModel;
 using MongoDB.Driver;
 
 namespace CodeMash.Data.MongoDB

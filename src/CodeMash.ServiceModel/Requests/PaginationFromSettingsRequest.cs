@@ -1,7 +1,4 @@
-﻿using CodeMash.Interfaces;
-using ServiceStack.Configuration;
-
-namespace CodeMash.ServiceModel
+﻿namespace CodeMash.ServiceModel
 {
     public class PaginationFromSettingsRequest : IRequestWithPaging
     {
