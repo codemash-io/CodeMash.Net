@@ -1,5 +1,4 @@
-using CodeMash.ServiceModel.Requests.Notifications.Push;
-using CodeMash.ServiceModel.Responses.Notifications.Push;
+using Isidos.CodeMash.ServiceContracts;
 
 namespace CodeMash.Interfaces
 {
@@ -8,6 +7,9 @@ namespace CodeMash.Interfaces
         CreateNotificationResponse CreateNotification(CreateNotification request);
 
         CreateNotificationDeviceResponse CreateNotificationDevice(CreateNotificationDevice request);
+
+        GetNotificationsResponse GetNotifications(GetNotifications request);
+        GetNotificationResponse GetNotification(GetNotification request);
 
     }
 }

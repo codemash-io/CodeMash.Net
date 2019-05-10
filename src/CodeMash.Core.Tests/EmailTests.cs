@@ -1,10 +1,9 @@
 using System;
-using CodeMash.Configuration.Core;
-using CodeMash.Interfaces;
 using CodeMash.Notifications.Email;
+using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using ServiceStack;
 
 namespace CodeMash.Core.Tests
 {
@@ -24,9 +23,14 @@ namespace CodeMash.Core.Tests
             mock.Client.Post<SendEmailResponse>(Arg.Any<string>(), Arg.Any<SendEmail>())
                 .Returns(info => new SendEmailResponse {Result = true}); 
             
-            var result = emailService.SendMail(new [] { "support@isidos.lt" }, "Customer.WelcomeMessage");
-            
-            Assert.AreEqual(true, result);
+            var response = emailService.SendMail(new SendEmail
+            {
+                Recipients = new[] {"support@isidos.lt"},
+                TemplateName = "Customer.WelcomeMessage"
+            });
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(true, response.Result);
 
         }
         
@@ -43,7 +47,10 @@ namespace CodeMash.Core.Tests
             mock.Client.Post<SendEmailResponse>(Arg.Any<SendEmail>())
                 .Returns(new SendEmailResponse {Result = true}); 
             
-            Assert.ThrowsException<ArgumentNullException>(() => emailService.SendMail(null, "Customer.WelcomeMessage"));
+            Assert.ThrowsException<ArgumentNullException>(() => emailService.SendMail(new SendEmail
+            {
+                TemplateName = "Customer.WelcomeMessage"
+            }));
 
         }
         
@@ -57,9 +64,14 @@ namespace CodeMash.Core.Tests
                 CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
             };
 
-            var result = emailService.SendMail(new[] {"support@isidos.lt"}, "Customer.WelcomeMessage");
+            var response = emailService.SendMail(new SendEmail
+            {
+                Recipients = new[] {"support@isidos.lt"},
+                TemplateName = "Customer.WelcomeMessage"
+            });
 
-            Assert.AreEqual(true, result);
+            Assert.IsNotNull(response);
+            Assert.AreEqual(true, response.Result);
         }
     }
 }

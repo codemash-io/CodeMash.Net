@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using CodeMash.Configuration.Core;
+using Isidos.CodeMash.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -1,21 +1,25 @@
 using System;
 using CodeMash.Interfaces;
-using CodeMash.ServiceModel.Requests.Notifications.Push;
-using CodeMash.ServiceModel.Responses.Notifications.Push;
+using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.Utils;
 
 namespace CodeMash.Notifications.Push
 {
     public class PushNotificationsService : IPushNotificationsService
     {
-        public ICodeMashSettings CodeMashSettings { get; set; }
-
-
-        public CreateNotificationDeviceResponse CreateNotificationDevice(CreateNotificationDevice request)
+        private void AssertItHasSettings()
         {
             if (CodeMashSettings == null)
             {
-                throw new ArgumentNullException("CodeMashSettings", "CodeMash settings is not set");
-            }
+                throw new ArgumentNullException(nameof(CodeMashSettings), "CodeMash settings is not set");
+            }  
+        }
+        
+        public ICodeMashSettings CodeMashSettings { get; set; }
+
+        public CreateNotificationDeviceResponse CreateNotificationDevice(CreateNotificationDevice request)
+        {
+            AssertItHasSettings();
 
             var response =
                 CodeMashSettings.Client.Post<CreateNotificationDeviceResponse>(request);
@@ -23,12 +27,23 @@ namespace CodeMash.Notifications.Push
             return response;
         }
 
+        public GetNotificationsResponse GetNotifications(GetNotifications request)
+        {
+            AssertItHasSettings();
+
+            return CodeMashSettings.Client.Post(request);
+        }
+        
+        public GetNotificationResponse GetNotification(GetNotification request)
+        {
+            AssertItHasSettings();
+
+            return CodeMashSettings.Client.Post(request);
+        }
+
         public CreateNotificationResponse CreateNotification(CreateNotification request)
         {
-            if (CodeMashSettings == null)
-            {
-                throw new ArgumentNullException("CodeMashSettings", "CodeMash settings is not set");
-            }
+            AssertItHasSettings();
 
             var response =
                 CodeMashSettings.Client.Post<CreateNotificationResponse>(request);

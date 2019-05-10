@@ -1,35 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
 using CodeMash.Interfaces;
+using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.Utils;
 
 namespace CodeMash.Notifications.Email
 {
     public class EmailService : IEmailService
     {
-        public ICodeMashSettings CodeMashSettings { get; set; }
-        
-        public bool SendMail(string[] recipients, string templateName, Dictionary<string, object> tokens = null, Guid? accountId = null)
+        private void AssertItHasSettings()
         {
-            // TODO : use FluentValidation instead
-            if (recipients == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             if (CodeMashSettings == null)
             {
-                throw new ArgumentNullException("CodeMashSettings", "CodeMash settings is not set");
+                throw new ArgumentNullException(nameof(CodeMashSettings), "CodeMash settings is not set");
+            }  
+        }
+        
+        public ICodeMashSettings CodeMashSettings { get; set; }
+        
+        public SendEmailResponse SendMail(SendEmail email)
+        {
+            AssertItHasSettings();
+            
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email), "No email information defined");
             }
             
-            var response = CodeMashSettings.Client.Post<SendEmailResponse>("/email/send", new SendEmail
+            if (email.Recipients == null)
             {
-                Recipients = recipients,
-                TemplateName = templateName,
-                Tokens = tokens,
-                AccountId = accountId
-            });
+                throw new ArgumentNullException(nameof(email.Recipients), "No recipients defined");
+            }
 
-            return response != null && response.Result;
+            return CodeMashSettings.Client.Post<SendEmailResponse>(email);
         }
     }
 }

@@ -3,23 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash", "CodeMash\CodeMash.csproj", "{2FB9883D-47EA-47CD-B7F1-9B77324B5697}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Data.MongoDB", "CodeMash.Data.MongoDB\CodeMash.Data.MongoDB.csproj", "{ED396D85-A8A5-4BA9-BBB2-E91832C83596}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Notifications", "CodeMash.Notifications\CodeMash.Notifications.csproj", "{BC48D51C-EBD2-4585-9103-9A0B02E697AF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.ServiceModel", "CodeMash.ServiceModel\CodeMash.ServiceModel.csproj", "{BE47191A-FF43-4C8B-9BE5-135F7838D76F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Auth", "CodeMash.Auth\CodeMash.Auth.csproj", "{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Interfaces", "CodeMash.Interfaces\CodeMash.Interfaces.csproj", "{73D1FB67-9427-467D-B297-497C8C48C3B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Core.Tests", "CodeMash.Core.Tests\CodeMash.Core.Tests.csproj", "{C65A356E-6C31-4F2C-97E5-377825ACE105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Configuration", "CodeMash.Configuration\CodeMash.Configuration.csproj", "{79E1F319-95CB-470F-B861-AD6E92BDA9A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Configuration.Core", "CodeMash.Configuration.Core\CodeMash.Configuration.Core.csproj", "{687DFB46-2F6E-4F49-AD0B-D0EA486C5577}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{920D997A-849E-4C9D-93E6-3605BBB7A3E9}"
+ProjectSection(SolutionItems) = preProject
+	..\lib\ServiceContracts.dll = ..\lib\ServiceContracts.dll
+	..\lib\Data.dll = ..\lib\Data.dll
+	..\lib\Utils.dll = ..\lib\Utils.dll
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,26 +22,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2FB9883D-47EA-47CD-B7F1-9B77324B5697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FB9883D-47EA-47CD-B7F1-9B77324B5697}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FB9883D-47EA-47CD-B7F1-9B77324B5697}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FB9883D-47EA-47CD-B7F1-9B77324B5697}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED396D85-A8A5-4BA9-BBB2-E91832C83596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED396D85-A8A5-4BA9-BBB2-E91832C83596}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED396D85-A8A5-4BA9-BBB2-E91832C83596}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED396D85-A8A5-4BA9-BBB2-E91832C83596}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC48D51C-EBD2-4585-9103-9A0B02E697AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC48D51C-EBD2-4585-9103-9A0B02E697AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC48D51C-EBD2-4585-9103-9A0B02E697AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC48D51C-EBD2-4585-9103-9A0B02E697AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE47191A-FF43-4C8B-9BE5-135F7838D76F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C36FCB6B-F2D7-4EC5-93CC-A82EFEF6EA02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73D1FB67-9427-467D-B297-497C8C48C3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73D1FB67-9427-467D-B297-497C8C48C3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73D1FB67-9427-467D-B297-497C8C48C3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,14 +34,10 @@ Global
 		{C65A356E-6C31-4F2C-97E5-377825ACE105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65A356E-6C31-4F2C-97E5-377825ACE105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C65A356E-6C31-4F2C-97E5-377825ACE105}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79E1F319-95CB-470F-B861-AD6E92BDA9A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79E1F319-95CB-470F-B861-AD6E92BDA9A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79E1F319-95CB-470F-B861-AD6E92BDA9A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79E1F319-95CB-470F-B861-AD6E92BDA9A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{687DFB46-2F6E-4F49-AD0B-D0EA486C5577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{687DFB46-2F6E-4F49-AD0B-D0EA486C5577}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{687DFB46-2F6E-4F49-AD0B-D0EA486C5577}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{687DFB46-2F6E-4F49-AD0B-D0EA486C5577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B8345D-9333-43C9-BEA5-E7D49D0BE5E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B8345D-9333-43C9-BEA5-E7D49D0BE5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B8345D-9333-43C9-BEA5-E7D49D0BE5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B8345D-9333-43C9-BEA5-E7D49D0BE5E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

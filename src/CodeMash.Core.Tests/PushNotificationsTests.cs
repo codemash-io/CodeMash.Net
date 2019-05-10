@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using CodeMash.Configuration.Core;
-using CodeMash.Interfaces;
 using CodeMash.Notifications.Push;
-using CodeMash.ServiceModel.Requests.Notifications.Push;
-using CodeMash.ServiceModel.Responses.Notifications.Push;
+using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 

@@ -33,4 +33,16 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\Data.dll</HintPath>
+      </Reference>
+      <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\ServiceContracts.dll</HintPath>
+      </Reference>
+      <Reference Include="Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\Utils.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
