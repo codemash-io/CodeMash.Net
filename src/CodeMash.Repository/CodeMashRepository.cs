@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
+using System.Runtime;
 using System.Threading.Tasks;
 using CodeMash.Interfaces;
 using Isidos.CodeMash.ServiceContracts;
@@ -67,10 +68,10 @@ namespace CodeMash.Repository
             }
             return collectionName;
         }
-        
-        public ICodeMashSettings Settings { get; set; }
 
-        public IJsonServiceClient Client { get; }
+        private ICodeMashSettings Settings { get; set; }
+
+        private IJsonServiceClient Client { get; }
 
         public CodeMashRepository(ICodeMashSettings settings)
         {

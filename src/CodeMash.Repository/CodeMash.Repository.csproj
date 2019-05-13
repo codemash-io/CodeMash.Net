@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
         <RootNamespace>CodeMash.Respository</RootNamespace>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,10 +24,11 @@
       <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
       <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
       <PackageReference Include="ServiceStack" Version="5.0.0" />
+      <PackageReference Include="System.Runtime" Version="4.3.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
     </ItemGroup>
 </Project>
