@@ -1,16 +1,18 @@
 using System;
+using CodeMash.Common;
+using CodeMash.Interfaces;
 using CodeMash.Notifications.Email;
 using Isidos.CodeMash.ServiceContracts;
-using Isidos.CodeMash.Utils;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace CodeMash.Core.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class EmailTests
     {
-        [TestMethod]
+        [Test]
+        [Category("Notifications.Email")]
         public void Can_send_email()
         {
             var mock = Substitute.For<ICodeMashSettings>();
@@ -34,7 +36,8 @@ namespace CodeMash.Core.Tests
 
         }
         
-        [TestMethod]
+        [Test]
+        [Category("Notifications.Email")]
         public void Cannot_set_emails_when_email_recipients_are_not_set()
         {
             var mock = Substitute.For<ICodeMashSettings>();
@@ -47,7 +50,7 @@ namespace CodeMash.Core.Tests
             mock.Client.Post<SendEmailResponse>(Arg.Any<SendEmail>())
                 .Returns(new SendEmailResponse {Result = true}); 
             
-            Assert.ThrowsException<ArgumentNullException>(() => emailService.SendMail(new SendEmail
+            Assert.Throws<ArgumentNullException>(() => emailService.SendMail(new SendEmail
             {
                 TemplateName = "Customer.WelcomeMessage"
             }));
@@ -55,8 +58,9 @@ namespace CodeMash.Core.Tests
         }
         
         
-        [TestMethod]
-        [TestCategory("Integration")]
+        [Test]
+        [Category("Notifications.Email")]
+        [Category("Integration")]
         public void Can_send_email_integration_test()
         {
             var emailService = new EmailService

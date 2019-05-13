@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
+using CodeMash.Common;
+using CodeMash.Interfaces;
 using CodeMash.Notifications.Push;
 using Isidos.CodeMash.ServiceContracts;
-using Isidos.CodeMash.Utils;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace CodeMash.Core.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class PushNotificationsTests
     {
-        [TestMethod]
+        [Test]
+        [Category("Notifications.Push")]
         public void Can_create_notification_device()
         {
             var deviceId = Guid.NewGuid();
@@ -32,8 +34,9 @@ namespace CodeMash.Core.Tests
 
         }
         
-        [TestMethod]
-        [TestCategory("Integration")]
+        [Test]
+        [Category("Notifications.Push")]
+        [Category("Integration")]
         public void Can_create_notification_device_integration()
         {
             var pushNotificationsService = new PushNotificationsService
@@ -48,12 +51,13 @@ namespace CodeMash.Core.Tests
 
             var response = pushNotificationsService.CreateNotificationDevice(request);
 
-            Assert.IsInstanceOfType(response.Result, typeof(Guid));
+            Assert.IsInstanceOf<Guid>(response.Result);
 
         }
         
         
-        [TestMethod]
+        [Test]
+        [Category("Notifications.Push")]
         public void Can_save_push_notification()
         {
             var mock = Substitute.For<ICodeMashSettings>();
@@ -72,8 +76,9 @@ namespace CodeMash.Core.Tests
 
         }
         
-        [TestMethod]
-        [TestCategory("Integration")]
+        [Test]
+        [Category("Notifications.Push")]
+        [Category("Integration")]
         public void Can_save_push_notification_integration()
         {
             var pushNotificationsService = new PushNotificationsService

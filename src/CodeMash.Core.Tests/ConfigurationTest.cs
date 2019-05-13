@@ -1,15 +1,16 @@
 using System;
 using System.IO;
-using Isidos.CodeMash.Utils;
+using CodeMash.Common;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodeMash.Core.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class ConfigurationTest
     {
-        [TestMethod]
+        [Test]
+        [Category("Common")]
         public void Can_read_configuration_from_the_config_file()
         {
             var settings = new CodeMashSettingsCore(null);
@@ -20,7 +21,8 @@ namespace CodeMash.Core.Tests
 
         }
         
-        [TestMethod]
+        [Test]
+        [Category("Common")]
         public void Can_read_configuration_from_the_config_file_when_file_name_is_passed()
         {
             var settings = new CodeMashSettingsCore(null, "appsettings.Staging.json");
@@ -32,7 +34,8 @@ namespace CodeMash.Core.Tests
         }
         
        
-        [TestMethod]
+        [Test]
+        [Category("Common")]
         public void Can_read_configuration_from_with_passing_the_config()
         {
             var builder = new ConfigurationBuilder()

@@ -5,21 +5,26 @@
         <IsPackable>false</IsPackable>
 
         <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
+
+        <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
+        <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
-        <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
-        <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+        <PackageReference Include="NSubstitute" Version="3.1.0" />
+        <PackageReference Include="NUnit" Version="3.11.0" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
         <PackageReference Include="NSubstitute" Version="3.1.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
       <ProjectReference Include="..\CodeMash.Notifications\CodeMash.Notifications.csproj" />
+      <ProjectReference Include="..\CodeMash.Repository\CodeMash.Repository.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -35,6 +40,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="CodeMash.Sdk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\CodeMash.Sdk.dll</HintPath>
+      </Reference>
       <Reference Include="Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\lib\Data.dll</HintPath>
       </Reference>

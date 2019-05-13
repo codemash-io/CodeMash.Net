@@ -15,6 +15,9 @@
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CodeMash.Sdk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\lib\CodeMash.Sdk.dll</HintPath>
+    </Reference>
     <Reference Include="Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\lib\Data.dll</HintPath>
     </Reference>

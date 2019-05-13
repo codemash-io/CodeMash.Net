@@ -1,7 +1,6 @@
 ﻿using System;
 using CodeMash.Interfaces;
 using Isidos.CodeMash.ServiceContracts;
-using Isidos.CodeMash.Utils;
 
 namespace CodeMash.Notifications.Email
 {
