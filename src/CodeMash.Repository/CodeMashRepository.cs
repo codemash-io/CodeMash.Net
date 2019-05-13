@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using CodeMash.Interfaces;
-using CodeMash.Repository;
 using Isidos.CodeMash.ServiceContracts;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -203,7 +202,7 @@ namespace CodeMash.Repository
                 PageNumber = skip ?? 0,
                 IncludeSchemaInResponse = false,
                 CultureCode = CultureInfo.CurrentCulture.Name,
-                ProjectId = Guid.Parse("68ef0ba1-8911-4cb3-ac00-3b1aafa26124")
+                ProjectId = Settings.ProjectId
             };
             
             var response = Client.Post(request);
