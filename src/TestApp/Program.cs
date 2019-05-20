@@ -22,7 +22,6 @@ namespace TestApp
 
             var recipes = recipesRepository.Find(x => true);
 
-
             Console.ReadLine();
 
         }
