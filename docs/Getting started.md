@@ -1,8 +1,18 @@
 # CodeMash instalation
 
-1. Using Visual Studio open your .NET project.  
-2. Open package manager console: Tools -> NuGet Package Manager -> Package Manager Console.  
-3. Type in `Install-Package CodeMash`.  
-4. Press "Enter".  
+1. Using your preferred editor (Visual Studio, Rider, Visual Studio Code, or any other) open your .NET project.   
+2. Add NuGet Package `CodeMash.Core`. For more information see: https://www.nuget.org/packages/CodeMash.Core
+3. Add appsettings.json file if it does not already exist and enter CodeMash section defined below: 
 
-Of course you can use visual approach of Visual Studio as follows : Tools -> NuGet Package Manager -> Manage NuGet Packages for Solution...  
+**Example.**
+```csharp
+  {
+    "CodeMash" : {
+        "ApiKey" : "",
+        "ApiUrl" : "https://api.codemash.io",
+        "ProjectId" : ""
+    }
+  }
+```
+
+To get ApiKey and ProjectId values, you need to go to the settings of the CodeMash Project.
