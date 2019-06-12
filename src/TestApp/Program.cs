@@ -8,7 +8,7 @@ namespace TestApp
     class Program
     {
         [CollectionName("recipes")]
-        public class Recipe : Entity
+        public class Recipe : Entity, IEntity
         {
             [BsonElement("title")]
             public string Name { get; set; }
@@ -18,9 +18,9 @@ namespace TestApp
         {
             Console.WriteLine("Hello World!");
 
-            IRepository<Recipe> recipesRepository = CodeMashRepositoryFactory.Create<Recipe>();
+            CodeMash.Repository.IRepository<Recipe> recipesRepository = CodeMashRepositoryFactory.Create<Recipe>();
 
-            var recipes = recipesRepository.Find(x => true);
+            var recipes = recipesRepository.Find<Recipe>(x => true);
 
             Console.ReadLine();
 

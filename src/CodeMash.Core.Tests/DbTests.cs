@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CodeMash.Interfaces;
 using CodeMash.Repository;
 using MongoDB.Bson.Serialization.Attributes;
 using NSubstitute;
@@ -10,7 +11,7 @@ namespace CodeMash.Core.Tests
     public class DbTests
     {
         [CollectionName("recipes")]
-        public class Recipe : Entity
+        public class Recipe : Entity, IEntity
         {
             [BsonElement("title")]
             public Translatable Name { get; set; }
@@ -24,7 +25,7 @@ namespace CodeMash.Core.Tests
 
             var recipesRepository = CodeMashRepositoryFactory.Create<Recipe>("appsettings.Production.json");
 
-            var recipes = recipesRepository.Find(x => true);
+            var recipes = recipesRepository.Find<Recipe>(x => true);
             
 
             Assert.IsInstanceOf<List<Recipe>>(recipes);
