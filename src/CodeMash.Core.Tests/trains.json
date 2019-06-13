@@ -1,0 +1,20 @@
+{
+    "title": "trains",
+    "type": "object",
+    "required": [],
+    "translatable": ["number", "origin", "destination"],
+    "properties": {
+        "number": {
+            "type": "string",
+            "title": "number"
+        },
+        "origin": {
+            "type": "string",
+            "title": "origin"
+        },
+        "destination": {
+            "type": "string",
+            "title": "destination"
+        }
+    }
+}
