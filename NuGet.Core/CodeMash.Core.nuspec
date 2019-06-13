@@ -34,6 +34,7 @@
 		<file src="../src/CodeMash.Notifications/bin/Debug/netstandard2.0/CodeMash.Notifications.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Notifications/bin/Debug/netcoreapp2.1/CodeMash.Notifications.dll" target="lib\netcoreapp2.1" />
 		<file src="../src/CodeMash.Repository/bin/Debug/netcoreapp2.1/CodeMash.Repository.dll" target="lib\netcoreapp2.1" />
+		<file src="../src/CodeMash.Repository/bin/Debug/netstandard2.0/CodeMash.Repository.dll" target="lib\netstandard2.0" />
 		<file src="../lib/Data.dll" target="lib\netstandard2.0" />
 		<file src="../lib/Data.dll" target="lib\netcoreapp2.1" />
 		<file src="../lib/ServiceContracts.dll" target="lib\netstandard2.0" />
