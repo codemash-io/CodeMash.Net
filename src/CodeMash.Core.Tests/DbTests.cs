@@ -29,7 +29,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -44,7 +44,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_value_in_origin_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -59,7 +59,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_value_in_origin_and_destination_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -74,7 +74,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_no_filter_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -89,7 +89,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_id_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -105,7 +105,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_limit_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -120,7 +120,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_limit_2_and_skip_1_page_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
