@@ -1,35 +1,17 @@
 using System;
 using System.Collections.Generic;
-using CodeMash.Interfaces;
 using CodeMash.Repository;
-using MongoDB.Bson.Serialization.Attributes;
 using NUnit.Framework;
 
 namespace CodeMash.Core.Tests
 {
     [TestFixture]
-    public class DbTests
-    {
-        [CollectionName("trains")]
-        public class Train : Entity, IEntity
-        {
-            [BsonElement("number")]
-            public string Number { get; set; }
-            [BsonElement("origin")]
-            public string Origin { get; set; }
-            [BsonElement("destination")]
-            public string Destination { get; set; }
-        }
-
-        // 15 Kaunas Vilnius
-        // 140 Vilnius Kaunas
-        // 410 Kaunas Klaipeda
-        // 1454 Vilnius Trakai
-        
+    public class FindTests : DbTestBase
+    {        
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -44,7 +26,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_value_in_origin_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -59,7 +41,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_value_in_origin_and_destination_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -74,7 +56,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_no_filter_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -89,7 +71,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_id_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -105,7 +87,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_limit_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
@@ -120,7 +102,7 @@ namespace CodeMash.Core.Tests
         [Test]
         [Category("Db")]
         [Category("Integration")]
-        [Category("Insert")]
+        [Category("Find")]
         public void Can_find_with_limit_2_and_skip_1_page_integration_test()
         {
             var recipesRepository = CodeMashRepositoryFactory.Create<Train>("appsettings.Production.json");
