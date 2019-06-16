@@ -68,8 +68,10 @@ namespace CodeMash.Repository
         // Find One
         T FindOneById<T>(string id) where T : IEntity;
         T FindOneById<T>(ObjectId id) where T : IEntity;
-        T FindOne<T>(FilterDefinition<T> filter, ProjectionDefinition<T> projection = null, FindOptions findOptions = null) where T : IEntity;
-        T FindOne<T>(Expression<Func<T, bool>> filter, ProjectionDefinition<T> projection = null, FindOptions findOptions = null) where T : IEntity;
+        TP FindOne<T, TP>(FilterDefinition<T> filter, ProjectionDefinition<T, TP> projection = null, FindOptions findOptions = null) where T : IEntity;
+        TP FindOne<T, TP>(Expression<Func<T, bool>> filter, ProjectionDefinition<T, TP> projection = null, FindOptions findOptions = null) where T : IEntity;
+        T1 FindOne<T1>(FilterDefinition<T1> filter, FindOptions findOptions = null) where T1 : IEntity;
+        T1 FindOne<T1>(Expression<Func<T1, bool>> filter, FindOptions findOptions = null) where T1 : IEntity;
 
         // Find One Async
         Task<T> FindOneByIdAsync(string id);
