@@ -21,7 +21,6 @@ namespace CodeMash.Repository
 {
     public class CodeMashRepository<T> : IRepository<T> where T : IEntity
     {
-        
         private static string GetCollectionNameFromInterface()
         {
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
@@ -123,26 +122,26 @@ namespace CodeMash.Repository
 
         public T1 InsertOne<T1>(T1 entity, InsertOneOptions insertOneOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
-        }
-
-        public T1 InsertOne<T1>(T1 entity) where T1 : IEntity
-        {
             var request = new InsertOne
             {
                 CollectionName = GetCollectionName(),
                 Document = entity.ToJson(new JsonWriterSettings{ OutputMode = JsonOutputMode.Strict }),
                 CultureCode = CultureInfo.CurrentCulture.Name,
-                
+                ProjectId = Settings.ProjectId
             };
 
             var response = Client.Post(request);
 
             if(response?.Result == null){
-                return default(T1);
+                return default;
             }
             var documentAsEntity = BsonSerializer.Deserialize<T1>(response.Result);
             return documentAsEntity;
+        }
+
+        public T1 InsertOne<T1>(T1 entity) where T1 : IEntity
+        {
+            return InsertOne(entity, null);
         }
 
         public bool InsertMany<T1>(IEnumerable<T1> entities, InsertManyOptions insertManyOptions = null) where T1 : IEntity
