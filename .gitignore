@@ -173,3 +173,4 @@ $RECYCLE.BIN/
 /web/js/*.js
 /nbproject/
 
+appsettings.Production.json
