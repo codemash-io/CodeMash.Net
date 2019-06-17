@@ -1,0 +1,28 @@
+{
+    "title": "Trains Schedule",
+    "type": "object",
+    "required": [],
+    "translatable": [
+        "notes"
+    ],
+    "properties": {
+        "number": {
+            "type": "integer",
+            "title": "Number",
+            "hint": "The number of train."
+        },
+        "origin": {
+            "type": "string",
+            "title": "Origin"
+        },
+        "destination": {
+            "type": "string",
+            "title": "Destination"
+        },
+        "notes": {
+            "type": "string",
+            "title": "Notes",
+            "hint": "Notes about the trip"
+        }
+    }
+}
