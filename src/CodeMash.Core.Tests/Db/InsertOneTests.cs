@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeMash.Repository;
+using MongoDB.Bson;
 using NUnit.Framework;
 
 namespace CodeMash.Core.Tests
@@ -28,19 +29,19 @@ namespace CodeMash.Core.Tests
         [Category("InsertOne")]
         public void Can_insert_one_integration_test()
         {
-            var train = new Schedule
+            var schedule = new Schedule
             {
                 Destination = "Vilnius",
                 Notes = "Express",
-                Number = 101,
+                Number = 54,
                 Origin = "Kaunas"
             };
 
-            train = Repository.InsertOne(train);
-            
-            Assert.IsInstanceOf<Schedule>(train);
-            Assert.IsNotNull(train);
-            Assert.IsNotNull(train.Id);
+            schedule = Repository.InsertOne(schedule);
+
+            Assert.IsInstanceOf<Schedule>(schedule);
+            Assert.IsNotNull(schedule);
+            Assert.IsNotNull(schedule.Id);
         }
     }
 }

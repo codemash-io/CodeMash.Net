@@ -122,6 +122,8 @@ namespace CodeMash.Repository
 
         public T1 InsertOne<T1>(T1 entity, InsertOneOptions insertOneOptions) where T1 : IEntity
         {
+            entity.Id = new ObjectId().ToString();
+            
             var request = new InsertOne
             {
                 CollectionName = GetCollectionName(),
