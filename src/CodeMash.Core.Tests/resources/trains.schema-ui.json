@@ -1,0 +1,10 @@
+{
+    "number": {
+        "ui:widget": "updown"
+    },
+    "origin": {},
+    "destination": {},
+    "notes": {
+        "ui:widget": "textarea"
+    }
+}

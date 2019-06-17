@@ -18,8 +18,6 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Repository", "CodeMash.Repository\CodeMash.Repository.csproj", "{063C5DAB-39B7-44D6-8E63-AE85CCE75390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{2944FD46-1D6D-4B1B-8941-2CD359B87342}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,10 +44,6 @@ Global
 		{063C5DAB-39B7-44D6-8E63-AE85CCE75390}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{063C5DAB-39B7-44D6-8E63-AE85CCE75390}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{063C5DAB-39B7-44D6-8E63-AE85CCE75390}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2944FD46-1D6D-4B1B-8941-2CD359B87342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2944FD46-1D6D-4B1B-8941-2CD359B87342}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2944FD46-1D6D-4B1B-8941-2CD359B87342}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2944FD46-1D6D-4B1B-8941-2CD359B87342}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
