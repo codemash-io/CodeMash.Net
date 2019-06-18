@@ -13,9 +13,9 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using ServiceStack;
-using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
-using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
-using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
+using DeleteResult = MongoDB.Driver.DeleteResult;
+using ReplaceOneResult = MongoDB.Driver.ReplaceOneResult;
+using UpdateResult = MongoDB.Driver.UpdateResult;
 
 namespace CodeMash.Repository
 {

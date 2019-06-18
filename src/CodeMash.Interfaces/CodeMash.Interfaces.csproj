@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -17,10 +17,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\lib\netcoreapp2.1\Data.dll</HintPath>
+      <HintPath>..\..\lib\Data.dll</HintPath>
     </Reference>
     <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\lib\netcoreapp2.1\ServiceContracts.dll</HintPath>
+      <HintPath>..\..\lib\ServiceContracts.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
