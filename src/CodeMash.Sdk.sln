@@ -15,10 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Repository", "Code
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "netstandard2.0", "netstandard2.0", "{B66DE34D-EF11-47B2-A9F5-820F941A4143}"
 ProjectSection(SolutionItems) = preProject
-	..\lib\netstandard2.0\CodeMash.Sdk.dll = ..\lib\netstandard2.0\CodeMash.Sdk.dll
-	..\lib\netstandard2.0\Data.dll = ..\lib\netstandard2.0\Data.dll
-	..\lib\netstandard2.0\ServiceContracts.dll = ..\lib\netstandard2.0\ServiceContracts.dll
-	..\lib\netstandard2.0\Utils.dll = ..\lib\netstandard2.0\Utils.dll
+	..\lib\CodeMash.Sdk.dll = ..\lib\CodeMash.Sdk.dll
+	..\lib\Data.dll = ..\lib\Data.dll
+	..\lib\ServiceContracts.dll = ..\lib\ServiceContracts.dll
+	..\lib\Utils.dll = ..\lib\Utils.dll
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "netcoreapp2.1", "netcoreapp2.1", "{47AACE4D-C61B-4161-B5F2-89F1FAD994C3}"
