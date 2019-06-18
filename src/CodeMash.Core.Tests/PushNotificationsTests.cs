@@ -27,7 +27,7 @@ namespace CodeMash.Core.Tests
             mock.Client.Post(Arg.Any<RegisterDevice>())
                 .Returns(info => new RegisterDeviceResponse {Result = deviceId});
             
-            var pushNotificationsService = new PushNotificationsService
+            var pushNotificationsService = new PushNotificationsService 
             {
                 CodeMashSettings = mock
             };
