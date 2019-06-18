@@ -101,5 +101,38 @@ namespace CodeMash.Core.Tests
             Assert.IsNotNull(response.Result);
         }
         
+        [TestMethod]
+        public void Can_get_notification_templates_integration()
+        {
+            var pushNotificationsService = new PushNotificationsService
+            {
+                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+            };
+            
+            var request = new GetNotificationTemplates();
+            
+            var response = pushNotificationsService.GetTemplates(request);
+            
+            response.ShouldNotNull();
+            response.Result.Count.ShouldEqual(1);
+            response.Result[0].TemplateName = "Template";
+        }
+        
+        [TestMethod]
+        public void Can_get_notification_template_integration()
+        {
+            var pushNotificationsService = new PushNotificationsService
+            {
+                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+            };
+            
+            var request = new GetNotificationTemplate { Id = Guid.Parse("0fe16aab-2b02-4cd3-af70-db44f4d6087c")};
+            
+            var response = pushNotificationsService.GetTemplate(request);
+            
+            response.ShouldNotNull();
+            response.Result.TemplateName = "Template";
+        }
+        
     }
 }
