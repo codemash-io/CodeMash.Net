@@ -32,7 +32,6 @@
 		<file src="../src/CodeMash.Interfaces/bin/Debug/netstandard2.0/CodeMash.Interfaces.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Notifications/bin/Debug/netstandard2.0/CodeMash.Notifications.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Repository/bin/Debug/netstandard2.0/CodeMash.Repository.dll" target="lib\netstandard2.0" />
-		<file src="../src/CodeMash.Utils/bin/Debug/netstandard2.0/CodeMash.Utils.dll" target="lib\netstandard2.0" />
 		<file src="../lib/Data.dll" target="lib\netstandard2.0" />
 		<file src="../lib/ServiceContracts.dll" target="lib\netstandard2.0" />
 		<file src="../lib/Utils.dll" target="lib\netstandard2.0" />
