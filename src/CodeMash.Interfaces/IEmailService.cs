@@ -4,6 +4,6 @@ namespace CodeMash.Interfaces
 {
     public interface IEmailService
     {
-        SendEmailResponse SendMail(SendEmail email);
+        SendPushNotificationResponse SendMail(SendEmail email);
     }
 }

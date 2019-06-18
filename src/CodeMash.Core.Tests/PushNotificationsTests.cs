@@ -4,20 +4,20 @@ using CodeMash.Interfaces;
 using CodeMash.Common;
 using CodeMash.Notifications.Push;
 using Isidos.CodeMash.ServiceContracts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using NUnit.Framework;
 
 namespace CodeMash.Core.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class PushNotificationsTests
     {
         
         // TODO : rise exception if module is disabled
+        // TODO : throw nice message when module is disabled or not established yet
         
         
-        [Test]
-        [Category("Notifications.Push")]
+        [TestMethod]
         public void Can_create_notification_device()
         {
             var deviceId = Guid.NewGuid();
@@ -38,10 +38,8 @@ namespace CodeMash.Core.Tests
 
         }
         
-        [Test]
-        [Category("Notifications.Push")]
-        [Category("Integration")]
-        public void Can_create_notification_device_integration()
+        [TestMethod]
+        public void Can_register_notification_device_integration()
         {
             var pushNotificationsService = new PushNotificationsService
             {
@@ -55,14 +53,13 @@ namespace CodeMash.Core.Tests
 
             var response = pushNotificationsService.RegisterDevice(request);
 
-            Assert.IsInstanceOf<Guid>(response.Result);
+            response.Result.ShouldBe<Guid>();
 
         }
         
         
-        [Test]
-        [Category("Notifications.Push")]
-        public void Can_save_push_notification()
+        [TestMethod]
+        public void Can_send_push_notification()
         {
             var mock = Substitute.For<ICodeMashSettings>();
             
@@ -80,10 +77,8 @@ namespace CodeMash.Core.Tests
 
         }
         
-        [Test]
-        [Category("Notifications.Push")]
-        [Category("Integration")]
-        public void Can_save_push_notification_integration()
+        [TestMethod]
+        public void Can_send_push_notification_integration()
         {
             var pushNotificationsService = new PushNotificationsService
             {

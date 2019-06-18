@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -12,15 +12,15 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
     <PackageReference Include="ServiceStack" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\lib\Data.dll</HintPath>
+      <HintPath>..\..\lib\netcoreapp2.1\Data.dll</HintPath>
     </Reference>
     <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\lib\ServiceContracts.dll</HintPath>
+      <HintPath>..\..\lib\netcoreapp2.1\ServiceContracts.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

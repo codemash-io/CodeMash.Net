@@ -3,16 +3,18 @@ using CodeMash.Common;
 using CodeMash.Interfaces;
 using CodeMash.Notifications.Email;
 using Isidos.CodeMash.ServiceContracts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using NUnit.Framework;
 
 namespace CodeMash.Core.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class EmailTests
     {
-        [Test]
-        [Category("Notifications.Email")]
+        
+        // TODO : throw nice message when module is disabled or not established yet
+        
+        [TestMethod]
         public void Can_send_email()
         {
             var mock = Substitute.For<ICodeMashSettings>();
@@ -22,22 +24,21 @@ namespace CodeMash.Core.Tests
                 CodeMashSettings = mock
             };
 
-            mock.Client.Post<SendEmailResponse>(Arg.Any<string>(), Arg.Any<SendEmail>())
-                .Returns(info => new SendEmailResponse {Result = true}); 
+            mock.Client.Post(Arg.Any<SendEmail>())
+                .Returns(info => new SendPushNotificationResponse {Result = "asd"}); 
             
             var response = emailService.SendMail(new SendEmail
             {
-                Recipients = new[] {"support@isidos.lt"},
+                Emails = new[] {"support@isidos.lt"},
                 TemplateName = "Customer.WelcomeMessage"
             });
 
-            Assert.IsNotNull(response);
-            Assert.AreEqual(true, response.Result);
+            response.ShouldNotNull();
+            response.Result.ShouldEqual("asd");
 
         }
         
-        [Test]
-        [Category("Notifications.Email")]
+        [TestMethod]
         public void Cannot_set_emails_when_email_recipients_are_not_set()
         {
             var mock = Substitute.For<ICodeMashSettings>();
@@ -47,10 +48,10 @@ namespace CodeMash.Core.Tests
                 CodeMashSettings = mock
             };
 
-            mock.Client.Post<SendEmailResponse>(Arg.Any<SendEmail>())
-                .Returns(new SendEmailResponse {Result = true}); 
+            mock.Client.Post(Arg.Any<SendEmail>())
+                .Returns(new SendPushNotificationResponse {Result = "asd"}); 
             
-            Assert.Throws<ArgumentNullException>(() => emailService.SendMail(new SendEmail
+            Assert.ThrowsException<ArgumentNullException>(() => emailService.SendMail(new SendEmail
             {
                 TemplateName = "Customer.WelcomeMessage"
             }));
@@ -58,9 +59,7 @@ namespace CodeMash.Core.Tests
         }
         
         
-        [Test]
-        [Category("Notifications.Email")]
-        [Category("Integration")]
+        [TestMethod]
         public void Can_send_email_integration_test()
         {
             var emailService = new EmailService
@@ -70,12 +69,12 @@ namespace CodeMash.Core.Tests
 
             var response = emailService.SendMail(new SendEmail
             {
-                Recipients = new[] {"support@isidos.lt"},
+                Emails = new[] {"support@isidos.lt"},
                 TemplateName = "Customer.WelcomeMessage"
             });
 
-            Assert.IsNotNull(response);
-            Assert.AreEqual(true, response.Result);
+            response.ShouldNotNull();
+            response.Result.ShouldBe<string>();
         }
     }
 }

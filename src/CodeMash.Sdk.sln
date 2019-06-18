@@ -10,14 +10,24 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Core.Tests", "CodeMash.Core.Tests\CodeMash.Core.Tests.csproj", "{C65A356E-6C31-4F2C-97E5-377825ACE105}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{920D997A-849E-4C9D-93E6-3605BBB7A3E9}"
-ProjectSection(SolutionItems) = preProject
-	..\lib\ServiceContracts.dll = ..\lib\ServiceContracts.dll
-	..\lib\Data.dll = ..\lib\Data.dll
-	..\lib\Utils.dll = ..\lib\Utils.dll
-	..\lib\CodeMash.Sdk.dll = ..\lib\CodeMash.Sdk.dll
-EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Repository", "CodeMash.Repository\CodeMash.Repository.csproj", "{063C5DAB-39B7-44D6-8E63-AE85CCE75390}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "netstandard2.0", "netstandard2.0", "{B66DE34D-EF11-47B2-A9F5-820F941A4143}"
+ProjectSection(SolutionItems) = preProject
+	..\lib\netstandard2.0\CodeMash.Sdk.dll = ..\lib\netstandard2.0\CodeMash.Sdk.dll
+	..\lib\netstandard2.0\Data.dll = ..\lib\netstandard2.0\Data.dll
+	..\lib\netstandard2.0\ServiceContracts.dll = ..\lib\netstandard2.0\ServiceContracts.dll
+	..\lib\netstandard2.0\Utils.dll = ..\lib\netstandard2.0\Utils.dll
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "netcoreapp2.1", "netcoreapp2.1", "{47AACE4D-C61B-4161-B5F2-89F1FAD994C3}"
+ProjectSection(SolutionItems) = preProject
+	..\lib\netcoreapp2.1\CodeMash.Sdk.dll = ..\lib\netcoreapp2.1\CodeMash.Sdk.dll
+	..\lib\netcoreapp2.1\Data.dll = ..\lib\netcoreapp2.1\Data.dll
+	..\lib\netcoreapp2.1\ServiceContracts.dll = ..\lib\netcoreapp2.1\ServiceContracts.dll
+	..\lib\netcoreapp2.1\Utils.dll = ..\lib\netcoreapp2.1\Utils.dll
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,5 +58,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B66DE34D-EF11-47B2-A9F5-820F941A4143} = {920D997A-849E-4C9D-93E6-3605BBB7A3E9}
+		{47AACE4D-C61B-4161-B5F2-89F1FAD994C3} = {920D997A-849E-4C9D-93E6-3605BBB7A3E9}
 	EndGlobalSection
 EndGlobal

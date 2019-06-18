@@ -22,7 +22,7 @@ namespace CodeMash.Notifications.Push
             AssertItHasSettings();
 
             var response =
-                CodeMashSettings.Client.Post<RegisterDeviceResponse>(request);
+                CodeMashSettings.Client.Post(request);
 
             return response;
         }
