@@ -14,6 +14,7 @@ ProjectSection(SolutionItems) = preProject
 	..\lib\ServiceContracts.dll = ..\lib\ServiceContracts.dll
 	..\lib\Data.dll = ..\lib\Data.dll
 	..\lib\Utils.dll = ..\lib\Utils.dll
+	..\lib\CodeMash.Sdk.dll = ..\lib\CodeMash.Sdk.dll
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Repository", "CodeMash.Repository\CodeMash.Repository.csproj", "{063C5DAB-39B7-44D6-8E63-AE85CCE75390}"

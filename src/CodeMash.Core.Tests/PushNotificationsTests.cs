@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using CodeMash.Common;
 using CodeMash.Interfaces;
+using CodeMash.Common;
 using CodeMash.Notifications.Push;
 using Isidos.CodeMash.ServiceContracts;
 using NSubstitute;
@@ -12,6 +12,10 @@ namespace CodeMash.Core.Tests
     [TestFixture]
     public class PushNotificationsTests
     {
+        
+        // TODO : rise exception if module is disabled
+        
+        
         [Test]
         [Category("Notifications.Push")]
         public void Can_create_notification_device()
@@ -20,15 +24,15 @@ namespace CodeMash.Core.Tests
             
             var mock = Substitute.For<ICodeMashSettings>();
             
-            mock.Client.Post<CreateNotificationDeviceResponse>(Arg.Any<CreateNotificationDevice>())
-                .Returns(info => new CreateNotificationDeviceResponse {Result = deviceId});
+            mock.Client.Post(Arg.Any<RegisterDevice>())
+                .Returns(info => new RegisterDeviceResponse {Result = deviceId});
             
             var pushNotificationsService = new PushNotificationsService
             {
                 CodeMashSettings = mock
             };
             
-            var response = pushNotificationsService.CreateNotificationDevice(new CreateNotificationDevice());
+            var response = pushNotificationsService.RegisterDevice(new RegisterDevice());
             
             Assert.AreEqual(deviceId, response.Result);
 
@@ -44,12 +48,12 @@ namespace CodeMash.Core.Tests
                 CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
             };
 
-            var request = new CreateNotificationDevice
+            var request = new RegisterDevice
             {
                 TimeZone = "timzone"
             };
 
-            var response = pushNotificationsService.CreateNotificationDevice(request);
+            var response = pushNotificationsService.RegisterDevice(request);
 
             Assert.IsInstanceOf<Guid>(response.Result);
 
@@ -62,15 +66,15 @@ namespace CodeMash.Core.Tests
         {
             var mock = Substitute.For<ICodeMashSettings>();
             
-            mock.Client.Post<CreateNotificationResponse>(Arg.Any<CreateNotification>())
-                .Returns(info => new CreateNotificationResponse {Result = "NotificationId"});
+            mock.Client.Post(Arg.Any<SendPushNotification>())
+                .Returns(info => new SendPushNotificationResponse { Result = "NotificationId" });
             
             var pushNotificationsService = new PushNotificationsService
             {
                 CodeMashSettings = mock
             };
             
-            var result = pushNotificationsService.CreateNotification(new CreateNotification());
+            var result = pushNotificationsService.Send(new SendPushNotification());
             
             Assert.AreEqual("NotificationId", result.Result);
 
@@ -86,17 +90,17 @@ namespace CodeMash.Core.Tests
                 CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
             };
             
-            var createDeviceResponse = pushNotificationsService.CreateNotificationDevice(new CreateNotificationDevice());
+            var createDeviceResponse = pushNotificationsService.RegisterDevice(new RegisterDevice());
 
-            var request = new CreateNotification
+            var request = new SendPushNotification
             {
-                Title = "title",
-                Body = "body",
+                TemplateName = "Template",
                 Devices = new List<Guid> { createDeviceResponse.Result },
-                Data = "{ \"customData\" : \"ok\"}",
+                Tokens = new Dictionary<string, string> {{"customData", "ok"}},
+                IsNonPushable = true
             };
             
-            var response = pushNotificationsService.CreateNotification(request);
+            var response = pushNotificationsService.Send(request);
             
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Result);
