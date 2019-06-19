@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using CodeMash.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
+using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
+using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {
@@ -118,8 +121,8 @@ namespace CodeMash.Repository
         // Delete
         DeleteResult DeleteOne<T>(string id) where T : IEntity;
         DeleteResult DeleteOne<T>(ObjectId id) where T : IEntity;
-        DeleteResult DeleteOne<T>(FilterDefinition<T> filter) where T : IEntity;
-        DeleteResult DeleteOne<T>(Expression<Func<T, bool>> filter) where T : IEntity;
+        //DeleteResult DeleteOne<T>(FilterDefinition<T> filter) where T : IEntity;
+        //DeleteResult DeleteOne<T>(Expression<Func<T, bool>> filter) where T : IEntity;
         DeleteResult DeleteMany<T>(FilterDefinition<T> filter) where T : IEntity;
         DeleteResult DeleteMany<T>(Expression<Func<T, bool>> filter) where T : IEntity;
 

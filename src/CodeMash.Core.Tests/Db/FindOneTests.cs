@@ -103,5 +103,11 @@ namespace CodeMash.Core.Tests
             Assert.IsNotNull(schedule);
             Assert.AreEqual(_schedule2, schedule);
         }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            _repository.DeleteMany<Schedule>(x => true);
+        }
     }
 }
