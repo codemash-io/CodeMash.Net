@@ -17,36 +17,36 @@ namespace CodeMash.Notifications.Push
         
         public ICodeMashSettings CodeMashSettings { get; set; }
 
-        public CreateNotificationDeviceResponse CreateNotificationDevice(CreateNotificationDevice request)
+        public RegisterDeviceResponse RegisterDevice(RegisterDevice request)
         {
             AssertItHasSettings();
 
             var response =
-                CodeMashSettings.Client.Post<CreateNotificationDeviceResponse>(request);
+                CodeMashSettings.Client.Post(request);
 
             return response;
         }
 
-        public GetNotificationsResponse GetNotifications(GetNotifications request)
+        public GetNotificationsResponse GetAll(GetNotifications request)
         {
             AssertItHasSettings();
 
             return CodeMashSettings.Client.Post(request);
         }
         
-        public GetNotificationResponse GetNotification(GetNotification request)
+        public GetNotificationResponse Get(GetNotification request)
         {
             AssertItHasSettings();
 
             return CodeMashSettings.Client.Post(request);
         }
 
-        public CreateNotificationResponse CreateNotification(CreateNotification request)
+        public SendPushNotificationResponse Send(SendPushNotification request)
         {
             AssertItHasSettings();
 
             var response =
-                CodeMashSettings.Client.Post<CreateNotificationResponse>(request);
+                CodeMashSettings.Client.Post(request);
 
             return response;
         }

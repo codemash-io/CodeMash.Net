@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 using CodeMash.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
-using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
-using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
 
 namespace CodeMash.Repository
 {

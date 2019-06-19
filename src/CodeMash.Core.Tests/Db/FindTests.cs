@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeMash.Repository;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeMash.Core.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class FindTests
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
@@ -16,9 +16,8 @@ namespace CodeMash.Core.Tests
 
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
-
-        [SetUp]
-        public void SetUp()
+        
+        public FindTests()
         {
             _schedule = new Schedule
             {
@@ -60,91 +59,68 @@ namespace CodeMash.Core.Tests
             _schedule4 = _repository.InsertOne(_schedule4);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("Find")]
+        
         public void Can_find_integration_test()
         {
             var schedules = _repository.Find<Schedule>(x => true);
             
-            Assert.IsInstanceOf<List<Schedule>>(schedules);
+            schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("Find")]
+        [TestMethod]
         public void Can_find_value_in_origin_integration_test()
         {
             var schedules = _repository.Find<Schedule>(x => x.Origin == _schedule2.Origin);
             
-            Assert.IsInstanceOf<List<Schedule>>(schedules);
+            schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
             Assert.AreEqual(_schedule2, schedules.First());
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("Find")]
+        [TestMethod]
         public void Can_find_value_in_origin_and_destination_integration_test()
         {
             var schedules = _repository.Find<Schedule>(x => x.Origin == "Vilnius" || x.Destination == "Vilnius");
             
-            Assert.IsInstanceOf<List<Schedule>>(schedules);
+            schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
             Assert.AreEqual(2, schedules.Count);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("Find")]
+        [TestMethod]
         public void Can_find_with_no_filter_integration_test()
         {
             var schedules = _repository.Find<Schedule>(null);
             
-            Assert.IsInstanceOf<List<Schedule>>(schedules);
+            schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("Find")]
+        [TestMethod]
         public void Can_find_with_id_integration_test()
         {
             var schedules = _repository.Find<Schedule>(x => x.Id == _schedule.Id);
             
-            Assert.IsInstanceOf<List<Schedule>>(schedules);
+            schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
             Assert.AreEqual(schedules.First(), _schedule);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("Find")]
+        [TestMethod]
         public void Can_find_with_limit_integration_test()
         {
             var schedules = _repository.Find<Schedule>(x => true, null, null, 2, null);
             
-            Assert.IsInstanceOf<List<Schedule>>(schedules);
-            Assert.IsNotNull(schedules);
-            Assert.AreEqual(2, schedules.Count);
+            schedules.ShouldBe<List<Schedule>>();
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("Find")]
+        [TestMethod]
         public void Can_find_with_limit_2_and_skip_1_page_integration_test()
         {
             var schedules = _repository.Find<Schedule>(x => true, null, 1, 2, null);
             
-            Assert.IsInstanceOf<List<Schedule>>(schedules);
+            schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
             Assert.AreEqual(2, schedules.Count);
             Assert.AreEqual(schedules[0], _schedule3);

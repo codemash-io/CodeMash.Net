@@ -16,7 +16,7 @@ namespace CodeMash.Notifications.Email
         
         public ICodeMashSettings CodeMashSettings { get; set; }
         
-        public SendEmailResponse SendMail(SendEmail email)
+        public SendPushNotificationResponse SendMail(SendEmail email)
         {
             AssertItHasSettings();
             
@@ -25,12 +25,12 @@ namespace CodeMash.Notifications.Email
                 throw new ArgumentNullException(nameof(email), "No email information defined");
             }
             
-            if (email.Recipients == null)
+            if (email.Emails == null && (email.Users == null || email.Users.Count == 0))
             {
-                throw new ArgumentNullException(nameof(email.Recipients), "No recipients defined");
+                throw new ArgumentNullException("No recipients defined");
             }
 
-            return CodeMashSettings.Client.Post<SendEmailResponse>(email);
+            return CodeMashSettings.Client.Post(email);
         }
     }
 }

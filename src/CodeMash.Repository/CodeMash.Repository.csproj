@@ -2,8 +2,20 @@
 
     <PropertyGroup>
         <RootNamespace>CodeMash.Respository</RootNamespace>
-        <TargetFrameworks>netstandard2.0;netcoreapp2.1</TargetFrameworks>
+        <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+      <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
+      <PackageReference Include="ServiceStack" Version="5.0.0" />
+      <PackageReference Include="System.Runtime" Version="4.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    </ItemGroup>
 
     <ItemGroup>
       <Reference Include="CodeMash.Sdk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -18,17 +30,5 @@
       <Reference Include="Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\lib\Utils.dll</HintPath>
       </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
-      <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
-      <PackageReference Include="ServiceStack" Version="5.0.0" />
-      <PackageReference Include="System.Runtime" Version="4.3.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
     </ItemGroup>
 </Project>

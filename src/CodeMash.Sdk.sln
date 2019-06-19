@@ -11,8 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Core.Tests", "Code
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{920D997A-849E-4C9D-93E6-3605BBB7A3E9}"
 ProjectSection(SolutionItems) = preProject
-	..\lib\ServiceContracts.dll = ..\lib\ServiceContracts.dll
+	..\lib\CodeMash.Sdk.dll = ..\lib\CodeMash.Sdk.dll
 	..\lib\Data.dll = ..\lib\Data.dll
+	..\lib\ServiceContracts.dll = ..\lib\ServiceContracts.dll
 	..\lib\Utils.dll = ..\lib\Utils.dll
 EndProjectSection
 EndProject
@@ -47,5 +48,7 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

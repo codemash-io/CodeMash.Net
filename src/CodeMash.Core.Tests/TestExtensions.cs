@@ -1,5 +1,5 @@
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeMash.Core.Tests
 {
@@ -7,7 +7,7 @@ namespace CodeMash.Core.Tests
     {
         public static T ShouldNotNull<T>(this T obj)
         {
-            Assert.IsNull(obj);
+            Assert.IsNotNull(obj);
             return obj;
         }
 
@@ -47,14 +47,14 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        public static Exception ShouldBeThrownBy(this Type exceptionType, TestDelegate testDelegate)
+        public static Exception ShouldBeThrownBy<T>(this Type exceptionType, Action testDelegate) where T : Exception
         {
-            return Assert.Throws(exceptionType, testDelegate);
+            return Assert.ThrowsException<T>(testDelegate);
         }
 
         public static void ShouldBe<T>(this object actual)
         {
-            Assert.IsInstanceOf<T>(actual);
+            Assert.IsInstanceOfType(actual, typeof(T));
         }
 
         public static void ShouldBeNull(this object actual)
@@ -97,7 +97,7 @@ namespace CodeMash.Core.Tests
             if (!string.Equals(actual, expected, StringComparison.InvariantCultureIgnoreCase))
             {
                 var message = string.Format("Expected {0} but was {1}", expected, actual);
-                throw new AssertionException(message);
+                throw new AssertFailedException(message);
             }
         }
     }

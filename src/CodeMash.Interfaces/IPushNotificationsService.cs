@@ -4,12 +4,11 @@ namespace CodeMash.Interfaces
 {
     public interface IPushNotificationsService
     {
-        CreateNotificationResponse CreateNotification(CreateNotification request);
+        SendPushNotificationResponse Send(SendPushNotification request);
+        RegisterDeviceResponse RegisterDevice(RegisterDevice request);
 
-        CreateNotificationDeviceResponse CreateNotificationDevice(CreateNotificationDevice request);
-
-        GetNotificationsResponse GetNotifications(GetNotifications request);
-        GetNotificationResponse GetNotification(GetNotification request);
+        GetNotificationsResponse GetAll(GetNotifications request);
+        GetNotificationResponse Get(GetNotification request);
 
     }
 }

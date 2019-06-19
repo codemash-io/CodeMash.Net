@@ -1,5 +1,5 @@
-using CodeMash.Common;
 using CodeMash.Interfaces;
+using CodeMash.Common;
 
 namespace CodeMash.Repository
 {

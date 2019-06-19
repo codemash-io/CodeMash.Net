@@ -1,13 +1,12 @@
 using System;
-using System.Collections.Generic;
 using CodeMash.Repository;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeMash.Core.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class FindOneTests 
-    {        
+    {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
         // TODO : play with projections
         // TODO : play with paging and sorting
@@ -16,8 +15,7 @@ namespace CodeMash.Core.Tests
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         
-        [SetUp]
-        public void SetUp()
+        public FindOneTests()
         {
             _schedule = new Schedule
             {
@@ -59,63 +57,48 @@ namespace CodeMash.Core.Tests
             _schedule4 = _repository.InsertOne(_schedule4);
         }
         
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("FindOne")]
+        [TestMethod]
         public void Can_find_one_integration_test()
         {
-            var schedule = _repository.FindOne<Schedule>(x => x.Origin == "Trakai");
+            var schedule = _repository.FindOne<Schedule>(x => x.Origin == _schedule4.Origin);
             
-            Assert.IsInstanceOf<Schedule>(schedule);
+            schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(schedule, _schedule4);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("FindOne")]
+        [TestMethod]
         public void Can_find_one_value_in_number_integration_test()
         {
             var schedule = _repository.FindOne<Schedule>(x => x.Number == _schedule.Number);
             
-            Assert.IsInstanceOf<Schedule>(schedule);
+            schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(schedule, _schedule);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("FindOneOne")]
+        [TestMethod]
         public void Exception_find_one_with_no_filter_integration_test()
         {
-            Assert.Throws<ArgumentNullException>( () => _repository.FindOne<Schedule>(null) );
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOne<Schedule>(null) );
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("FindOne")]
+        [TestMethod]
         public void Can_find_one_with_id_integration_test()
         {
             var schedule = _repository.FindOne<Schedule>(x => x.Id == _schedule2.Id);
             
-            Assert.IsInstanceOf<Schedule>(schedule);
+            schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(_schedule2, schedule);
         }
 
-        [Test]
-        [Category("Db")]
-        [Category("Integration")]
-        [Category("FindOne")]
+        [TestMethod]
         public void Can_find_one_first_with_destination_integration_test()
         {
             var schedule = _repository.FindOne<Schedule>(x => x.Destination == "Kaunas");
-            
-            Assert.IsInstanceOf<Schedule>(schedule);
+        
+            schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(_schedule2, schedule);
         }
