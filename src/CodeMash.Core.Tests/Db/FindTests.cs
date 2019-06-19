@@ -17,7 +17,8 @@ namespace CodeMash.Core.Tests
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         
-        public FindTests()
+        [TestInitialize]
+        public void SetUp()
         {
             _schedule = new Schedule
             {

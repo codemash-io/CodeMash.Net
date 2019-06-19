@@ -16,7 +16,8 @@ namespace CodeMash.Core.Tests
 
         private Schedule _schedule;
         
-        public InsertOneTests()
+        [TestInitialize]
+        public void SetUp()
         {
             Repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
             
