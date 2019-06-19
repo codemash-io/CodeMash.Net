@@ -1,10 +1,12 @@
+using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
-    public class InsertOneTests
+    public class DeleteOneTests
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
         // TODO : play with projections
@@ -27,16 +29,24 @@ namespace CodeMash.Core.Tests
                 Number = 54,
                 Origin = "Kaunas"
             };
+
+            _schedule = Repository.InsertOne(_schedule);
         }
 
         [TestMethod]
-        public void Can_insert_one_integration_test()
+        public void Can_delete_one_integration_test()
         {
-            _schedule = Repository.InsertOne(_schedule);
+            var result = Repository.DeleteOne<Schedule>(_schedule.Id);
+            
+            result.ShouldBe<DeleteResult>();
+            Assert.IsTrue(result.IsAcknowledged);
+            Assert.IsTrue(result.DeletedCount > 0);
+        }
 
-            _schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(_schedule);
-            Assert.IsNotNull(_schedule.Id);
+        [TestMethod]
+        public void Cannot_delete_one_no_filter_integration_test()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null));
         }
         
         [TestCleanup]

@@ -82,11 +82,11 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_value_in_origin_and_destination_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => x.Origin == "Vilnius" || x.Destination == "Vilnius");
+            var schedules = _repository.Find<Schedule>(x => x.Origin == "Kaunas" || x.Destination == "Kaunas");
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
-            Assert.AreEqual(2, schedules.Count);
+            Assert.AreEqual(3, schedules.Count);
         }
 
         [TestMethod]
@@ -126,6 +126,12 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(2, schedules.Count);
             Assert.AreEqual(schedules[0], _schedule3);
             Assert.AreEqual(schedules[1], _schedule4);
+        }
+        
+        [TestCleanup]
+        public void TearDown()
+        {
+            _repository.DeleteMany<Schedule>(x => true);
         }
     }
 }
