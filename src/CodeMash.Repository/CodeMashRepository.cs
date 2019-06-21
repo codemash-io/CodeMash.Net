@@ -268,11 +268,6 @@ namespace CodeMash.Repository
         public UpdateResult UpdateMany<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            if (filter == FilterDefinition<T1>.Empty || filter == null)
-            {
-                throw new ArgumentNullException(nameof(filter), "Filter cannot be empty");
-            }
-
             if (update == null)
             {
                 throw new ArgumentNullException(nameof(update), "Update Definition cannot be null");

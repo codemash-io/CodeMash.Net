@@ -79,21 +79,7 @@ namespace CodeMash.Core.Tests
             entitiesFromDb.ShouldNotNull();
             Assert.AreEqual(entitiesFromDb.Count(x => x.Origin == "Kaunas"), 4);
         }
-        
-        [TestMethod]
-        public void Cannot_update_many_no_filter_integration_test()
-        {
-            var update = new UpdateDefinitionBuilder<Schedule>()
-                .Set(x => x.Origin, "Kaunas")
-                .Set(x => x.Number, 1);
 
-            Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateMany(null, update, null));
-            
-            Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateMany(FilterDefinition<Schedule>.Empty, update, null));
-        }
-        
         [TestMethod]
         public void Cannot_update_many_no_update_definition_integration_test()
         {
