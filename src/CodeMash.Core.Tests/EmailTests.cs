@@ -30,7 +30,7 @@ namespace CodeMash.Core.Tests
             var response = emailService.SendMail(new SendEmail
             {
                 Emails = new[] {"support@isidos.lt"},
-                TemplateName = "Customer.WelcomeMessage"
+                TemplateId = "b2f36c34-fd0e-44a3-bac2-18cf5433c6d9"
             });
 
             response.ShouldNotNull();
@@ -53,7 +53,7 @@ namespace CodeMash.Core.Tests
             
             Assert.ThrowsException<ArgumentNullException>(() => emailService.SendMail(new SendEmail
             {
-                TemplateName = "Customer.WelcomeMessage"
+                TemplateId = "b2f36c34-fd0e-44a3-bac2-18cf5433c6d9"
             }));
 
         }
@@ -70,7 +70,7 @@ namespace CodeMash.Core.Tests
             var response = emailService.SendMail(new SendEmail
             {
                 Emails = new[] {"support@isidos.lt"},
-                TemplateName = "Customer.WelcomeMessage"
+                TemplateId = "b2f36c34-fd0e-44a3-bac2-18cf5433c6d9"
             });
 
             response.ShouldNotNull();

@@ -89,7 +89,7 @@ namespace CodeMash.Core.Tests
 
             var request = new SendPushNotification
             {
-                TemplateName = "Template",
+                TemplateId = "0fe16aab-2b02-4cd3-af70-db44f4d6087c",
                 Devices = new List<Guid> { createDeviceResponse.Result },
                 Tokens = new Dictionary<string, string> {{"customData", "ok"}},
                 IsNonPushable = true
