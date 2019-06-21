@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using CodeMash.Interfaces;
-using Isidos.CodeMash.Data;
 using Isidos.CodeMash.ServiceContracts;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
@@ -269,13 +268,51 @@ namespace CodeMash.Repository
         public UpdateResult UpdateMany<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == FilterDefinition<T1>.Empty || filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), "Filter cannot be empty");
+            }
+
+            if (update == null)
+            {
+                throw new ArgumentNullException(nameof(update), "Update Definition cannot be null");
+            }
+            
+            var request = new UpdateMany
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                SchemaId = "", //TODO: what is this
+                Update = update.ToJson(),
+                UpdateOptions = updateOptions
+            };
+
+            var response = Client.Patch(request);
+            
+            if (!response.Result.IsAcknowledged)
+            {
+                throw new InvalidOperationException("Update failed");
+            }
+            
+            if (response.Result.MatchedCount == 0)
+            {
+                throw new ArgumentException("Documents could not be found");
+            }
+
+            if (response.Result.ModifiedCount == 0)
+            {
+                throw new InvalidOperationException("Documents could not be updated");
+            }
+            
+            return response.Result;
         }
 
         public UpdateResult UpdateMany<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return UpdateMany(new ExpressionFilterDefinition<T1>(filter), update, updateOptions);
         }
 
         public ReplaceOneResult ReplaceOne<T1>(FilterDefinition<T1> filter, T1 entity,

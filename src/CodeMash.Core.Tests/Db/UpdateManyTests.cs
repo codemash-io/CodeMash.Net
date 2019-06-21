@@ -1,14 +1,17 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using NSubstitute;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
-    public class UpdateOneTests
+    public class UpdateManyTests
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
         // TODO : play with cultures and translatable fields. 
@@ -60,55 +63,54 @@ namespace CodeMash.Core.Tests
         }
 
         [TestMethod]
-        public void Can_update_one_integration_test()
+        public void Can_update_many_integration_test()
         {
             var update = new UpdateDefinitionBuilder<Schedule>()
             .Set(x => x.Origin, "Kaunas")
             .Set(x => x.Number, 1);
 
-            var result = _repository.UpdateOne(x => x.Id == _schedule4.Id, update, null);
+            var result = _repository.UpdateMany(x => true, update, null);
             
             result.ShouldBe<UpdateResult>();
             Assert.IsTrue(result.IsAcknowledged);
 
-            var entityFromDb = _repository.FindOne<Schedule>(x => x.Id == _schedule4.Id);
-            entityFromDb.ShouldBe<Schedule>();
-            entityFromDb.ShouldNotNull();
-            Assert.AreEqual(entityFromDb.Number, 1);
-            Assert.AreEqual(entityFromDb.Origin, "Kaunas");
+            var entitiesFromDb = _repository.Find<Schedule>(x => true);
+            entitiesFromDb.ShouldBe<List<Schedule>>();
+            entitiesFromDb.ShouldNotNull();
+            Assert.AreEqual(entitiesFromDb.Count(x => x.Origin == "Kaunas"), 4);
         }
         
         [TestMethod]
-        public void Cannot_update_one_no_filter_integration_test()
+        public void Cannot_update_many_no_filter_integration_test()
         {
             var update = new UpdateDefinitionBuilder<Schedule>()
                 .Set(x => x.Origin, "Kaunas")
                 .Set(x => x.Number, 1);
 
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateOne(filter: null, update, null));
+                () => _repository.UpdateMany(null, update, null));
             
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateOne(FilterDefinition<Schedule>.Empty, update, null));
+                () => _repository.UpdateMany(FilterDefinition<Schedule>.Empty, update, null));
         }
         
         [TestMethod]
-        public void Cannot_update_one_no_update_definition_integration_test()
+        public void Cannot_update_many_no_update_definition_integration_test()
         {
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateOne<Schedule>(x => x.Id == _schedule4.Id, 
+                () => _repository.UpdateMany<Schedule>(x => true, 
                     null, null));
         }
         
         [TestMethod]
-        public void Cannot_update_one_id_not_found_integration_test()
+        public void Cannot_update_many_filter_not_found_integration_test()
         {
             var update = new UpdateDefinitionBuilder<Schedule>()
                 .Set(x => x.Origin, "Kaunas")
                 .Set(x => x.Number, 1);
 
             Assert.ThrowsException<ArgumentException>(
-                () => _repository.UpdateOne<Schedule>(
+                () => _repository.UpdateMany(
                     x => x.Id == new ObjectId().ToString(), 
                     update, null));
         }
