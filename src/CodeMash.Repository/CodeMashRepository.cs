@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using CodeMash.Interfaces;
+using Isidos.CodeMash.Data;
 using Isidos.CodeMash.ServiceContracts;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
@@ -206,25 +207,43 @@ namespace CodeMash.Repository
         public UpdateResult UpdateOne<T1>(string id, UpdateDefinition<T1> update, UpdateOptions updateOptions)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return UpdateOne(new ExpressionFilterDefinition<T1>(x => x.Id == id), update, updateOptions);
         }
 
         public UpdateResult UpdateOne<T1>(ObjectId id, UpdateDefinition<T1> update, UpdateOptions updateOptions)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return UpdateOne(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), update, updateOptions);
         }
 
         public UpdateResult UpdateOne<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            var request = new UpdateOne
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                SchemaId = "", //TODO: what is this
+                Update = update.ToJson(),
+                UpdateOptions = updateOptions
+            };
+
+            var response = Client.Patch(request);
+
+            if (response.Result.IsAcknowledged)
+            {
+                return response.Result;
+            }
+            
+            throw new InvalidOperationException("Document could not be updated");
         }
 
         public UpdateResult UpdateOne<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return UpdateOne(new ExpressionFilterDefinition<T1>(filter), update, updateOptions);
         }
 
         public UpdateResult UpdateMany<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
@@ -242,13 +261,55 @@ namespace CodeMash.Repository
         public ReplaceOneResult ReplaceOne<T1>(FilterDefinition<T1> filter, T1 entity,
             UpdateOptions updateOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == FilterDefinition<T1>.Empty || filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), "Filter cannot be empty");
+            }
+
+            if (entity == null || Equals(entity, default(T1)))
+            {
+                throw new ArgumentNullException(nameof(entity), "Entity cannot be empty or null");
+            }
+            
+            var request = new ReplaceOne
+            {
+                BypassDocumentValidation = false,
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Document = entity.ToJson(),
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                UpdateOneOptions =
+                {
+                    IsUpsert = updateOptions?.IsUpsert ?? false
+                }
+            };
+
+            var response = Client.Put(request);
+
+            if (!response.Result.IsAcknowledged)
+            {
+                throw new InvalidOperationException("Replace failed");
+            }
+            
+            if (response.Result.MatchedCount == 0)
+            {
+                throw new ArgumentException("Document could not be found");
+            }
+
+            if (response.Result.ModifiedCount == 0)
+            {
+                throw new InvalidOperationException("Document could not be replaced");
+            }
+            
+            return response.Result;
+
         }
 
         public ReplaceOneResult ReplaceOne<T1>(Expression<Func<T1, bool>> filter, T1 entity,
             UpdateOptions updateOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return ReplaceOne(new ExpressionFilterDefinition<T1>(filter), entity, updateOptions);
         }
 
         public Task<ReplaceOneResult> ReplaceOneAsync(FilterDefinition<T> filter, T entity,
