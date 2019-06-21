@@ -108,7 +108,7 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Number, 1);
 
             Assert.ThrowsException<ArgumentException>(
-                () => _repository.UpdateOne<Schedule>(
+                () => _repository.UpdateOne(
                     x => x.Id == new ObjectId().ToString(), 
                     update, null));
         }
