@@ -219,6 +219,16 @@ namespace CodeMash.Repository
         public UpdateResult UpdateOne<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
+            if (filter == FilterDefinition<T1>.Empty || filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), "Filter cannot be empty");
+            }
+
+            if (update == null)
+            {
+                throw new ArgumentNullException(nameof(update), "Update Definition cannot be null");
+            }
+            
             var request = new UpdateOne
             {
                 CollectionName = GetCollectionName(),
@@ -231,13 +241,23 @@ namespace CodeMash.Repository
             };
 
             var response = Client.Patch(request);
-
-            if (response.Result.IsAcknowledged)
+            
+            if (!response.Result.IsAcknowledged)
             {
-                return response.Result;
+                throw new InvalidOperationException("Update failed");
             }
             
-            throw new InvalidOperationException("Document could not be updated");
+            if (response.Result.MatchedCount == 0)
+            {
+                throw new ArgumentException("Document could not be found");
+            }
+
+            if (response.Result.ModifiedCount == 0)
+            {
+                throw new InvalidOperationException("Document could not be updated");
+            }
+            
+            return response.Result;
         }
 
         public UpdateResult UpdateOne<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,

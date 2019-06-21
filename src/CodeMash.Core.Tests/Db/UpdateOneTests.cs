@@ -79,35 +79,29 @@ namespace CodeMash.Core.Tests
         }
         
         [TestMethod]
-        public void Cannot_replace_one_no_filter_integration_test()
+        public void Cannot_update_one_no_filter_integration_test()
         {
-            _schedule4.Origin = "Kaunas";
-            _schedule4.Number = 1;
+            var update = new UpdateDefinitionBuilder<Schedule>()
+                .Set(x => x.Origin, "Kaunas")
+                .Set(x => x.Number, 1);
 
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.ReplaceOne(null, _schedule4, null));
+                () => _repository.UpdateOne(filter: null, update, null));
             
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.ReplaceOne(FilterDefinition<Schedule>.Empty, _schedule4, null));
+                () => _repository.UpdateOne(FilterDefinition<Schedule>.Empty, update, null));
         }
         
         [TestMethod]
-        public void Cannot_replace_one_no_entity_integration_test()
+        public void Cannot_update_one_no_update_definition_integration_test()
         {
-            _schedule4.Origin = "Kaunas";
-            _schedule4.Number = 1;
-
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.ReplaceOne<Schedule>(x => x.Id == _schedule4.Id, 
+                () => _repository.UpdateOne<Schedule>(x => x.Id == _schedule4.Id, 
                     null, null));
-            
-            Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.ReplaceOne(x => x.Id == _schedule4.Id, 
-                    default(Schedule), null));
         }
         
         [TestMethod]
-        public void Cannot_replace_one_id_not_found_integration_test()
+        public void Cannot_update_one_id_not_found_integration_test()
         {
             _schedule4.Origin = "Kaunas";
             _schedule4.Number = 1;
