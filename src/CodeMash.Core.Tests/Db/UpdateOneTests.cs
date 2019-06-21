@@ -66,7 +66,7 @@ namespace CodeMash.Core.Tests
             .Set(x => x.Origin, "Kaunas")
             .Set(x => x.Number, 1);
 
-            var result = _repository.UpdateOne<Schedule>(x => x.Id == _schedule4.Id, update, null);
+            var result = _repository.UpdateOne(x => x.Id == _schedule4.Id, update, null);
             
             result.ShouldBe<UpdateResult>();
             Assert.IsTrue(result.IsAcknowledged);
@@ -103,14 +103,16 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Cannot_update_one_id_not_found_integration_test()
         {
-            _schedule4.Origin = "Kaunas";
-            _schedule4.Number = 1;
-            _schedule4.Id = "";
+            var update = new UpdateDefinitionBuilder<Schedule>()
+                .Set(x => x.Origin, "Kaunas")
+                .Set(x => x.Number, 1);
+
 
             Assert.ThrowsException<ArgumentException>(
-                () => _repository.ReplaceOne(
+                () => _repository.UpdateOne(
                     x => x.Id == new ObjectId().ToString(), 
-                    _schedule4, null));
+                    update, null));
+
         }
 
         [TestCleanup]
