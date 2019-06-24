@@ -7,8 +7,6 @@ namespace CodeMash.Core.Tests
     public class InsertOneTests
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with projections
-        // TODO : play with paging and sorting
         // TODO : play with cultures and translatable fields. 
 
         private IRepository<Schedule> Repository { get; set; }

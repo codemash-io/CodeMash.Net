@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -153,20 +154,28 @@ namespace CodeMash.Repository
         public bool InsertMany<T1>(IEnumerable<T1> entities, InsertManyOptions insertManyOptions = null)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
-        }
-
-        public bool InsertMany<T1>(IEnumerable<T1> entities) where T1 : IEntity
-        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities), "Entities cannot be null");
+            }
+            
             var request = new InsertMany
             {
                 CollectionName = GetCollectionName(),
                 Documents = entities.Select(x =>
-                    x.ToBsonDocument().ToJson(new JsonWriterSettings {OutputMode = JsonOutputMode.Strict}))
+                    x.ToBsonDocument().ToJson(new JsonWriterSettings {OutputMode = JsonOutputMode.Strict})),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                InsertManyOptions = insertManyOptions,
+                ProjectId = Settings.ProjectId
             };
 
             var response = Client.Post<InsertManyResponse>(request);
             return response.Result;
+        }
+
+        public bool InsertMany<T1>(IEnumerable<T1> entities) where T1 : IEntity
+        {
+            return InsertMany(entities, null);
         }
 
         public Task<UpdateResult> UpdateOneAsync(string id, UpdateDefinition<T> update, UpdateOptions updateOptions)
