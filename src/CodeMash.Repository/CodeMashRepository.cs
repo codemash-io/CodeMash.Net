@@ -702,12 +702,22 @@ namespace CodeMash.Repository
 
         public long Count(FilterDefinition<T> filter, CountOptions countOptions = null)
         {
-            throw new NotImplementedException();
+            var request = new Count{
+                Filter = filter.ToJson(),
+                CountOptions = countOptions,
+                CollectionName = GetCollectionName(),
+                ProjectId = Settings.ProjectId,
+                CultureCode = CultureInfo.CurrentCulture.Name
+            };
+
+            var response = Client.Post(request);
+
+            return response.Result;
         }
 
         public long Count(Expression<Func<T, bool>> filter, CountOptions countOptions = null)
         {
-            throw new NotImplementedException();
+            return Count(new ExpressionFilterDefinition<T>(filter), countOptions);
         }
 
         public Task<long> CountAsync(FilterDefinition<T> filter, CountOptions countOptions = null)
