@@ -717,6 +717,10 @@ namespace CodeMash.Repository
 
         public long Count(Expression<Func<T, bool>> filter, CountOptions countOptions = null)
         {
+            if(filter == null){
+                throw new ArgumentNullException(nameof(filter), "Filter cannot be null");
+            }
+
             return Count(new ExpressionFilterDefinition<T>(filter), countOptions);
         }
 

@@ -91,12 +91,19 @@ namespace CodeMash.Core.Tests
         }
 
         [TestMethod]
-        public void Can_count_with_no_filter_integration_test()
+        public void Can_count_filter_found_nothing_test()
         {
-            var schedules = _repository.Find<Schedule>(null);
+            var schedules = _repository.Count(x => x.Number < 0);
             
-            schedules.ShouldBe<List<Schedule>>();
+            schedules.ShouldBe<long>();
             Assert.IsNotNull(schedules);
+            Assert.AreEqual(schedules, 0);
+        }
+
+        [TestMethod]
+        public void Exception_count_with_no_filter_integration_test()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => _repository.Count(null));
         }
 
         [TestCleanup]
