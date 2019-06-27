@@ -362,12 +362,12 @@ namespace CodeMash.Repository
 
         public T1 FindOneById<T1>(string id) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOne<T1, T1>(x => x.Id == id, null, null);
         }
 
         public T1 FindOneById<T1>(ObjectId id) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOne<T1, T1>(x => x.Id == id.ToString(), null, null);
         }
 
         public TP FindOne<T1, TP>(FilterDefinition<T1> filter, ProjectionDefinition<T1, TP> projection = null,
@@ -402,7 +402,7 @@ namespace CodeMash.Repository
 
             var response = Client.Post(request);
 
-            if (response == null || !response.Result.Any())
+            if (response == null || response.Result == null)
             {
                 return default(TP);
             }
