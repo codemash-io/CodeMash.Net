@@ -138,7 +138,7 @@ namespace CodeMash.Repository
 
             if (response?.Result == null)
             {
-                return default;
+                return default(T1);
             }
 
             var documentAsEntity = BsonSerializer.Deserialize<T1>(response.Result);
