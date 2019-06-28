@@ -550,6 +550,11 @@ namespace CodeMash.Repository
         public T1 FindOneAndDelete<T1>(FilterDefinition<T1> filter,
             FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), $"{nameof(filter)} cannot be null");
+            }
+
             var request = new FindOneAndDelete
             {
                 CollectionName = GetCollectionName(),
@@ -612,6 +617,13 @@ namespace CodeMash.Repository
         public T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> entity,
             FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity
         {
+            if (filter == null || entity == null)
+            {
+                var errorVar = filter == null ? nameof(filter) : nameof(entity);
+                throw new ArgumentNullException(errorVar,
+                     $"{errorVar} cannot be null");
+            }
+
             var request = new FindOneAndUpdate{
                 CollectionName = GetCollectionName(),
                 CultureCode = CultureInfo.CurrentCulture.Name,
