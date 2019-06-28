@@ -691,7 +691,21 @@ namespace CodeMash.Repository
 
         public List<TA> Aggregate<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions aggregateOptions)
         {
-            throw new NotImplementedException();
+            var request = new Aggregate{
+                ProjectId = Settings.ProjectId,
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Aggregation = aggregation.ToJson(),
+                AggregateOptions = aggregateOptions,
+                CollectionName = GetCollectionName()
+            };
+
+            var response = Client.Post(request);
+
+            if (response.Result.IsNullOrEmpty()){
+                throw new InvalidOperationException("aggregation failed");
+            }
+
+            return BsonSerializer.Deserialize<List<TA>>(response.Result);
         }
 
         public Task<List<TA>> AggregateAsync<TA>(PipelineDefinition<T, TA> aggregation,
