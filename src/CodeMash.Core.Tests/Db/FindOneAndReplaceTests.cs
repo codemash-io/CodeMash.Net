@@ -1,6 +1,8 @@
 using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
+using ServiceStack;
 
 namespace CodeMash.Core.Tests
 {
@@ -59,7 +61,7 @@ namespace CodeMash.Core.Tests
         }
         
         [TestMethod]
-        public void Can_find_one_and_replace_integration_test()
+        public void Can_find_one_and_replace_by_id_integration_test()
         {
             _schedule.Destination = "test";
             _schedule.Number = -10;
@@ -71,39 +73,45 @@ namespace CodeMash.Core.Tests
         }
 
         [TestMethod]
-        public void Can_find_one_value_in_number_integration_test()
+        public void Can_find_one_and_replace_value_in_number_integration_test()
         {
-            var schedule = _repository.FindOne<Schedule>(x => x.Number == _schedule.Number);
+            _schedule2.Destination = "test";
+            _schedule2.Origin = "test-test";
+            var schedule = _repository.FindOneAndReplace(x => x.Number == _schedule2.Number, _schedule2);
+            
+            schedule.ShouldBe<Schedule>();
+            Assert.IsNotNull(schedule);
+            Assert.AreEqual(schedule, _schedule2);
+        }
+
+        [TestMethod]
+        public void Exception_find_one_and_replace_with_no_filter_integration_test()
+        {
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndReplace(null, _schedule2) );
+        }
+
+        [TestMethod]
+        public void Exception_find_one_and_replace_with_no_entity_integration_test()
+        {
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndReplace<Schedule>(_schedule.Id, null) );
+        }
+
+        [TestMethod]
+        public void Exception_find_one_and_replace_not_found_integration_test()
+        {
+            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndReplace<Schedule>(new ObjectId(), _schedule) );
+        }
+
+        [TestMethod]
+        public void Can_find_one_and_replace_by_object_id_integration_test()
+        {
+            _schedule.Destination = "test";
+            _schedule.Number = -10;
+            var schedule = _repository.FindOneAndReplace(new ObjectId(_schedule.Id), _schedule);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(schedule, _schedule);
-        }
-
-        [TestMethod]
-        public void Exception_find_one_with_no_filter_integration_test()
-        {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOne<Schedule>(null) );
-        }
-
-        [TestMethod]
-        public void Can_find_one_with_id_integration_test()
-        {
-            var schedule = _repository.FindOne<Schedule>(x => x.Id == _schedule2.Id);
-            
-            schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(_schedule2, schedule);
-        }
-
-        [TestMethod]
-        public void Can_find_one_first_with_destination_integration_test()
-        {
-            var schedule = _repository.FindOne<Schedule>(x => x.Destination == "Kaunas");
-        
-            schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(_schedule2, schedule);
         }
 
         [TestCleanup]
