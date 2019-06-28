@@ -450,25 +450,25 @@ namespace CodeMash.Repository
         }
 
         public T1 FindOneAndReplace<T1>(string id, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
 
         public T1 FindOneAndReplace<T1>(ObjectId id, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
 
         public T1 FindOneAndReplace<T1>(FilterDefinition<T1> filter, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
 
         public T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
@@ -507,26 +507,26 @@ namespace CodeMash.Repository
             throw new NotImplementedException();
         }
 
-        public T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null)
+        public T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
             throw new NotImplementedException();
         }
 
-        public T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null)
+        public T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
             throw new NotImplementedException();
         }
 
         public T1 FindOneAndDelete<T1>(FilterDefinition<T1> filter,
-            FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null) where T1 : IEntity
+            FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
 
         public T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter,
-            FindOneAndDeleteOptions<T1> findOneAndDeleteOptions) where T1 : IEntity
+            FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
@@ -564,13 +564,13 @@ namespace CodeMash.Repository
         }
 
         public T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> entity,
-            FindOneAndUpdateOptions<T1> findOneAndUpdateOptions = null) where T1 : IEntity
+            FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
 
         public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity,
-            FindOneAndUpdateOptions<T1> findOneAndUpdateOptions) where T1 : IEntity
+            FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity
         {
             throw new NotImplementedException();
         }
