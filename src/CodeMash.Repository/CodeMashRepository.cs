@@ -555,7 +555,8 @@ namespace CodeMash.Repository
                 CollectionName = GetCollectionName(),
                 CultureCode = CultureInfo.CurrentCulture.Name,
                 Filter = filter.ToJson(),
-                FindOneAndDeleteOptions = findOneAndDeleteOptions
+                FindOneAndDeleteOptions = findOneAndDeleteOptions,
+                ProjectId = Settings.ProjectId
                 //TODO: options should be <T1> or <BsonDocument> ??
                 //Interface uses T1, serviceContracts uses BsonDocument
             };
@@ -609,21 +610,50 @@ namespace CodeMash.Repository
         }
 
         public T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> entity,
-            FindOneAndUpdateOptions<T1> findOneAndUpdateOptions = null) where T1 : IEntity
+            FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            var request = new FindOneAndUpdate{
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                FindOneAndUpdateOptions = findOneAndUpdateOptions,
+                Document = entity.ToBsonDocument()
+                //TODO: options should be <T1> or <BsonDocument> ??
+                //Interface uses T1, serviceContracts uses BsonDocument
+            };
+
+            var response = Client.Patch(request);
+
+            if (response.Result.IsNullOrEmpty()){
+                throw new InvalidOperationException("Entity cannot be updated");
+            }
+
+            return BsonSerializer.Deserialize<T1>(response.Result);
         }
 
         public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity,
-            FindOneAndUpdateOptions<T1> findOneAndUpdateOptions) where T1 : IEntity
+            FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), entity, findOneAndUpdateOptions);
         }
 
         public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), entity);
+        }
+
+        public T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null)
+            where T1 : IEntity
+        {
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id), entity, findOneAndUpdateOptions);
+        }
+
+        public T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null)
+            where T1 : IEntity
+        {
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), entity, findOneAndUpdateOptions);
         }
 
         public Task<T> FindOneAndUpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> entity,

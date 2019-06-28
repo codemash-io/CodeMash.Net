@@ -108,9 +108,11 @@ namespace CodeMash.Repository
         Task<T> FindOneAndDeleteAsync(Expression<Func<T, bool>> filter);
 
         // Find One and Update
-        T FindOneAndUpdate<T>(FilterDefinition<T> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions = null) where T : IEntity;
-        T FindOneAndUpdate<T>(Expression<Func<T, bool>> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions) where T : IEntity;
-        T FindOneAndUpdate<T>(Expression<Func<T, bool>> filter, UpdateDefinition<T> entity) where T : IEntity;
+        T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
 
         // Find One and Update Async
         Task<T> FindOneAndUpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions = null);
@@ -119,12 +121,12 @@ namespace CodeMash.Repository
 
 
         // Delete
-        DeleteResult DeleteOne<T>(string id) where T : IEntity;
-        DeleteResult DeleteOne<T>(ObjectId id) where T : IEntity;
+        DeleteResult DeleteOne<T1>(string id) where T1 : IEntity;
+        DeleteResult DeleteOne<T1>(ObjectId id) where T1 : IEntity;
         //DeleteResult DeleteOne<T>(FilterDefinition<T> filter) where T : IEntity;
         //DeleteResult DeleteOne<T>(Expression<Func<T, bool>> filter) where T : IEntity;
-        DeleteResult DeleteMany<T>(FilterDefinition<T> filter) where T : IEntity;
-        DeleteResult DeleteMany<T>(Expression<Func<T, bool>> filter) where T : IEntity;
+        DeleteResult DeleteMany<T1>(FilterDefinition<T1> filter) where T1 : IEntity;
+        DeleteResult DeleteMany<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity;
 
         // Delete Async
         Task<DeleteResult> DeleteOneAsync(string id);
