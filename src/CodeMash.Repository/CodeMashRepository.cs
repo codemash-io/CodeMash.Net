@@ -362,12 +362,12 @@ namespace CodeMash.Repository
 
         public T1 FindOneById<T1>(string id) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOne<T1>(x => x.Id == id);
         }
 
         public T1 FindOneById<T1>(ObjectId id) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOne<T1>(x => x.Id == id.ToString());
         }
 
         public TP FindOne<T1, TP>(FilterDefinition<T1> filter, ProjectionDefinition<T1, TP> projection = null,
@@ -450,32 +450,60 @@ namespace CodeMash.Repository
         }
 
         public T1 FindOneAndReplace<T1>(string id, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(x => x.Id == id), 
+                entity, findOneAndReplaceOptions);
         }
 
         public T1 FindOneAndReplace<T1>(ObjectId id, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), 
+                entity, findOneAndReplaceOptions);
         }
 
         public T1 FindOneAndReplace<T1>(FilterDefinition<T1> filter, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null || entity == null)
+            {
+                var errorVar = filter == null ? nameof(filter) : nameof(entity);
+                throw new ArgumentNullException(errorVar,
+                     $"{errorVar} cannot be null");
+            }
+
+            var request = new FindOneAndReplace
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Document = entity.ToJson(),
+                Filter = filter.ToJson(),
+                FindOneAndReplaceOptions = findOneAndReplaceOptions,
+                //TODO: options should be <T1> or <BsonDocument> ??
+                //Interface uses T1, serviceContracts uses BsonDocument
+                ProjectId = Settings.ProjectId
+            };
+
+            var response = Client.Put(request);
+
+            if (response.Result.IsNullOrEmpty())
+            {
+                throw new InvalidOperationException("Replace failed");
+            }
+
+            return BsonSerializer.Deserialize<T1>(response.Result);
         }
 
         public T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(filter), entity, findOneAndReplaceOptions);
         }
 
         public T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(filter), entity, null);
         }
 
         public Task<T> FindOneAndReplaceAsync(string id, T entity,
@@ -507,33 +535,50 @@ namespace CodeMash.Repository
             throw new NotImplementedException();
         }
 
-        public T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null)
+        public T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(x => x.Id == id), findOneAndDeleteOptions);
         }
 
-        public T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null)
+        public T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), findOneAndDeleteOptions);
         }
 
         public T1 FindOneAndDelete<T1>(FilterDefinition<T1> filter,
-            FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null) where T1 : IEntity
+            FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            var request = new FindOneAndDelete
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                FindOneAndDeleteOptions = findOneAndDeleteOptions
+                //TODO: options should be <T1> or <BsonDocument> ??
+                //Interface uses T1, serviceContracts uses BsonDocument
+            };
+
+            var response = Client.Delete(request);
+
+            if (response.Result == null)
+            {
+                throw new InvalidOperationException("delete failed");
+            }
+
+            return BsonSerializer.Deserialize<T1>(response.Result);
         }
 
         public T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter,
-            FindOneAndDeleteOptions<T1> findOneAndDeleteOptions) where T1 : IEntity
+            FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(filter), findOneAndDeleteOptions);
         }
 
         public T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(filter), null);
         }
 
         public Task<T> FindOneAndDeleteAsync(string id, FindOneAndDeleteOptions<T> findOneAndDeleteOptions = null)
