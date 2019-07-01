@@ -722,12 +722,29 @@ namespace CodeMash.Repository
 
         public List<string> Distinct(string field, FilterDefinition<T> filter, DistinctOptions options = null)
         {
-            throw new NotImplementedException();
+            if (field.IsNullOrEmpty() || filter == null)
+            {
+                var errorCode = field == null ? nameof(field) : nameof(filter);
+                throw new ArgumentNullException(errorCode, $"{errorCode} cannot be null");
+            }
+
+            var request = new Distinct{
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Field = field,
+                Filter = filter.ToJson(),
+                DistinctOptions = options,
+                ProjectId = Settings.ProjectId
+            };
+
+            var response = Client.Post(request);
+
+            return response.Result;
         }
 
         public List<string> Distinct(string field, Expression<Func<T, bool>> filter, DistinctOptions options)
         {
-            throw new NotImplementedException();
+            return Distinct(field, new ExpressionFilterDefinition<T>(filter), options);
         }
     }
 }
