@@ -143,6 +143,7 @@ namespace CodeMash.Repository
         // Count
         long Count(FilterDefinition<T> filter, CountOptions countOptions = null);
         long Count(Expression<Func<T, bool>> filter, CountOptions countOptions = null);
+        long Count(CountOptions countOptions = null);
 
         // Count Async
         Task<long> CountAsync(FilterDefinition<T> filter, CountOptions countOptions = null);
