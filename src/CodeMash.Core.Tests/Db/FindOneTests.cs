@@ -1,6 +1,7 @@
 using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
@@ -81,7 +82,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Exception_find_one_with_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOne<Schedule>(null) );
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOne<Schedule>(null), ErrorMessages.FilterIsNotDefined );
         }
 
         [TestMethod]
