@@ -65,11 +65,14 @@ namespace CodeMash.Core.Tests
         {
             _schedule.Destination = "test";
             _schedule.Number = -10;
-            var schedule = _repository.FindOneAndReplace(_schedule.Id, _schedule);
+            _repository.FindOneAndReplace(_schedule.Id, _schedule);
+
+            var schedule = _repository.FindOneById<Schedule>(_schedule.Id);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule);
+            Assert.AreEqual(schedule.Destination, _schedule.Destination);
+            Assert.AreEqual(schedule.Number, _schedule.Number);
         }
 
         [TestMethod]
@@ -77,11 +80,15 @@ namespace CodeMash.Core.Tests
         {
             _schedule2.Destination = "test";
             _schedule2.Origin = "test-test";
-            var schedule = _repository.FindOneAndReplace(x => x.Number == _schedule2.Number, _schedule2);
+
+            _repository.FindOneAndReplace(x => x.Number == _schedule2.Number, _schedule2);
+
+            var schedule = _repository.FindOneById<Schedule>(_schedule2.Id);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule2);
+            Assert.AreEqual(schedule.Destination, _schedule2.Destination);
+            Assert.AreEqual(schedule.Origin, _schedule2.Origin);
         }
 
         [TestMethod]
@@ -107,11 +114,15 @@ namespace CodeMash.Core.Tests
         {
             _schedule.Destination = "test";
             _schedule.Number = -10;
-            var schedule = _repository.FindOneAndReplace(new ObjectId(_schedule.Id), _schedule);
+
+            var a = _repository.FindOneAndReplace(new ObjectId(_schedule.Id), _schedule);
+
+            var schedule = _repository.FindOneById<Schedule>(_schedule.Id);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule);
+            Assert.AreEqual(schedule.Destination, _schedule.Destination);
+            Assert.AreEqual(schedule.Number, _schedule.Number);
         }
 
         [TestCleanup]
