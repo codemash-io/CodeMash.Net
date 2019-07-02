@@ -10,11 +10,6 @@ namespace CodeMash.Core.Tests
     [TestClass]
     public class DeleteManyTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with projections
-        // TODO : play with paging and sorting
-        // TODO : play with cultures and translatable fields. 
-
         private IRepository<Schedule> Repository { get; set; }
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
 
