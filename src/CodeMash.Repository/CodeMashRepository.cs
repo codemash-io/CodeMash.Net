@@ -16,6 +16,7 @@ using ServiceStack;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
 using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Repository
 {
@@ -362,11 +363,21 @@ namespace CodeMash.Repository
 
         public T1 FindOneById<T1>(string id) where T1 : IEntity
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return FindOne<T1>(x => x.Id == id);
         }
 
         public T1 FindOneById<T1>(ObjectId id) where T1 : IEntity
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return FindOne<T1>(x => x.Id == id.ToString());
         }
 
@@ -375,7 +386,7 @@ namespace CodeMash.Repository
         {
             if (filter == null)
             {
-                throw new ArgumentNullException("Filter cannot be empty");
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
 
             var projectionAsJson = string.Empty;
@@ -469,8 +480,8 @@ namespace CodeMash.Repository
             if (filter == null || entity == null)
             {
                 var errorVar = filter == null ? nameof(filter) : nameof(entity);
-                throw new ArgumentNullException(errorVar,
-                     $"{errorVar} cannot be null");
+                var errorMessage = filter == null ? ErrorMessages.FilterIsNotDefined : ErrorMessages.EntityIsNotDefined;
+                throw new ArgumentNullException(errorVar, errorMessage);
             }
 
             var request = new FindOneAndReplace
@@ -552,7 +563,7 @@ namespace CodeMash.Repository
         {
             if (filter == null)
             {
-                throw new ArgumentNullException(nameof(filter), $"{nameof(filter)} cannot be null");
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
 
             var request = new FindOneAndDelete
@@ -614,14 +625,14 @@ namespace CodeMash.Repository
             throw new NotImplementedException();
         }
 
-        public T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> entity,
+        public T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity
         {
-            if (filter == null || entity == null)
+            if (filter == null || update == null)
             {
-                var errorVar = filter == null ? nameof(filter) : nameof(entity);
-                throw new ArgumentNullException(errorVar,
-                     $"{errorVar} cannot be null");
+                var errorVar = filter == null ? nameof(filter) : nameof(update);
+                var errorMessage = filter == null ? ErrorMessages.FilterIsNotDefined : ErrorMessages.UpdateIsNotDefined;
+                throw new ArgumentNullException(errorVar, errorMessage);
             }
 
             var request = new FindOneAndUpdate{
@@ -630,7 +641,7 @@ namespace CodeMash.Repository
                 Filter = filter.ToJson(),
                 ProjectId = Settings.ProjectId,
                 FindOneAndUpdateOptions = findOneAndUpdateOptions,
-                Document = BsonDocument.Parse(entity.ToJson())
+                Document = update.ToJson()
                 //TODO: options should be <T1> or <BsonDocument> ??
                 //Interface uses T1, serviceContracts uses BsonDocument
             };
@@ -644,28 +655,48 @@ namespace CodeMash.Repository
             return BsonSerializer.Deserialize<T1>(response.Result);
         }
 
-        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity,
+        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
             FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity
         {
-            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), entity, findOneAndUpdateOptions);
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), update, findOneAndUpdateOptions);
         }
 
-        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity)
+        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update)
             where T1 : IEntity
         {
-            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), entity);
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), update);
         }
 
-        public T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
+        public T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
             where T1 : IEntity
         {
-            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id), entity, findOneAndUpdateOptions);
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id), update, findOneAndUpdateOptions);
         }
 
-        public T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
+        public T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
             where T1 : IEntity
         {
-            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), entity, findOneAndUpdateOptions);
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), update, findOneAndUpdateOptions);
         }
 
         public Task<T> FindOneAndUpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> entity,

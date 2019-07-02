@@ -108,11 +108,11 @@ namespace CodeMash.Repository
         Task<T> FindOneAndDeleteAsync(Expression<Func<T, bool>> filter);
 
         // Find One and Update
-        T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
-        T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
-        T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity;
-        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
-        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update) where T1 : IEntity;
 
         // Find One and Update Async
         Task<T> FindOneAndUpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions = null);
