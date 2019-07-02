@@ -40,7 +40,7 @@ namespace CodeMash.Core.Tests
             
             result.ShouldBe<DeleteResult>();
             Assert.IsTrue(result.IsAcknowledged);
-            Assert.IsTrue(result.DeletedCount > 0);
+            Assert.IsTrue(result.DeletedCount == 1);
         }
 
         [TestMethod]

@@ -79,7 +79,8 @@ namespace CodeMash.Core.Tests
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule);
+            Assert.AreEqual(schedule.Destination, _schedule.Destination);
+            Assert.AreEqual(schedule.Number, _schedule.Number);
         }
 
         [TestMethod]
@@ -100,7 +101,8 @@ namespace CodeMash.Core.Tests
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule2);
+            Assert.AreEqual(schedule.Destination, _schedule2.Destination);
+            Assert.AreEqual(schedule.Origin, _schedule2.Origin);
         }
 
         [TestMethod]
@@ -110,13 +112,13 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Destination, "test")
                 .Set(x => x.Origin, "test-test");
 
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate(null, update) );
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate(null, update), "filter cannot be null" );
         }
 
         [TestMethod]
         public void Exception_find_one_and_Update_with_no_update_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate<Schedule>(_schedule.Id, null) );
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate<Schedule>(_schedule.Id, null), "filter cannot be null" );
         }
 
         [TestMethod]
@@ -147,7 +149,8 @@ namespace CodeMash.Core.Tests
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule2);
+            Assert.AreEqual(schedule.Destination, _schedule2.Destination);
+            Assert.AreEqual(schedule.Origin, _schedule2.Origin);
         }
 
         [TestCleanup]

@@ -630,7 +630,7 @@ namespace CodeMash.Repository
                 Filter = filter.ToJson(),
                 ProjectId = Settings.ProjectId,
                 FindOneAndUpdateOptions = findOneAndUpdateOptions,
-                Document = entity.ToBsonDocument()
+                Document = BsonDocument.Parse(entity.ToJson())
                 //TODO: options should be <T1> or <BsonDocument> ??
                 //Interface uses T1, serviceContracts uses BsonDocument
             };
@@ -656,13 +656,13 @@ namespace CodeMash.Repository
             return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), entity);
         }
 
-        public T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null)
+        public T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
             where T1 : IEntity
         {
             return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id), entity, findOneAndUpdateOptions);
         }
 
-        public T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null)
+        public T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> entity, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
             where T1 : IEntity
         {
             return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), entity, findOneAndUpdateOptions);
