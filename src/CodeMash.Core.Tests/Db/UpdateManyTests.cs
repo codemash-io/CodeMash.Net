@@ -5,7 +5,6 @@ using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using NSubstitute;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Core.Tests
@@ -13,9 +12,6 @@ namespace CodeMash.Core.Tests
     [TestClass]
     public class UpdateManyTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with cultures and translatable fields. 
-
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         

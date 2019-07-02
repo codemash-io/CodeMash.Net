@@ -1,22 +1,16 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
-using MongoDB.Driver;
 using ServiceStack;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
     public class FindOneAndDeleteTests 
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with projections
-        // TODO : play with paging and sorting
-        // TODO : play with cultures and translatable fields. 
-
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         
@@ -92,12 +86,14 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Exception_find_one_and_Delete_with_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndDelete<Schedule>(null) );
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndDelete<Schedule>(null),
+            ErrorMessages.FilterIsNotDefined);
         }
 
         [TestMethod]
         public void Exception_find_one_and_Delete_not_found_integration_test()
         {
+            //CodeMash API throws BusinessException which is recieved as a ServiceStack.WebServiceException
             Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndDelete<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa")) );
         }
 

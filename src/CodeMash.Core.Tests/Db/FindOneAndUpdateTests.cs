@@ -4,17 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
     public class FindOneAndUpdateTests 
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with projections
-        // TODO : play with paging and sorting
-        // TODO : play with cultures and translatable fields. 
-
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         
@@ -112,13 +108,15 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Destination, "test")
                 .Set(x => x.Origin, "test-test");
 
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate(null, update), "filter cannot be null" );
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate(null, update),
+            ErrorMessages.FilterIsNotDefined );
         }
 
         [TestMethod]
         public void Exception_find_one_and_Update_with_no_update_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate<Schedule>(_schedule.Id, null), "filter cannot be null" );
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate<Schedule>(_schedule.Id, null),
+            ErrorMessages.UpdateIsNotDefined );
         }
 
         [TestMethod]
