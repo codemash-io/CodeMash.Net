@@ -98,7 +98,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Exception_find_one_and_Delete_not_found_integration_test()
         {
-            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndDelete<Schedule>(new ObjectId()) );
+            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndDelete<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa")) );
         }
 
         [TestMethod]
