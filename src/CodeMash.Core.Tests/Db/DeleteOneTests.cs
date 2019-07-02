@@ -2,6 +2,7 @@ using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
@@ -46,7 +47,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Cannot_delete_one_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null));
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null), ErrorMessages.FilterIsNotDefined);
         }
         
         [TestCleanup]
