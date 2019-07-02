@@ -125,6 +125,11 @@ namespace CodeMash.Repository
 
         public T1 InsertOne<T1>(T1 entity, InsertOneOptions insertOneOptions) where T1 : IEntity
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), ErrorMessages.EntityIsNotDefined);
+            }
+            
             entity.Id = new ObjectId().ToString();
 
             var request = new InsertOne
