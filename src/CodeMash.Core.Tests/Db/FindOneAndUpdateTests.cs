@@ -128,7 +128,8 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Destination, "test")
                 .Set(x => x.Origin, "test-test");
 
-            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndUpdate(new ObjectId(), update, null) );
+            //CodeMash API throws BusinessException which is recieved as a ServiceStack.WebServiceException
+            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndUpdate(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa"), update, null) );
         }
 
         [TestMethod]
