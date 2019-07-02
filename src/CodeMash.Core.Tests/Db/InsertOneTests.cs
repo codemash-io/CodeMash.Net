@@ -1,14 +1,13 @@
+using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
     public class InsertOneTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with cultures and translatable fields. 
-
         private IRepository<Schedule> Repository { get; set; }
 
         private Schedule _schedule;
@@ -35,6 +34,13 @@ namespace CodeMash.Core.Tests
             _schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(_schedule);
             Assert.IsNotNull(_schedule.Id);
+        }
+
+        [TestMethod]
+        public void Exception_insert_one_entity_null_integration_test()
+        {
+
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.InsertOne<Schedule>(null), ErrorMessages.EntityIsNotDefined);
         }
         
         [TestCleanup]

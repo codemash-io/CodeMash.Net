@@ -16,7 +16,7 @@ namespace CodeMash.Core.Tests
         // TODO : rise exception if module is disabled
         // TODO : throw nice message when module is disabled or not established yet
         
-        
+        /*
         [TestMethod]
         public void Can_create_notification_device()
         {
@@ -100,6 +100,6 @@ namespace CodeMash.Core.Tests
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Result);
         }
-        
+        */
     }
 }

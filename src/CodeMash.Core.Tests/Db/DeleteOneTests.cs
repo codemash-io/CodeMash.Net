@@ -2,15 +2,13 @@ using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
     public class DeleteOneTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with cultures and translatable fields. 
-
         private IRepository<Schedule> Repository { get; set; }
 
         private Schedule _schedule;
@@ -38,13 +36,13 @@ namespace CodeMash.Core.Tests
             
             result.ShouldBe<DeleteResult>();
             Assert.IsTrue(result.IsAcknowledged);
-            Assert.IsTrue(result.DeletedCount > 0);
+            Assert.IsTrue(result.DeletedCount == 1);
         }
 
         [TestMethod]
         public void Cannot_delete_one_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null));
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null), ErrorMessages.FilterIsNotDefined);
         }
         
         [TestCleanup]

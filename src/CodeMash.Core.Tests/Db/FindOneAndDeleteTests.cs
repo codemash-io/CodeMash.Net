@@ -1,12 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using ServiceStack;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
-    public class FindOneTests 
+    public class FindOneAndDeleteTests 
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
         // TODO : play with projections
@@ -60,49 +64,54 @@ namespace CodeMash.Core.Tests
         }
         
         [TestMethod]
-        public void Can_find_one_integration_test()
+        public void Can_find_one_and_Delete_by_id_integration_test()
         {
-            var schedule = _repository.FindOne<Schedule>(x => x.Origin == _schedule4.Origin);
-            
-            schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule4);
-        }
-
-        [TestMethod]
-        public void Can_find_one_value_in_number_integration_test()
-        {
-            var schedule = _repository.FindOne<Schedule>(x => x.Number == _schedule.Number);
+            var schedule = _repository.FindOneAndDelete<Schedule>(_schedule.Id);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(schedule, _schedule);
+
+            var schedules = _repository.Find<Schedule>(x => true);
+            Assert.IsFalse(schedules.Select(x => x.Id).Contains(_schedule.Id));
         }
 
         [TestMethod]
-        public void Exception_find_one_with_no_filter_integration_test()
+        public void Can_find_one_and_Delete_value_in_number_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOne<Schedule>(null), ErrorMessages.FilterIsNotDefined );
-        }
-
-        [TestMethod]
-        public void Can_find_one_with_id_integration_test()
-        {
-            var schedule = _repository.FindOne<Schedule>(x => x.Id == _schedule2.Id);
+            var schedule = _repository.FindOneAndDelete<Schedule>(x => x.Number == _schedule2.Number);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(_schedule2, schedule);
+            Assert.AreEqual(schedule, _schedule2);
+
+            var schedules = _repository.Find<Schedule>(x => true);
+            Assert.IsFalse(schedules.Select(x => x.Id).Contains(_schedule2.Id));
         }
 
         [TestMethod]
-        public void Can_find_one_first_with_destination_integration_test()
+        public void Exception_find_one_and_Delete_with_no_filter_integration_test()
         {
-            var schedule = _repository.FindOne<Schedule>(x => x.Destination == "Kaunas");
-        
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndDelete<Schedule>(null) );
+        }
+
+        [TestMethod]
+        public void Exception_find_one_and_Delete_not_found_integration_test()
+        {
+            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndDelete<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa")) );
+        }
+
+        [TestMethod]
+        public void Can_find_one_and_Delete_by_object_id_integration_test()
+        {
+            var schedule = _repository.FindOneAndDelete<Schedule>(new ObjectId(_schedule2.Id));
+            
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
-            Assert.AreEqual(_schedule2, schedule);
+            Assert.AreEqual(schedule, _schedule2);
+
+            var schedules = _repository.Find<Schedule>(x => true);
+            Assert.IsFalse(schedules.Select(x => x.Id).Contains(_schedule2.Id));
         }
 
         [TestCleanup]

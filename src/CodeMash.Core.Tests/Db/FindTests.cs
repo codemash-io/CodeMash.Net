@@ -60,7 +60,7 @@ namespace CodeMash.Core.Tests
             _schedule4 = _repository.InsertOne(_schedule4);
         }
 
-        
+        [TestMethod]
         public void Can_find_integration_test()
         {
             var schedules = _repository.Find<Schedule>(x => true);

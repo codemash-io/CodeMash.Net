@@ -3,15 +3,13 @@ using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
     public class DeleteManyTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with cultures and translatable fields. 
-
         private IRepository<Schedule> Repository { get; set; }
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
 
@@ -70,7 +68,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Cannot_delete_many_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteMany<Schedule>(filter: null));
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteMany<Schedule>(filter: null), ErrorMessages.FilterIsNotDefined);
         }
         
         [TestMethod]
