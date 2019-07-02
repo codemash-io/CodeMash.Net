@@ -363,7 +363,7 @@ namespace CodeMash.Repository
 
         public T1 FindOneById<T1>(string id) where T1 : IEntity
         {
-            if (id == null)
+            if (id.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
             }
@@ -373,7 +373,7 @@ namespace CodeMash.Repository
 
         public T1 FindOneById<T1>(ObjectId id) where T1 : IEntity
         {
-            if (id == null)
+            if (id == null || id == ObjectId.Empty)
             {
                 throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
             }
@@ -425,6 +425,11 @@ namespace CodeMash.Repository
         public TP FindOne<T1, TP>(Expression<Func<T1, bool>> filter, ProjectionDefinition<T1, TP> projection = null,
             FindOptions findOptions = null) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
             return FindOne<T1, TP>(new ExpressionFilterDefinition<T1>(filter), projection, findOptions);
         }
 
@@ -435,6 +440,11 @@ namespace CodeMash.Repository
 
         public T1 FindOne<T1>(Expression<Func<T1, bool>> filter, FindOptions findOptions = null) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
             return FindOne<T1, T1>(filter, null, findOptions);
         }
 
@@ -463,6 +473,11 @@ namespace CodeMash.Repository
         public T1 FindOneAndReplace<T1>(string id, T1 entity,
             FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return FindOneAndReplace(new ExpressionFilterDefinition<T1>(x => x.Id == id), 
                 entity, findOneAndReplaceOptions);
         }
@@ -470,6 +485,11 @@ namespace CodeMash.Repository
         public T1 FindOneAndReplace<T1>(ObjectId id, T1 entity,
             FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return FindOneAndReplace(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), 
                 entity, findOneAndReplaceOptions);
         }
@@ -509,11 +529,21 @@ namespace CodeMash.Repository
         public T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity,
             FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             return FindOneAndReplace(new ExpressionFilterDefinition<T1>(filter), entity, findOneAndReplaceOptions);
         }
 
         public T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             return FindOneAndReplace(new ExpressionFilterDefinition<T1>(filter), entity, null);
         }
 
@@ -549,12 +579,22 @@ namespace CodeMash.Repository
         public T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return FindOneAndDelete(new ExpressionFilterDefinition<T1>(x => x.Id == id), findOneAndDeleteOptions);
         }
 
         public T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return FindOneAndDelete(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), findOneAndDeleteOptions);
         }
 
@@ -590,11 +630,21 @@ namespace CodeMash.Repository
         public T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter,
             FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             return FindOneAndDelete(new ExpressionFilterDefinition<T1>(filter), findOneAndDeleteOptions);
         }
 
         public T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             return FindOneAndDelete(new ExpressionFilterDefinition<T1>(filter), null);
         }
 
@@ -680,7 +730,7 @@ namespace CodeMash.Repository
         public T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
             where T1 : IEntity
         {
-            if (id == null)
+            if (id.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
             }
@@ -691,7 +741,7 @@ namespace CodeMash.Repository
         public T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
             where T1 : IEntity
         {
-            if (id == null)
+            if (id == null || id == ObjectId.Empty)
             {
                 throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
             }
@@ -720,7 +770,7 @@ namespace CodeMash.Repository
         {
             if (id.IsNullOrEmpty())
             {
-                throw new ArgumentNullException(nameof(id), "id cannot be empty");
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
             }
             
             var request = new DeleteOne
@@ -738,6 +788,11 @@ namespace CodeMash.Repository
 
         public DeleteResult DeleteOne<T1>(ObjectId id) where T1 : IEntity
         {
+            if (id == null || id == ObjectId.Empty) 
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return DeleteOne<T1>(id.ToString());
         }
 
@@ -756,7 +811,7 @@ namespace CodeMash.Repository
         {
             if (filter == null)
             {
-                throw new ArgumentNullException(nameof(filter), "Filter cannot be null");
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
 
             var request = new DeleteMany
@@ -774,6 +829,11 @@ namespace CodeMash.Repository
 
         public DeleteResult DeleteMany<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
             return DeleteMany(new ExpressionFilterDefinition<T1>(filter));
         }
 
