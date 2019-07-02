@@ -3,7 +3,7 @@ using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using ServiceStack.FluentValidation.Results;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
 
 namespace CodeMash.Core.Tests
@@ -11,9 +11,6 @@ namespace CodeMash.Core.Tests
     [TestClass]
     public class ReplaceOneTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with cultures and translatable fields. 
-
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         
@@ -74,7 +71,8 @@ namespace CodeMash.Core.Tests
             var entityFromDb = _repository.FindOne<Schedule>(x => x.Id == _schedule4.Id);
             entityFromDb.ShouldBe<Schedule>();
             entityFromDb.ShouldNotNull();
-            Assert.AreEqual(entityFromDb, _schedule4);
+            Assert.AreEqual(entityFromDb.Origin, _schedule4.Origin);
+            Assert.AreEqual(entityFromDb.Number, _schedule4.Number);
         }
         
         [TestMethod]
@@ -84,10 +82,12 @@ namespace CodeMash.Core.Tests
             _schedule4.Number = 1;
 
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.ReplaceOne(null, _schedule4, null));
+                () => _repository.ReplaceOne(null, _schedule4, null), 
+                ErrorMessages.FilterIsNotDefined);
             
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.ReplaceOne(FilterDefinition<Schedule>.Empty, _schedule4, null));
+                () => _repository.ReplaceOne(FilterDefinition<Schedule>.Empty, _schedule4, null),
+                ErrorMessages.FilterIsNotDefined);
         }
         
         [TestMethod]
@@ -98,11 +98,11 @@ namespace CodeMash.Core.Tests
 
             Assert.ThrowsException<ArgumentNullException>(
                 () => _repository.ReplaceOne<Schedule>(x => x.Id == _schedule4.Id, 
-                    null, null));
+                    null, null), ErrorMessages.EntityIsNotDefined);
             
             Assert.ThrowsException<ArgumentNullException>(
                 () => _repository.ReplaceOne(x => x.Id == _schedule4.Id, 
-                    default(Schedule), null));
+                    default(Schedule), null), ErrorMessages.EntityIsNotDefined);
         }
         
         [TestMethod]
@@ -115,7 +115,7 @@ namespace CodeMash.Core.Tests
             Assert.ThrowsException<ArgumentException>(
                 () => _repository.ReplaceOne(
                     x => x.Id == new ObjectId().ToString(), 
-                    _schedule4, null));
+                    _schedule4, null), ErrorMessages.DocumentNotFound);
         }
 
         [TestCleanup]

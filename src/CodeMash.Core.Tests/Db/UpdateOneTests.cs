@@ -4,15 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
     public class UpdateOneTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with cultures and translatable fields. 
-
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         
@@ -86,18 +84,20 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Number, 1);
 
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateOne(filter: null, update, null));
+                () => _repository.UpdateOne(filter: null, update: update, updateOptions: null),
+                ErrorMessages.FilterIsNotDefined);
             
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateOne(FilterDefinition<Schedule>.Empty, update, null));
+                () => _repository.UpdateOne(FilterDefinition<Schedule>.Empty, update, null),
+                ErrorMessages.FilterIsNotDefined);
         }
         
         [TestMethod]
         public void Cannot_update_one_no_update_definition_integration_test()
         {
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateOne<Schedule>(x => x.Id == _schedule4.Id, 
-                    null, null));
+                () => _repository.UpdateOne<Schedule>(x => x.Id == _schedule4.Id, null, null),
+                ErrorMessages.UpdateIsNotDefined);
         }
         
         [TestMethod]
@@ -109,8 +109,8 @@ namespace CodeMash.Core.Tests
 
             Assert.ThrowsException<ArgumentException>(
                 () => _repository.UpdateOne(
-                    x => x.Id == new ObjectId().ToString(), 
-                    update, null));
+                    x => x.Id == new ObjectId().ToString(), update, null),
+                ErrorMessages.DocumentNotFound);
         }
 
         [TestCleanup]

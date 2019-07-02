@@ -10,6 +10,7 @@ namespace CodeMash.Repository
                 public const string EntityIsNotDefined = "Entity is not defined";
                 public const string IdIsNotDefined = "Id is not defined";
                 public const string UpdateIsNotDefined = "Update definition is not defined";
+                public const string DocumentNotFound = "Document could not be found";
             }
         }
     }

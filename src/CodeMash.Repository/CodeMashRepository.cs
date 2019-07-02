@@ -212,12 +212,22 @@ namespace CodeMash.Repository
         public UpdateResult UpdateOne<T1>(string id, UpdateDefinition<T1> update, UpdateOptions updateOptions)
             where T1 : IEntity
         {
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+            
             return UpdateOne(new ExpressionFilterDefinition<T1>(x => x.Id == id), update, updateOptions);
         }
 
         public UpdateResult UpdateOne<T1>(ObjectId id, UpdateDefinition<T1> update, UpdateOptions updateOptions)
             where T1 : IEntity
         {
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+            
             return UpdateOne(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), update, updateOptions);
         }
 
@@ -226,12 +236,12 @@ namespace CodeMash.Repository
         {
             if (filter == FilterDefinition<T1>.Empty || filter == null)
             {
-                throw new ArgumentNullException(nameof(filter), "Filter cannot be empty");
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
 
             if (update == null)
             {
-                throw new ArgumentNullException(nameof(update), "Update Definition cannot be null");
+                throw new ArgumentNullException(nameof(update), ErrorMessages.UpdateIsNotDefined);
             }
             
             var request = new UpdateOne
@@ -254,7 +264,7 @@ namespace CodeMash.Repository
             
             if (response.Result.MatchedCount == 0)
             {
-                throw new ArgumentException("Document could not be found");
+                throw new ArgumentException(ErrorMessages.DocumentNotFound);
             }
 
             if (response.Result.ModifiedCount == 0)
@@ -268,6 +278,11 @@ namespace CodeMash.Repository
         public UpdateResult UpdateOne<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             return UpdateOne(new ExpressionFilterDefinition<T1>(filter), update, updateOptions);
         }
 
@@ -276,7 +291,7 @@ namespace CodeMash.Repository
         {
             if (update == null)
             {
-                throw new ArgumentNullException(nameof(update), "Update Definition cannot be null");
+                throw new ArgumentNullException(nameof(update), ErrorMessages.UpdateIsNotDefined);
             }
             
             var request = new UpdateMany
@@ -299,7 +314,7 @@ namespace CodeMash.Repository
             
             if (response.Result.MatchedCount == 0)
             {
-                throw new ArgumentException("Documents could not be found");
+                throw new ArgumentException(ErrorMessages.DocumentNotFound);
             }
 
             if (response.Result.ModifiedCount == 0)
@@ -313,6 +328,11 @@ namespace CodeMash.Repository
         public UpdateResult UpdateMany<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             return UpdateMany(new ExpressionFilterDefinition<T1>(filter), update, updateOptions);
         }
 
@@ -321,12 +341,12 @@ namespace CodeMash.Repository
         {
             if (filter == FilterDefinition<T1>.Empty || filter == null)
             {
-                throw new ArgumentNullException(nameof(filter), "Filter cannot be empty");
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
 
             if (entity == null || Equals(entity, default(T1)))
             {
-                throw new ArgumentNullException(nameof(entity), "Entity cannot be empty or null");
+                throw new ArgumentNullException(nameof(entity), ErrorMessages.EntityIsNotDefined);
             }
             
             var request = new ReplaceOne
@@ -352,7 +372,7 @@ namespace CodeMash.Repository
             
             if (response.Result.MatchedCount == 0)
             {
-                throw new ArgumentException("Document could not be found");
+                throw new ArgumentException(ErrorMessages.DocumentNotFound);
             }
 
             if (response.Result.ModifiedCount == 0)
@@ -367,6 +387,11 @@ namespace CodeMash.Repository
         public ReplaceOneResult ReplaceOne<T1>(Expression<Func<T1, bool>> filter, T1 entity,
             UpdateOptions updateOptions = null) where T1 : IEntity
         {
+            if (filter == null) 
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             return ReplaceOne(new ExpressionFilterDefinition<T1>(filter), entity, updateOptions);
         }
 
