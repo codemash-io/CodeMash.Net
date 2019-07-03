@@ -19,5 +19,4 @@ namespace CodeMash.Core.Tests
         [BsonElement("notes")]
         public string Notes { get; set; }
     }
-    
 }

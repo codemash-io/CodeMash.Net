@@ -1,0 +1,24 @@
+{
+    "title": "Workers",
+    "type": "object",
+    "required": [],
+    "translatable": ["personalid"],
+    "properties": {
+        "birthdate": {
+            "type": "integer",
+            "title": "BirthDate",
+            "order": "None",
+            "format": "utc-millisec"
+        },
+        "personalid": {
+            "type": "string",
+            "title": "PersonalId",
+            "order": "None"
+        },
+        "yearlysalary": {
+            "type": "integer",
+            "title": "YearlySalary",
+            "order": "None"
+        }
+    }
+}

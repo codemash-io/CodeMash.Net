@@ -1,0 +1,9 @@
+{
+    "birthdate": {
+        "ui:widget": "date"
+    },
+    "personalid": {},
+    "yearlysalary": {
+        "ui:widget": "updown"
+    }
+}
