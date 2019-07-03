@@ -1,18 +1,17 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
-    public class FindOneTests 
+    public class UpdateManyTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with projections
-        // TODO : play with paging and sorting
-        // TODO : play with cultures and translatable fields. 
-
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _repository;
         
@@ -58,51 +57,44 @@ namespace CodeMash.Core.Tests
             _schedule3 = _repository.InsertOne(_schedule3);
             _schedule4 = _repository.InsertOne(_schedule4);
         }
+
+        [TestMethod]
+        public void Can_update_many_integration_test()
+        {
+            var update = new UpdateDefinitionBuilder<Schedule>()
+            .Set(x => x.Origin, "Kaunas")
+            .Set(x => x.Number, 1);
+
+            var result = _repository.UpdateMany(x => true, update, null);
+            
+            result.ShouldBe<UpdateResult>();
+            Assert.IsTrue(result.IsAcknowledged);
+
+            var entitiesFromDb = _repository.Find<Schedule>(x => true);
+            entitiesFromDb.ShouldBe<List<Schedule>>();
+            entitiesFromDb.ShouldNotNull();
+            Assert.AreEqual(entitiesFromDb.Count(x => x.Origin == "Kaunas"), 4);
+        }
+
+        [TestMethod]
+        public void Cannot_update_many_no_update_definition_integration_test()
+        {
+            Assert.ThrowsException<ArgumentNullException>(
+                () => _repository.UpdateMany<Schedule>(x => true, 
+                    null, null));
+        }
         
         [TestMethod]
-        public void Can_find_one_integration_test()
+        public void Cannot_update_many_filter_not_found_integration_test()
         {
-            var schedule = _repository.FindOne<Schedule>(x => x.Origin == _schedule4.Origin);
-            
-            schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule4);
-        }
+            var update = new UpdateDefinitionBuilder<Schedule>()
+                .Set(x => x.Origin, "Kaunas")
+                .Set(x => x.Number, 1);
 
-        [TestMethod]
-        public void Can_find_one_value_in_number_integration_test()
-        {
-            var schedule = _repository.FindOne<Schedule>(x => x.Number == _schedule.Number);
-            
-            schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(schedule, _schedule);
-        }
-
-        [TestMethod]
-        public void Exception_find_one_with_no_filter_integration_test()
-        {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOne<Schedule>(null), ErrorMessages.FilterIsNotDefined );
-        }
-
-        [TestMethod]
-        public void Can_find_one_with_id_integration_test()
-        {
-            var schedule = _repository.FindOne<Schedule>(x => x.Id == _schedule2.Id);
-            
-            schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(_schedule2, schedule);
-        }
-
-        [TestMethod]
-        public void Can_find_one_first_with_destination_integration_test()
-        {
-            var schedule = _repository.FindOne<Schedule>(x => x.Destination == "Kaunas");
-        
-            schedule.ShouldBe<Schedule>();
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(_schedule2, schedule);
+            Assert.ThrowsException<ArgumentException>(
+                () => _repository.UpdateMany(
+                    x => x.Id == new ObjectId().ToString(), 
+                    update, null));
         }
 
         [TestCleanup]

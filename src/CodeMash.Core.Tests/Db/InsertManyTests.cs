@@ -1,15 +1,14 @@
+using System;
 using System.Collections.Generic;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
     [TestClass]
     public class InsertManyTests
     {
-        // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with cultures and translatable fields. 
-
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private List<Schedule> schedules;
         private IRepository<Schedule> _repository;
@@ -73,6 +72,13 @@ namespace CodeMash.Core.Tests
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
             Assert.Equals(schedules, schedulesFromDb);
+        }
+
+        [TestMethod]
+        public void Exception_insert_many_entities_null_integration_test()
+        {
+            Assert.ThrowsException<ArgumentNullException>( () => _repository.InsertMany<Schedule>(null), 
+                ErrorMessages.EntityIsNotDefined);
         }
         
         [TestCleanup]

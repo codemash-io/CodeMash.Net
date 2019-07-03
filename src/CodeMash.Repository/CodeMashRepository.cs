@@ -17,6 +17,7 @@ using ServiceStack;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
 using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Repository
 {
@@ -125,6 +126,11 @@ namespace CodeMash.Repository
 
         public T1 InsertOne<T1>(T1 entity, InsertOneOptions insertOneOptions) where T1 : IEntity
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), ErrorMessages.EntityIsNotDefined);
+            }
+            
             entity.Id = new ObjectId().ToString();
 
             var request = new InsertOne
@@ -156,7 +162,7 @@ namespace CodeMash.Repository
         {
             if (entities == null)
             {
-                throw new ArgumentNullException(nameof(entities), "Entities cannot be null");
+                throw new ArgumentNullException(nameof(entities), ErrorMessages.EntityIsNotDefined);
             }
             
             var request = new InsertMany
@@ -215,49 +221,187 @@ namespace CodeMash.Repository
         public UpdateResult UpdateOne<T1>(string id, UpdateDefinition<T1> update, UpdateOptions updateOptions)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+            
+            return UpdateOne(new ExpressionFilterDefinition<T1>(x => x.Id == id), update, updateOptions);
         }
 
         public UpdateResult UpdateOne<T1>(ObjectId id, UpdateDefinition<T1> update, UpdateOptions updateOptions)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+            
+            return UpdateOne(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), update, updateOptions);
         }
 
         public UpdateResult UpdateOne<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == FilterDefinition<T1>.Empty || filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
+            if (update == null)
+            {
+                throw new ArgumentNullException(nameof(update), ErrorMessages.UpdateIsNotDefined);
+            }
+            
+            var request = new UpdateOne
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                SchemaId = "", //TODO: what is this
+                Update = update.ToJson(),
+                UpdateOptions = updateOptions
+            };
+
+            var response = Client.Patch(request);
+            
+            if (!response.Result.IsAcknowledged)
+            {
+                throw new InvalidOperationException("Update failed");
+            }
+            
+            if (response.Result.MatchedCount == 0)
+            {
+                throw new ArgumentException(ErrorMessages.DocumentNotFound);
+            }
+
+            if (response.Result.ModifiedCount == 0)
+            {
+                throw new InvalidOperationException("Document could not be updated");
+            }
+            
+            return response.Result;
         }
 
         public UpdateResult UpdateOne<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
+            return UpdateOne(new ExpressionFilterDefinition<T1>(filter), update, updateOptions);
         }
 
         public UpdateResult UpdateMany<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (update == null)
+            {
+                throw new ArgumentNullException(nameof(update), ErrorMessages.UpdateIsNotDefined);
+            }
+            
+            var request = new UpdateMany
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                SchemaId = "", //TODO: what is this
+                Update = update.ToJson(),
+                UpdateOptions = updateOptions
+            };
+
+            var response = Client.Patch(request);
+            
+            if (!response.Result.IsAcknowledged)
+            {
+                throw new InvalidOperationException("Update failed");
+            }
+            
+            if (response.Result.MatchedCount == 0)
+            {
+                throw new ArgumentException(ErrorMessages.DocumentNotFound);
+            }
+
+            if (response.Result.ModifiedCount == 0)
+            {
+                throw new InvalidOperationException("Documents could not be updated");
+            }
+            
+            return response.Result;
         }
 
         public UpdateResult UpdateMany<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
+            return UpdateMany(new ExpressionFilterDefinition<T1>(filter), update, updateOptions);
         }
 
         public ReplaceOneResult ReplaceOne<T1>(FilterDefinition<T1> filter, T1 entity,
             UpdateOptions updateOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == FilterDefinition<T1>.Empty || filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
+            if (entity == null || Equals(entity, default(T1)))
+            {
+                throw new ArgumentNullException(nameof(entity), ErrorMessages.EntityIsNotDefined);
+            }
+            
+            var request = new ReplaceOne
+            {
+                BypassDocumentValidation = false,
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Document = entity.ToJson(),
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                UpdateOneOptions =
+                {
+                    IsUpsert = updateOptions?.IsUpsert ?? false
+                }
+            };
+
+            var response = Client.Put(request);
+
+            if (!response.Result.IsAcknowledged)
+            {
+                throw new InvalidOperationException("Replace failed");
+            }
+            
+            if (response.Result.MatchedCount == 0)
+            {
+                throw new ArgumentException(ErrorMessages.DocumentNotFound);
+            }
+
+            if (response.Result.ModifiedCount == 0)
+            {
+                throw new InvalidOperationException("Document could not be replaced");
+            }
+            
+            return response.Result;
+
         }
 
         public ReplaceOneResult ReplaceOne<T1>(Expression<Func<T1, bool>> filter, T1 entity,
             UpdateOptions updateOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null) 
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
+            return ReplaceOne(new ExpressionFilterDefinition<T1>(filter), entity, updateOptions);
         }
 
         public Task<ReplaceOneResult> ReplaceOneAsync(FilterDefinition<T> filter, T entity,
@@ -371,12 +515,22 @@ namespace CodeMash.Repository
 
         public T1 FindOneById<T1>(string id) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOne<T1>(x => x.Id == id);
         }
 
         public T1 FindOneById<T1>(ObjectId id) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOne<T1>(x => x.Id == id.ToString());
         }
 
         public TP FindOne<T1, TP>(FilterDefinition<T1> filter, ProjectionDefinition<T1, TP> projection = null,
@@ -384,7 +538,7 @@ namespace CodeMash.Repository
         {
             if (filter == null)
             {
-                throw new ArgumentNullException("Filter cannot be empty");
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
 
             var projectionAsJson = string.Empty;
@@ -423,6 +577,11 @@ namespace CodeMash.Repository
         public TP FindOne<T1, TP>(Expression<Func<T1, bool>> filter, ProjectionDefinition<T1, TP> projection = null,
             FindOptions findOptions = null) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
             return FindOne<T1, TP>(new ExpressionFilterDefinition<T1>(filter), projection, findOptions);
         }
 
@@ -433,6 +592,11 @@ namespace CodeMash.Repository
 
         public T1 FindOne<T1>(Expression<Func<T1, bool>> filter, FindOptions findOptions = null) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
             return FindOne<T1, T1>(filter, null, findOptions);
         }
 
@@ -459,32 +623,80 @@ namespace CodeMash.Repository
         }
 
         public T1 FindOneAndReplace<T1>(string id, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(x => x.Id == id), 
+                entity, findOneAndReplaceOptions);
         }
 
         public T1 FindOneAndReplace<T1>(ObjectId id, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), 
+                entity, findOneAndReplaceOptions);
         }
 
         public T1 FindOneAndReplace<T1>(FilterDefinition<T1> filter, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions = null) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null || entity == null)
+            {
+                var errorVar = filter == null ? nameof(filter) : nameof(entity);
+                var errorMessage = filter == null ? ErrorMessages.FilterIsNotDefined : ErrorMessages.EntityIsNotDefined;
+                throw new ArgumentNullException(errorVar, errorMessage);
+            }
+
+            var request = new FindOneAndReplace
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Document = entity.ToJson(),
+                Filter = filter.ToJson(),
+                FindOneAndReplaceOptions = findOneAndReplaceOptions,
+                //TODO: options should be <T1> or <BsonDocument> ??
+                //Interface uses T1, serviceContracts uses BsonDocument
+                ProjectId = Settings.ProjectId
+            };
+
+            var response = Client.Put(request);
+
+            if (response.Result.IsNullOrEmpty())
+            {
+                throw new InvalidOperationException("Replace failed");
+            }
+
+            return BsonSerializer.Deserialize<T1>(response.Result);
         }
 
         public T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity,
-            FindOneAndReplaceOptions<T1> findOneAndReplaceOptions) where T1 : IEntity
+            FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(filter), entity, findOneAndReplaceOptions);
         }
 
         public T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
+            return FindOneAndReplace(new ExpressionFilterDefinition<T1>(filter), entity, null);
         }
 
         public Task<T> FindOneAndReplaceAsync(string id, T entity,
@@ -516,33 +728,76 @@ namespace CodeMash.Repository
             throw new NotImplementedException();
         }
 
-        public T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null)
+        public T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(x => x.Id == id), findOneAndDeleteOptions);
         }
 
-        public T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null)
+        public T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), findOneAndDeleteOptions);
         }
 
         public T1 FindOneAndDelete<T1>(FilterDefinition<T1> filter,
-            FindOneAndDeleteOptions<T1> findOneAndDeleteOptions = null) where T1 : IEntity
+            FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
+            var request = new FindOneAndDelete
+            {
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                FindOneAndDeleteOptions = findOneAndDeleteOptions,
+                ProjectId = Settings.ProjectId
+                //TODO: options should be <T1> or <BsonDocument> ??
+                //Interface uses T1, serviceContracts uses BsonDocument
+            };
+
+            var response = Client.Delete(request);
+
+            if (response.Result == null)
+            {
+                throw new InvalidOperationException("delete failed");
+            }
+
+            return BsonSerializer.Deserialize<T1>(response.Result);
         }
 
         public T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter,
-            FindOneAndDeleteOptions<T1> findOneAndDeleteOptions) where T1 : IEntity
+            FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(filter), findOneAndDeleteOptions);
         }
 
         public T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
+            return FindOneAndDelete(new ExpressionFilterDefinition<T1>(filter), null);
         }
 
         public Task<T> FindOneAndDeleteAsync(string id, FindOneAndDeleteOptions<T> findOneAndDeleteOptions = null)
@@ -572,22 +827,78 @@ namespace CodeMash.Repository
             throw new NotImplementedException();
         }
 
-        public T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> entity,
-            FindOneAndUpdateOptions<T1> findOneAndUpdateOptions = null) where T1 : IEntity
+        public T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
+            FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null || update == null)
+            {
+                var errorVar = filter == null ? nameof(filter) : nameof(update);
+                var errorMessage = filter == null ? ErrorMessages.FilterIsNotDefined : ErrorMessages.UpdateIsNotDefined;
+                throw new ArgumentNullException(errorVar, errorMessage);
+            }
+
+            var request = new FindOneAndUpdate{
+                CollectionName = GetCollectionName(),
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                Filter = filter.ToJson(),
+                ProjectId = Settings.ProjectId,
+                FindOneAndUpdateOptions = findOneAndUpdateOptions,
+                Document = update.ToJson()
+                //TODO: options should be <T1> or <BsonDocument> ??
+                //Interface uses T1, serviceContracts uses BsonDocument
+            };
+
+            var response = Client.Patch(request);
+
+            if (response.Result.IsNullOrEmpty()){
+                throw new InvalidOperationException("Entity cannot be updated");
+            }
+
+            return BsonSerializer.Deserialize<T1>(response.Result);
         }
 
-        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity,
-            FindOneAndUpdateOptions<T1> findOneAndUpdateOptions) where T1 : IEntity
+        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update,
+            FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), update, findOneAndUpdateOptions);
         }
 
-        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> entity)
+        public T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update)
             where T1 : IEntity
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(filter), update);
+        }
+
+        public T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
+            where T1 : IEntity
+        {
+            if (id.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id), update, findOneAndUpdateOptions);
+        }
+
+        public T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions)
+            where T1 : IEntity
+        {
+            if (id == null || id == ObjectId.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
+            return FindOneAndUpdate(new ExpressionFilterDefinition<T1>(x => x.Id == id.ToString()), update, findOneAndUpdateOptions);
         }
 
         public Task<T> FindOneAndUpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> entity,
@@ -611,7 +922,7 @@ namespace CodeMash.Repository
         {
             if (id.IsNullOrEmpty())
             {
-                throw new ArgumentNullException(nameof(id), "id cannot be empty");
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
             }
             
             var request = new DeleteOne
@@ -629,6 +940,11 @@ namespace CodeMash.Repository
 
         public DeleteResult DeleteOne<T1>(ObjectId id) where T1 : IEntity
         {
+            if (id == null || id == ObjectId.Empty) 
+            {
+                throw new ArgumentNullException(nameof(id), ErrorMessages.IdIsNotDefined);
+            }
+
             return DeleteOne<T1>(id.ToString());
         }
 
@@ -647,7 +963,7 @@ namespace CodeMash.Repository
         {
             if (filter == null)
             {
-                throw new ArgumentNullException(nameof(filter), "Filter cannot be null");
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
 
             var request = new DeleteMany
@@ -665,6 +981,11 @@ namespace CodeMash.Repository
 
         public DeleteResult DeleteMany<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+
             return DeleteMany(new ExpressionFilterDefinition<T1>(filter));
         }
 
@@ -711,12 +1032,30 @@ namespace CodeMash.Repository
 
         public long Count(FilterDefinition<T> filter, CountOptions countOptions = null)
         {
-            throw new NotImplementedException();
+            var request = new Count{
+                Filter = filter.ToJson(),
+                CountOptions = countOptions,
+                CollectionName = GetCollectionName(),
+                ProjectId = Settings.ProjectId,
+                CultureCode = CultureInfo.CurrentCulture.Name
+            };
+
+            var response = Client.Post(request);
+
+            return response.Result;
         }
 
         public long Count(Expression<Func<T, bool>> filter, CountOptions countOptions = null)
         {
-            throw new NotImplementedException();
+            if(filter == null){
+                return Count(countOptions);
+            }
+
+            return Count(new ExpressionFilterDefinition<T>(filter), countOptions);
+        }
+
+        public long Count(CountOptions countOptions = null){
+            return Count(FilterDefinition<T>.Empty, countOptions);
         }
 
         public Task<long> CountAsync(FilterDefinition<T> filter, CountOptions countOptions = null)

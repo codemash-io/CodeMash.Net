@@ -13,7 +13,7 @@ namespace CodeMash.Core.Tests
     {
         
         // TODO : throw nice message when module is disabled or not established yet
-        
+        /*
         [TestMethod]
         public void Can_send_email()
         {
@@ -75,6 +75,6 @@ namespace CodeMash.Core.Tests
 
             response.ShouldNotNull();
             response.Result.ShouldBe<string>();
-        }
+        }*/
     }
 }

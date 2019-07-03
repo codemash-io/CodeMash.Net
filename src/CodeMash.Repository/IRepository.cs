@@ -80,11 +80,11 @@ namespace CodeMash.Repository
         Task<T> FindOneAsync(Expression<Func<T, bool>> filter, ProjectionDefinition<T> projection = null, FindOptions findOptions = null);
 
         // Find One and Replace
-        T FindOneAndReplace<T>(string id, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null) where T : IEntity;
-        T FindOneAndReplace<T>(ObjectId id, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null) where T : IEntity;
-        T FindOneAndReplace<T>(FilterDefinition<T> filter, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null) where T : IEntity;
-        T FindOneAndReplace<T>(Expression<Func<T, bool>> filter, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions) where T : IEntity;
-        T FindOneAndReplace<T>(Expression<Func<T, bool>> filter, T entity) where T : IEntity;
+        T1 FindOneAndReplace<T1>(string id, T1 entity, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity;
+        T1 FindOneAndReplace<T1>(ObjectId id, T1 entity, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity;
+        T1 FindOneAndReplace<T1>(FilterDefinition<T1> filter, T1 entity, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions = null) where T1 : IEntity;
+        T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity, FindOneAndReplaceOptions<BsonDocument> findOneAndReplaceOptions) where T1 : IEntity;
+        T1 FindOneAndReplace<T1>(Expression<Func<T1, bool>> filter, T1 entity) where T1 : IEntity;
 
         // Find One and Replace Async
         Task<T> FindOneAndReplaceAsync(string id, T entity, FindOneAndReplaceOptions<T> findOneAndReplaceOptions = null);
@@ -94,11 +94,11 @@ namespace CodeMash.Repository
         Task<T> FindOneAndReplaceAsync(Expression<Func<T, bool>> filter, T entity);
 
         // Find One and Delete
-        T FindOneAndDelete<T>(string id, FindOneAndDeleteOptions<T> findOneAndDeleteOptions = null) where T : IEntity;
-        T FindOneAndDelete<T>(ObjectId id, FindOneAndDeleteOptions<T> findOneAndDeleteOptions = null) where T : IEntity;
-        T FindOneAndDelete<T>(FilterDefinition<T> filter, FindOneAndDeleteOptions<T> findOneAndDeleteOptions = null) where T : IEntity;
-        T FindOneAndDelete<T>(Expression<Func<T, bool>> filter, FindOneAndDeleteOptions<T> findOneAndDeleteOptions) where T : IEntity;
-        T FindOneAndDelete<T>(Expression<Func<T, bool>> filter) where T : IEntity;
+        T1 FindOneAndDelete<T1>(string id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null) where T1 : IEntity;
+        T1 FindOneAndDelete<T1>(ObjectId id, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null) where T1 : IEntity;
+        T1 FindOneAndDelete<T1>(FilterDefinition<T1> filter, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions = null) where T1 : IEntity;
+        T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter, FindOneAndDeleteOptions<BsonDocument> findOneAndDeleteOptions) where T1 : IEntity;
+        T1 FindOneAndDelete<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity;
 
         // Find One and Delete Async
         Task<T> FindOneAndDeleteAsync(string id, FindOneAndDeleteOptions<T> findOneAndDeleteOptions = null);
@@ -108,9 +108,11 @@ namespace CodeMash.Repository
         Task<T> FindOneAndDeleteAsync(Expression<Func<T, bool>> filter);
 
         // Find One and Update
-        T FindOneAndUpdate<T>(FilterDefinition<T> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions = null) where T : IEntity;
-        T FindOneAndUpdate<T>(Expression<Func<T, bool>> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions) where T : IEntity;
-        T FindOneAndUpdate<T>(Expression<Func<T, bool>> filter, UpdateDefinition<T> entity) where T : IEntity;
+        T1 FindOneAndUpdate<T1>(string id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(ObjectId id, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions = null) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update, FindOneAndUpdateOptions<BsonDocument> findOneAndUpdateOptions) where T1 : IEntity;
+        T1 FindOneAndUpdate<T1>(Expression<Func<T1, bool>> filter, UpdateDefinition<T1> update) where T1 : IEntity;
 
         // Find One and Update Async
         Task<T> FindOneAndUpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> entity, FindOneAndUpdateOptions<T> findOneAndUpdateOptions = null);
@@ -119,12 +121,12 @@ namespace CodeMash.Repository
 
 
         // Delete
-        DeleteResult DeleteOne<T>(string id) where T : IEntity;
-        DeleteResult DeleteOne<T>(ObjectId id) where T : IEntity;
+        DeleteResult DeleteOne<T1>(string id) where T1 : IEntity;
+        DeleteResult DeleteOne<T1>(ObjectId id) where T1 : IEntity;
         //DeleteResult DeleteOne<T>(FilterDefinition<T> filter) where T : IEntity;
         //DeleteResult DeleteOne<T>(Expression<Func<T, bool>> filter) where T : IEntity;
-        DeleteResult DeleteMany<T>(FilterDefinition<T> filter) where T : IEntity;
-        DeleteResult DeleteMany<T>(Expression<Func<T, bool>> filter) where T : IEntity;
+        DeleteResult DeleteMany<T1>(FilterDefinition<T1> filter) where T1 : IEntity;
+        DeleteResult DeleteMany<T1>(Expression<Func<T1, bool>> filter) where T1 : IEntity;
 
         // Delete Async
         Task<DeleteResult> DeleteOneAsync(string id);
@@ -141,6 +143,7 @@ namespace CodeMash.Repository
         // Count
         long Count(FilterDefinition<T> filter, CountOptions countOptions = null);
         long Count(Expression<Func<T, bool>> filter, CountOptions countOptions = null);
+        long Count(CountOptions countOptions = null);
 
         // Count Async
         Task<long> CountAsync(FilterDefinition<T> filter, CountOptions countOptions = null);
