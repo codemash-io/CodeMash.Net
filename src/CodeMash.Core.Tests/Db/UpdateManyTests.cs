@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
@@ -50,7 +51,7 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
             
-            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
+            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
 
             _schedule = _repository.InsertOne(_schedule);
             _schedule2 = _repository.InsertOne(_schedule2);
@@ -80,8 +81,8 @@ namespace CodeMash.Core.Tests
         public void Cannot_update_many_no_update_definition_integration_test()
         {
             Assert.ThrowsException<ArgumentNullException>(
-                () => _repository.UpdateMany<Schedule>(x => true, 
-                    null, null));
+                () => _repository.UpdateMany<Schedule>(x => true, null, null),
+                ErrorMessages.UpdateIsNotDefined);
         }
         
         [TestMethod]
@@ -92,9 +93,8 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Number, 1);
 
             Assert.ThrowsException<ArgumentException>(
-                () => _repository.UpdateMany(
-                    x => x.Id == new ObjectId().ToString(), 
-                    update, null));
+                () => _repository.UpdateMany( x => x.Id == new ObjectId().ToString(), update, null),
+                ErrorMessages.FilterIsNotDefined);
         }
 
         [TestCleanup]

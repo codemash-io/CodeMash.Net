@@ -16,7 +16,7 @@ namespace CodeMash.Core.Tests
         [TestInitialize]
         public void SetUp()
         {
-            Repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
+            Repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
             
             _schedule = new Schedule
             {
@@ -68,7 +68,8 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Cannot_delete_many_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteMany<Schedule>(filter: null), ErrorMessages.FilterIsNotDefined);
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteMany<Schedule>(filter: null), 
+                ErrorMessages.FilterIsNotDefined);
         }
         
         [TestMethod]

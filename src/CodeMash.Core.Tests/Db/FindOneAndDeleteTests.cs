@@ -49,7 +49,7 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
             
-            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
+            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
 
             _schedule = _repository.InsertOne(_schedule);
             _schedule2 = _repository.InsertOne(_schedule2);
@@ -87,14 +87,15 @@ namespace CodeMash.Core.Tests
         public void Exception_find_one_and_Delete_with_no_filter_integration_test()
         {
             Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndDelete<Schedule>(null),
-            ErrorMessages.FilterIsNotDefined);
+                ErrorMessages.FilterIsNotDefined);
         }
 
         [TestMethod]
         public void Exception_find_one_and_Delete_not_found_integration_test()
         {
             //CodeMash API throws BusinessException which is recieved as a ServiceStack.WebServiceException
-            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndDelete<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa")) );
+            Assert.ThrowsException<WebServiceException>( 
+                () => _repository.FindOneAndDelete<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa")) );
         }
 
         [TestMethod]

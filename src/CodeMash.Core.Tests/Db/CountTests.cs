@@ -47,7 +47,7 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
             
-            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
+            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
 
             _schedules = new List<Schedule>{
                 _schedule,

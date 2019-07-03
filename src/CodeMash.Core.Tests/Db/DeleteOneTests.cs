@@ -1,6 +1,7 @@
 using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
 using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
@@ -16,7 +17,7 @@ namespace CodeMash.Core.Tests
         [TestInitialize]
         public void SetUp()
         {
-            Repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
+            Repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
             
             _schedule = new Schedule
             {
@@ -40,9 +41,13 @@ namespace CodeMash.Core.Tests
         }
 
         [TestMethod]
-        public void Cannot_delete_one_no_filter_integration_test()
+        public void Cannot_delete_one_no_id_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null), ErrorMessages.FilterIsNotDefined);
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null), 
+                ErrorMessages.IdIsNotDefined);
+
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(ObjectId.Empty), 
+                ErrorMessages.IdIsNotDefined);
         }
         
         [TestCleanup]

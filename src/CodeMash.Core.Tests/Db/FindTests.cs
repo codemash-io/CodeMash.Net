@@ -15,7 +15,8 @@ namespace CodeMash.Core.Tests
         // TODO : play with cultures and translatable fields. 
 
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
-        private IRepository<Schedule> _repository;
+        private IRepository<Schedule> _Prepository; //Primary
+        private IRepository<Schedule> _Srepository; //Secondary
         
         [TestInitialize]
         public void SetUp()
@@ -52,18 +53,19 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
             
-            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
+            _Prepository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
+            _Srepository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.secondary.json");
 
-            _schedule = _repository.InsertOne(_schedule);
-            _schedule2 = _repository.InsertOne(_schedule2);
-            _schedule3 = _repository.InsertOne(_schedule3);
-            _schedule4 = _repository.InsertOne(_schedule4);
+            _schedule = _Prepository.InsertOne(_schedule);
+            _schedule2 = _Prepository.InsertOne(_schedule2);
+            _schedule3 = _Prepository.InsertOne(_schedule3);
+            _schedule4 = _Prepository.InsertOne(_schedule4);
         }
 
         [TestMethod]
         public void Can_find_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => true);
+            var schedules = _Prepository.Find<Schedule>(x => true);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -72,7 +74,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_value_in_origin_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => x.Origin == _schedule2.Origin);
+            var schedules = _Prepository.Find<Schedule>(x => x.Origin == _schedule2.Origin);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -82,7 +84,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_value_in_origin_and_destination_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => x.Origin == "Kaunas" || x.Destination == "Kaunas");
+            var schedules = _Prepository.Find<Schedule>(x => x.Origin == "Kaunas" || x.Destination == "Kaunas");
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -92,7 +94,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_no_filter_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(null);
+            var schedules = _Prepository.Find<Schedule>(null);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -101,7 +103,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_id_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => x.Id == _schedule.Id);
+            var schedules = _Prepository.Find<Schedule>(x => x.Id == _schedule.Id);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -111,7 +113,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_limit_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => true, null, null, 2, null);
+            var schedules = _Prepository.Find<Schedule>(x => true, null, null, 2, null);
             
             schedules.ShouldBe<List<Schedule>>();
         }
@@ -119,7 +121,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_limit_2_and_skip_1_page_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => true, null, 1, 2, null);
+            var schedules = _Prepository.Find<Schedule>(x => true, null, 1, 2, null);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -131,7 +133,7 @@ namespace CodeMash.Core.Tests
         [TestCleanup]
         public void TearDown()
         {
-            _repository.DeleteMany<Schedule>(x => true);
+            _Prepository.DeleteMany<Schedule>(x => true);
         }
     }
 }

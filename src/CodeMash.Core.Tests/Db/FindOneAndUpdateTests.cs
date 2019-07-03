@@ -49,7 +49,7 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
             
-            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.json");
+            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
 
             _schedule = _repository.InsertOne(_schedule);
             _schedule2 = _repository.InsertOne(_schedule2);
@@ -109,14 +109,14 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Origin, "test-test");
 
             Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate(null, update),
-            ErrorMessages.FilterIsNotDefined );
+                ErrorMessages.FilterIsNotDefined );
         }
 
         [TestMethod]
         public void Exception_find_one_and_Update_with_no_update_integration_test()
         {
             Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate<Schedule>(_schedule.Id, null),
-            ErrorMessages.UpdateIsNotDefined );
+                ErrorMessages.UpdateIsNotDefined );
         }
 
         [TestMethod]
@@ -127,7 +127,8 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Origin, "test-test");
 
             //CodeMash API throws BusinessException which is recieved as a ServiceStack.WebServiceException
-            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndUpdate(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa"), update, null) );
+            Assert.ThrowsException<WebServiceException>( 
+                () => _repository.FindOneAndUpdate(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa"), update, null) );
         }
 
         [TestMethod]
