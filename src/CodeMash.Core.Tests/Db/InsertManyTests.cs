@@ -11,6 +11,7 @@ namespace CodeMash.Core.Tests
         // TODO : play with cultures and translatable fields. 
 
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
+        private List<Schedule> schedules;
         private IRepository<Schedule> _repository;
         
         [TestInitialize]
@@ -50,7 +51,7 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
 
-            var schedules = new List<Schedule>
+            schedules = new List<Schedule>
             {
                 _schedule,
                 _schedule2,
@@ -61,15 +62,7 @@ namespace CodeMash.Core.Tests
 
         [TestMethod]
         public void Can_insert_many_integration_test()
-        {
-            var schedules = new List<Schedule>
-            {
-                _schedule,
-                _schedule2,
-                _schedule3,
-                _schedule4
-            };
-            
+        {            
             var inserted = _repository.InsertMany(schedules);
 
             inserted.ShouldBe<bool>();

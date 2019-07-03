@@ -139,7 +139,7 @@ namespace CodeMash.Repository
 
             if (response?.Result == null)
             {
-                return default;
+                return default(T1);
             }
 
             var documentAsEntity = BsonSerializer.Deserialize<T1>(response.Result);
@@ -163,7 +163,7 @@ namespace CodeMash.Repository
             {
                 CollectionName = GetCollectionName(),
                 Documents = entities.Select(x =>
-                    x.ToBsonDocument().ToJson(new JsonWriterSettings {OutputMode = JsonOutputMode.Strict})),
+                    x.ToJson(new JsonWriterSettings {OutputMode = JsonOutputMode.Strict})),
                 CultureCode = CultureInfo.CurrentCulture.Name,
                 InsertManyOptions = insertManyOptions,
                 ProjectId = Settings.ProjectId
