@@ -101,7 +101,8 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Exception_find_one_and_replace_not_found_integration_test()
         {
-            Assert.ThrowsException<WebServiceException>( () => _repository.FindOneAndReplace<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa"), _schedule) );
+            Assert.ThrowsException<WebServiceException>( 
+                () => _repository.FindOneAndReplace<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa"), _schedule) );
         }
 
         [TestMethod]

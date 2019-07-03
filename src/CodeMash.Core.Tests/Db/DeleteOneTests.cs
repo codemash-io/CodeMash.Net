@@ -49,6 +49,14 @@ namespace CodeMash.Core.Tests
             Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(ObjectId.Empty), 
                 ErrorMessages.IdIsNotDefined);
         }
+
+        [TestMethod]
+        public void Cannot_delete_one_not_found_integration_test()
+        {
+            Assert.ThrowsException<InvalidOperationException>(
+                () => Repository.DeleteOne<Schedule>("aaaaaaaaaaaaaaaaaaaaaaaa"), 
+                ErrorMessages.DocumentNotFound);
+        }
         
         [TestCleanup]
         public void TearDown()

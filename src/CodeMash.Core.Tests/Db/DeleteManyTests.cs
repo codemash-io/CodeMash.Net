@@ -81,10 +81,19 @@ namespace CodeMash.Core.Tests
             Assert.IsTrue(result.IsAcknowledged);
             Assert.IsTrue(result.DeletedCount > 0);
         }
+
+        [TestMethod]
+        public void Cannot_delete_many_not_found_integration_test()
+        {
+            Assert.ThrowsException<InvalidOperationException>(
+                () => Repository.DeleteMany<Schedule>(x => x.Destination == "gyvenimeTokioDestinationNeduosiu"), 
+                ErrorMessages.DocumentNotFound);
+        }
         
         [TestCleanup]
         public void TearDown()
         {
+            Repository.InsertOne(_schedule);
             Repository.DeleteMany<Schedule>(x => true);
         }
     }

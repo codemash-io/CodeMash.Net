@@ -1,6 +1,7 @@
 using System;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
@@ -82,7 +83,21 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Exception_find_one_with_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOne<Schedule>(null), ErrorMessages.FilterIsNotDefined );
+            Assert.ThrowsException<ArgumentNullException>( 
+                () => _repository.FindOne<Schedule>(null), 
+                ErrorMessages.FilterIsNotDefined );
+            
+            Assert.ThrowsException<ArgumentNullException>( 
+                () => _repository.FindOne<Schedule>(FilterDefinition<Schedule>.Empty), 
+                ErrorMessages.FilterIsNotDefined );
+        }
+
+        [TestMethod]
+        public void Exception_find_one_not_found_integration_test()
+        {
+            Assert.ThrowsException<InvalidOperationException>( 
+                () => _repository.FindOne<Schedule>(x => x.Destination == "gyvenimeTokioDestinationNeduosiu"), 
+                ErrorMessages.DocumentNotFound );
         }
 
         [TestMethod]

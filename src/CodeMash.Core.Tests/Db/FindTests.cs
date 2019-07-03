@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
 {
@@ -98,6 +99,14 @@ namespace CodeMash.Core.Tests
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
+        }
+
+        [TestMethod]
+        public void Exception_find_not_found_integration_test()
+        {
+            Assert.ThrowsException<InvalidOperationException>( 
+                () => _Prepository.Find<Schedule>(x => x.Destination == "gyvenimeTokioDestinationNeduosiu"), 
+                ErrorMessages.DocumentNotFound );
         }
 
         [TestMethod]

@@ -289,6 +289,11 @@ namespace CodeMash.Repository
         public UpdateResult UpdateMany<T1>(FilterDefinition<T1> filter, UpdateDefinition<T1> update,
             UpdateOptions updateOptions) where T1 : IEntity
         {
+            if (filter == null || filter == FilterDefinition<T1>.Empty)
+            {
+                throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
+            }
+            
             if (update == null)
             {
                 throw new ArgumentNullException(nameof(update), ErrorMessages.UpdateIsNotDefined);
@@ -458,7 +463,7 @@ namespace CodeMash.Repository
 
             if (response == null || !response.Result.Any())
             {
-                return new List<TP>();
+                throw new InvalidOperationException(ErrorMessages.DocumentNotFound);
             }
 
             var list = BsonSerializer.Deserialize<List<TP>>(response.Result);
@@ -527,7 +532,7 @@ namespace CodeMash.Repository
         public TP FindOne<T1, TP>(FilterDefinition<T1> filter, ProjectionDefinition<T1, TP> projection = null,
             FindOptions findOptions = null) where T1 : IEntity
         {
-            if (filter == null)
+            if (filter == null || filter == FilterDefinition<T1>.Empty)
             {
                 throw new ArgumentNullException(nameof(filter), ErrorMessages.FilterIsNotDefined);
             }
@@ -556,9 +561,9 @@ namespace CodeMash.Repository
 
             var response = Client.Post(request);
 
-            if (response == null || !response.Result.Any())
+            if (response == null || response.Result.IsNullOrEmpty())
             {
-                return default(TP);
+                throw new InvalidOperationException(ErrorMessages.DocumentNotFound);
             }
 
             var result = BsonSerializer.Deserialize<TP>(response.Result);
@@ -926,6 +931,11 @@ namespace CodeMash.Repository
 
             var response = Client.Delete(request);
 
+            if (!response.Result.IsAcknowledged || response.Result.DeletedCount != 1)
+            {
+                throw new InvalidOperationException(ErrorMessages.DocumentNotFound);
+            }
+
             return response.Result;
         }
 
@@ -966,6 +976,11 @@ namespace CodeMash.Repository
             };
 
             var response = Client.Delete(request);
+
+            if (response.Result.DeletedCount <= 0)
+            {
+                throw new InvalidOperationException(ErrorMessages.DocumentNotFound);
+            }
 
             return response.Result;
         }

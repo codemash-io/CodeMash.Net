@@ -76,6 +76,14 @@ namespace CodeMash.Core.Tests
                 () => _repository.FindOneById<Schedule>(ObjectId.Empty), ErrorMessages.IdIsNotDefined );
         }
 
+        [TestMethod]
+        public void Exception_find_one_with_not_found_integration_test()
+        {
+            Assert.ThrowsException<InvalidOperationException>( 
+                () => _repository.FindOneById<Schedule>("aaaaaaaaaaaaaaaaaaaaaaaa"), 
+                ErrorMessages.DocumentNotFound );
+        }
+
         [TestCleanup]
         public void TearDown()
         {
