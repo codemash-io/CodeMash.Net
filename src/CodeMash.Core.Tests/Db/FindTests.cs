@@ -13,7 +13,6 @@ namespace CodeMash.Core.Tests
     public class FindTests
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with sorting
         // TODO : play with cultures and translatable fields. 
 
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
