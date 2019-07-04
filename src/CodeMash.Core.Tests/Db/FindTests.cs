@@ -13,7 +13,6 @@ namespace CodeMash.Core.Tests
     public class FindTests
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
-        // TODO : play with projections
         // TODO : play with sorting
         // TODO : play with cultures and translatable fields. 
 
@@ -21,6 +20,7 @@ namespace CodeMash.Core.Tests
         private IRepository<Schedule> _Prepository; //Primary
         private IRepository<Schedule> _Srepository; //Secondary
         private ProjectionDefinition<Schedule> projection;
+        private SortDefinition<Schedule> sort;
         
         [TestInitialize]
         public void SetUp()
@@ -45,7 +45,7 @@ namespace CodeMash.Core.Tests
             {
                 Destination = "Kaunas",
                 Notes = "Local",
-                Number = 1540,
+                Number = 1380,
                 Origin = "Palemonas"
             };
             
@@ -53,7 +53,7 @@ namespace CodeMash.Core.Tests
             {
                 Destination = "Vilnius",
                 Notes = "Local",
-                Number = 1380,
+                Number = 1540,
                 Origin = "Trakai"
             };
             
@@ -69,6 +69,9 @@ namespace CodeMash.Core.Tests
                 .Include(x => x.Origin)
                 .Include(x => x.Number)
                 .Exclude(x => x.Id);
+
+            sort = new SortDefinitionBuilder<Schedule>()
+                .Descending(x => x.Number);
         }
 
         [TestMethod]
@@ -162,6 +165,17 @@ namespace CodeMash.Core.Tests
 
             Assert.AreEqual(schedules.Count, 2);
             Assert.AreEqual(schedules.Where(x => x.Destination == null).Count(), 2);
+        }
+
+        [TestMethod]
+        public void Can_find_with_sort_integration_test()
+        {
+            var schedules = _Prepository.Find<Schedule>(x => true, sort);
+
+            Assert.AreEqual(schedules[0], _schedule4);
+            Assert.AreEqual(schedules[1], _schedule3);
+            Assert.AreEqual(schedules[2], _schedule2);
+            Assert.AreEqual(schedules[3], _schedule);
         }
         
         [TestCleanup]

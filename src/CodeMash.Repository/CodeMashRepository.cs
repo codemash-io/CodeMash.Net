@@ -470,13 +470,13 @@ namespace CodeMash.Repository
             };
 
             var response = Client.Post(request);
+            var list = BsonSerializer.Deserialize<List<TP>>(response.Result);
 
-            if (response == null || !response.Result.Any())
+            if (response == null || list.Count == 0)
             {
                 throw new InvalidOperationException(ErrorMessages.DocumentNotFound);
             }
 
-            var list = BsonSerializer.Deserialize<List<TP>>(response.Result);
             return list;
         }
 
