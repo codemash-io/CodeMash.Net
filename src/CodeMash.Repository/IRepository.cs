@@ -54,6 +54,7 @@ namespace CodeMash.Repository
         // Find
         List<T> Find<T>(FilterDefinition<T> filter) where T : IEntity;
         List<T> Find<T>(Expression<Func<T, bool>> filter) where T : IEntity;
+        List<T> Find<T>(Expression<Func<T, bool>> filter, ProjectionDefinition<T> projection) where T : IEntity;
         List<TP> Find<T, TP>(FilterDefinition<T> filter, ProjectionDefinition<T,TP> projection, SortDefinition<T> sort = null, int? skip = null, int? limit = null, FindOptions findOptions = null) where TP : IEntity;
         
         List<T> Find<T>(FilterDefinition<T> filter, SortDefinition<T> sort, int? skip = null, int? limit = null, FindOptions findOptions = null) where T : IEntity;

@@ -425,6 +425,16 @@ namespace CodeMash.Repository
             }
 
             return Find<T, T>(new ExpressionFilterDefinition<T>(filter), null, null, 0, 1000);
+        }
+
+        public List<T> Find<T>(Expression<Func<T, bool>> filter, ProjectionDefinition<T> projection) where T : IEntity
+        {
+            if (filter == null)
+            {
+                filter = _ => true;
+            }
+
+            return Find<T, T>(new ExpressionFilterDefinition<T>(filter), projection, null, 0, 1000);
 
         }
 

@@ -11,6 +11,7 @@ namespace CodeMash.Repository
                 public const string IdIsNotDefined = "Id is not defined";
                 public const string UpdateIsNotDefined = "Update definition is not defined";
                 public const string DocumentNotFound = "Document could not be found";
+                public const string AccessNotGranted = "You don't have right access to invoke this action";
             }
         }
     }

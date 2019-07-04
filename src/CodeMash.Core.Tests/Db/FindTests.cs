@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
+using ServiceStack;
 using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 
 namespace CodeMash.Core.Tests
@@ -12,12 +14,13 @@ namespace CodeMash.Core.Tests
     {
         // TODO : add all possible fields (Selections, Taxonomies, Files, Translatable fields)
         // TODO : play with projections
-        // TODO : play with paging and sorting
+        // TODO : play with sorting
         // TODO : play with cultures and translatable fields. 
 
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
         private IRepository<Schedule> _Prepository; //Primary
         private IRepository<Schedule> _Srepository; //Secondary
+        private ProjectionDefinition<Schedule> projection;
         
         [TestInitialize]
         public void SetUp()
@@ -61,6 +64,11 @@ namespace CodeMash.Core.Tests
             _schedule2 = _Prepository.InsertOne(_schedule2);
             _schedule3 = _Prepository.InsertOne(_schedule3);
             _schedule4 = _Prepository.InsertOne(_schedule4);
+
+            projection = new ProjectionDefinitionBuilder<Schedule>()
+                .Include(x => x.Origin)
+                .Include(x => x.Number)
+                .Exclude(x => x.Id);
         }
 
         [TestMethod]
@@ -137,6 +145,23 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(2, schedules.Count);
             Assert.AreEqual(schedules[0], _schedule3);
             Assert.AreEqual(schedules[1], _schedule4);
+        }
+
+        [TestMethod]
+        public void Cant_find_without_access_integration_test()
+        {
+            Assert.ThrowsException<WebServiceException>( 
+                () => _Srepository.Find<Schedule>(x => true),
+                ErrorMessages.AccessNotGranted );
+        }
+
+        [TestMethod]
+        public void Can_find_with_projection_integration_test()
+        {
+            var schedules = _Prepository.Find<Schedule>(x => x.Destination == "Kaunas", projection);
+
+            Assert.AreEqual(schedules.Count, 2);
+            Assert.AreEqual(schedules.Where(x => x.Destination == null).Count(), 2);
         }
         
         [TestCleanup]
