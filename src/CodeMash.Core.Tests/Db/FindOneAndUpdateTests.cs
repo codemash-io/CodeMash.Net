@@ -12,7 +12,8 @@ namespace CodeMash.Core.Tests
     public class FindOneAndUpdateTests 
     {
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
-        private IRepository<Schedule> _repository;
+        private IRepository<Schedule> _Prepository; //Primary
+        private IRepository<Schedule> _Srepository; //Secondary
         
         [TestInitialize]
         public void SetUp()
@@ -49,12 +50,13 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
             
-            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
+            _Prepository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
+            _Srepository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.secondary.json");
 
-            _schedule = _repository.InsertOne(_schedule);
-            _schedule2 = _repository.InsertOne(_schedule2);
-            _schedule3 = _repository.InsertOne(_schedule3);
-            _schedule4 = _repository.InsertOne(_schedule4);
+            _schedule = _Prepository.InsertOne(_schedule);
+            _schedule2 = _Prepository.InsertOne(_schedule2);
+            _schedule3 = _Prepository.InsertOne(_schedule3);
+            _schedule4 = _Prepository.InsertOne(_schedule4);
         }
         
         [TestMethod]
@@ -71,7 +73,7 @@ namespace CodeMash.Core.Tests
             _schedule.Destination = "test";
             _schedule.Number = -10;
 
-            var schedule = _repository.FindOneAndUpdate(_schedule.Id, update, options);
+            var schedule = _Prepository.FindOneAndUpdate(_schedule.Id, update, options);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
@@ -93,7 +95,7 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Destination, "test")
                 .Set(x => x.Origin, "test-test");
 
-            var schedule = _repository.FindOneAndUpdate(x => x.Number == _schedule2.Number, update, options);
+            var schedule = _Prepository.FindOneAndUpdate(x => x.Number == _schedule2.Number, update, options);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
@@ -108,14 +110,14 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Destination, "test")
                 .Set(x => x.Origin, "test-test");
 
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate(null, update),
+            Assert.ThrowsException<ArgumentNullException>( () => _Prepository.FindOneAndUpdate(null, update),
                 ErrorMessages.FilterIsNotDefined );
         }
 
         [TestMethod]
         public void Exception_find_one_and_Update_with_no_update_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndUpdate<Schedule>(_schedule.Id, null),
+            Assert.ThrowsException<ArgumentNullException>( () => _Prepository.FindOneAndUpdate<Schedule>(_schedule.Id, null),
                 ErrorMessages.UpdateIsNotDefined );
         }
 
@@ -128,7 +130,7 @@ namespace CodeMash.Core.Tests
 
             //CodeMash API throws BusinessException which is recieved as a ServiceStack.WebServiceException
             Assert.ThrowsException<WebServiceException>( 
-                () => _repository.FindOneAndUpdate(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa"), update, null) );
+                () => _Prepository.FindOneAndUpdate(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa"), update, null) );
         }
 
         [TestMethod]
@@ -145,7 +147,7 @@ namespace CodeMash.Core.Tests
                 .Set(x => x.Destination, "test")
                 .Set(x => x.Origin, "test-test");
 
-            var schedule = _repository.FindOneAndUpdate(new ObjectId(_schedule2.Id), update, options);
+            var schedule = _Prepository.FindOneAndUpdate(new ObjectId(_schedule2.Id), update, options);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
@@ -153,10 +155,22 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(schedule.Origin, _schedule2.Origin);
         }
 
+        [TestMethod]
+        public void Cant_find_without_access_integration_test()
+        {
+            var update = new UpdateDefinitionBuilder<Schedule>()
+                .Set(x => x.Destination, "test")
+                .Set(x => x.Origin, "test-test");
+
+            Assert.ThrowsException<WebServiceException>( 
+                () => _Srepository.FindOneAndUpdate<Schedule>(x => x.Destination == "GyvenimeTokioDestinationNeduociau", update),
+                ErrorMessages.AccessNotGranted );
+        }
+
         [TestCleanup]
         public void TearDown()
         {
-            _repository.DeleteMany<Schedule>(x => true);
+            _Prepository.DeleteMany<Schedule>(x => true);
         }
     }
 }
