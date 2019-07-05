@@ -12,7 +12,8 @@ namespace CodeMash.Core.Tests
     public class FindOneAndDeleteTests 
     {
         private Schedule _schedule, _schedule2, _schedule3, _schedule4;
-        private IRepository<Schedule> _repository;
+        private IRepository<Schedule> _Prepository; //Primary
+        private IRepository<Schedule> _Srepository; //Secondary
         
         [TestInitialize]
         public void SetUp()
@@ -49,44 +50,45 @@ namespace CodeMash.Core.Tests
                 Origin = "Trakai"
             };
             
-            _repository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
+            _Prepository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.primary.json");
+            _Srepository = CodeMashRepositoryFactory.Create<Schedule>("appsettings.Production.secondary.json");
 
-            _schedule = _repository.InsertOne(_schedule);
-            _schedule2 = _repository.InsertOne(_schedule2);
-            _schedule3 = _repository.InsertOne(_schedule3);
-            _schedule4 = _repository.InsertOne(_schedule4);
+            _schedule = _Prepository.InsertOne(_schedule);
+            _schedule2 = _Prepository.InsertOne(_schedule2);
+            _schedule3 = _Prepository.InsertOne(_schedule3);
+            _schedule4 = _Prepository.InsertOne(_schedule4);
         }
         
         [TestMethod]
         public void Can_find_one_and_Delete_by_id_integration_test()
         {
-            var schedule = _repository.FindOneAndDelete<Schedule>(_schedule.Id);
+            var schedule = _Prepository.FindOneAndDelete<Schedule>(_schedule.Id);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(schedule, _schedule);
 
-            var schedules = _repository.Find<Schedule>(x => true);
+            var schedules = _Prepository.Find<Schedule>(x => true);
             Assert.IsFalse(schedules.Select(x => x.Id).Contains(_schedule.Id));
         }
 
         [TestMethod]
         public void Can_find_one_and_Delete_value_in_number_integration_test()
         {
-            var schedule = _repository.FindOneAndDelete<Schedule>(x => x.Number == _schedule2.Number);
+            var schedule = _Prepository.FindOneAndDelete<Schedule>(x => x.Number == _schedule2.Number);
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(schedule, _schedule2);
 
-            var schedules = _repository.Find<Schedule>(x => true);
+            var schedules = _Prepository.Find<Schedule>(x => true);
             Assert.IsFalse(schedules.Select(x => x.Id).Contains(_schedule2.Id));
         }
 
         [TestMethod]
         public void Exception_find_one_and_Delete_with_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>( () => _repository.FindOneAndDelete<Schedule>(null),
+            Assert.ThrowsException<ArgumentNullException>( () => _Prepository.FindOneAndDelete<Schedule>(null),
                 ErrorMessages.FilterIsNotDefined);
         }
 
@@ -95,26 +97,34 @@ namespace CodeMash.Core.Tests
         {
             //CodeMash API throws BusinessException which is recieved as a ServiceStack.WebServiceException
             Assert.ThrowsException<WebServiceException>( 
-                () => _repository.FindOneAndDelete<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa")) );
+                () => _Prepository.FindOneAndDelete<Schedule>(new ObjectId("aaaaaaaaaaaaaaaaaaaaaaaa")) );
         }
 
         [TestMethod]
         public void Can_find_one_and_Delete_by_object_id_integration_test()
         {
-            var schedule = _repository.FindOneAndDelete<Schedule>(new ObjectId(_schedule2.Id));
+            var schedule = _Prepository.FindOneAndDelete<Schedule>(new ObjectId(_schedule2.Id));
             
             schedule.ShouldBe<Schedule>();
             Assert.IsNotNull(schedule);
             Assert.AreEqual(schedule, _schedule2);
 
-            var schedules = _repository.Find<Schedule>(x => true);
+            var schedules = _Prepository.Find<Schedule>(x => true);
             Assert.IsFalse(schedules.Select(x => x.Id).Contains(_schedule2.Id));
+        }
+
+        [TestMethod]
+        public void Cant_find_without_access_integration_test()
+        {
+            Assert.ThrowsException<WebServiceException>( 
+                () => _Srepository.FindOneAndDelete<Schedule>("aaaaaaaaaaaaaaaaaaaaaaaa"),
+                ErrorMessages.AccessNotGranted );
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _repository.DeleteMany<Schedule>(x => true);
+            _Prepository.DeleteMany<Schedule>(x => true);
         }
     }
 }
