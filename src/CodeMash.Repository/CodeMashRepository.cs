@@ -17,6 +17,7 @@ using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
 using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
+using System.IO;
 
 namespace CodeMash.Repository
 {
@@ -1092,6 +1093,18 @@ namespace CodeMash.Repository
         public List<string> Distinct(string field, Expression<Func<T, bool>> filter, DistinctOptions options)
         {
             throw new NotImplementedException();
+        }
+
+        public bool UploadFileWithRequest(string file, string path)
+        {
+            var request = new Isidos.CodeMash.ServiceContracts.UploadFile{
+                Path = path,
+                ProjectId = Settings.ProjectId,
+                CultureCode = CultureInfo.CurrentCulture.Name
+            };
+            var fileInfo = new FileInfo(file);
+            var response = Client.PostFileWithRequest<UploadFileResponse>(fileInfo.OpenRead(), fileInfo.Name, request);
+            return response.Result;
         }
     }
 }

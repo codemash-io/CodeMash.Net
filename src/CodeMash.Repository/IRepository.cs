@@ -15,6 +15,8 @@ namespace CodeMash.Repository
     {
         IRepository<T> WithCollection(string collectionName);
 
+        bool UploadFileWithRequest(string file, string path);
+
         // Insert Async
         Task<T> InsertOneAsync(T entity, InsertOneOptions insertOneOptions);
         Task<T> InsertOneAsync(T entity);
