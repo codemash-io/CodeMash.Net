@@ -1095,16 +1095,37 @@ namespace CodeMash.Repository
             throw new NotImplementedException();
         }
 
-        public bool UploadFileWithRequest(string file, string path)
+        public bool UploadFileWithRequest(string fileName, string path)
         {
-            var request = new Isidos.CodeMash.ServiceContracts.UploadFile{
+            var request = new Isidos.CodeMash.ServiceContracts.UploadFile
+            {
                 Path = path,
                 ProjectId = Settings.ProjectId,
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
-            var fileInfo = new FileInfo(file);
+
+            var fileInfo = new FileInfo(fileName);
             var response = Client.PostFileWithRequest<UploadFileResponse>(fileInfo.OpenRead(), fileInfo.Name, request);
             return response.Result;
+        }
+
+        public bool UploadFilesWithRequest(string[] fileNames, string path)
+        {
+            var request = new Isidos.CodeMash.ServiceContracts.UploadFile
+            {
+                Path = path,
+                ProjectId = Settings.ProjectId,
+                CultureCode = CultureInfo.CurrentCulture.Name
+            };
+
+            var responses = new List<UploadFileResponse>();
+
+            foreach (var file in fileNames) {
+                var fileInfo = new FileInfo(file);
+                responses.Add(Client.PostFileWithRequest<UploadFileResponse>(fileInfo.OpenRead(), fileInfo.Name, request));
+            }
+
+            return responses.All(x => x.Result);
         }
     }
 }
