@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CodeMash.Interfaces;
+using Isidos.CodeMash.Data;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
@@ -11,7 +12,8 @@ using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {
-    public interface IRepository<T> where T : IEntity
+    //FileRepository cannot be made if type T is IEntity, because File is not an entity
+    public interface IRepository<T>// where T : IEntity
     {
         IRepository<T> WithCollection(string collectionName);
 
@@ -62,6 +64,7 @@ namespace CodeMash.Repository
         
         List<T> Find<T>(FilterDefinition<T> filter, SortDefinition<T> sort, int? skip = null, int? limit = null, FindOptions findOptions = null) where T : IEntity;
         List<T> Find<T>(Expression<Func<T, bool>> filter, SortDefinition<T> sort, int? skip = null, int? limit = null, FindOptions findOptions = null) where T : IEntity;
+        List<File> GetFiles(string path = "");
 
         // Find Async
         Task<List<T>> FindAsync<T>(FilterDefinition<T> filter, FindOptions<T, T> findOptions) where T : IEntity;
@@ -157,5 +160,7 @@ namespace CodeMash.Repository
         List<string> Distinct(string field, FilterDefinition<T> filter, DistinctOptions options = null);
 
         List<string> Distinct(string field, Expression<Func<T, bool>> filter, DistinctOptions options);
+
+        bool DeleteFile(string fileId);
     }
 }

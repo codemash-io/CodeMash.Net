@@ -10,7 +10,9 @@ namespace CodeMash.Repository
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
         /// <returns>instance of IRepository</returns>
-        public static IRepository<T> Create<T>(string settingsFileName = "appsettings.json") where T :  IEntity
+        
+        //FileRepository cannot be made if type T is IEntity, because File is not an entity
+        public static IRepository<T> Create<T>(string settingsFileName = "appsettings.json")// where T :  IEntity
         {
             var settings = new CodeMashSettingsCore(null, settingsFileName);
             

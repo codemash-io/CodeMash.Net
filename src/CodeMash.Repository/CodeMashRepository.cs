@@ -18,10 +18,12 @@ using ReplaceOneResult = Isidos.CodeMash.ServiceContracts.ReplaceOneResult;
 using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 using ErrorMessages = CodeMash.Repository.Statics.Database.ErrorMessages;
 using System.IO;
+using File = Isidos.CodeMash.Data.File;
 
 namespace CodeMash.Repository
 {
-    public class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    //FileRepository cannot be made if type T is IEntity, because File is not an entity
+    public class CodeMashRepository<T> : IRepository<T>// where T : IEntity
     {
         private static string GetCollectionNameFromInterface()
         {
@@ -496,6 +498,31 @@ namespace CodeMash.Repository
             return filter == null
                 ? Find<T, T>(new BsonDocument(), null, sort, skip, limit, findOptions)
                 : Find<T, T>(new ExpressionFilterDefinition<T>(filter), null, sort, skip, limit, findOptions);
+        }
+
+        public List<File> GetFiles(string path = "")
+        {
+            var filter = new ExpressionFilterDefinition<File>(x => x.Directory == path);
+            
+            var request = new Find
+            {
+                CollectionName = GetCollectionName(),
+                Filter = filter.ToJson(),
+                IncludeSchemaInResponse = false,
+                CultureCode = CultureInfo.CurrentCulture.Name,
+                ProjectId = Settings.ProjectId,
+                Projection = string.Empty
+            };
+
+            var response = Client.Post(request);
+            var list = BsonSerializer.Deserialize<List<File>>(response.Result);
+
+            if (response == null || list.Count == 0)
+            {
+                throw new InvalidOperationException(ErrorMessages.DocumentNotFound);
+            }
+
+            return list;
         }
 
         public Task<List<T1>> FindAsync<T1>(FilterDefinition<T1> filter, FindOptions<T1, T1> findOptions)
@@ -1118,14 +1145,26 @@ namespace CodeMash.Repository
                 CultureCode = CultureInfo.CurrentCulture.Name
             };
 
-            var responses = new List<UploadFileResponse>();
-
-            foreach (var file in fileNames) {
-                var fileInfo = new FileInfo(file);
-                responses.Add(Client.PostFileWithRequest<UploadFileResponse>(fileInfo.OpenRead(), fileInfo.Name, request));
-            }
+            var responses = fileNames.Select(file => new FileInfo(file))
+                .Select(fileInfo => 
+                    Client.PostFileWithRequest<UploadFileResponse>(fileInfo.OpenRead(), fileInfo.Name, request))
+                .ToList();
 
             return responses.All(x => x.Result);
+        }
+
+        public bool DeleteFile(string fileId)
+        {
+            var request = new DeleteFile
+            {
+                FileId = fileId,
+                ProjectId = Settings.ProjectId,
+                CultureCode = CultureInfo.CurrentCulture.Name
+            };
+
+            var response = Client.Delete<DeleteFileResponse>(request);
+
+            return response.Result;
         }
     }
 }
