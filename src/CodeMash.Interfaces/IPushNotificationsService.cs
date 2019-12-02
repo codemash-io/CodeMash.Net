@@ -9,6 +9,9 @@ namespace CodeMash.Interfaces
 
         GetNotificationsResponse GetAll(GetNotifications request);
         GetNotificationResponse Get(GetNotification request);
+        
+        GetNotificationTemplatesResponse GetTemplates(GetNotificationTemplates request);
+        GetNotificationTemplateResponse GetTemplate(GetNotificationTemplate request);
 
     }
 }

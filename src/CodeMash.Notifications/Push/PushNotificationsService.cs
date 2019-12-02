@@ -41,6 +41,20 @@ namespace CodeMash.Notifications.Push
             return CodeMashSettings.Client.Post(request);
         }
 
+        public GetNotificationTemplatesResponse GetTemplates(GetNotificationTemplates request)
+        {
+            AssertItHasSettings();
+
+            return CodeMashSettings.Client.Get(request);
+        }
+
+        public GetNotificationTemplateResponse GetTemplate(GetNotificationTemplate request)
+        {
+            AssertItHasSettings();
+
+            return CodeMashSettings.Client.Get(request);
+        }
+
         public SendPushNotificationResponse Send(SendPushNotification request)
         {
             AssertItHasSettings();
