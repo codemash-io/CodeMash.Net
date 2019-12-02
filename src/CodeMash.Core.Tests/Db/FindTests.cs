@@ -63,7 +63,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => true);
+            var schedules = _repository.Find(x => true);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -72,7 +72,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_value_in_origin_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => x.Origin == _schedule2.Origin);
+            var schedules = _repository.Find(x => x.Origin == _schedule2.Origin);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -82,7 +82,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_value_in_origin_and_destination_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => x.Origin == "Kaunas" || x.Destination == "Kaunas");
+            var schedules = _repository.Find(x => x.Origin == "Kaunas" || x.Destination == "Kaunas");
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -92,7 +92,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_no_filter_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(null);
+            var schedules = _repository.Find(null);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -101,7 +101,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_id_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => x.Id == _schedule.Id);
+            var schedules = _repository.Find(x => x.Id == _schedule.Id);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -111,7 +111,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_limit_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => true, null, null, 2, null);
+            var schedules = _repository.Find(x => true, null, null, 2, null);
             
             schedules.ShouldBe<List<Schedule>>();
         }
@@ -119,7 +119,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_find_with_limit_2_and_skip_1_page_integration_test()
         {
-            var schedules = _repository.Find<Schedule>(x => true, null, 1, 2, null);
+            var schedules = _repository.Find(x => true, null, 1, 2, null);
             
             schedules.ShouldBe<List<Schedule>>();
             Assert.IsNotNull(schedules);
@@ -131,7 +131,7 @@ namespace CodeMash.Core.Tests
         [TestCleanup]
         public void TearDown()
         {
-            _repository.DeleteMany<Schedule>(x => true);
+            _repository.DeleteMany(x => true);
         }
     }
 }

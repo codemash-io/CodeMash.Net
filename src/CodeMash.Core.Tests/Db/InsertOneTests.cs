@@ -42,7 +42,7 @@ namespace CodeMash.Core.Tests
         [TestCleanup]
         public void TearDown()
         {
-            Repository.DeleteMany<Schedule>(x => true);
+            Repository.DeleteMany(x => true);
         }
     }
 }

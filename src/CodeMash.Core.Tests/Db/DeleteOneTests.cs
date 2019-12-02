@@ -36,7 +36,7 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Can_delete_one_integration_test()
         {
-            var result = Repository.DeleteOne<Schedule>(_schedule.Id);
+            var result = Repository.DeleteOne(_schedule.Id);
             
             result.ShouldBe<DeleteResult>();
             Assert.IsTrue(result.IsAcknowledged);
@@ -46,13 +46,13 @@ namespace CodeMash.Core.Tests
         [TestMethod]
         public void Cannot_delete_one_no_filter_integration_test()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne<Schedule>(null));
+            Assert.ThrowsException<ArgumentNullException>(() => Repository.DeleteOne(null));
         }
         
         [TestCleanup]
         public void TearDown()
         {
-            Repository.DeleteMany<Schedule>(x => true);
+            Repository.DeleteMany(x => true);
         }
     }
 }

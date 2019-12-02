@@ -1,10 +1,11 @@
-﻿using ServiceStack;
-using ServiceStack.Auth;
+﻿//using ServiceStack;
+//using ServiceStack.Auth;
 
 namespace CodeMash.Interfaces
 {
     public interface IIdentityAccessManager
     {
+        /*
         AuthenticateResponse Login(string userNameOrEmail, string password, bool rememberMe = false, string continueUrl = "");
         AuthenticateResponse Login(Authenticate authenticate);
         RegisterResponse Register(Register register, bool confirmEmail = false);
@@ -25,6 +26,6 @@ namespace CodeMash.Interfaces
         IUserAuth GetUserByEmail(string email);
 
         bool DeleteUserById(int id);
-
+        */
     }
 }
