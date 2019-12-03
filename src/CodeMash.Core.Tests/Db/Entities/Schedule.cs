@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace CodeMash.Core.Tests
 {
     [CollectionName("trains-schedule")]
-    public class Schedule : Entity, IEntity
+    public class Schedule : Entity
     {
         [BsonElement("number")]
         public int Number { get; set; }

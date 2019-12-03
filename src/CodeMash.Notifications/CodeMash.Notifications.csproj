@@ -12,6 +12,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeMash.Client\CodeMash.Client.csproj" />
     <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>

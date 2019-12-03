@@ -1,6 +1,5 @@
 using System;
-using CodeMash.Common;
-using CodeMash.Interfaces;
+using CodeMash.Client;
 using CodeMash.Notifications.Email;
 using Isidos.CodeMash.ServiceContracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -64,7 +63,7 @@ namespace CodeMash.Core.Tests
         {
             var emailService = new EmailService
             {
-                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+                CodeMashSettings = new CodeMashSettings(null, "appsettings.Production.json")
             };
 
             var response = emailService.SendMail(new SendEmail

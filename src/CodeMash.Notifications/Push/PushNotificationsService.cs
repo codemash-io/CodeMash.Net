@@ -1,7 +1,7 @@
 using System;
+using CodeMash.Client;
 using CodeMash.Interfaces;
 using Isidos.CodeMash.ServiceContracts;
-using Isidos.CodeMash.Utils;
 
 namespace CodeMash.Notifications.Push
 {

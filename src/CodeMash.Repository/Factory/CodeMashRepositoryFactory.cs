@@ -1,6 +1,6 @@
 using System;
+using CodeMash.Client;
 using CodeMash.Interfaces;
-using CodeMash.Common;
 
 namespace CodeMash.Repository
 {
@@ -11,9 +11,9 @@ namespace CodeMash.Repository
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
         /// <returns>instance of IRepository</returns>
-        public static IRepository<T> Create<T>(string settingsFileName = "appsettings.json") where T :  IEntity
+        public static IRepository<T> Create<T>(string settingsFileName = "appsettings.json") where T : IEntity
         {
-            var settings = new CodeMashDatabaseSettings(null, settingsFileName);
+            var settings = new CodeMashSettings(null, settingsFileName);
             
             return new CodeMashRepository<T>(settings);
         }
@@ -23,9 +23,9 @@ namespace CodeMash.Repository
         /// </summary>
         /// <typeparam name="T">Entity</typeparam>
         /// <returns>instance of IRepository</returns>
-        public static IRepository<T> Create<T>(string apiKey, Guid projectId, string region = null) where T :  IEntity
+        public static IRepository<T> Create<T>(string apiKey, Guid projectId) where T : IEntity
         {
-            var settings = new CodeMashDatabaseSettings(apiKey, projectId, region);
+            var settings = new CodeMashSettings(apiKey, projectId);
             
             return new CodeMashRepository<T>(settings);
         }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
+using CodeMash.Client;
 using CodeMash.Interfaces;
 using Isidos.CodeMash.ServiceContracts;
 using MongoDB.Bson;
@@ -21,11 +22,11 @@ namespace CodeMash.Repository
 {
     public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
     {
-        private ICodeMashDatabaseSettings Settings { get; set; }
+        private ICodeMashSettings Settings { get; set; }
 
         private IServiceClient Client { get; }
 
-        public CodeMashRepository(ICodeMashDatabaseSettings settings)
+        public CodeMashRepository(ICodeMashSettings settings)
         {
             Settings = settings ?? throw new ArgumentNullException(nameof(Settings), "CodeMash settings undefined.");
             Client = Settings.Client;

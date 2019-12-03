@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using CodeMash.Interfaces;
-using CodeMash.Common;
 using Microsoft.Extensions.Configuration;
 using ServiceStack;
 
-namespace CodeMash.Repository
+namespace CodeMash.Client
 {
-    public class CodeMashDatabaseSettings : ICodeMashDatabaseSettings
+    public class CodeMashSettings : ICodeMashSettings
     {
         public const string ApiUrl = "http://api.codemash.io/";
 
-        public CodeMashDatabaseSettings(IConfigurationRoot config, string settingsFileName = "appsettings.json")
+        public CodeMashSettings(IConfigurationRoot config, string settingsFileName = "appsettings.json")
         {
             if (config == null)
             {
@@ -20,11 +17,6 @@ namespace CodeMash.Repository
             }
             
             ApiKey = config["CodeMash:ApiKey"];
-            Region = config["CodeMash:Region"];
-            if (string.IsNullOrEmpty(Region))
-            {
-                Region = "eu-west-1";
-            }
 
             var projectIdParsed = Guid.TryParse(config["CodeMash:ProjectId"], out var parsedProjectId);
             if (projectIdParsed) ProjectId = parsedProjectId;
@@ -34,13 +26,10 @@ namespace CodeMash.Repository
             }
         }
         
-        public CodeMashDatabaseSettings(string apiKey, Guid projectId, string region = null)
+        public CodeMashSettings(string apiKey, Guid projectId)
         {
             ApiKey = apiKey;
             ProjectId = projectId;
-            
-            Region = region;
-            if (string.IsNullOrEmpty(Region)) Region = "eu-west-1";
         }
 
         public IServiceClient Client
@@ -61,8 +50,6 @@ namespace CodeMash.Repository
                 return client.WithCache();
             }
         }
-
-        public string Region { get; }
 
         public string ApiKey { get; }
 

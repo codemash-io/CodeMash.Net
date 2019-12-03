@@ -31,4 +31,8 @@
         <HintPath>..\..\lib\Utils.dll</HintPath>
       </Reference>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CodeMash.Client\CodeMash.Client.csproj" />
+    </ItemGroup>
 </Project>

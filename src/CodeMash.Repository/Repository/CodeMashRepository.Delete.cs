@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
 using System.Threading.Tasks;
 using CodeMash.Interfaces;
 using Isidos.CodeMash.ServiceContracts;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using ServiceStack;
 using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;

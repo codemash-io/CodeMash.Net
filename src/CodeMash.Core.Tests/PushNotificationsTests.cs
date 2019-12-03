@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using CodeMash.Interfaces;
-using CodeMash.Common;
+using CodeMash.Client;
 using CodeMash.Notifications.Push;
 using Isidos.CodeMash.ServiceContracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,7 +42,7 @@ namespace CodeMash.Core.Tests
         {
             var pushNotificationsService = new PushNotificationsService
             {
-                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+                CodeMashSettings = new CodeMashSettings(null, "appsettings.Production.json")
             };
 
             var request = new RegisterDevice
@@ -82,7 +81,7 @@ namespace CodeMash.Core.Tests
         {
             var pushNotificationsService = new PushNotificationsService
             {
-                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+                CodeMashSettings = new CodeMashSettings(null, "appsettings.Production.json")
             };
             
             var createDeviceResponse = pushNotificationsService.RegisterDevice(new RegisterDevice());
@@ -106,7 +105,7 @@ namespace CodeMash.Core.Tests
         {
             var pushNotificationsService = new PushNotificationsService
             {
-                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+                CodeMashSettings = new CodeMashSettings(null, "appsettings.Production.json")
             };
             
             var request = new GetNotificationTemplates();
@@ -123,7 +122,7 @@ namespace CodeMash.Core.Tests
         {
             var pushNotificationsService = new PushNotificationsService
             {
-                CodeMashSettings = new CodeMashSettingsCore(null, "appsettings.Production.json")
+                CodeMashSettings = new CodeMashSettings(null, "appsettings.Production.json")
             };
             
             var request = new GetNotificationTemplate { Id = Guid.Parse("0fe16aab-2b02-4cd3-af70-db44f4d6087c")};
