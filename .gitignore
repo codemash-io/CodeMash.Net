@@ -173,3 +173,6 @@ $RECYCLE.BIN/
 /web/js/*.js
 /nbproject/
 
+.idea/
+.vs/
+.nuget/
