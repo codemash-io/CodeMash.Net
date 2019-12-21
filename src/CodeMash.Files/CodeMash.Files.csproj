@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CodeMash.Client\CodeMash.Client.csproj" />
+      <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="CodeMash.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\CodeMash.Models.dll</HintPath>
+      </Reference>
+      <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\ServiceContracts.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

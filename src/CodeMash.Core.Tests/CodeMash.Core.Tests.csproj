@@ -9,15 +9,19 @@
 
     <ItemGroup>        
         <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1"/>
-        <PackageReference Include="MSTest.TestFramework" Version="1.4.0"/>        
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+        <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />        
         <PackageReference Include="NSubstitute" Version="3.1.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+        <PackageReference Include="ServiceStack" Version="5.7.0" />
     </ItemGroup>
 
 
     <ItemGroup>
+      <ProjectReference Include="..\CodeMash.Code\CodeMash.Code.csproj" />
       <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
+      <ProjectReference Include="..\CodeMash.Membership\CodeMash.Membership.csproj" />
       <ProjectReference Include="..\CodeMash.Notifications\CodeMash.Notifications.csproj" />
       <ProjectReference Include="..\CodeMash.Repository\CodeMash.Repository.csproj" />
     </ItemGroup>
@@ -35,17 +39,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="CodeMash.Sdk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\lib\CodeMash.Sdk.dll</HintPath>
+      <Reference Include="CodeMash.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\CodeMash.Models.dll</HintPath>
       </Reference>
       <Reference Include="Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\lib\Data.dll</HintPath>
       </Reference>
       <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\lib\ServiceContracts.dll</HintPath>
-      </Reference>
-      <Reference Include="Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\lib\Utils.dll</HintPath>
       </Reference>
     </ItemGroup>
 
