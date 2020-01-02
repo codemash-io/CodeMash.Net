@@ -9,6 +9,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="CodeMash.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\test\lib\CodeMash.Models.dll</HintPath>
+      </Reference>
       <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\lib\ServiceContracts.dll</HintPath>
       </Reference>
