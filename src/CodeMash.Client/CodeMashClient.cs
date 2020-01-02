@@ -202,24 +202,32 @@ namespace CodeMash.Client
         private BusinessException ProcessWebServiceException(WebServiceException e)
         {
             var responseStatus = e.ResponseStatus;
-
-            var identifier = responseStatus.Meta != null && responseStatus.Meta.ContainsKey(nameof(BusinessException.Identifier))
-                ? responseStatus.Meta[nameof(BusinessException.Identifier)]
-                : null;
-                
-            var businessException = new BusinessException(responseStatus.Message)
+            if (responseStatus != null)
             {
-                Identifier = identifier,
-                StatusCode = e.StatusCode,
-                Errors = responseStatus?.Errors?.ConvertAll(x => new ValidationError
+                var identifier = responseStatus.Meta != null && responseStatus.Meta.ContainsKey(nameof(BusinessException.Identifier))
+                    ? responseStatus.Meta[nameof(BusinessException.Identifier)]
+                    : null;
+            
+                var businessException = new BusinessException(responseStatus.Message)
                 {
-                    ErrorCode = x.ErrorCode,
-                    Message = x.Message,
-                    FieldName = x.FieldName
-                })
-            };
+                    Identifier = identifier,
+                    StatusCode = e.StatusCode,
+                    Errors = responseStatus?.Errors?.ConvertAll(x => new ValidationError
+                    {
+                        ErrorCode = x.ErrorCode,
+                        Message = x.Message,
+                        FieldName = x.FieldName
+                    })
+                };
 
-            return businessException;
+                return businessException;
+            }
+            
+            return new BusinessException(e.Message)
+            {
+                Identifier = e.ErrorCode,
+                StatusCode = e.StatusCode
+            };
         }
         
     }
