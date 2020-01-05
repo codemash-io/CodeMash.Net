@@ -120,6 +120,13 @@ namespace CodeMash.Client
         {
             return await CallAsync(async () => await FormGateway(requestDto, requestOptions).PutAsync<TResponse>(requestDto));
         }
+        
+        public async Task<TResponse> PatchAsync<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
+        {
+            var task = Task.Run(() => Patch<TResponse>(requestDto, requestOptions));
+            
+            return await task;
+        }
 
         public TResponse Get<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
         {

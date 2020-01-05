@@ -7,22 +7,22 @@ namespace CodeMash.Notifications.Push.Services
     {
         public DeleteDeviceTokenResponse DeleteToken(DeleteDeviceTokenRequest request)
         {
-            return Client.Get<DeleteDeviceTokenResponse>(request);
+            return Client.Delete<DeleteDeviceTokenResponse>(request);
         }
 
         public async Task<DeleteDeviceTokenResponse> DeleteTokenAsync(DeleteDeviceTokenRequest request)
         {
-            return await Client.GetAsync<DeleteDeviceTokenResponse>(request);
+            return await Client.DeleteAsync<DeleteDeviceTokenResponse>(request);
         }
 
         public RegisterDeviceExpoTokenResponse RegisterExpoToken(RegisterDeviceExpoTokenRequest request)
         {
-            return Client.Get<RegisterDeviceExpoTokenResponse>(request);
+            return Client.Post<RegisterDeviceExpoTokenResponse>(request);
         }
 
         public async Task<RegisterDeviceExpoTokenResponse> RegisterExpoTokenAsync(RegisterDeviceExpoTokenRequest request)
         {
-            return await Client.GetAsync<RegisterDeviceExpoTokenResponse>(request);
+            return await Client.PostAsync<RegisterDeviceExpoTokenResponse>(request);
         }
     }
 }

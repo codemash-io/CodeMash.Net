@@ -11,5 +11,7 @@ namespace CodeMash.Interfaces.Client
         Task<TResponse> PostAsync<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null);
         
         Task<TResponse> PutAsync<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null);
+
+        Task<TResponse> PatchAsync<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null);
     }
 }

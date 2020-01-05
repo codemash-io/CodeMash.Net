@@ -5,36 +5,11 @@ namespace CodeMash.Notifications.Push.Services
 {
     public partial class CodeMashPushService
     {
-        public UpdateDeviceMetaResponse UpdateDeviceMeta(UpdateDeviceMetaRequest request)
+        public RegisterDeviceResponse RegisterDevice(RegisterDeviceRequest request)
         {
-            return Client.Put<UpdateDeviceMetaResponse>(request);
+            return Client.Post<RegisterDeviceResponse>(request);
         }
-
-        public async Task<UpdateDeviceMetaResponse> UpdateDeviceMetaAsync(UpdateDeviceMetaRequest request)
-        {
-            return await Client.PutAsync<UpdateDeviceMetaResponse>(request);
-        }
-
-        public DeleteDeviceMetaResponse DeleteDeviceMeta(DeleteDeviceMetaRequest request)
-        {
-            return Client.Delete<DeleteDeviceMetaResponse>(request);
-        }
-
-        public async Task<DeleteDeviceMetaResponse> DeleteDeviceMetaAsync(DeleteDeviceMetaRequest request)
-        {
-            return await Client.DeleteAsync<DeleteDeviceMetaResponse>(request);
-        }
-
-        public DeleteDeviceResponse DeleteDevice(DeleteDeviceRequest request)
-        {
-            return Client.Delete<DeleteDeviceResponse>(request);
-        }
-
-        public async Task<DeleteDeviceResponse> DeleteDeviceAsync(DeleteDeviceRequest request)
-        {
-            return await Client.DeleteAsync<DeleteDeviceResponse>(request);
-        }
-
+        
         public GetDeviceResponse GetDevice(GetDeviceRequest request)
         {
             return Client.Get<GetDeviceResponse>(request);
@@ -55,34 +30,49 @@ namespace CodeMash.Notifications.Push.Services
             return await Client.GetAsync<GetDevicesResponse>(request);
         }
 
-        public RegisterDeviceResponse RegisterDevice(RegisterDeviceRequest request)
+        public DeleteDeviceResponse DeleteDevice(DeleteDeviceRequest request)
         {
-            return Client.Post<RegisterDeviceResponse>(request);
+            return Client.Delete<DeleteDeviceResponse>(request);
         }
 
-        public async Task<RegisterDeviceResponse> RegisterDevicesAsync(RegisterDeviceRequest request)
+        public async Task<DeleteDeviceResponse> DeleteDeviceAsync(DeleteDeviceRequest request)
+        {
+            return await Client.DeleteAsync<DeleteDeviceResponse>(request);
+        }
+
+        public async Task<RegisterDeviceResponse> RegisterDeviceAsync(RegisterDeviceRequest request)
         {
             return await Client.PostAsync<RegisterDeviceResponse>(request);
         }
-
-        public UpdateDeviceMetaResponse UpdateDeviceTimeZone(UpdateDeviceTimeZoneRequest request)
+        
+        public UpdateDeviceMetaResponse UpdateDeviceMeta(UpdateDeviceMetaRequest request)
         {
-            return Client.Put<UpdateDeviceMetaResponse>(request);
+            return Client.Patch<UpdateDeviceMetaResponse>(request);
         }
 
-        public async Task<UpdateDeviceMetaResponse> UpdateDeviceTimeZoneAsync(UpdateDeviceTimeZoneRequest request)
+        public async Task<UpdateDeviceMetaResponse> UpdateDeviceMetaAsync(UpdateDeviceMetaRequest request)
         {
-            return await Client.PutAsync<UpdateDeviceMetaResponse>(request);
+            return await Client.PatchAsync<UpdateDeviceMetaResponse>(request);
+        }
+
+        public UpdateDeviceTimeZoneResponse UpdateDeviceTimeZone(UpdateDeviceTimeZoneRequest request)
+        {
+            return Client.Patch<UpdateDeviceTimeZoneResponse>(request);
+        }
+
+        public async Task<UpdateDeviceTimeZoneResponse> UpdateDeviceTimeZoneAsync(UpdateDeviceTimeZoneRequest request)
+        {
+            return await Client.PatchAsync<UpdateDeviceTimeZoneResponse>(request);
         }
 
         public UpdateDeviceUserResponse UpdateDeviceUser(UpdateDeviceUserRequest request)
         {
-            return Client.Put<UpdateDeviceUserResponse>(request);
+            return Client.Patch<UpdateDeviceUserResponse>(request);
         }
 
         public async Task<UpdateDeviceUserResponse> UpdateDeviceUserAsync(UpdateDeviceUserRequest request)
         {
-            return await Client.PutAsync<UpdateDeviceUserResponse>(request);
+            return await Client.PatchAsync<UpdateDeviceUserResponse>(request);
         }
     }
 }
