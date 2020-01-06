@@ -5,30 +5,27 @@ using System.Threading.Tasks;
 using CodeMash.Client;
 using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Interfaces.Membership;
+using CodeMash.Interfaces.Notifications.Email;
 using CodeMash.Interfaces.Notifications.Push;
 using CodeMash.Interfaces.Project;
 using CodeMash.Membership.Services;
+using CodeMash.Notifications.Email.Services;
 using CodeMash.Notifications.Push.Services;
 using Isidos.CodeMash.ServiceContracts;
 
 namespace CodeMash.Core.Tests
 {
-    public abstract class NotificationTestBase : TestBase
+    public abstract class EmailTestBase : TestBase
     {
-        protected IPushService Service { get; set; }
+        protected IEmailService Service { get; set; }
         
         protected IMembershipService MembershipService { get; set; }
         
         protected Dictionary<string, Guid> RegisteredUsers { get; set; } = new Dictionary<string, Guid>();
         
-        protected RegisterDeviceRequest _deviceRequest;
-        
-        protected string _expoToken;
 
-        protected string RegisterUser(string prefix, int index = 0)
+        protected string RegisterUser(string email, int index = 0)
         {
-            var email = prefix + index + "_sdk@test.com";
-
             try
             {
                 var userByEmail = MembershipService.GetUser(new GetUserRequest
@@ -59,59 +56,13 @@ namespace CodeMash.Core.Tests
             return response.UserId;
         }
 
-        protected string RegisterDevice(string userId, bool useExpo = false)
-        {
-            _deviceRequest.UserId = Guid.Parse(userId);
-
-            if (useExpo)
-            {
-                return Service.RegisterExpoToken(new RegisterDeviceExpoTokenRequest
-                {
-                    UserId = Guid.Parse(userId),
-                    TimeZone = _deviceRequest.TimeZone,
-                    Meta = _deviceRequest.Meta,
-                    Token = _expoToken
-                }).Result;
-            }
-            
-            return Service.RegisterDevice(_deviceRequest).Result;
-        }
-        
-        protected async Task<string> RegisterDeviceAsync(string userId, bool useExpo = false)
-        {
-            _deviceRequest.UserId = Guid.Parse(userId);
-            if (useExpo)
-            {
-                return (await Service.RegisterExpoTokenAsync(new RegisterDeviceExpoTokenRequest
-                {
-                    UserId = Guid.Parse(userId),
-                    TimeZone = _deviceRequest.TimeZone,
-                    Meta = _deviceRequest.Meta,
-                    Token = _expoToken
-                })).Result;
-            }
-            return (await Service.RegisterDeviceAsync(_deviceRequest)).Result;
-        }
-
         public override void SetUp()
         {
             base.SetUp();
-            _expoToken = Environment.GetEnvironmentVariable("EXPO_TOKEN");
             
             var client = new CodeMashClient(ApiKey, ProjectId);
-            Service = new CodeMashPushService(client);
+            Service = new CodeMashEmailService(client);
             MembershipService = new CodeMashMembershipService(client);
-            
-            
-            _deviceRequest = new RegisterDeviceRequest
-            {
-                TimeZone = "Etc/UTC",
-                Meta = new Dictionary<string, string>
-                {
-                    {"Os", "Android"},
-                    {"Brand", "Samsung"}
-                }
-            };
         }
 
         public override void TearDown()

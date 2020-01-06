@@ -211,8 +211,8 @@ namespace CodeMash.Client
             var responseStatus = e.ResponseStatus;
             if (responseStatus != null)
             {
-                var identifier = responseStatus.Meta != null && responseStatus.Meta.ContainsKey(nameof(BusinessException.Identifier))
-                    ? responseStatus.Meta[nameof(BusinessException.Identifier)]
+                var identifier = responseStatus.Meta != null && responseStatus.Meta.ContainsKey("identifier")
+                    ? responseStatus.Meta["identifier"]
                     : null;
             
                 var businessException = new BusinessException(responseStatus.Message)

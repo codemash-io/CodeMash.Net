@@ -10,29 +10,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CodeMash.Core.Tests
 {
     [TestClass]
-    public partial class NotificationTests : NotificationTestBase
+    public class NotificationDeviceTests : NotificationTestBase
     {
-        private RegisterDeviceRequest _deviceRequest;
         private string _expoToken;
         
         [TestInitialize]
         public override void SetUp()
         {
             base.SetUp();
-            
-            var client = new CodeMashClient(ApiKey, ProjectId);
-            Service = new CodeMashPushService(client);
-
-            _deviceRequest = new RegisterDeviceRequest
-            {
-                TimeZone = "Etc/UTC",
-                Meta = new Dictionary<string, string>
-                {
-                    {"Os", "Android"},
-                    {"Brand", "Samsung"}
-                }
-            };
-            _expoToken = Environment.GetEnvironmentVariable("EXPO_TOKEN");
         }
 
         [TestCleanup]
@@ -40,47 +25,12 @@ namespace CodeMash.Core.Tests
         {
             base.TearDown();
         }
-
-        private string RegisterDevice(string userId, bool useExpo = false)
-        {
-            _deviceRequest.UserId = Guid.Parse(userId);
-
-            if (useExpo)
-            {
-                var response = Service.RegisterExpoToken(new RegisterDeviceExpoTokenRequest
-                {
-                    UserId = Guid.Parse(userId),
-                    TimeZone = _deviceRequest.TimeZone,
-                    Meta = _deviceRequest.Meta,
-                    Token = _expoToken
-                });
-            }
-            
-            return Service.RegisterDevice(_deviceRequest).Result;
-        }
-        
-        private async Task<string> RegisterDeviceAsync(string userId, bool useExpo = false)
-        {
-            _deviceRequest.UserId = Guid.Parse(userId);
-            if (useExpo)
-            {
-                var response = await Service.RegisterExpoTokenAsync(new RegisterDeviceExpoTokenRequest
-                {
-                    UserId = Guid.Parse(userId),
-                    TimeZone = _deviceRequest.TimeZone,
-                    Meta = _deviceRequest.Meta,
-                    Token = _expoToken
-                });
-            }
-            
-            return (await Service.RegisterDeviceAsync(_deviceRequest)).Result;
-        }
         
         [TestMethod]
         public void Can_register_device()
         {
             var userResponse = RegisterUser("Can_register_device");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId);
+            var deviceIdResponse = RegisterDevice(userResponse);
             
             Assert.IsNotNull(deviceIdResponse);
             Assert.IsTrue(Guid.TryParse(deviceIdResponse, out var deviceId));
@@ -90,7 +40,7 @@ namespace CodeMash.Core.Tests
         public async Task Can_register_device_async()
         {
             var userResponse = RegisterUser("Can_register_device_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
             
             Assert.IsNotNull(deviceIdResponse);
             Assert.IsTrue(Guid.TryParse(deviceIdResponse, out var deviceId));
@@ -100,7 +50,7 @@ namespace CodeMash.Core.Tests
         public void Can_register_expo_token_with_device()
         {
             var userResponse = RegisterUser("Can_register_expo_token_with_device");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId, true);
+            var deviceIdResponse = RegisterDevice(userResponse, true);
             
             Assert.IsNotNull(deviceIdResponse);
             Assert.IsTrue(Guid.TryParse(deviceIdResponse, out var deviceId));
@@ -110,7 +60,7 @@ namespace CodeMash.Core.Tests
         public async Task Can_register_expo_token_with_device_async()
         {
             var userResponse = RegisterUser("Can_register_expo_token_with_device_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId, true);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse, true);
             
             Assert.IsNotNull(deviceIdResponse);
             Assert.IsTrue(Guid.TryParse(deviceIdResponse, out var deviceId));
@@ -120,11 +70,11 @@ namespace CodeMash.Core.Tests
         public void Can_register_expo_token_after_device_registered()
         {
             var userResponse = RegisterUser("Can_register_expo_token_after_device_registered");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId);
+            var deviceIdResponse = RegisterDevice(userResponse);
             
             var response = Service.RegisterExpoToken(new RegisterDeviceExpoTokenRequest
             {
-                UserId = Guid.Parse(userResponse.UserId),
+                UserId = Guid.Parse(userResponse),
                 DeviceId = Guid.Parse(deviceIdResponse),
                 Token = _expoToken
             });
@@ -137,11 +87,11 @@ namespace CodeMash.Core.Tests
         public async Task Can_register_expo_token_after_device_registered_async()
         {
             var userResponse = RegisterUser("Can_register_expo_token_after_device_registered_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
             
             var response = await Service.RegisterExpoTokenAsync(new RegisterDeviceExpoTokenRequest
             {
-                UserId = Guid.Parse(userResponse.UserId),
+                UserId = Guid.Parse(userResponse),
                 DeviceId = Guid.Parse(deviceIdResponse),
                 Token = _expoToken
             });
@@ -154,7 +104,7 @@ namespace CodeMash.Core.Tests
         public void Can_delete_device_token()
         {
             var userResponse = RegisterUser("Can_delete_device_token");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId, true);
+            var deviceIdResponse = RegisterDevice(userResponse, true);
             
             var response = Service.DeleteToken(new DeleteDeviceTokenRequest
             {
@@ -168,7 +118,7 @@ namespace CodeMash.Core.Tests
         public async Task Can_delete_device_token_async()
         {
             var userResponse = RegisterUser("Can_delete_device_token_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId, true);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse, true);
             
             var response = await Service.DeleteTokenAsync(new DeleteDeviceTokenRequest
             {
@@ -182,7 +132,7 @@ namespace CodeMash.Core.Tests
         public void Can_update_device_meta()
         {
             var userResponse = RegisterUser("Can_update_device_meta");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId);
+            var deviceIdResponse = RegisterDevice(userResponse);
             
             var response = Service.UpdateDeviceMeta(new UpdateDeviceMetaRequest
             {
@@ -200,7 +150,7 @@ namespace CodeMash.Core.Tests
         public async Task Can_update_device_meta_async()
         {
             var userResponse = RegisterUser("Can_update_device_meta_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
             
             var response = await Service.UpdateDeviceMetaAsync(new UpdateDeviceMetaRequest
             {
@@ -218,7 +168,7 @@ namespace CodeMash.Core.Tests
         public void Can_update_device_timezone()
         {
             var userResponse = RegisterUser("Can_update_device_timezone");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId);
+            var deviceIdResponse = RegisterDevice(userResponse);
             
             var response = Service.UpdateDeviceTimeZone(new UpdateDeviceTimeZoneRequest
             {
@@ -233,7 +183,7 @@ namespace CodeMash.Core.Tests
         public async Task Can_update_device_timezone_async()
         {
             var userResponse = RegisterUser("Can_update_device_meta_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
             
             var response = await Service.UpdateDeviceTimeZoneAsync(new UpdateDeviceTimeZoneRequest
             {
@@ -248,13 +198,13 @@ namespace CodeMash.Core.Tests
         public void Can_update_device_user()
         {
             var userResponse = RegisterUser("Can_update_device_user");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId);
+            var deviceIdResponse = RegisterDevice(userResponse);
             
             var user2Response = RegisterUser("Can_update_device_user", 1);
             var response = Service.UpdateDeviceUser(new UpdateDeviceUserRequest
             {
                 Id = Guid.Parse(deviceIdResponse),
-                UserId = Guid.Parse(user2Response.UserId)
+                UserId = Guid.Parse(user2Response)
             });
             
             Assert.IsTrue(response.Result);
@@ -264,13 +214,13 @@ namespace CodeMash.Core.Tests
         public async Task Can_update_device_user_async()
         {
             var userResponse = RegisterUser("Can_update_device_user_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
             
             var user2Response = RegisterUser("Can_update_device_user_async", 1);
             var response = await Service.UpdateDeviceUserAsync(new UpdateDeviceUserRequest
             {
                 Id = Guid.Parse(deviceIdResponse),
-                UserId = Guid.Parse(user2Response.UserId)
+                UserId = Guid.Parse(user2Response)
             });
             
             Assert.IsTrue(response.Result);
@@ -280,7 +230,7 @@ namespace CodeMash.Core.Tests
         public void Can_delete_device()
         {
             var userResponse = RegisterUser("Can_update_device_timezone");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId);
+            var deviceIdResponse = RegisterDevice(userResponse);
             
             var response = Service.DeleteDevice(new DeleteDeviceRequest
             {
@@ -294,7 +244,7 @@ namespace CodeMash.Core.Tests
         public async Task Can_delete_device_async()
         {
             var userResponse = RegisterUser("Can_update_device_meta_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
             
             var response = await Service.DeleteDeviceAsync(new DeleteDeviceRequest
             {
@@ -308,7 +258,7 @@ namespace CodeMash.Core.Tests
         public void Can_get_device()
         {
             var userResponse = RegisterUser("Can_get_device");
-            var deviceIdResponse = RegisterDevice(userResponse.UserId);
+            var deviceIdResponse = RegisterDevice(userResponse);
             
             Thread.Sleep(1000);
             
@@ -324,7 +274,7 @@ namespace CodeMash.Core.Tests
         public async Task Can_get_device_async()
         {
             var userResponse = RegisterUser("Can_get_device_async");
-            var deviceIdResponse = await RegisterDeviceAsync(userResponse.UserId);
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
 
             Thread.Sleep(1000);
             
@@ -334,6 +284,32 @@ namespace CodeMash.Core.Tests
             });
             
             Assert.AreEqual(response.Result.Id, deviceIdResponse);
+        }
+        
+        [TestMethod]
+        public void Can_get_devices()
+        {
+            var userResponse = RegisterUser("Can_get_devices");
+            var deviceIdResponse = RegisterDevice(userResponse);
+            
+            Thread.Sleep(1000);
+            
+            var response = Service.GetDevices(new GetDevicesRequest());
+            
+            Assert.IsTrue(response.Result.Count > 0);
+        }
+        
+        [TestMethod]
+        public async Task Can_get_devices_async()
+        {
+            var userResponse = RegisterUser("Can_get_devices_async");
+            var deviceIdResponse = await RegisterDeviceAsync(userResponse);
+
+            Thread.Sleep(1000);
+            
+            var response = await Service.GetDevicesAsync(new GetDevicesRequest());
+            
+            Assert.IsTrue(response.Result.Count > 0);
         }
     }
 }
