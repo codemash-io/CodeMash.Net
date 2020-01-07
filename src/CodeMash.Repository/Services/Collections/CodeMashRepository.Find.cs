@@ -77,7 +77,7 @@ namespace CodeMash.Repository
                 };
             }
 
-            var list = JsonConverterHelper.DeserializeWithLowercase<List<TP>>(clientResponse.Result);
+            var list = JsonConverterHelper.DeserializeWithLowercase<List<TP>>(clientResponse.Result, Client.Settings.CultureCode ?? findOptions?.CultureCode);
             return new DatabaseFindResponse<TP>()
             {
                 Result = list,
@@ -154,7 +154,7 @@ namespace CodeMash.Repository
                 };
             }
 
-            var list = JsonConverterHelper.DeserializeWithLowercase<List<TP>>(clientResponse.Result);
+            var list = JsonConverterHelper.DeserializeWithLowercase<List<TP>>(clientResponse.Result, Client.Settings.CultureCode ?? findOptions?.CultureCode);
             return new DatabaseFindResponse<TP>()
             {
                 Result = list,

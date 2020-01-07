@@ -42,7 +42,7 @@ namespace CodeMash.Repository
 
             return new DatabaseInsertOneResponse<T>
             {
-                Result = JsonConverterHelper.DeserializeWithLowercase<T>(response.Result)
+                Result = JsonConverterHelper.DeserializeWithLowercase<T>(response.Result, null)
             };
         }
         
@@ -102,7 +102,7 @@ namespace CodeMash.Repository
 
             return new DatabaseInsertOneResponse<T>
             {
-                Result = JsonConverterHelper.DeserializeWithLowercase<T>(response.Result)
+                Result = JsonConverterHelper.DeserializeWithLowercase<T>(response.Result, null)
             };
         }
         
