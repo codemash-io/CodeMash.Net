@@ -5,17 +5,9 @@ namespace CodeMash.Interfaces.Notifications.Push
 {
     public partial interface IPushService
     {
-        UpdateDeviceMetaResponse UpdateDeviceMeta(UpdateDeviceMetaRequest request);
+        RegisterDeviceResponse RegisterDevice(RegisterDeviceRequest request);
         
-        Task<UpdateDeviceMetaResponse> UpdateDeviceMetaAsync(UpdateDeviceMetaRequest request);
-        
-        DeleteDeviceMetaResponse DeleteDeviceMeta(DeleteDeviceMetaRequest request);
-        
-        Task<DeleteDeviceMetaResponse> DeleteDeviceMetaAsync(DeleteDeviceMetaRequest request);
-        
-        DeleteDeviceResponse DeleteDevice(DeleteDeviceRequest request);
-        
-        Task<DeleteDeviceResponse> DeleteDeviceAsync(DeleteDeviceRequest request);
+        Task<RegisterDeviceResponse> RegisterDeviceAsync(RegisterDeviceRequest request);
         
         GetDeviceResponse GetDevice(GetDeviceRequest request);
         
@@ -25,13 +17,17 @@ namespace CodeMash.Interfaces.Notifications.Push
         
         Task<GetDevicesResponse> GetDevicesAsync(GetDevicesRequest request);
         
-        RegisterDeviceResponse RegisterDevice(RegisterDeviceRequest request);
+        DeleteDeviceResponse DeleteDevice(DeleteDeviceRequest request);
         
-        Task<RegisterDeviceResponse> RegisterDevicesAsync(RegisterDeviceRequest request);
+        Task<DeleteDeviceResponse> DeleteDeviceAsync(DeleteDeviceRequest request);
         
-        UpdateDeviceMetaResponse UpdateDeviceTimeZone(UpdateDeviceTimeZoneRequest request);
+        UpdateDeviceMetaResponse UpdateDeviceMeta(UpdateDeviceMetaRequest request);
         
-        Task<UpdateDeviceMetaResponse> UpdateDeviceTimeZoneAsync(UpdateDeviceTimeZoneRequest request);
+        Task<UpdateDeviceMetaResponse> UpdateDeviceMetaAsync(UpdateDeviceMetaRequest request);
+        
+        UpdateDeviceTimeZoneResponse UpdateDeviceTimeZone(UpdateDeviceTimeZoneRequest request);
+        
+        Task<UpdateDeviceTimeZoneResponse> UpdateDeviceTimeZoneAsync(UpdateDeviceTimeZoneRequest request);
         
         UpdateDeviceUserResponse UpdateDeviceUser(UpdateDeviceUserRequest request);
         

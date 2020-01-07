@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using Isidos.CodeMash.ServiceContracts;
 
@@ -5,12 +6,16 @@ namespace CodeMash.Interfaces.Files
 {
     public partial interface IFilesService
     {
-        GetFileStreamResponse GetFileStream(GetFileStreamRequest request);
+        Stream GetFileStream(GetFileRequest request);
         
-        Task<GetFileStreamResponse> GetFileStreamAsync(GetFileStreamRequest request);
+        Task<Stream> GetFileStreamAsync(GetFileRequest request);
         
-        GetFileUrlResponse GetFileUrl(GetFileUrlRequest request);
+        byte[] GetFileBytes(GetFileRequest request);
         
-        Task<GetFileUrlResponse> GetFileUrlAsync(GetFileUrlRequest request);
+        Task<byte[]> GetFileBytesAsync(GetFileRequest request);
+        
+        GetFileResponse GetFileUrl(GetFileRequest request);
+        
+        Task<GetFileResponse> GetFileUrlAsync(GetFileRequest request);
     }
 }

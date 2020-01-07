@@ -10,8 +10,9 @@ namespace CodeMash.Interfaces.Notifications.Email
         
         Task<SendEmailNotificationResponse> SendEmailAsync(SendEmailRequest sendEmailOptions);
         
+        /*
         DeleteEmailResponse DeleteEmail(DeleteEmailRequest emailId);
         
-        Task<DeleteEmailResponse> DeleteEmailAsync(DeleteEmailRequest emailId);
+        Task<DeleteEmailResponse> DeleteEmailAsync(DeleteEmailRequest emailId);*/
     }
 }

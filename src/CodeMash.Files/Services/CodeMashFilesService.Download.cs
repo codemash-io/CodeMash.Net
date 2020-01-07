@@ -1,28 +1,50 @@
+using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Isidos.CodeMash.ServiceContracts;
+using ServiceStack;
 
 namespace CodeMash.Project.Services
 {
     public partial class CodeMashFilesService
     {
-        public GetFileStreamResponse GetFileStream(GetFileStreamRequest request)
+        public Stream GetFileStream(GetFileRequest request)
         {
-            return Client.Get<GetFileStreamResponse>(request);
+            var fileUrl = GetFileUrl(request);
+            
+            var req = WebRequest.Create(fileUrl.Result);
+            var resp = req.GetResponse();
+            return resp.GetResponseStream();
         }
 
-        public async Task<GetFileStreamResponse> GetFileStreamAsync(GetFileStreamRequest request)
+        public async Task<Stream> GetFileStreamAsync(GetFileRequest request)
         {
-            return await Client.GetAsync<GetFileStreamResponse>(request);
+            var fileUrl = await GetFileUrlAsync(request);
+            
+            var req = WebRequest.Create(fileUrl.Result);
+            var resp = await req.GetResponseAsync();
+            return resp.GetResponseStream();
+        }
+        
+        public byte[] GetFileBytes(GetFileRequest request)
+        {
+            return GetFileStream(request).ToBytes();
         }
 
-        public GetFileUrlResponse GetFileUrl(GetFileUrlRequest request)
+        public async Task<byte[]> GetFileBytesAsync(GetFileRequest request)
         {
-            return Client.Get<GetFileUrlResponse>(request);
+            return (await GetFileStreamAsync(request)).ToBytes();
         }
 
-        public async Task<GetFileUrlResponse> GetFileUrlAsync(GetFileUrlRequest request)
+        public GetFileResponse GetFileUrl(GetFileRequest request)
         {
-            return await Client.GetAsync<GetFileUrlResponse>(request);
+            return Client.Get<GetFileResponse>(request);
+        }
+
+        public async Task<GetFileResponse> GetFileUrlAsync(GetFileRequest request)
+        {
+            return await Client.GetAsync<GetFileResponse>(request);
         }
     }
 }

@@ -16,12 +16,12 @@ namespace CodeMash.Logs.Services
 
         public CreateLogResponse CreateLog(CreateLogRequest request)
         {
-            return Client.Get<CreateLogResponse>(request);
+            return Client.Post<CreateLogResponse>(request);
         }
 
         public async Task<CreateLogResponse> CreateLogAsync(CreateLogRequest request)
         {
-            return await Client.GetAsync<CreateLogResponse>(request);
+            return await Client.PostAsync<CreateLogResponse>(request);
         }
     }
 }
