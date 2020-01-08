@@ -237,5 +237,29 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(dateObjects[1].NonNested, deserialized[1].NonNested);
             Assert.AreEqual(dateObjects[0].NestedDateTime[0].DateTimeField, deserialized[0].NestedDateTime[0].DateTimeField);
         }
+        
+        [TestMethod]
+        public void Can_serialize_and_deserialize_with_attribute_name()
+        {
+            var entity = new List<AttributeEntity>
+            {
+                new AttributeEntity
+                {
+                    Id = "123",
+                    Attribute1 = "test",
+                    Attribute2 = 3
+                }
+            };
+            
+            var serialized = JsonConverterHelper.SerializeWithLowercase(entity);
+            Assert.IsTrue(serialized.Contains("field_1"));
+            Assert.IsTrue(serialized.Contains("field_2"));
+            
+            var deserialized = JsonConverterHelper.DeserializeWithLowercase<List<AttributeEntity>>(serialized, null);
+            
+            Assert.AreEqual(deserialized[0].Id, "123");
+            Assert.AreEqual(entity[0].Attribute1, deserialized[0].Attribute1);
+            Assert.AreEqual(entity[0].Attribute2, deserialized[0].Attribute2);
+        }
     }
 }

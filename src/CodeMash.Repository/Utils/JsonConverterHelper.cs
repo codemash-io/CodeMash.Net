@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CodeMash.Models;
 using Isidos.CodeMash.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -114,8 +115,12 @@ namespace CodeMash.Repository
 
                                     if (entityNestedObject.ContainsKey(nestedPropName))
                                     {
-                                        entityNestedObject.Add(new JProperty(nestedPropName.ToLowerCaseFirstLetter(), entityNestedObject[nestedPropName]));
-                                        entityNestedObject.Remove(nestedPropName);
+                                        var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
+                                        if (!string.IsNullOrEmpty(nestedPropAttrs?.ElementName) && nestedPropAttrs.ElementName != nestedPropName)
+                                        {
+                                            entityNestedObject.Add(new JProperty(nestedPropAttrs.ElementName ?? nestedPropName, entityNestedObject[nestedPropName]));
+                                            entityNestedObject.Remove(nestedPropName);
+                                        }
                                     }
                                 }
                             }
@@ -124,8 +129,12 @@ namespace CodeMash.Repository
                     
                     if (entity.ContainsKey(propName))
                     {
-                        entity.Add(new JProperty(propName.ToLowerCaseFirstLetter(), entity[propName]));
-                        entity.Remove(propName);
+                        var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
+                        if (!string.IsNullOrEmpty(propAttrs?.ElementName) && propAttrs.ElementName != propName)
+                        {
+                            entity.Add(new JProperty(propAttrs.ElementName ?? propName, entity[propName]));
+                            entity.Remove(propName);
+                        }
                     }
                 }
             }
@@ -166,22 +175,23 @@ namespace CodeMash.Repository
                 var cultureCodeSet = !string.IsNullOrEmpty(CultureCode);
                 foreach (var property in properties)
                 {
+                    var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
+                    var propNameInitial = propAttrs?.ElementName ?? property.Name;
+                    
                     // Non nested translatable
                     if (property.PropertyType == typeof(Dictionary<string, string>) && cultureCodeSet)
                     {
-                        var propName = property.Name.ToLowerCaseFirstLetter();
-                        if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.String)
+                        if (entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.String)
                         {
-                            entity[propName].Replace(new JObject(new JProperty(CultureCode, entity[propName].ToString())));
+                            entity[propNameInitial].Replace(new JObject(new JProperty(CultureCode, entity[propNameInitial].ToString())));
                         }
                     }
                     // Non nested date time
                     else if (property.PropertyType == typeof(DateTime))
                     {
-                        var propName = property.Name.ToLowerCaseFirstLetter();
-                        if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.Integer)
+                        if (entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.Integer)
                         {
-                            entity[propName].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entity[propName])));
+                            entity[propNameInitial].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entity[propNameInitial])));
                         }
                     }
                     // Nested
@@ -192,12 +202,10 @@ namespace CodeMash.Repository
 
                         if (propertiesOfNestedItem == null) continue;
                         
-                        var propName = property.Name.ToLowerCaseFirstLetter();
-                        
                         // Nested array props
-                        if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.Array)
+                        if (entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.Array)
                         {
-                            var entityNestedArray = (JArray) entity[propName];
+                            var entityNestedArray = (JArray) entity[propNameInitial];
 
                             foreach (var entityNestedItem in entityNestedArray)
                             {
@@ -206,27 +214,40 @@ namespace CodeMash.Repository
                                 
                                 foreach (var nestedProp in propertiesOfNestedItem)
                                 {
+                                    var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
+                                    var nestedPropNameInitial = nestedPropAttrs?.ElementName ?? nestedProp.Name;
+                                    
                                     // Nested translatable
                                     if (nestedProp.PropertyType == typeof(Dictionary<string, string>) && cultureCodeSet)
                                     {
-                                        var nestedPropName = nestedProp.Name.ToLowerCaseFirstLetter();
-                                        if (entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.String)
+                                        if (entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.String)
                                         {
-                                            entityNestedObject[nestedPropName].Replace(new JObject(new JProperty(CultureCode, entityNestedObject[nestedPropName].ToString())));
+                                            entityNestedObject[nestedPropNameInitial].Replace(new JObject(new JProperty(CultureCode, entityNestedObject[nestedPropNameInitial].ToString())));
                                         }
                                     }
                                     // Nested date time
                                     else if (nestedProp.PropertyType == typeof(DateTime))
                                     {
-                                        var nestedPropName = nestedProp.Name.ToLowerCaseFirstLetter();
-                                        if (entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.Integer)
+                                        if (entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.Integer)
                                         {
-                                            entityNestedObject[nestedPropName].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entityNestedObject[nestedPropName])));
+                                            entityNestedObject[nestedPropNameInitial].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entityNestedObject[nestedPropNameInitial])));
                                         }
+                                    }
+                                    
+                                    if (entityNestedObject.ContainsKey(nestedPropNameInitial) && nestedPropNameInitial != nestedProp.Name)
+                                    {
+                                        entityNestedObject.Add(new JProperty(nestedProp.Name, entityNestedObject[nestedPropNameInitial]));
+                                        entityNestedObject.Remove(nestedPropNameInitial);
                                     }
                                 }
                             }
                         }
+                    }
+                    
+                    if (entity.ContainsKey(propNameInitial) && property.Name != propNameInitial)
+                    {
+                        entity.Add(new JProperty(property.Name, entity[propNameInitial]));
+                        entity.Remove(propNameInitial);
                     }
                 }
             }
