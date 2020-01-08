@@ -13,12 +13,12 @@ namespace CodeMash.Repository
 {
     public static class JsonConverterHelper
     {
-        public static string SerializeWithLowercase<T>(T serializableObject)
+        public static string SerializeEntity<T>(T serializableObject)
         {
             return serializableObject == null ? null : JsonConvert.SerializeObject(serializableObject, new EntityConverter<T>(null));
         }
         
-        public static T DeserializeWithLowercase<T>(string json, string cultureCode)
+        public static T DeserializeEntity<T>(string json, string cultureCode)
         {
             if (string.IsNullOrEmpty(json))
             {
