@@ -27,7 +27,7 @@ namespace CodeMash.Repository
             var request = new InsertOneRequest
             {
                 CollectionName = GetCollectionName(),
-                Document = JsonConverterHelper.SerializeWithLowercase(entity),
+                Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
             };
 
@@ -42,7 +42,7 @@ namespace CodeMash.Repository
 
             return new DatabaseInsertOneResponse<T>
             {
-                Result = JsonConverterHelper.DeserializeWithLowercase<T>(response.Result, null)
+                Result = JsonConverterHelper.DeserializeEntity<T>(response.Result, null)
             };
         }
         
@@ -59,7 +59,7 @@ namespace CodeMash.Repository
                 Documents = entities.ConvertAll(x =>
                 {
                     if (x.Id == ObjectId.Empty.ToString()) x.Id = ObjectId.GenerateNewId().ToString();
-                    return JsonConverterHelper.SerializeWithLowercase(x);
+                    return JsonConverterHelper.SerializeEntity(x);
                 })
             };
 
@@ -87,7 +87,7 @@ namespace CodeMash.Repository
             var request = new InsertOneRequest
             {
                 CollectionName = GetCollectionName(),
-                Document = JsonConverterHelper.SerializeWithLowercase(entity),
+                Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
             };
 
@@ -102,7 +102,7 @@ namespace CodeMash.Repository
 
             return new DatabaseInsertOneResponse<T>
             {
-                Result = JsonConverterHelper.DeserializeWithLowercase<T>(response.Result, null)
+                Result = JsonConverterHelper.DeserializeEntity<T>(response.Result, null)
             };
         }
         
@@ -119,7 +119,7 @@ namespace CodeMash.Repository
                 Documents = entities.ConvertAll(x =>
                 {
                     if (x.Id == ObjectId.Empty.ToString()) x.Id = ObjectId.GenerateNewId().ToString();
-                    return JsonConverterHelper.SerializeWithLowercase(x);
+                    return JsonConverterHelper.SerializeEntity(x);
                 })
             };
 

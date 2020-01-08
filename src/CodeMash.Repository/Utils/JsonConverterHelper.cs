@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CodeMash.Models;
 using Isidos.CodeMash.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -12,12 +13,12 @@ namespace CodeMash.Repository
 {
     public static class JsonConverterHelper
     {
-        public static string SerializeWithLowercase<T>(T serializableObject)
+        public static string SerializeEntity<T>(T serializableObject)
         {
             return serializableObject == null ? null : JsonConvert.SerializeObject(serializableObject, new EntityConverter<T>(null));
         }
         
-        public static T DeserializeWithLowercase<T>(string json, string cultureCode)
+        public static T DeserializeEntity<T>(string json, string cultureCode)
         {
             if (string.IsNullOrEmpty(json))
             {
@@ -40,15 +41,17 @@ namespace CodeMash.Repository
                 JsonSerializer serializer)
             {
                 var entityToken = JToken.FromObject(value);
+                
                 if (entityToken.Type == JTokenType.Array)
                 {
-                    // var properties = typeof(T).GetProperties();
                     var listItemType = typeof(T).GetGenericArguments().FirstOrDefault();
                     var properties = listItemType?.GetProperties();
+                    
+                    var entitySerializer = new EntitySerializer(properties);
                     foreach (var entityArrayItem in entityToken)
                     {
                         var entity = (JObject) entityArrayItem;
-                        FormEntityForSerialize(properties, entity);
+                        entitySerializer.FormEntityForSerialize(entity);
                     }
                     
                     entityToken.WriteTo(writer);
@@ -58,7 +61,8 @@ namespace CodeMash.Repository
                     var properties = typeof(T).GetProperties();
                     var entity = (JObject) entityToken;
 
-                    FormEntityForSerialize(properties, entity);
+                    var entitySerializer = new EntitySerializer(properties);
+                    entitySerializer.FormEntityForSerialize(entity);
                     
                     entity.WriteTo(writer);
                 }
@@ -68,6 +72,7 @@ namespace CodeMash.Repository
                 }
             }
 
+            /*
             private void FormEntityForSerialize(PropertyInfo[] properties, JObject entity)
             {
                 foreach (var property in properties)
@@ -114,9 +119,27 @@ namespace CodeMash.Repository
 
                                     if (entityNestedObject.ContainsKey(nestedPropName))
                                     {
-                                        entityNestedObject.Add(new JProperty(nestedPropName.ToLowerCaseFirstLetter(), entityNestedObject[nestedPropName]));
-                                        entityNestedObject.Remove(nestedPropName);
+                                        var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
+                                        var lowerNestedPropName = nestedPropName.ToLower();
+                                        
+                                        if (!string.IsNullOrEmpty(nestedPropAttrs?.ElementName))
+                                        {
+                                            if (nestedPropAttrs.ElementName != lowerNestedPropName)
+                                            {
+                                                entityNestedObject.Add(new JProperty(nestedPropAttrs.ElementName, entityNestedObject[nestedPropName]));
+                                                entityNestedObject.Remove(nestedPropName);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (nestedPropName != lowerNestedPropName)
+                                            {
+                                                entityNestedObject.Add(new JProperty(lowerNestedPropName, entityNestedObject[nestedPropName]));
+                                                entityNestedObject.Remove(nestedPropName);
+                                            }
+                                        }
                                     }
+                                    
                                 }
                             }
                         }
@@ -124,11 +147,15 @@ namespace CodeMash.Repository
                     
                     if (entity.ContainsKey(propName))
                     {
-                        entity.Add(new JProperty(propName.ToLowerCaseFirstLetter(), entity[propName]));
-                        entity.Remove(propName);
+                        var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
+                        if (!string.IsNullOrEmpty(propAttrs?.ElementName) && propAttrs.ElementName != propName)
+                        {
+                            entity.Add(new JProperty(propAttrs.ElementName ?? propName, entity[propName]));
+                            entity.Remove(propName);
+                        }
                     }
                 }
-            }
+            }*/
 
             public override object ReadJson(JsonReader reader, Type objectType, 
                 object existingValue, JsonSerializer serializer)
@@ -138,50 +165,49 @@ namespace CodeMash.Repository
                 {
                     var listItemType = typeof(T).GetGenericArguments().FirstOrDefault();
                     var properties = listItemType?.GetProperties();
+                    
+                    var entityDeserializer = new EntityDeserializer(properties, CultureCode);
                     foreach (var entityArrayItem in entityToken)
                     {
                         var entity = (JObject) entityArrayItem;
-                        FormEntityForDeserialize(properties, entity);
+                        entityDeserializer.FormEntityForDeserialize(entity);
                     }
                 }
                 else if (entityToken.Type == JTokenType.Object)
                 {
                     var properties = typeof(T).GetProperties();
                     var entity = (JObject) entityToken;
+                    var entityDeserializer = new EntityDeserializer(properties, CultureCode);
 
-                    FormEntityForDeserialize(properties, entity);
+                    entityDeserializer.FormEntityForDeserialize(entity);
                 }
                 
-                
-                return JsonConvert.DeserializeObject<T>(entityToken.ToString(), new JsonSerializerSettings 
-                { 
-                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                });
-                
-                //return DeserializeWithLowercase<T>(entity.ToString(), null);
+                return JsonConvert.DeserializeObject<T>(entityToken.ToString());
             }
 
+            /*
             private void FormEntityForDeserialize(PropertyInfo[] properties, JObject entity)
             {
                 var cultureCodeSet = !string.IsNullOrEmpty(CultureCode);
                 foreach (var property in properties)
                 {
+                    var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
+                    var propNameInitial = propAttrs?.ElementName ?? property.Name;
+                    
                     // Non nested translatable
                     if (property.PropertyType == typeof(Dictionary<string, string>) && cultureCodeSet)
                     {
-                        var propName = property.Name.ToLowerCaseFirstLetter();
-                        if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.String)
+                        if (entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.String)
                         {
-                            entity[propName].Replace(new JObject(new JProperty(CultureCode, entity[propName].ToString())));
+                            entity[propNameInitial].Replace(new JObject(new JProperty(CultureCode, entity[propNameInitial].ToString())));
                         }
                     }
                     // Non nested date time
                     else if (property.PropertyType == typeof(DateTime))
                     {
-                        var propName = property.Name.ToLowerCaseFirstLetter();
-                        if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.Integer)
+                        if (entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.Integer)
                         {
-                            entity[propName].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entity[propName])));
+                            entity[propNameInitial].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entity[propNameInitial])));
                         }
                     }
                     // Nested
@@ -192,12 +218,10 @@ namespace CodeMash.Repository
 
                         if (propertiesOfNestedItem == null) continue;
                         
-                        var propName = property.Name.ToLowerCaseFirstLetter();
-                        
                         // Nested array props
-                        if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.Array)
+                        if (entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.Array)
                         {
-                            var entityNestedArray = (JArray) entity[propName];
+                            var entityNestedArray = (JArray) entity[propNameInitial];
 
                             foreach (var entityNestedItem in entityNestedArray)
                             {
@@ -206,30 +230,43 @@ namespace CodeMash.Repository
                                 
                                 foreach (var nestedProp in propertiesOfNestedItem)
                                 {
+                                    var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
+                                    var nestedPropNameInitial = nestedPropAttrs?.ElementName ?? nestedProp.Name;
+                                    
                                     // Nested translatable
                                     if (nestedProp.PropertyType == typeof(Dictionary<string, string>) && cultureCodeSet)
                                     {
-                                        var nestedPropName = nestedProp.Name.ToLowerCaseFirstLetter();
-                                        if (entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.String)
+                                        if (entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.String)
                                         {
-                                            entityNestedObject[nestedPropName].Replace(new JObject(new JProperty(CultureCode, entityNestedObject[nestedPropName].ToString())));
+                                            entityNestedObject[nestedPropNameInitial].Replace(new JObject(new JProperty(CultureCode, entityNestedObject[nestedPropNameInitial].ToString())));
                                         }
                                     }
                                     // Nested date time
                                     else if (nestedProp.PropertyType == typeof(DateTime))
                                     {
-                                        var nestedPropName = nestedProp.Name.ToLowerCaseFirstLetter();
-                                        if (entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.Integer)
+                                        if (entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.Integer)
                                         {
-                                            entityNestedObject[nestedPropName].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entityNestedObject[nestedPropName])));
+                                            entityNestedObject[nestedPropNameInitial].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entityNestedObject[nestedPropNameInitial])));
                                         }
+                                    }
+                                    
+                                    if (entityNestedObject.ContainsKey(nestedPropNameInitial) && nestedPropNameInitial != nestedProp.Name)
+                                    {
+                                        entityNestedObject.Add(new JProperty(nestedProp.Name, entityNestedObject[nestedPropNameInitial]));
+                                        entityNestedObject.Remove(nestedPropNameInitial);
                                     }
                                 }
                             }
                         }
                     }
+                    
+                    if (entity.ContainsKey(propNameInitial) && property.Name != propNameInitial)
+                    {
+                        entity.Add(new JProperty(property.Name, entity[propNameInitial]));
+                        entity.Remove(propNameInitial);
+                    }
                 }
-            }
+            }*/
 
             public override bool CanRead
             {

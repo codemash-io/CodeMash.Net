@@ -109,7 +109,7 @@ namespace CodeMash.Repository
             {
                 CollectionName = GetCollectionName(),
                 Filter = filter?.FilterToJson(),
-                Document = JsonConverterHelper.SerializeWithLowercase(entity),
+                Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
             };
@@ -156,7 +156,7 @@ namespace CodeMash.Repository
             {
                 CollectionName = GetCollectionName(),
                 Filter = filter?.FilterToJson(),
-                Document = JsonConverterHelper.SerializeWithLowercase(entity),
+                Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
             };

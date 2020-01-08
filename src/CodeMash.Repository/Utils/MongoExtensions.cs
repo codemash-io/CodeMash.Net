@@ -18,6 +18,13 @@ namespace CodeMash.Repository
             return projectionInfo.Document?.ToString();
         }
         
+        public static string ProjectionToJson<T>(this ProjectionDefinition<T> projection)
+        {
+            var documentSerializer = BsonSerializer.SerializerRegistry.GetSerializer<T>();
+            var projectionInfo = projection.Render(documentSerializer, BsonSerializer.SerializerRegistry);
+            return projectionInfo?.ToString();
+        }
+        
         public static string SortToJson<T>(this SortDefinition<T> sort)
         {
             var documentSerializer = BsonSerializer.SerializerRegistry.GetSerializer<T>();
