@@ -8,7 +8,6 @@ namespace CodeMash.Core.Tests
     [CollectionName("sdk-datetime")]
     public class DateTimeEntity : Entity
     {
-        [FieldName("dateTimeField")]
         public DateTime DateTimeField { get; set; }
     }
 }

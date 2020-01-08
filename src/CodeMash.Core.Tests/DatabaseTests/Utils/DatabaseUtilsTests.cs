@@ -26,7 +26,7 @@ namespace CodeMash.Core.Tests
         {
             var jsonSdkObject = new JObject(
                 new JProperty("_id", "123"),
-                new JProperty("nonTranslatable", "not translatable"),
+                new JProperty("nontranslatable", "not translatable"),
                 new JProperty("translatable", "translated")
             );
 
@@ -62,11 +62,11 @@ namespace CodeMash.Core.Tests
         {
             var jsonSdkObject = new JObject(
                 new JProperty("_id", "123"),
-                new JProperty("nonTranslatable", "not translatable"),
-                new JProperty("nestedTranslatable", new JArray(
+                new JProperty("nontranslatable", "not translatable"),
+                new JProperty("nestedtranslatable", new JArray(
                     new JObject(
                         new JProperty("_id", "1"),
-                        new JProperty("nonTranslatable", "not translatable"),
+                        new JProperty("nontranslatable", "not translatable"),
                         new JProperty("translatable", "translated")
                     )
                 ))
@@ -85,11 +85,11 @@ namespace CodeMash.Core.Tests
         {
             var jsonSdkObject = new JObject(
                 new JProperty("_id", "123"),
-                new JProperty("nonTranslatable", "not translatable"),
-                new JProperty("nestedTranslatable", new JArray(
+                new JProperty("nontranslatable", "not translatable"),
+                new JProperty("nestedtranslatable", new JArray(
                     new JObject(
                         new JProperty("_id", "1"),
-                        new JProperty("nonTranslatable", "not translatable"),
+                        new JProperty("nontranslatable", "not translatable"),
                         new JProperty("translatable", new JObject(
                             new JProperty("en", "en translated"), 
                             new JProperty("it", "it translated")))
@@ -112,7 +112,7 @@ namespace CodeMash.Core.Tests
             
             var jsonSdkObject = new JObject(
                 new JProperty("_id", "123"),
-                new JProperty("dateTimeField", timeStamp)
+                new JProperty("datetimefield", timeStamp)
             );
 
             var deserialized = JsonConverterHelper.DeserializeEntity<DateTimeEntity>(jsonSdkObject.ToString(), null);
@@ -129,11 +129,11 @@ namespace CodeMash.Core.Tests
             
             var jsonSdkObject = new JObject(
                 new JProperty("_id", "123"),
-                new JProperty("nonNested", timeStamp1),
-                new JProperty("nestedDateTime", new JArray(
+                new JProperty("nonnested", timeStamp1),
+                new JProperty("nesteddatetime", new JArray(
                     new JObject(
                         new JProperty("_id", "1"),
-                        new JProperty("dateTimeField", timeStamp2)
+                        new JProperty("datetimefield", timeStamp2)
                     )
                 ))
             );
@@ -236,30 +236,6 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(dateObjects[0].NonNested, deserialized[0].NonNested);
             Assert.AreEqual(dateObjects[1].NonNested, deserialized[1].NonNested);
             Assert.AreEqual(dateObjects[0].NestedDateTime[0].DateTimeField, deserialized[0].NestedDateTime[0].DateTimeField);
-        }
-        
-        [TestMethod]
-        public void Can_serialize_and_deserialize_with_attribute_name()
-        {
-            var entity = new List<AttributeEntity>
-            {
-                new AttributeEntity
-                {
-                    Id = "123",
-                    Attribute1 = "test",
-                    Attribute2 = 3
-                }
-            };
-            
-            var serialized = JsonConverterHelper.SerializeEntity(entity);
-            Assert.IsTrue(serialized.Contains("field_1"));
-            Assert.IsTrue(serialized.Contains("field_2"));
-            
-            var deserialized = JsonConverterHelper.DeserializeEntity<List<AttributeEntity>>(serialized, null);
-            
-            Assert.AreEqual(deserialized[0].Id, "123");
-            Assert.AreEqual(entity[0].Attribute1, deserialized[0].Attribute1);
-            Assert.AreEqual(entity[0].Attribute2, deserialized[0].Attribute2);
         }
     }
 }

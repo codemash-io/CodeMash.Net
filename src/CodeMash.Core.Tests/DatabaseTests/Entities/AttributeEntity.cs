@@ -13,5 +13,9 @@ namespace CodeMash.Core.Tests
         
         [FieldName("field_2")]
         public int Attribute2 { get; set; }
+        
+        public int Attribute3 { get; set; }
+        
+        public int attribute_4 { get; set; }
     }
 }

@@ -41,15 +41,17 @@ namespace CodeMash.Repository
                 JsonSerializer serializer)
             {
                 var entityToken = JToken.FromObject(value);
+                
                 if (entityToken.Type == JTokenType.Array)
                 {
-                    // var properties = typeof(T).GetProperties();
                     var listItemType = typeof(T).GetGenericArguments().FirstOrDefault();
                     var properties = listItemType?.GetProperties();
+                    
+                    var entitySerializer = new EntitySerializer(properties);
                     foreach (var entityArrayItem in entityToken)
                     {
                         var entity = (JObject) entityArrayItem;
-                        FormEntityForSerialize(properties, entity);
+                        entitySerializer.FormEntityForSerialize(entity);
                     }
                     
                     entityToken.WriteTo(writer);
@@ -59,7 +61,8 @@ namespace CodeMash.Repository
                     var properties = typeof(T).GetProperties();
                     var entity = (JObject) entityToken;
 
-                    FormEntityForSerialize(properties, entity);
+                    var entitySerializer = new EntitySerializer(properties);
+                    entitySerializer.FormEntityForSerialize(entity);
                     
                     entity.WriteTo(writer);
                 }
@@ -69,6 +72,7 @@ namespace CodeMash.Repository
                 }
             }
 
+            /*
             private void FormEntityForSerialize(PropertyInfo[] properties, JObject entity)
             {
                 foreach (var property in properties)
@@ -116,12 +120,26 @@ namespace CodeMash.Repository
                                     if (entityNestedObject.ContainsKey(nestedPropName))
                                     {
                                         var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
-                                        if (!string.IsNullOrEmpty(nestedPropAttrs?.ElementName) && nestedPropAttrs.ElementName != nestedPropName)
+                                        var lowerNestedPropName = nestedPropName.ToLower();
+                                        
+                                        if (!string.IsNullOrEmpty(nestedPropAttrs?.ElementName))
                                         {
-                                            entityNestedObject.Add(new JProperty(nestedPropAttrs.ElementName ?? nestedPropName, entityNestedObject[nestedPropName]));
-                                            entityNestedObject.Remove(nestedPropName);
+                                            if (nestedPropAttrs.ElementName != lowerNestedPropName)
+                                            {
+                                                entityNestedObject.Add(new JProperty(nestedPropAttrs.ElementName, entityNestedObject[nestedPropName]));
+                                                entityNestedObject.Remove(nestedPropName);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (nestedPropName != lowerNestedPropName)
+                                            {
+                                                entityNestedObject.Add(new JProperty(lowerNestedPropName, entityNestedObject[nestedPropName]));
+                                                entityNestedObject.Remove(nestedPropName);
+                                            }
                                         }
                                     }
+                                    
                                 }
                             }
                         }
@@ -137,7 +155,7 @@ namespace CodeMash.Repository
                         }
                     }
                 }
-            }
+            }*/
 
             public override object ReadJson(JsonReader reader, Type objectType, 
                 object existingValue, JsonSerializer serializer)
@@ -147,29 +165,27 @@ namespace CodeMash.Repository
                 {
                     var listItemType = typeof(T).GetGenericArguments().FirstOrDefault();
                     var properties = listItemType?.GetProperties();
+                    
+                    var entityDeserializer = new EntityDeserializer(properties, CultureCode);
                     foreach (var entityArrayItem in entityToken)
                     {
                         var entity = (JObject) entityArrayItem;
-                        FormEntityForDeserialize(properties, entity);
+                        entityDeserializer.FormEntityForDeserialize(entity);
                     }
                 }
                 else if (entityToken.Type == JTokenType.Object)
                 {
                     var properties = typeof(T).GetProperties();
                     var entity = (JObject) entityToken;
+                    var entityDeserializer = new EntityDeserializer(properties, CultureCode);
 
-                    FormEntityForDeserialize(properties, entity);
+                    entityDeserializer.FormEntityForDeserialize(entity);
                 }
                 
-                
-                return JsonConvert.DeserializeObject<T>(entityToken.ToString(), new JsonSerializerSettings 
-                { 
-                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                });
-                
-                //return DeserializeWithLowercase<T>(entity.ToString(), null);
+                return JsonConvert.DeserializeObject<T>(entityToken.ToString());
             }
 
+            /*
             private void FormEntityForDeserialize(PropertyInfo[] properties, JObject entity)
             {
                 var cultureCodeSet = !string.IsNullOrEmpty(CultureCode);
@@ -250,7 +266,7 @@ namespace CodeMash.Repository
                         entity.Remove(propNameInitial);
                     }
                 }
-            }
+            }*/
 
             public override bool CanRead
             {
