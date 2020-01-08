@@ -65,7 +65,7 @@ namespace CodeMash.Repository
                 };
             }
 
-            var result = JsonConverterHelper.DeserializeWithLowercase<TP>(clientResponse.Result, Client.Settings.CultureCode ?? findOneOptions?.CultureCode);
+            var result = JsonConverterHelper.DeserializeEntity<TP>(clientResponse.Result, Client.Settings.CultureCode ?? findOneOptions?.CultureCode);
             return new DatabaseFindOneResponse<TP>()
             {
                 Result = result,
@@ -128,7 +128,7 @@ namespace CodeMash.Repository
                 };
             }
 
-            var result = JsonConverterHelper.DeserializeWithLowercase<TP>(clientResponse.Result, Client.Settings.CultureCode ?? findOneOptions?.CultureCode);
+            var result = JsonConverterHelper.DeserializeEntity<TP>(clientResponse.Result, Client.Settings.CultureCode ?? findOneOptions?.CultureCode);
             
             
             return new DatabaseFindOneResponse<TP>()
