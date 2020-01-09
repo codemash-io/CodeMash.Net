@@ -119,7 +119,7 @@ namespace CodeMash.Repository
                                     
             if (!string.IsNullOrEmpty(propAttr?.ElementName))
             {
-                if (propAttr.ElementName == lowerNestedPropName) return;
+                if (propAttr.ElementName == propName) return;
                 
                 entity.Add(new JProperty(propAttr.ElementName, entity[propName]));
                 entity.Remove(propName);
