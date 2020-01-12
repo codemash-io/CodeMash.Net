@@ -54,8 +54,8 @@ namespace CodeMash.Core.Tests
             };
             
             var response = await Repository.InsertOneAsync(entity);
-            InsertedRecords[TestContext.TestName] = response.Result.Id;
-            var insertedRecord = response.Result;
+            InsertedRecords[TestContext.TestName] = response.Id;
+            var insertedRecord = response;
             
             insertedRecord.ShouldBe<SdkEntity>();
             Assert.IsNotNull(insertedRecord);

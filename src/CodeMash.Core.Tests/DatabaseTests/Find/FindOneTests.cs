@@ -40,9 +40,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = Repository.FindOneById(insertedRecord.Id);
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]
@@ -51,9 +51,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = await Repository.FindOneByIdAsync(insertedRecord.Id);
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]
@@ -62,9 +62,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = Repository.FindOneById(ObjectId.Parse(insertedRecord.Id));
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]
@@ -73,9 +73,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = await Repository.FindOneByIdAsync(ObjectId.Parse(insertedRecord.Id));
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]
@@ -84,9 +84,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = Repository.FindOne(x => x.Id == insertedRecord.Id);
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]
@@ -95,9 +95,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = await Repository.FindOneAsync(x => x.Id == insertedRecord.Id);
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]
@@ -106,9 +106,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = Repository.FindOne(Builders<SdkEntity>.Filter.Eq(x => x.Id, insertedRecord.Id));
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]
@@ -117,9 +117,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord = InsertRecord();
             var insertedRecordFromDb = await Repository.FindOneAsync(Builders<SdkEntity>.Filter.Eq(x => x.Id, insertedRecord.Id));
             
-            insertedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(insertedRecordFromDb.Result.Notes, insertedRecord.Notes);
-            Assert.AreEqual(insertedRecordFromDb.Result.Number, insertedRecord.Number);
+            insertedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(insertedRecordFromDb.Notes, insertedRecord.Notes);
+            Assert.AreEqual(insertedRecordFromDb.Number, insertedRecord.Number);
         }
         
         [TestMethod]

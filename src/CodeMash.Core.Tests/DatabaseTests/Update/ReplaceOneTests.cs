@@ -48,9 +48,9 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(replaceResult.ModifiedCount, 1);
             Assert.AreEqual(replaceResult.MatchedCount, 1);
             
-            updatedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(updatedRecordFromDb.Result.Notes, "replaced notes");
-            Assert.AreEqual(updatedRecordFromDb.Result.Number, 13);
+            updatedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(updatedRecordFromDb.Notes, "replaced notes");
+            Assert.AreEqual(updatedRecordFromDb.Number, 13);
         }
         
         [TestMethod]
@@ -69,9 +69,9 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(replaceResult.ModifiedCount, 1);
             Assert.AreEqual(replaceResult.MatchedCount, 1);
             
-            updatedRecordFromDb.Result.ShouldBe<SdkEntity>();
-            Assert.AreEqual(updatedRecordFromDb.Result.Notes, "replaced notes");
-            Assert.AreEqual(updatedRecordFromDb.Result.Number, 13);
+            updatedRecordFromDb.ShouldBe<SdkEntity>();
+            Assert.AreEqual(updatedRecordFromDb.Notes, "replaced notes");
+            Assert.AreEqual(updatedRecordFromDb.Number, 13);
         }
     }
 }

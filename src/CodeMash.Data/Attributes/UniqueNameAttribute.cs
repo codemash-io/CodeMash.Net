@@ -4,8 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace CodeMash.Models
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class FieldNameAttribute : BsonElementAttribute
+    public class UniqueNameAttribute : BsonElementAttribute
     {
-        public FieldNameAttribute(string value) : base(value) {}
+        public UniqueNameAttribute(string value) : base(value) {}
     }
 }

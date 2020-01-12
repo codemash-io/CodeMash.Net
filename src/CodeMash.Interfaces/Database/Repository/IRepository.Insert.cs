@@ -8,14 +8,14 @@ namespace CodeMash.Interfaces.Database.Repository
     public partial interface IRepository<T> where T : IEntity
     {
         /* Insert Async */
-        Task<DatabaseInsertOneResponse<T>> InsertOneAsync(T entity, DatabaseInsertOneOptions insertOneOptions = null);
+        Task<T> InsertOneAsync(T entity, DatabaseInsertOneOptions insertOneOptions = null);
         
-        Task<DatabaseInsertManyResponse> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
+        Task<bool> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
         
         
         /* Insert */
-        DatabaseInsertOneResponse<T> InsertOne(T entity, DatabaseInsertOneOptions insertOneOptions = null);
+        T InsertOne(T entity, DatabaseInsertOneOptions insertOneOptions = null);
         
-        DatabaseInsertManyResponse InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
+        bool InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
     }
 }

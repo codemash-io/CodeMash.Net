@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using CodeMash.Models;
 using Isidos.CodeMash.ServiceContracts;
 
 namespace CodeMash.Repository
 {
-    public class DatabaseFindResponse<T>
+    public class TermsFindResponse<T>
     {
-        public List<T> List { get; set; }
+        public List<TermEntity<T>> List { get; set; }
         
         public long TotalCount { get; set; }
     }

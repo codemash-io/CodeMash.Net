@@ -37,8 +37,8 @@ namespace CodeMash.Core.Tests
             
             Assert.IsTrue(deleteResult.IsAcknowledged);
             Assert.AreEqual(deleteResult.DeletedCount, 2);
-            Assert.IsNull(deletedRecord1.Result);
-            Assert.IsNull(deletedRecord2.Result);
+            Assert.IsNull(deletedRecord1);
+            Assert.IsNull(deletedRecord2);
         }
         
         [TestMethod]
@@ -53,8 +53,8 @@ namespace CodeMash.Core.Tests
             
             Assert.IsTrue(deleteResult.IsAcknowledged);
             Assert.AreEqual(deleteResult.DeletedCount, 2);
-            Assert.IsNull(deletedRecord1.Result);
-            Assert.IsNull(deletedRecord2.Result);
+            Assert.IsNull(deletedRecord1);
+            Assert.IsNull(deletedRecord2);
         }
     }
 }
