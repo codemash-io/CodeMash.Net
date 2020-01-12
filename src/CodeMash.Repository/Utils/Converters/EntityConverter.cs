@@ -129,7 +129,7 @@ namespace CodeMash.Repository
 
                                 if (entityNestedObject.ContainsKey(nestedPropName))
                                 {
-                                    var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
+                                    var nestedPropAttrs = nestedProp.GetCustomAttribute<UniqueNameAttribute>();
                                     var lowerNestedPropName = nestedPropName.ToLower();
                                     
                                     if (!string.IsNullOrEmpty(nestedPropAttrs?.ElementName))
@@ -157,7 +157,7 @@ namespace CodeMash.Repository
                 
                 if (entity.ContainsKey(propName))
                 {
-                    var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
+                    var propAttrs = property.GetCustomAttribute<UniqueNameAttribute>();
                     if (!string.IsNullOrEmpty(propAttrs?.ElementName) && propAttrs.ElementName != propName)
                     {
                         entity.Add(new JProperty(propAttrs.ElementName ?? propName, entity[propName]));
@@ -173,7 +173,7 @@ namespace CodeMash.Repository
             var cultureCodeSet = !string.IsNullOrEmpty(CultureCode);
             foreach (var property in properties)
             {
-                var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
+                var propAttrs = property.GetCustomAttribute<UniqueNameAttribute>();
                 var propNameInitial = propAttrs?.ElementName ?? property.Name;
                 
                 // Non nested translatable
@@ -212,7 +212,7 @@ namespace CodeMash.Repository
                             
                             foreach (var nestedProp in propertiesOfNestedItem)
                             {
-                                var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
+                                var nestedPropAttrs = nestedProp.GetCustomAttribute<UniqueNameAttribute>();
                                 var nestedPropNameInitial = nestedPropAttrs?.ElementName ?? nestedProp.Name;
                                 
                                 // Nested translatable

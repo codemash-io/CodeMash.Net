@@ -38,9 +38,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord2 = InsertRecord(1);
             var insertedRecordsFromDb = Repository.Find(x => true);
             
-            insertedRecordsFromDb.Result.ShouldBe<List<SdkEntity>>();
-            Assert.AreEqual(insertedRecordsFromDb.Result.Find(x => x.Id == insertedRecord1.Id).Number, insertedRecord1.Number);
-            Assert.AreEqual(insertedRecordsFromDb.Result.Find(x => x.Id == insertedRecord2.Id).Number, insertedRecord2.Number);
+            insertedRecordsFromDb.List.ShouldBe<List<SdkEntity>>();
+            Assert.AreEqual(insertedRecordsFromDb.List.Find(x => x.Id == insertedRecord1.Id).Number, insertedRecord1.Number);
+            Assert.AreEqual(insertedRecordsFromDb.List.Find(x => x.Id == insertedRecord2.Id).Number, insertedRecord2.Number);
         }
         
         [TestMethod]
@@ -52,9 +52,9 @@ namespace CodeMash.Core.Tests
             var insertedRecord2 = InsertRecord(1);
             var insertedRecordsFromDb = await Repository.FindAsync(x => true);
         
-            insertedRecordsFromDb.Result.ShouldBe<List<SdkEntity>>();
-            Assert.AreEqual(insertedRecordsFromDb.Result.Find(x => x.Id == insertedRecord1.Id).Number, insertedRecord1.Number);
-            Assert.AreEqual(insertedRecordsFromDb.Result.Find(x => x.Id == insertedRecord2.Id).Number, insertedRecord2.Number);
+            insertedRecordsFromDb.List.ShouldBe<List<SdkEntity>>();
+            Assert.AreEqual(insertedRecordsFromDb.List.Find(x => x.Id == insertedRecord1.Id).Number, insertedRecord1.Number);
+            Assert.AreEqual(insertedRecordsFromDb.List.Find(x => x.Id == insertedRecord2.Id).Number, insertedRecord2.Number);
         }
         
         [TestMethod]
@@ -70,8 +70,8 @@ namespace CodeMash.Core.Tests
                 PageSize = 1
             });
             
-            insertedRecordsFromDb.Result.ShouldBe<List<SdkEntity>>();
-            Assert.AreEqual(insertedRecordsFromDb.Result.Count, 1);
+            insertedRecordsFromDb.List.ShouldBe<List<SdkEntity>>();
+            Assert.AreEqual(insertedRecordsFromDb.List.Count, 1);
         }
         
         [TestMethod]
@@ -87,8 +87,8 @@ namespace CodeMash.Core.Tests
                 PageSize = 1
             });
             
-            insertedRecordsFromDb.Result.ShouldBe<List<SdkEntity>>();
-            Assert.AreEqual(insertedRecordsFromDb.Result.Count, 1);
+            insertedRecordsFromDb.List.ShouldBe<List<SdkEntity>>();
+            Assert.AreEqual(insertedRecordsFromDb.List.Count, 1);
         }
     }
 }

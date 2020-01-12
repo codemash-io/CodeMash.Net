@@ -3,9 +3,6 @@ namespace CodeMash.Repository
     /// <summary>Options for finding documents using Find and FindAsync methods.</summary>
     public class DatabaseFindOptions
     {
-        /// <summary>Specified if schema should be returned together with documents.</summary>
-        public bool IncludeSchemaInResponse { get; set; }
-        
         /// <summary>
         /// Used to get documents in specific translation.
         /// If not culture code is set, default language from project settings is used.

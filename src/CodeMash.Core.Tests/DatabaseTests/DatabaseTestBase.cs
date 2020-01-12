@@ -21,9 +21,9 @@ namespace CodeMash.Core.Tests
             };
             
             var response = Repository.InsertOne(entity);
-            InsertedRecords[TestContext.TestName + index] = response.Result.Id;
+            InsertedRecords[TestContext.TestName + index] = response.Id;
 
-            return response.Result;
+            return response;
         }
 
         public override void TearDown()

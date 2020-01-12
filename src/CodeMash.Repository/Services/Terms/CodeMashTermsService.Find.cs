@@ -136,7 +136,6 @@ namespace CodeMash.Repository
                 Projection = projection?.ProjectionToJson(),
                 PageSize = findOptions?.PageSize ?? 1000,
                 PageNumber = findOptions?.PageNumber ?? 0,
-                IncludeTaxonomy = findOptions?.IncludeTaxonomyInResponse ?? false,
                 CultureCode = findOptions?.CultureCode,
                 ExcludeCulture = findOptions?.ExcludeCulture ?? false,
             };
@@ -148,7 +147,7 @@ namespace CodeMash.Repository
             {
                 return new TermsFindResponse<T>()
                 {
-                    Result = new List<TermEntity<T>>()
+                    List = new List<TermEntity<T>>()
                 };
             }
 
@@ -170,8 +169,7 @@ namespace CodeMash.Repository
             
             return new TermsFindResponse<T>()
             {
-                Result = parsedTerms,
-                Taxonomy = clientResponse.Taxonomy,
+                List = parsedTerms,
                 TotalCount = clientResponse.TotalCount
             };
         }
