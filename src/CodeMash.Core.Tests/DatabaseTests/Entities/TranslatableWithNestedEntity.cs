@@ -4,7 +4,7 @@ using CodeMash.Repository;
 
 namespace CodeMash.Core.Tests
 {
-    [CollectionName("sdk-translatable-nested")]
+    [Collection("sdk-translatable-nested")]
     public class TranslatableWithNestedEntity : Entity
     {
         public string NonTranslatable { get; set; }

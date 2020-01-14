@@ -3,9 +3,9 @@ using System;
 namespace CodeMash.Models
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class Collection : Attribute
+    public class CollectionAttribute : Attribute
     {
-        public Collection(string value)
+        public CollectionAttribute(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
