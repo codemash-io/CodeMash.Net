@@ -8,10 +8,10 @@ namespace CodeMash.Core.Tests
     [CollectionName("sdk-attribute")]
     public class AttributeEntity : Entity
     {
-        [FieldName("field_1")]
+        [UniqueName("field_1")]
         public string Attribute1 { get; set; }
         
-        [FieldName("field_2")]
+        [UniqueName("field_2")]
         public int Attribute2 { get; set; }
         
         public int Attribute3 { get; set; }

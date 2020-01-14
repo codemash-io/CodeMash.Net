@@ -64,7 +64,6 @@ namespace CodeMash.Repository
                 Sort = sort?.SortToJson(),
                 PageSize = findOptions?.PageSize ?? 1000,
                 PageNumber = findOptions?.PageNumber ?? 0,
-                IncludeSchema = findOptions?.IncludeSchemaInResponse ?? false,
                 CultureCode = findOptions?.CultureCode
             };
 
@@ -73,15 +72,15 @@ namespace CodeMash.Repository
             {
                 return new DatabaseFindResponse<TP>()
                 {
-                    Result = new List<TP>()
+                    List = new List<TP>()
                 };
             }
 
             var list = JsonConverterHelper.DeserializeEntity<List<TP>>(clientResponse.Result, Client.Settings.CultureCode ?? findOptions?.CultureCode);
             return new DatabaseFindResponse<TP>()
             {
-                Result = list,
-                Schema = clientResponse.Schema
+                List = list,
+                TotalCount = clientResponse.TotalCount
             };
         }
         
@@ -141,7 +140,6 @@ namespace CodeMash.Repository
                 Sort = sort?.SortToJson(),
                 PageSize = findOptions?.PageSize ?? 1000,
                 PageNumber = findOptions?.PageNumber ?? 0,
-                IncludeSchema = findOptions?.IncludeSchemaInResponse ?? false,
                 CultureCode = findOptions?.CultureCode
             };
 
@@ -150,15 +148,15 @@ namespace CodeMash.Repository
             {
                 return new DatabaseFindResponse<TP>()
                 {
-                    Result = new List<TP>()
+                    List = new List<TP>()
                 };
             }
 
             var list = JsonConverterHelper.DeserializeEntity<List<TP>>(clientResponse.Result, Client.Settings.CultureCode ?? findOptions?.CultureCode);
             return new DatabaseFindResponse<TP>()
             {
-                Result = list,
-                Schema = clientResponse.Schema
+                List = list,
+                TotalCount = clientResponse.TotalCount
             };
         }
     }

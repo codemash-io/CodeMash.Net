@@ -114,7 +114,7 @@ namespace CodeMash.Repository
             var propName = prop.Name;
             if (!entity.ContainsKey(propName)) return;
             
-            var propAttr = prop.GetCustomAttribute<FieldNameAttribute>();
+            var propAttr = prop.GetCustomAttribute<UniqueNameAttribute>();
             var lowerNestedPropName = propName.ToLower();
                                     
             if (!string.IsNullOrEmpty(propAttr?.ElementName))

@@ -6,10 +6,8 @@ namespace CodeMash.Repository
 {
     public class TermsFindResponse<T>
     {
-        public List<TermEntity<T>> Result { get; set; }
+        public List<TermEntity<T>> List { get; set; }
         
         public long TotalCount { get; set; }
-        
-        public Taxonomy Taxonomy { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace CodeMash.Models
     public class Entity : IEntity
     {
         [BsonRepresentation(BsonType.ObjectId)]
-        [FieldName("_id")]
+        [UniqueName("_id")]
         public string Id { get; set; }
     }
 }

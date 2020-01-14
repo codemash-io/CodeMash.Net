@@ -12,7 +12,7 @@ namespace CodeMash.Repository
     public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
     {
         /* Insert Async */
-        public async Task<DatabaseInsertOneResponse<T>> InsertOneAsync(T entity, DatabaseInsertOneOptions insertOneOptions = null)
+        public async Task<T> InsertOneAsync(T entity, DatabaseInsertOneOptions insertOneOptions = null)
         {
             if (entity == null)
             {
@@ -34,19 +34,13 @@ namespace CodeMash.Repository
             var response = await Client.PostAsync<InsertOneResponse>(request);
             if (response?.Result == null)
             {
-                return new DatabaseInsertOneResponse<T>
-                {
-                    Result = default(T)
-                };
+                return default(T);
             }
 
-            return new DatabaseInsertOneResponse<T>
-            {
-                Result = JsonConverterHelper.DeserializeEntity<T>(response.Result, null)
-            };
+            return JsonConverterHelper.DeserializeEntity<T>(response.Result, null);
         }
         
-        public async Task<DatabaseInsertManyResponse> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
+        public async Task<bool> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
         {
             if (entities == null || !entities.Any())
             {
@@ -64,15 +58,12 @@ namespace CodeMash.Repository
             };
 
             var response = await Client.PostAsync<InsertManyResponse>(request);
-            return new DatabaseInsertManyResponse
-            {
-                Result = response.Result
-            };
+            return response.Result;
         }
 
         
         /* Insert */
-        public DatabaseInsertOneResponse<T> InsertOne(T entity, DatabaseInsertOneOptions insertOneOptions = null)
+        public T InsertOne(T entity, DatabaseInsertOneOptions insertOneOptions = null)
         {
             if (entity == null)
             {
@@ -94,19 +85,13 @@ namespace CodeMash.Repository
             var response = Client.Post<InsertOneResponse>(request);
             if (response?.Result == null)
             {
-                return new DatabaseInsertOneResponse<T>
-                {
-                    Result = default(T)
-                };
+                return default(T);
             }
 
-            return new DatabaseInsertOneResponse<T>
-            {
-                Result = JsonConverterHelper.DeserializeEntity<T>(response.Result, null)
-            };
+            return JsonConverterHelper.DeserializeEntity<T>(response.Result, null);
         }
         
-        public DatabaseInsertManyResponse InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
+        public bool InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
         {
             if (entities == null || !entities.Any())
             {
@@ -124,10 +109,7 @@ namespace CodeMash.Repository
             };
 
             var response = Client.Post<InsertManyResponse>(request);
-            return new DatabaseInsertManyResponse
-            {
-                Result = response.Result
-            };
+            return response.Result;
         }
     }
 }

@@ -5,8 +5,8 @@ namespace CodeMash.Repository
 {
     public class DatabaseFindResponse<T>
     {
-        public List<T> Result { get; set; }
+        public List<T> List { get; set; }
         
-        public Schema Schema { get; set; }
+        public long TotalCount { get; set; }
     }
 }

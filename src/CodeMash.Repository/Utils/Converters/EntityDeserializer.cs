@@ -28,7 +28,7 @@ namespace CodeMash.Repository
             var cultureCodeSet = !string.IsNullOrEmpty(_cultureCode);
             foreach (var property in _properties)
             {
-                var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
+                var propAttrs = property.GetCustomAttribute<UniqueNameAttribute>();
                 var propNameInitial = propAttrs?.ElementName ?? property.Name.ToLower();
                 
                 // Non nested translatable
@@ -67,7 +67,7 @@ namespace CodeMash.Repository
                             
                             foreach (var nestedProp in propertiesOfNestedItem)
                             {
-                                var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
+                                var nestedPropAttrs = nestedProp.GetCustomAttribute<UniqueNameAttribute>();
                                 var nestedPropNameInitial = nestedPropAttrs?.ElementName ?? nestedProp.Name.ToLower();
                                 
                                 // Nested translatable
