@@ -9,8 +9,8 @@ namespace CodeMash.Repository
         private static string GetCollectionNameFromInterface()
         {
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
-            var att = Attribute.GetCustomAttribute(typeof(T), typeof(CollectionName));
-            var collectionName = att != null ? ((CollectionName) att).Name : typeof(T).Name;
+            var att = Attribute.GetCustomAttribute(typeof(T), typeof(CollectionAttribute));
+            var collectionName = att != null ? ((CollectionAttribute) att).Name : typeof(T).Name;
 
             return collectionName;
         }
@@ -20,11 +20,11 @@ namespace CodeMash.Repository
             var collectionName = string.Empty;
 
             // Check to see if the object (inherited from Entity) has a CollectionName attribute
-            var customAttribute = Attribute.GetCustomAttribute(entityType, typeof(CollectionName));
+            var customAttribute = Attribute.GetCustomAttribute(entityType, typeof(CollectionAttribute));
             if (customAttribute != null)
             {
                 // It does! Return the value specified by the CollectionName attribute
-                collectionName = ((CollectionName) customAttribute).Name;
+                collectionName = ((CollectionAttribute) customAttribute).Name;
             }
             else
             {

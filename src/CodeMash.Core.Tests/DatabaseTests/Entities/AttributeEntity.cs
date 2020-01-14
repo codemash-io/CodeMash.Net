@@ -5,13 +5,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace CodeMash.Core.Tests
 {
-    [CollectionName("sdk-attribute")]
+    [Collection("sdk-attribute")]
     public class AttributeEntity : Entity
     {
-        [UniqueName("field_1")]
+        [Field("field_1")]
         public string Attribute1 { get; set; }
         
-        [UniqueName("field_2")]
+        [Field("field_2")]
         public int Attribute2 { get; set; }
         
         public int Attribute3 { get; set; }

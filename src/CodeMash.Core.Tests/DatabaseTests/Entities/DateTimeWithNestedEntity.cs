@@ -5,7 +5,7 @@ using CodeMash.Repository;
 
 namespace CodeMash.Core.Tests
 {
-    [CollectionName("sdk-datetime-nested")]
+    [Collection("sdk-datetime-nested")]
     public class DateTimeWithNestedEntity : Entity
     {
         public DateTime NonNested { get; set; }

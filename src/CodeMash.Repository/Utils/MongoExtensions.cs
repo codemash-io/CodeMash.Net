@@ -30,5 +30,11 @@ namespace CodeMash.Repository
             var documentSerializer = BsonSerializer.SerializerRegistry.GetSerializer<T>();
             return sort.Render(documentSerializer, BsonSerializer.SerializerRegistry).ToString();
         }
+        
+        public static string UpdateToJson<T>(this UpdateDefinition<T> update)
+        {
+            var documentSerializer = BsonSerializer.SerializerRegistry.GetSerializer<T>();
+            return update.Render(documentSerializer, BsonSerializer.SerializerRegistry).ToString();
+        }
     }
 }

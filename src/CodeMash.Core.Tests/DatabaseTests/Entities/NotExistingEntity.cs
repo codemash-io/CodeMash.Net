@@ -2,7 +2,7 @@ using CodeMash.Models;
 
 namespace CodeMash.Core.Tests
 {
-    [CollectionName("not-existing-entity")]
+    [Collection("not-existing-entity")]
     public class NotExistingEntity : Entity
     {
     }

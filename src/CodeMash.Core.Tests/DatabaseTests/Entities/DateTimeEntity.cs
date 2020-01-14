@@ -5,7 +5,7 @@ using CodeMash.Repository;
 
 namespace CodeMash.Core.Tests
 {
-    [CollectionName("sdk-datetime")]
+    [Collection("sdk-datetime")]
     public class DateTimeEntity : Entity
     {
         public DateTime DateTimeField { get; set; }
