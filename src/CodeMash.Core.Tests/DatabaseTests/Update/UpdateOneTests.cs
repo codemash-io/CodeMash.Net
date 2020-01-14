@@ -8,7 +8,7 @@ using ServiceStack;
 namespace CodeMash.Core.Tests
 {
     [TestClass]
-    public class ReplaceOneTests : DatabaseTestBase
+    public class UpdateOneTests : DatabaseTestBase
     {
         
         [TestInitialize]
