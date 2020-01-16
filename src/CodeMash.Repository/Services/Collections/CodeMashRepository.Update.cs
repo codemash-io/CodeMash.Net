@@ -85,7 +85,7 @@ namespace CodeMash.Repository
             {
                 CollectionName = GetCollectionName(),
                 Filter = filter?.FilterToJson(),
-                Update = update.UpdateToJson(),
+                Update = update?.UpdateToJson(),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
             };
         }
