@@ -1,4 +1,8 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using System;
+using System.IO;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace CodeMash.Repository
@@ -34,7 +38,9 @@ namespace CodeMash.Repository
         public static string UpdateToJson<T>(this UpdateDefinition<T> update)
         {
             var documentSerializer = BsonSerializer.SerializerRegistry.GetSerializer<T>();
-            return update.Render(documentSerializer, BsonSerializer.SerializerRegistry).ToString();
+            var bson = update.Render(documentSerializer, BsonSerializer.SerializerRegistry);
+            
+            return bson.ToJson(new JsonWriterSettings { OutputMode = JsonOutputMode.Strict });
         }
     }
 }
