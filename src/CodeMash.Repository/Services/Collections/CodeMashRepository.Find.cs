@@ -72,14 +72,14 @@ namespace CodeMash.Repository
             {
                 return new DatabaseFindResponse<TP>()
                 {
-                    List = new List<TP>()
+                    Items = new List<TP>()
                 };
             }
 
             var list = JsonConverterHelper.DeserializeEntity<List<TP>>(clientResponse.Result, Client.Settings.CultureCode ?? findOptions?.CultureCode);
             return new DatabaseFindResponse<TP>()
             {
-                List = list,
+                Items = list,
                 TotalCount = clientResponse.TotalCount
             };
         }
@@ -148,14 +148,14 @@ namespace CodeMash.Repository
             {
                 return new DatabaseFindResponse<TP>()
                 {
-                    List = new List<TP>()
+                    Items = new List<TP>()
                 };
             }
 
             var list = JsonConverterHelper.DeserializeEntity<List<TP>>(clientResponse.Result, Client.Settings.CultureCode ?? findOptions?.CultureCode);
             return new DatabaseFindResponse<TP>()
             {
-                List = list,
+                Items = list,
                 TotalCount = clientResponse.TotalCount
             };
         }
