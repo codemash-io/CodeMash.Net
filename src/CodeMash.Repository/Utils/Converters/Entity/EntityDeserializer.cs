@@ -87,24 +87,11 @@ namespace CodeMash.Repository
                                     }
                                 }
                                 
-                                /*
-                                if (entityNestedObject.ContainsKey(nestedPropNameInitial) && nestedPropNameInitial != nestedProp.Name)
-                                {
-                                    entityNestedObject.Add(new JProperty(nestedProp.Name, entityNestedObject[nestedPropNameInitial]));
-                                    entityNestedObject.Remove(nestedPropNameInitial);
-                                }*/
                                 RenameProperty(entityNestedObject, nestedProp, nestedPropNameInitial);
                             }
                         }
                     }
                 }
-                
-                /*
-                if (entity.ContainsKey(propNameInitial) && property.Name != propNameInitial)
-                {
-                    entity.Add(new JProperty(property.Name, entity[propNameInitial]));
-                    entity.Remove(propNameInitial);
-                }*/
 
                 RenameProperty(entity, property, propNameInitial);
             }

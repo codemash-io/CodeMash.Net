@@ -62,30 +62,6 @@ namespace CodeMash.Repository
                                         entityNestedObject[nestedPropName].Replace(new JValue(DateTimeHelpers.DateTimeToUnixTimestamp(entityNestedObject[nestedPropName].ToObject<DateTime>())));
                                     }
                                 }
-
-                                /*
-                                if (entityNestedObject.ContainsKey(nestedPropName))
-                                {
-                                    var nestedPropAttrs = nestedProp.GetCustomAttribute<FieldNameAttribute>();
-                                    var lowerNestedPropName = nestedPropName.ToLower();
-                                    
-                                    if (!string.IsNullOrEmpty(nestedPropAttrs?.ElementName))
-                                    {
-                                        if (nestedPropAttrs.ElementName != lowerNestedPropName)
-                                        {
-                                            entityNestedObject.Add(new JProperty(nestedPropAttrs.ElementName, entityNestedObject[nestedPropName]));
-                                            entityNestedObject.Remove(nestedPropName);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (nestedPropName != lowerNestedPropName)
-                                        {
-                                            entityNestedObject.Add(new JProperty(lowerNestedPropName, entityNestedObject[nestedPropName]));
-                                            entityNestedObject.Remove(nestedPropName);
-                                        }
-                                    }
-                                }*/
                                 
                                 RenameProperty(entityNestedObject, nestedProp);
                                 
@@ -93,17 +69,6 @@ namespace CodeMash.Repository
                         }
                     }
                 }
-                
-                /*
-                if (entity.ContainsKey(propName))
-                {
-                    var propAttrs = property.GetCustomAttribute<FieldNameAttribute>();
-                    if (!string.IsNullOrEmpty(propAttrs?.ElementName) && propAttrs.ElementName != propName)
-                    {
-                        entity.Add(new JProperty(propAttrs.ElementName ?? propName, entity[propName]));
-                        entity.Remove(propName);
-                    }
-                }*/
 
                 RenameProperty(entity, property);
             }
