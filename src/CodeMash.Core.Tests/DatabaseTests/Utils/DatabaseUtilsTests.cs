@@ -239,5 +239,30 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(dateObjects[1].NonNested, deserialized[1].NonNested);
             Assert.AreEqual(dateObjects[0].NestedDateTime[0].DateTimeField, deserialized[0].NestedDateTime[0].DateTimeField);
         }
+        
+        [TestMethod]
+        public void Can_serialize_date_in_filter()
+        {
+            var dateFilter = Builders<DateTimeEntity>.Filter.And(
+                Builders<DateTimeEntity>.Filter.Gt(x => x.DateTimeField, DateTime.Now),
+                Builders<DateTimeEntity>.Filter.Lte(x => x.DateTimeField, DateTime.Now.AddDays(1))
+            );
+            var parsedFilter = dateFilter.FilterToJson();
+            
+            Assert.IsTrue(parsedFilter.Contains("NumberLong"));
+            Assert.IsTrue(!parsedFilter.Contains("ISODate"));
+        }
+        
+        [TestMethod]
+        public void Can_serialize_date_in_update()
+        {
+            var updateFilter = Builders<DateTimeWithNestedEntity>.Update
+                .Set(x => x.NonNested, DateTime.Now)
+                .Set(x => x.NestedDateTime[0].DateTimeField, DateTime.Now);
+            var parsedUpdate = updateFilter.UpdateToJson();
+            
+            Assert.IsTrue(parsedUpdate.Contains("NumberLong"));
+            Assert.IsTrue(!parsedUpdate.Contains("ISODate"));
+        }
     }
 }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using CodeMash.Models;
 using CodeMash.Repository;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace CodeMash.Core.Tests
 {
