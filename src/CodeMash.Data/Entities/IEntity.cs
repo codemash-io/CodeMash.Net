@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 
 namespace CodeMash.Models
 {
@@ -7,6 +8,7 @@ namespace CodeMash.Models
     {
         [BsonRepresentation(BsonType.ObjectId)]
         [Field("_id")]
+        [JsonProperty("_id")]
         string Id { get; set; }
     }
 }
