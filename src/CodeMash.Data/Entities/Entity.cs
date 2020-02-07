@@ -8,6 +8,7 @@ namespace CodeMash.Models
     {
         [BsonRepresentation(BsonType.ObjectId)]
         [Field("_id")]
+        [JsonProperty("_id")]
         public string Id { get; set; }
     }
 }
