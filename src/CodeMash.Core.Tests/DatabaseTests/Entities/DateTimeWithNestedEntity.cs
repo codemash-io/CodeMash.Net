@@ -10,6 +10,8 @@ namespace CodeMash.Core.Tests
     {
         public DateTime NonNested { get; set; }
         
+        public DateTime NonNested2 { get; set; }
+        
         public List<DateTimeEntity> NestedDateTime { get; set; }
     }
 }
