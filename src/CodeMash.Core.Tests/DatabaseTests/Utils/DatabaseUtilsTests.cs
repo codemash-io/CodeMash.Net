@@ -264,5 +264,22 @@ namespace CodeMash.Core.Tests
             Assert.IsTrue(parsedUpdate.Contains("NumberLong"));
             Assert.IsTrue(!parsedUpdate.Contains("ISODate"));
         }
+        
+        [TestMethod]
+        public void Can_serialize_date_in_update_from_any_kind()
+        {
+            var unspecified = new DateTime(2017, 8, 12);
+            var local = DateTime.SpecifyKind(unspecified, DateTimeKind.Local);
+            var utc = DateTime.SpecifyKind(unspecified, DateTimeKind.Utc);
+            
+            var updateFilter = Builders<DateTimeWithNestedEntity>.Update
+                .Set(x => x.NonNested, unspecified)
+                .Set(x => x.NonNested2, utc)
+                .Set(x => x.NestedDateTime[0].DateTimeField, local);
+            var parsedUpdate = updateFilter.UpdateToJson();
+            
+            Assert.IsTrue(parsedUpdate.Contains("NumberLong"));
+            Assert.IsTrue(!parsedUpdate.Contains("ISODate"));
+        }
     }
 }
