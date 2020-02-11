@@ -29,6 +29,7 @@ namespace CodeMash.Repository
             foreach (var property in _properties)
             {
                 var propAttrs = property.GetCustomAttribute<FieldAttribute>();
+                var jsonPropAttrIsSet = property.GetCustomAttribute<JsonPropertyAttribute>() != null; // Don't rename if this is set
                 var propNameInitial = propAttrs?.ElementName ?? property.Name.ToLower();
                 
                 // Non nested translatable
@@ -87,18 +88,20 @@ namespace CodeMash.Repository
                                     }
                                 }
                                 
-                                RenameProperty(entityNestedObject, nestedProp, nestedPropNameInitial);
+                                RenameProperty(entityNestedObject, nestedProp, nestedPropNameInitial, jsonPropAttrIsSet);
                             }
                         }
                     }
                 }
 
-                RenameProperty(entity, property, propNameInitial);
+                RenameProperty(entity, property, propNameInitial, jsonPropAttrIsSet);
             }
         }
 
-        private void RenameProperty(JObject entity, PropertyInfo prop, string propNameInitial)
+        private void RenameProperty(JObject entity, PropertyInfo prop, string propNameInitial, bool jsonPropAttrIsSet)
         {
+            if (jsonPropAttrIsSet) return;
+            
             var propName = prop.Name;
             if (!entity.ContainsKey(propNameInitial)) return;
             
