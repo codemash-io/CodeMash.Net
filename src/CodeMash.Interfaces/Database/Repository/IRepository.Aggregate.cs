@@ -1,19 +1,19 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeMash.Models;
-using CodeMash.Repository;
-using MongoDB.Driver;
+using AggregateOptions = CodeMash.Repository.AggregateOptions;
 
 namespace CodeMash.Interfaces.Database.Repository
 {
     public partial interface IRepository<T> where T : IEntity
     {
         /* Aggregate Async */
-        Task<List<TA>> AggregateAsync<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions aggregateOptions);
+        Task<List<TA>> AggregateAsync<TA>(Guid aggregateId, AggregateOptions aggregateOptions = null);
         
         
         
         /* Aggregate */
-        List<TA> Aggregate<TA>(PipelineDefinition<T, TA> aggregation, AggregateOptions aggregateOptions);
+        List<TA> Aggregate<TA>(Guid aggregateId, AggregateOptions aggregateOptions = null);
     }
 }
