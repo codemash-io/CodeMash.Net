@@ -44,7 +44,7 @@ namespace CodeMash.Repository
                 return new List<TA>();
             }
 
-            return JsonConverterHelper.DeserializeEntity<List<TA>>(response.Result, null);
+            return JsonConverterHelper.DeserializeAggregate<List<TA>>(response.Result);
         }
     }
 }

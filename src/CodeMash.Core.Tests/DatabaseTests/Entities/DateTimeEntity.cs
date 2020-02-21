@@ -12,4 +12,9 @@ namespace CodeMash.Core.Tests
     {
         public DateTime DateTimeField { get; set; }
     }
+    
+    public class DateTimeNonEntity
+    {
+        public DateTime DateTimeField { get; set; }
+    }
 }

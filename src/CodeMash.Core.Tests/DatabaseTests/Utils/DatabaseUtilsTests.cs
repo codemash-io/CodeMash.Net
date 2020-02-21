@@ -174,9 +174,9 @@ namespace CodeMash.Core.Tests
             {
                 Id = "123",
                 NonNested =  DateTimeHelpers.DateTimeFromUnixTimestamp(timeStamp1),
-                NestedDateTime = new List<DateTimeEntity>
+                NestedDateTime = new List<DateTimeNonEntity>
                 {
-                    new DateTimeEntity { DateTimeField = DateTimeHelpers.DateTimeFromUnixTimestamp(timeStamp2) }
+                    new DateTimeNonEntity { DateTimeField = DateTimeHelpers.DateTimeFromUnixTimestamp(timeStamp2) }
                 }
             };
             
@@ -219,9 +219,9 @@ namespace CodeMash.Core.Tests
                 {
                     Id = "123",
                     NonNested =  DateTimeHelpers.DateTimeFromUnixTimestamp(timeStamp1),
-                    NestedDateTime = new List<DateTimeEntity>
+                    NestedDateTime = new List<DateTimeNonEntity>
                     {
-                        new DateTimeEntity { DateTimeField = DateTimeHelpers.DateTimeFromUnixTimestamp(timeStamp2) }
+                        new DateTimeNonEntity { DateTimeField = DateTimeHelpers.DateTimeFromUnixTimestamp(timeStamp2) }
                     }
                 },
                 new DateTimeWithNestedEntity
@@ -280,6 +280,82 @@ namespace CodeMash.Core.Tests
             
             Assert.IsTrue(parsedUpdate.Contains("NumberLong"));
             Assert.IsTrue(!parsedUpdate.Contains("ISODate"));
+        }
+        
+        [TestMethod]
+        public void Can_deserialize_aggregate()
+        {
+            var timeStamp1 = 1579719600000;
+            var dateTime = DateTimeHelpers.DateTimeFromUnixTimestamp(timeStamp1);
+            var jsonSdkObject = new JObject(
+                new JProperty("field_1", "f1"),
+                new JProperty("field_2", "f2"),
+                new JProperty("single", new JObject(
+                        new JProperty("d", timeStamp1),
+                        new JProperty("t", "t1"),
+                        new JProperty("n", new JObject(
+                            new JProperty("d", timeStamp1),
+                            new JProperty("t", "t2"),
+                            new JProperty("n", new JObject(
+                                new JProperty("d", timeStamp1),
+                                new JProperty("t", "t3")
+                            ))
+                        ))
+                    )),
+                new JProperty("multi", new JArray(
+                    new JObject(
+                        new JProperty("d", timeStamp1),
+                        new JProperty("t", "t1"),
+                        new JProperty("n", new JObject(
+                            new JProperty("d", timeStamp1),
+                            new JProperty("t", "t2"),
+                            new JProperty("n", new JObject(
+                                new JProperty("d", timeStamp1),
+                                new JProperty("t", "t3")
+                            ))
+                        ))
+                    ),
+                    new JObject(
+                        new JProperty("d", timeStamp1),
+                        new JProperty("t", "t1"),
+                        new JProperty("n", new JObject(
+                            new JProperty("d", timeStamp1),
+                            new JProperty("t", "t2"),
+                            new JProperty("n", new JObject(
+                                new JProperty("d", timeStamp1),
+                                new JProperty("t", "t3")
+                            ))
+                        ))
+                    )
+                ))
+            );
+            
+            var jAggregateArray = new JArray { jsonSdkObject };
+            var deserialized = JsonConverterHelper.DeserializeAggregate<List<AggregateProjection>>(jAggregateArray.ToString());
+            
+            Assert.AreEqual(deserialized[0].Attribute1, "f1");
+            Assert.AreEqual(deserialized[0].Attribute2, "f2");
+            
+            Assert.AreEqual(deserialized[0].Single.Text, "t1");
+            Assert.AreEqual(deserialized[0].Single.Date, dateTime);
+            Assert.AreEqual(deserialized[0].Single.Nest.Text, "t2");
+            Assert.AreEqual(deserialized[0].Single.Nest.Date, dateTime);
+            Assert.AreEqual(deserialized[0].Single.Nest.Nest.Text, "t3");
+            Assert.AreEqual(deserialized[0].Single.Nest.Nest.Date, dateTime);
+            
+            Assert.AreEqual(deserialized[0].Multi[0].Text, "t1");
+            Assert.AreEqual(deserialized[0].Multi[0].Date, dateTime);
+            Assert.AreEqual(deserialized[0].Multi[0].Nest.Text, "t2");
+            Assert.AreEqual(deserialized[0].Multi[0].Nest.Date, dateTime);
+            Assert.AreEqual(deserialized[0].Multi[0].Nest.Nest.Text, "t3");
+            Assert.AreEqual(deserialized[0].Multi[0].Nest.Nest.Date, dateTime);
+            
+            Assert.AreEqual(deserialized[0].Multi[1].Text, "t1");
+            Assert.AreEqual(deserialized[0].Multi[1].Date, dateTime);
+            Assert.AreEqual(deserialized[0].Multi[1].Nest.Text, "t2");
+            Assert.AreEqual(deserialized[0].Multi[1].Nest.Date, dateTime);
+            Assert.AreEqual(deserialized[0].Multi[1].Nest.Nest.Text, "t3");
+            Assert.AreEqual(deserialized[0].Multi[1].Nest.Nest.Date, dateTime);
         }
     }
 }

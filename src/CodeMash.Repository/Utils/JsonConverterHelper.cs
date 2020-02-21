@@ -29,6 +29,16 @@ namespace CodeMash.Repository
             return JsonConvert.DeserializeObject<T>(json, new EntityConverter<T>(cultureCode));
         }
         
+        public static T DeserializeAggregate<T>(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return default(T);
+            }
+            
+            return JsonConvert.DeserializeObject<T>(json, new AggregateConverter<T>());
+        }
+        
         public static string ReplaceIsoDateToLong(string input, bool addNumberLong = false)
         {
             var isoDatePattern = "(new )?(ISODate\\((\"|\'))(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d(\\.\\d+)?([+-][0-2]\\d:[0-5]\\d|Z))((\"|\')\\))";
