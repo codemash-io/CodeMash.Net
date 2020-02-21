@@ -16,10 +16,10 @@ namespace CodeMash.Core.Tests
     }
     public class NestedWithReference
     {
-        [Field("singleRef")]
+        [Field("singleref")]
         public ReferencingEntity NestedSingleRef { get; set; }
         
-        [Field("multiRef")]
+        [Field("multiref")]
         public List<ReferencingEntity> NestedMultiRef { get; set; }
     }
 }

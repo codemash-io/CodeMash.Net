@@ -14,17 +14,28 @@ namespace CodeMash.Core.Tests
         [Field("text")]
         public string Text { get; set; }
         
-        [Field("singleRef")]
-        public SingleReferenceEntity SingleRef { get; set; }
+        [Field("singleref")]
+        public ReferencedEntity SingleRef { get; set; }
         
-        [Field("multiRef")]
-        public List<MultiReferenceEntity> MultiRef { get; set; }
+        [Field("multiref")]
+        public List<ReferencedEntity> MultiRef { get; set; }
+        
+        [Field("singletaxref")]
+        public TermEntity<ReferencedTermMeta> SingleTaxRef { get; set; }
+        
+        [Field("multitaxref")]
+        public List<TermEntity<ReferencedTermMeta>> MultiTaxRef { get; set; }
+        
+        [Field("files")]
+        public List<FileEntity> Files { get; set; }
     }
 
-    public class SingleReferenceEntity : Entity
+    public class ReferencedEntity : Entity
     {
+        [Field("date")]
         public DateTime Date { get; set; }
         
+        [Field("nested")]
         public List<NestedInReferenced> Nested { get; set; }
     }
     
@@ -37,10 +48,9 @@ namespace CodeMash.Core.Tests
         public int Number { get; set; }
     }
     
-    public class MultiReferenceEntity : Entity
+    public class ReferencedTermMeta
     {
-        public DateTime Date { get; set; }
-        
-        public List<NestedInReferenced> Nested { get; set; }
+        [Field("text")]
+        public string Text { get; set; }
     }
 }

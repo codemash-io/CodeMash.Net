@@ -48,6 +48,11 @@ namespace CodeMash.Repository
                         entity[propNameInitial].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entity[propNameInitial])));
                     }
                 }
+                // For terms, if Meta is got as object but it should be string
+                else if (property.PropertyType == typeof(string) && entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.Object)
+                {
+                    entity[propNameInitial].Replace(new JValue(entity[propNameInitial].ToString()));
+                }
                 // Reference when not referencing, set ID even if using object
                 else if (property.PropertyType.GetInterfaces().Contains(typeof(IEntity)))
                 {
@@ -58,6 +63,7 @@ namespace CodeMash.Repository
                     else if (entity[propNameInitial] is JObject referencedNestedObject)
                     {
                         var properties = property.PropertyType.GetProperties();
+                        ReplaceIdWithUnderscore(referencedNestedObject);
                         FormEntityForDeserialize(referencedNestedObject, properties);
                     }
                 }
@@ -92,7 +98,9 @@ namespace CodeMash.Repository
                                 var arrayLength = entityNestedArray.Count;
                                 for (var i = 0; i < arrayLength; i++)
                                 {
-                                    FormEntityForDeserialize((JObject)entityNestedArray[i], propertiesOfNestedItem);
+                                    var entityNestedArrayObject = (JObject) entityNestedArray[i];
+                                    ReplaceIdWithUnderscore(entityNestedArrayObject);
+                                    FormEntityForDeserialize(entityNestedArrayObject, propertiesOfNestedItem);
                                 }
                             }
                         }
@@ -120,6 +128,7 @@ namespace CodeMash.Repository
                                         else if (entityNestedObject[nestedPropNameInitial] is JObject referencedNestedObject)
                                         {
                                             var properties = nestedProp.PropertyType.GetProperties();
+                                            ReplaceIdWithUnderscore(referencedNestedObject);
                                             FormEntityForDeserialize(referencedNestedObject, properties);
                                         }
                                         
@@ -131,10 +140,10 @@ namespace CodeMash.Repository
                                     {
                                         var multiRefListItemType = nestedProp.PropertyType.GetGenericArguments().FirstOrDefault();
 
-                                        if (multiRefListItemType.GetInterfaces().Contains(typeof(IEntity)) && 
+                                        if (multiRefListItemType != null && multiRefListItemType.GetInterfaces().Contains(typeof(IEntity)) && 
                                             entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.Array)
                                         {
-                                            var multiRefPropertiesOfNestedItem = multiRefListItemType?.GetProperties();
+                                            var multiRefPropertiesOfNestedItem = multiRefListItemType.GetProperties();
                                             var multiRefEntityNestedArray = (JArray) entityNestedObject[nestedPropNameInitial];
                                             
                                             if (multiRefEntityNestedArray.Count > 0)
@@ -154,7 +163,9 @@ namespace CodeMash.Repository
                                                     var arrayLength = multiRefEntityNestedArray.Count;
                                                     for (var i = 0; i < arrayLength; i++)
                                                     {
-                                                        FormEntityForDeserialize((JObject)multiRefEntityNestedArray[i], multiRefPropertiesOfNestedItem);
+                                                        var multiRefEntityNestedArrayObject = (JObject) multiRefEntityNestedArray[i];
+                                                        ReplaceIdWithUnderscore(multiRefEntityNestedArrayObject);
+                                                        FormEntityForDeserialize(multiRefEntityNestedArrayObject, multiRefPropertiesOfNestedItem);
                                                     }
                                                 }
                                             }
@@ -180,6 +191,11 @@ namespace CodeMash.Repository
                                             entityNestedObject[nestedPropNameInitial].Replace(new JValue(DateTimeHelpers.DateTimeFromUnixTimestamp((long)entityNestedObject[nestedPropNameInitial])));
                                         }
                                     }
+                                    // For terms, if Meta is got as object but it should be string
+                                    else if (property.PropertyType == typeof(string) && entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.Object)
+                                    {
+                                        entityNestedObject[nestedPropNameInitial].Replace(new JValue(entityNestedObject[nestedPropNameInitial].ToString()));
+                                    }
                                     
                                     RenameProperty(entityNestedObject, nestedProp, nestedPropNameInitial, jsonPropAttrIsSet);
                                 }
@@ -193,6 +209,15 @@ namespace CodeMash.Repository
             }
         }
 
+        private void ReplaceIdWithUnderscore(JObject entity)
+        {                  
+            if (entity.ContainsKey("id") && !entity.ContainsKey("_id"))
+            {
+                entity.Add(new JProperty("_id", entity["id"].ToString()));
+                entity.Remove("id");
+            }
+        }
+        
         private void RenameProperty(JObject entity, PropertyInfo prop, string propNameInitial, bool jsonPropAttrIsSet)
         {
             if (jsonPropAttrIsSet) return;

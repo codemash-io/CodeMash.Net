@@ -32,6 +32,14 @@ namespace CodeMash.Repository
                         entity[propName].Replace(new JValue(DateTimeHelpers.DateTimeToUnixTimestamp(entity[propName].ToObject<DateTime>())));
                     }
                 }
+                // Reference when not referencing, set ID even if using object
+                else if (property.PropertyType.GetInterfaces().Contains(typeof(IEntity)))
+                {
+                    if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.Object)
+                    {
+                        entity[propName].Replace(new JValue(entity[propName]["_id"]?.ToString() ?? entity[propName]["id"]?.ToString()));
+                    }
+                }
                 // Nested
                 else if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
                 {
@@ -45,26 +53,78 @@ namespace CodeMash.Repository
                     {
                         var entityNestedArray = (JArray) entity[propName];
 
-                        foreach (var entityNestedItem in entityNestedArray)
+                        if (listItemType.GetInterfaces().Contains(typeof(IEntity)) && entityNestedArray.Count > 0)
                         {
-                            if (entityNestedItem.Type != JTokenType.Object) continue;
-                            var entityNestedObject = (JObject) entityNestedItem;
-                            
-                            foreach (var nestedProp in propertiesOfNestedItem)
+                            if (entityNestedArray[0].Type == JTokenType.Object)
                             {
-                                var nestedPropName = nestedProp.Name;
-                                
-                                // Nested date time
-                                if (nestedProp.PropertyType == typeof(DateTime))
+                                var arrayLength = entityNestedArray.Count;
+                                for (var i = 0; i < arrayLength; i++)
                                 {
-                                    if (entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.Date)
-                                    {
-                                        entityNestedObject[nestedPropName].Replace(new JValue(DateTimeHelpers.DateTimeToUnixTimestamp(entityNestedObject[nestedPropName].ToObject<DateTime>())));
-                                    }
+                                    entityNestedArray[i].Replace(new JValue(entityNestedArray[i]["_id"]?.ToString() ?? entityNestedArray[i]["id"]?.ToString()));
                                 }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var entityNestedItem in entityNestedArray)
+                            {
+                                if (entityNestedItem.Type != JTokenType.Object) continue;
+                                var entityNestedObject = (JObject) entityNestedItem;
+                            
+                                foreach (var nestedProp in propertiesOfNestedItem)
+                                {
+                                    var nestedPropName = nestedProp.Name;
                                 
-                                RenameProperty(entityNestedObject, nestedProp);
+                                    // If this property is a single reference
+                                    if (nestedProp.PropertyType.GetInterfaces().Contains(typeof(IEntity)))
+                                    {
+                                        // When not referencing
+                                        if (entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.Object)
+                                        {
+                                            entityNestedObject[nestedPropName].Replace(new JValue(entityNestedObject[nestedPropName]["_id"]?.ToString() ?? entityNestedObject[nestedPropName]["id"]?.ToString()));
+                                        }
+                                        
+                                        RenameProperty(entityNestedObject, nestedProp);
+                                        continue;
+                                    }
+                                    // If this property is a multi reference
+                                    if (nestedProp.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
+                                    {
+                                        var multiRefListItemType = nestedProp.PropertyType.GetGenericArguments().FirstOrDefault();
+
+                                        if (multiRefListItemType != null && multiRefListItemType.GetInterfaces().Contains(typeof(IEntity)) && 
+                                            entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.Array)
+                                        {
+                                            var multiRefEntityNestedArray = (JArray) entityNestedObject[nestedPropName];
+                                            if (multiRefEntityNestedArray.Count > 0)
+                                            {
+                                                if (multiRefEntityNestedArray[0].Type == JTokenType.Object)
+                                                {
+                                                    var arrayLength = multiRefEntityNestedArray.Count;
+                                                    for (var i = 0; i < arrayLength; i++)
+                                                    {
+                                                        multiRefEntityNestedArray[i].Replace(new JValue(multiRefEntityNestedArray[i]["_id"].ToString() ?? multiRefEntityNestedArray[i]["id"].ToString()));
+                                                    }
+                                                }
+                                            }
+                                            
+                                            RenameProperty(entityNestedObject, nestedProp);
+                                            continue;
+                                        }
+                                    }
+                                    
+                                    // Nested date time
+                                    if (nestedProp.PropertyType == typeof(DateTime))
+                                    {
+                                        if (entityNestedObject.ContainsKey(nestedPropName) && entityNestedObject[nestedPropName].Type == JTokenType.Date)
+                                        {
+                                            entityNestedObject[nestedPropName].Replace(new JValue(DateTimeHelpers.DateTimeToUnixTimestamp(entityNestedObject[nestedPropName].ToObject<DateTime>())));
+                                        }
+                                    }
                                 
+                                    RenameProperty(entityNestedObject, nestedProp);
+                                
+                                }
                             }
                         }
                     }
