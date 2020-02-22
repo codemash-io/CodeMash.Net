@@ -12,7 +12,7 @@ using ServiceStack;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashTermsService : ITermService
+    public partial class CodeMashTermsService
     {
         public async Task<TermsFindResponse<T>> FindAsync<T>(string taxonomyName, Expression<Func<TermEntity<T>, bool>> filter, TermsFindOptions findOptions = null)
         {
@@ -64,11 +64,36 @@ namespace CodeMash.Repository
 
             return FormResponse<T>(request, clientResponse, findOptions);
         }
-        
-        
-        
-        
-        
+
+        public async Task<TermsFindResponse> FindAsync(string taxonomyName, Expression<Func<TermEntity, bool>> filter, TermsFindOptions findOptions = null)
+        {
+            if (filter == null)
+            {
+                filter = _ => true;
+            }
+
+            return await FindAsync(taxonomyName, new ExpressionFilterDefinition<TermEntity>(filter), null, findOptions);
+        }
+
+        public async Task<TermsFindResponse> FindAsync(string taxonomyName, FilterDefinition<TermEntity> filter, TermsFindOptions findOptions = null)
+        {
+            return await FindAsync(taxonomyName, filter, null, findOptions);
+        }
+
+        public async Task<TermsFindResponse> FindAsync(string taxonomyName, Expression<Func<TermEntity, bool>> filter, SortDefinition<TermEntity> sort, TermsFindOptions findOptions = null)
+        {
+            return filter == null
+                ? await FindAsync(taxonomyName, null, sort, findOptions)
+                : await FindAsync(taxonomyName, new ExpressionFilterDefinition<TermEntity>(filter), sort, findOptions);
+        }
+
+        public async Task<TermsFindResponse> FindAsync(string taxonomyName, FilterDefinition<TermEntity> filter, SortDefinition<TermEntity> sort, TermsFindOptions findOptions = null)
+        {
+            var request = FormRequest(taxonomyName, filter, sort, findOptions);
+            var clientResponse = await Client.GetAsync<FindTermsResponse>(request);
+            return FormResponse(request, clientResponse, findOptions);
+        }
+
 
         public TermsFindResponse<T> Find<T>(string taxonomyName, Expression<Func<TermEntity<T>, bool>> filter, TermsFindOptions findOptions = null)
         {
@@ -121,9 +146,38 @@ namespace CodeMash.Repository
 
             return FormResponse<T>(request, clientResponse, findOptions);
         }
-        
-        
-        
+
+        public TermsFindResponse Find(string taxonomyName, Expression<Func<TermEntity, bool>> filter, TermsFindOptions findOptions = null)
+        {
+            if (filter == null)
+            {
+                filter = _ => true;
+            }
+
+            return Find(taxonomyName, new ExpressionFilterDefinition<TermEntity>(filter), null, findOptions);
+        }
+
+        public TermsFindResponse Find(string taxonomyName, FilterDefinition<TermEntity> filter, TermsFindOptions findOptions = null)
+        {
+            return Find(taxonomyName, filter, null, findOptions);
+        }
+
+        public TermsFindResponse Find(string taxonomyName, Expression<Func<TermEntity, bool>> filter, SortDefinition<TermEntity> sort,
+            TermsFindOptions findOptions = null)
+        {
+            return filter == null
+                ? Find(taxonomyName, null, sort, findOptions)
+                : Find(taxonomyName, new ExpressionFilterDefinition<TermEntity>(filter), sort, findOptions);
+        }
+
+        public TermsFindResponse Find(string taxonomyName, FilterDefinition<TermEntity> filter, SortDefinition<TermEntity> sort,
+            TermsFindOptions findOptions = null)
+        {
+            var request = FormRequest(taxonomyName, filter, sort, findOptions);
+            var clientResponse = Client.Get<FindTermsResponse>(request);
+            return FormResponse(request, clientResponse, findOptions);
+        }
+
 
         private FindTermsRequest FormRequest<T>(string taxonomyName, FilterDefinition<TermEntity<T>> filter, ProjectionDefinition<T, T> projection,
             SortDefinition<TermEntity<T>> sort, TermsFindOptions findOptions = null)
@@ -147,7 +201,7 @@ namespace CodeMash.Repository
             {
                 return new TermsFindResponse<T>()
                 {
-                    List = new List<TermEntity<T>>()
+                    Items = new List<TermEntity<T>>()
                 };
             }
 
@@ -169,7 +223,48 @@ namespace CodeMash.Repository
             
             return new TermsFindResponse<T>()
             {
-                List = parsedTerms,
+                Items = parsedTerms,
+                TotalCount = clientResponse.TotalCount
+            };
+        }
+        
+        private FindTermsRequest FormRequest(string taxonomyName, FilterDefinition<TermEntity> filter, SortDefinition<TermEntity> sort, TermsFindOptions findOptions = null)
+        {
+            return new FindTermsRequest
+            {
+                CollectionName = taxonomyName,
+                Filter = filter?.FilterToJson(),
+                Sort = sort?.SortToJson(),
+                PageSize = findOptions?.PageSize ?? 1000,
+                PageNumber = findOptions?.PageNumber ?? 0,
+                CultureCode = findOptions?.CultureCode,
+                ExcludeCulture = findOptions?.ExcludeCulture ?? false,
+            };
+        }
+        
+        private TermsFindResponse FormResponse(FindTermsRequest request, FindTermsResponse clientResponse, TermsFindOptions findOptions = null)
+        {
+            if (clientResponse?.Result == null)
+            {
+                return new TermsFindResponse()
+                {
+                    Items = new List<TermEntity<string>>()
+                };
+            }
+
+            var parsedTerms = new List<TermEntity<string>>();
+            if (clientResponse.Result != null && clientResponse.Result.Any())
+            {
+                foreach (var responseTerm in clientResponse.Result)
+                {
+                    var term = new TermEntity().PopulateWith(responseTerm);
+                    parsedTerms.Add(term);
+                }
+            }
+            
+            return new TermsFindResponse()
+            {
+                Items = parsedTerms,
                 TotalCount = clientResponse.TotalCount
             };
         }

@@ -64,17 +64,6 @@ namespace CodeMash.Core.Tests
         }
         
         [TestMethod]
-        public void Can_insert_many()
-        {
-            var insertedRecord = InsertRecord();
-            
-            insertedRecord.ShouldBe<SdkEntity>();
-            Assert.IsNotNull(insertedRecord);
-            Assert.IsNotNull(insertedRecord.Id);
-            Assert.AreEqual(insertedRecord.Notes, entity.Notes);
-        }
-        
-        [TestMethod]
         public async Task Cannot_insert_one_when_collection_not_created()
         {
             Exception expectedException = null;

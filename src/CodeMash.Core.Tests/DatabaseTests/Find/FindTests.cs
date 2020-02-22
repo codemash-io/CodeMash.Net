@@ -92,5 +92,40 @@ namespace CodeMash.Core.Tests
             insertedRecordsFromDb.Items.ShouldBe<List<SdkEntity>>();
             Assert.AreEqual(insertedRecordsFromDb.Items.Count, 1);
         }
+        
+        [TestMethod]
+        public async Task Can_find_with_references()
+        {
+            var client = new CodeMashClient(ApiKey, ProjectId);
+            var repository = new CodeMashRepository<ReferencingEntity>(client);
+
+            var referencedFields = new List<CollectionReferenceField>
+            {
+                new CollectionReferenceField
+                {
+                    Name = "singleref",
+                },
+                new CollectionReferenceField
+                {
+                    Name = "multiref",
+                },
+                new CollectionReferenceField
+                {
+                    Name = "singletaxref",
+                },
+                new CollectionReferenceField
+                {
+                    Name = "multitaxref",
+                }
+            };
+            
+            referencedFields[0].SetSort(Builders<ReferencedEntity>.Sort.Descending(x => x.Date));
+            referencedFields[0].SetProjection(Builders<ReferencedEntity>.Projection.Include(x => x.Date).Include(x => x.Id));
+            
+            var response = await repository.FindAsync(findOptions: new DatabaseFindOptions
+            {
+                ReferencedFields = referencedFields
+            });
+        }
     }
 }

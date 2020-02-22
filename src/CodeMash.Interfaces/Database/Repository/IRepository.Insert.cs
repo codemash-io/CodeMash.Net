@@ -10,12 +10,12 @@ namespace CodeMash.Interfaces.Database.Repository
         /* Insert Async */
         Task<T> InsertOneAsync(T entity, DatabaseInsertOneOptions insertOneOptions = null);
         
-        Task<bool> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
+        Task<List<string>> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
         
         
         /* Insert */
         T InsertOne(T entity, DatabaseInsertOneOptions insertOneOptions = null);
         
-        bool InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
+        List<string> InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null);
     }
 }

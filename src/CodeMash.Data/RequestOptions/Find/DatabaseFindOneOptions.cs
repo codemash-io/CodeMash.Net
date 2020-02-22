@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CodeMash.Repository
 {
     /// <summary>Options for finding documents using Find and FindAsync methods.</summary>
@@ -13,5 +15,9 @@ namespace CodeMash.Repository
         public string CultureCode { get; set; }
         
         public bool ExcludeCulture { get; set; }
+        
+        public bool AddReferencesFirst { get; set; }
+        
+        public List<CollectionReferenceField> ReferencedFields { get; set; }
     }
 }

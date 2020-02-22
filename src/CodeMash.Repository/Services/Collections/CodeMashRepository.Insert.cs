@@ -9,29 +9,14 @@ using MongoDB.Bson;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T> where T : IEntity
     {
         /* Insert Async */
         public async Task<T> InsertOneAsync(T entity, DatabaseInsertOneOptions insertOneOptions = null)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity), "Entity is not defined");
-            }
-
-            if (string.IsNullOrEmpty(entity.Id) || entity.Id == ObjectId.Empty.ToString())
-            {
-                entity.Id = new ObjectId().ToString();
-            }
-            
-            var request = new InsertOneRequest
-            {
-                CollectionName = GetCollectionName(),
-                Document = JsonConverterHelper.SerializeEntity(entity),
-                BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
-            };
-
+            var request = FormInsertOneRequest(entity, insertOneOptions);
             var response = await Client.PostAsync<InsertOneResponse>(request);
+            
             if (response?.Result == null)
             {
                 return default(T);
@@ -40,23 +25,9 @@ namespace CodeMash.Repository
             return JsonConverterHelper.DeserializeEntity<T>(response.Result, null);
         }
         
-        public async Task<bool> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
+        public async Task<List<string>> InsertManyAsync(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
         {
-            if (entities == null || !entities.Any())
-            {
-                throw new ArgumentNullException(nameof(entities), "Entities are not defined");
-            }
-            
-            var request = new InsertManyRequest
-            {
-                CollectionName = GetCollectionName(),
-                Documents = entities.ConvertAll(x =>
-                {
-                    if (x.Id == ObjectId.Empty.ToString()) x.Id = ObjectId.GenerateNewId().ToString();
-                    return JsonConverterHelper.SerializeEntity(x);
-                })
-            };
-
+            var request = FormInsertManyRequest(entities, insertManyOptions);
             var response = await Client.PostAsync<InsertManyResponse>(request);
             return response.Result;
         }
@@ -65,22 +36,7 @@ namespace CodeMash.Repository
         /* Insert */
         public T InsertOne(T entity, DatabaseInsertOneOptions insertOneOptions = null)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity), "Entity is not defined");
-            }
-
-            if (string.IsNullOrEmpty(entity.Id) || entity.Id == ObjectId.Empty.ToString())
-            {
-                entity.Id = new ObjectId().ToString();
-            }
-            
-            var request = new InsertOneRequest
-            {
-                CollectionName = GetCollectionName(),
-                Document = JsonConverterHelper.SerializeEntity(entity),
-                BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
-            };
+            var request = FormInsertOneRequest(entity, insertOneOptions);
 
             var response = Client.Post<InsertOneResponse>(request);
             if (response?.Result == null)
@@ -91,7 +47,36 @@ namespace CodeMash.Repository
             return JsonConverterHelper.DeserializeEntity<T>(response.Result, null);
         }
         
-        public bool InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
+        public List<string> InsertMany(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
+        {
+            var request = FormInsertManyRequest(entities, insertManyOptions);
+            var response = Client.Post<InsertManyResponse>(request);
+            return response.Result;
+        }
+        
+        private InsertOneRequest FormInsertOneRequest(T entity, DatabaseInsertOneOptions insertOneOptions = null)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), "Entity is not defined");
+            }
+
+            if (string.IsNullOrEmpty(entity.Id) || entity.Id == ObjectId.Empty.ToString())
+            {
+                entity.Id = ObjectId.GenerateNewId().ToString();
+            }
+            
+            var request = new InsertOneRequest
+            {
+                CollectionName = GetCollectionName(),
+                Document = JsonConverterHelper.SerializeEntity(entity),
+                BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
+            };
+
+            return request;
+        }
+        
+        private InsertManyRequest FormInsertManyRequest(List<T> entities, DatabaseInsertManyOptions insertManyOptions = null)
         {
             if (entities == null || !entities.Any())
             {
@@ -103,13 +88,13 @@ namespace CodeMash.Repository
                 CollectionName = GetCollectionName(),
                 Documents = entities.ConvertAll(x =>
                 {
-                    if (x.Id == ObjectId.Empty.ToString()) x.Id = ObjectId.GenerateNewId().ToString();
+                    if (x.Id == ObjectId.Empty.ToString() || string.IsNullOrEmpty(x.Id)) x.Id = ObjectId.GenerateNewId().ToString();
                     return JsonConverterHelper.SerializeEntity(x);
-                })
+                }),
+                BypassDocumentValidation = insertManyOptions?.BypassDocumentValidation ?? false
             };
 
-            var response = Client.Post<InsertManyResponse>(request);
-            return response.Result;
+            return request;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace CodeMash.Client
 {
     public class CodeMashSettings : ICodeMashSettings
     {
-        public const string ApiUrl = "https://api.codemash.io/";
+        public const string ApiUrl = /*"https://api.codemash.io/"*/ "http://localhost:5002";
         
         public string CultureCode { get; set; }
 

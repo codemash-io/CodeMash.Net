@@ -56,32 +56,9 @@ namespace CodeMash.Repository
         public async Task<DatabaseFindResponse<TP>> FindAsync<TP>(FilterDefinition<T> filter, ProjectionDefinition<T, TP> projection,
             SortDefinition<T> sort = null, DatabaseFindOptions findOptions = null)
         {
-            var request = new FindRequest
-            {
-                CollectionName = GetCollectionName(),
-                Filter = filter?.FilterToJson(),
-                Projection = projection?.ProjectionToJson(),
-                Sort = sort?.SortToJson(),
-                PageSize = findOptions?.PageSize ?? 1000,
-                PageNumber = findOptions?.PageNumber ?? 0,
-                CultureCode = findOptions?.CultureCode
-            };
-
-            var clientResponse = await Client.PostAsync<FindResponse>(request);
-            if (clientResponse?.Result == null)
-            {
-                return new DatabaseFindResponse<TP>()
-                {
-                    Items = new List<TP>()
-                };
-            }
-
-            var list = JsonConverterHelper.DeserializeEntity<List<TP>>(clientResponse.Result, Client.Settings.CultureCode ?? findOptions?.CultureCode);
-            return new DatabaseFindResponse<TP>()
-            {
-                Items = list,
-                TotalCount = clientResponse.TotalCount
-            };
+            var request = FormRequest(filter, projection, sort, findOptions);
+            var clientResponse = await Client.PostAsync<FindResponse>(request);;
+            return FormResponse<TP>(clientResponse, findOptions);
         }
         
         
@@ -131,7 +108,14 @@ namespace CodeMash.Repository
         public DatabaseFindResponse<TP> Find<TP>(FilterDefinition<T> filter, ProjectionDefinition<T, TP> projection,
             SortDefinition<T> sort = null, DatabaseFindOptions findOptions = null)
         {
-            var a = new FindOptions<T, TP>();
+            var request = FormRequest(filter, projection, sort, findOptions);
+            var clientResponse = Client.Post<FindResponse>(request);;
+            return FormResponse<TP>(clientResponse, findOptions);
+        }
+
+        private FindRequest FormRequest<TP>(FilterDefinition<T> filter, ProjectionDefinition<T, TP> projection,
+            SortDefinition<T> sort = null, DatabaseFindOptions findOptions = null)
+        {
             var request = new FindRequest
             {
                 CollectionName = GetCollectionName(),
@@ -140,10 +124,22 @@ namespace CodeMash.Repository
                 Sort = sort?.SortToJson(),
                 PageSize = findOptions?.PageSize ?? 1000,
                 PageNumber = findOptions?.PageNumber ?? 0,
-                CultureCode = findOptions?.CultureCode
+                CultureCode = findOptions?.CultureCode,
+                ReferencedFields = findOptions?.ReferencedFields?.ConvertAll(x => new ReferencingField
+                {
+                    Name = x.Name,
+                    PageSize = x.PageSize,
+                    PageNumber = x.PageNumber,
+                    Projection = x.GetProjection,
+                    Sort = x.GetSort
+                })
             };
 
-            var clientResponse = Client.Post<FindResponse>(request);;
+            return request;
+        }
+        
+        private DatabaseFindResponse<TP> FormResponse<TP>(FindResponse clientResponse, DatabaseFindOptions findOptions = null)
+        {
             if (clientResponse?.Result == null)
             {
                 return new DatabaseFindResponse<TP>()
