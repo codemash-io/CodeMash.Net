@@ -12,15 +12,15 @@ namespace CodeMash.Interfaces.Database.Repository
     public partial interface IRepository<T> where T : IEntity
     {
         /* Update Async */
-        Task<UpdateResult> UpdateManyAsync(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions updateOptions);
+        Task<UpdateResult> UpdateManyAsync(FilterDefinition<T> filter, UpdateDefinition<T> update, DatabaseUpdateManyOptions updateOptions = null);
         
-        Task<UpdateResult> UpdateManyAsync(Expression<Func<T, bool>> filter, UpdateDefinition<T> update, UpdateOptions updateOptions);
+        Task<UpdateResult> UpdateManyAsync(Expression<Func<T, bool>> filter, UpdateDefinition<T> update, DatabaseUpdateManyOptions updateOptions = null);
 
         
         
         /* Update */
-        UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions updateOptions);
+        UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, DatabaseUpdateManyOptions updateOptions = null);
         
-        UpdateResult UpdateMany(Expression<Func<T, bool>> filter, UpdateDefinition<T> update, UpdateOptions updateOptions);
+        UpdateResult UpdateMany(Expression<Func<T, bool>> filter, UpdateDefinition<T> update, DatabaseUpdateManyOptions updateOptions = null);
     }
 }

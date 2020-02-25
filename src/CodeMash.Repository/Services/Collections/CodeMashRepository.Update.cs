@@ -10,7 +10,7 @@ using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T>
     {
         /* Update Async */
         public async Task<UpdateResult> UpdateOneAsync(string id, UpdateDefinition<T> update, DatabaseUpdateOneOptions updateOptions = null)
@@ -37,10 +37,10 @@ namespace CodeMash.Repository
         public async Task<UpdateResult> UpdateOneAsync(FilterDefinition<T> filter, UpdateDefinition<T> update,
             DatabaseUpdateOneOptions updateOptions = null)
         {
-            var request = FormRequest(filter, update, updateOptions);
+            var request = FormUpdateRequest(filter, update, updateOptions);
 
             var response = await Client.PatchAsync<UpdateOneResponse>(request);
-            return FormResponse(response);
+            return FormUpdateResponse(response);
         }
 
         
@@ -68,13 +68,13 @@ namespace CodeMash.Repository
 
         public UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, DatabaseUpdateOneOptions updateOptions = null)
         {
-            var request = FormRequest(filter, update, updateOptions);
+            var request = FormUpdateRequest(filter, update, updateOptions);
 
             var response = Client.Patch<UpdateOneResponse>(request);
-            return FormResponse(response);
+            return FormUpdateResponse(response);
         }
         
-        private UpdateOneRequest FormRequest(FilterDefinition<T> filter, UpdateDefinition<T> update, DatabaseUpdateOneOptions updateOptions = null)
+        private UpdateOneRequest FormUpdateRequest(FilterDefinition<T> filter, UpdateDefinition<T> update, DatabaseUpdateOneOptions updateOptions = null)
         {
             if (update == null)
             {
@@ -87,10 +87,12 @@ namespace CodeMash.Repository
                 Filter = filter?.FilterToJson(),
                 Update = update?.UpdateToJson(),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
+                IsUpsert = updateOptions?.IsUpsert ?? false,
+                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
             };
         }
         
-        private UpdateResult FormResponse(UpdateOneResponse clientResponse)
+        private UpdateResult FormUpdateResponse(UpdateOneResponse clientResponse)
         {
             if (clientResponse?.Result == null)
             {
@@ -103,7 +105,6 @@ namespace CodeMash.Repository
             return new UpdateResult
             {
                 IsAcknowledged = clientResponse.Result.IsAcknowledged,
-                IsModifiedCountAvailable = clientResponse.Result.IsModifiedCountAvailable,
                 MatchedCount = clientResponse.Result.MatchedCount,
                 ModifiedCount = clientResponse.Result.ModifiedCount,
                 UpsertedId = clientResponse.Result.UpsertedId

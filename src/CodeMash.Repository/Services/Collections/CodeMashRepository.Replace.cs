@@ -10,7 +10,7 @@ using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T>
     {
         /* Replace Async */
         public async Task<DatabaseReplaceOneResponse> ReplaceOneAsync(Expression<Func<T, bool>> filter, T entity, DatabaseReplaceOneOptions updateOptions = null)
@@ -37,6 +37,7 @@ namespace CodeMash.Repository
                 Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
+                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false
             };
 
             var response = await Client.PutAsync<ReplaceOneResponse>(request);
@@ -84,6 +85,7 @@ namespace CodeMash.Repository
                 Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
+                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false
             };
 
             var response = Client.Put<ReplaceOneResponse>(request);
