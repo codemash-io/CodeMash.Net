@@ -8,6 +8,7 @@ using CodeMash.Client;
 using CodeMash.Notifications.Push.Services;
 using Isidos.CodeMash.ServiceContracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 using File = System.IO.File;
 
 namespace CodeMash.Core.Tests
@@ -127,6 +128,28 @@ namespace CodeMash.Core.Tests
 
             uploadedFileId = null;
             Assert.IsTrue(response.Result);
+        }
+        
+        [TestMethod]
+        public void Can_upload_record_file_stream()
+        {
+            var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var path = $"{directory}\\FileTests\\Files\\test.txt";
+
+            using (var fsSource = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                var response = Service.UploadRecordFile(fsSource, "test.txt", new UploadRecordFileRequest
+                {
+                    CollectionName = "trans",
+                    RecordId = "5e57c2b270b5126838eae1e4",
+                    UniqueFieldName = "f2"
+                });
+
+                uploadedFileId = response.Result.Id;
+                Assert.IsNotNull(response.Result);
+                Assert.AreEqual(response.Result.OriginalName, "test.txt");
+                Assert.AreEqual(response.Result.Size, fsSource.Length);
+            }
         }
     }
 }

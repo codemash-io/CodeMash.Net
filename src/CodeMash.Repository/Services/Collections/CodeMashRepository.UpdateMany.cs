@@ -10,32 +10,85 @@ using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
-    {
+    public partial class CodeMashRepository<T>
+    { 
         /* Update Async */
-        public Task<UpdateResult> UpdateManyAsync(FilterDefinition<T> filter, UpdateDefinition<T> update,
-            UpdateOptions updateOptions)
+        public async Task<UpdateResult> UpdateManyAsync(Expression<Func<T, bool>> filter, UpdateDefinition<T> update,
+            DatabaseUpdateManyOptions updateOptions = null)
         {
-            throw new NotImplementedException();
-        }
+            if (filter == null)
+            {
+                filter = _ => true;
+            }
 
-        public Task<UpdateResult> UpdateManyAsync(Expression<Func<T, bool>> filter, UpdateDefinition<T> update,
-            UpdateOptions updateOptions)
+            return await UpdateManyAsync(new ExpressionFilterDefinition<T>(filter), update, updateOptions);
+        }
+        
+        public async Task<UpdateResult> UpdateManyAsync(FilterDefinition<T> filter, UpdateDefinition<T> update,
+            DatabaseUpdateManyOptions updateOptions = null)
         {
-            throw new NotImplementedException();
-        }
+            var request = FormUpdateManyRequest(filter, update, updateOptions);
 
+            var response = await Client.PatchAsync<UpdateManyResponse>(request);
+            return FormUpdateManyResponse(response);
+        }
         
         
         /* Update */
-        public UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions updateOptions)
+        public UpdateResult UpdateMany(Expression<Func<T, bool>> filter, UpdateDefinition<T> update, DatabaseUpdateManyOptions updateOptions = null)
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                filter = _ => true;
+            }
+
+            return UpdateMany(new ExpressionFilterDefinition<T>(filter), update, updateOptions);
+        }
+        
+        public UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, DatabaseUpdateManyOptions updateOptions = null)
+        {
+            var request = FormUpdateManyRequest(filter, update, updateOptions);
+
+            var response = Client.Patch<UpdateManyResponse>(request);
+            return FormUpdateManyResponse(response);
         }
 
-        public UpdateResult UpdateMany(Expression<Func<T, bool>> filter, UpdateDefinition<T> update, UpdateOptions updateOptions)
+        
+        private UpdateManyRequest FormUpdateManyRequest(FilterDefinition<T> filter, UpdateDefinition<T> update, DatabaseUpdateManyOptions updateOptions = null)
         {
-            throw new NotImplementedException();
+            if (update == null)
+            {
+                throw new ArgumentNullException(nameof(update), "Update is not defined");
+            }
+            
+            return new UpdateManyRequest
+            {
+                CollectionName = GetCollectionName(),
+                Filter = filter?.FilterToJson(),
+                Update = update?.UpdateToJson(),
+                BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
+                IsUpsert = updateOptions?.IsUpsert ?? false,
+                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false
+            };
+        }
+        
+        private UpdateResult FormUpdateManyResponse(UpdateManyResponse clientResponse)
+        {
+            if (clientResponse?.Result == null)
+            {
+                return new UpdateResult
+                {
+                    IsAcknowledged = false
+                };
+            }
+            
+            return new UpdateResult
+            {
+                IsAcknowledged = clientResponse.Result.IsAcknowledged,
+                MatchedCount = clientResponse.Result.MatchedCount,
+                ModifiedCount = clientResponse.Result.ModifiedCount,
+                UpsertedId = clientResponse.Result.UpsertedId
+            };
         }
     }
 }
