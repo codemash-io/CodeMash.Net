@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.Data;
+using Isidos.CodeMash.ServiceContracts;
 
 namespace CodeMash.Interfaces.Membership
 {

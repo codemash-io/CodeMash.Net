@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using CodeMash.Client;
-using Isidos.CodeMash.Data;
+using Isidos.CodeMash.ServiceContracts;
 using ServiceStack;
 
 namespace CodeMash.Membership.Services

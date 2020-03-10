@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CodeMash.Client;
 using CodeMash.Interfaces.Client;
 using CodeMash.Membership.Services;
-using Isidos.CodeMash.Data;
 using Isidos.CodeMash.ServiceContracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
