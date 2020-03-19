@@ -132,7 +132,12 @@ namespace CodeMash.Repository
                     PageNumber = x.PageNumber,
                     Projection = x.GetProjection,
                     Sort = x.GetSort
-                })
+                }),
+                AddReferencesFirst = findOptions?.AddReferencesFirst ?? false,
+                IncludeCollectionNames = findOptions?.IncludeCollectionNames ?? false,
+                IncludeRoleNames = findOptions?.IncludeRoleNames ?? false,
+                IncludeTermNames = findOptions?.IncludeTermNames ?? false,
+                IncludeUserNames = findOptions?.IncludeUserNames ?? false,
             };
 
             return request;

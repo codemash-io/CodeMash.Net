@@ -9,7 +9,7 @@ namespace CodeMash.Models
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                throw new ArgumentException("CollectionName is not specified", nameof(value));
+                throw new ArgumentException("Collection name is not specified", nameof(value));
             }
             Name = value;
         }

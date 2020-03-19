@@ -67,6 +67,12 @@ namespace CodeMash.Repository
                         FormEntityForDeserialize(referencedNestedObject, properties);
                     }
                 }
+                // If some random object
+                else if (entity[propNameInitial].Type == JTokenType.Object)
+                {
+                    var properties = property.PropertyType.GetProperties();
+                    FormEntityForDeserialize((JObject) entity[propNameInitial], properties);
+                }
                 // Nested
                 else if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
                 {
@@ -195,6 +201,12 @@ namespace CodeMash.Repository
                                     else if (property.PropertyType == typeof(string) && entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.Object)
                                     {
                                         entityNestedObject[nestedPropNameInitial].Replace(new JValue(entityNestedObject[nestedPropNameInitial].ToString()));
+                                    }
+                                    // If some random object
+                                    else if (entityNestedObject[nestedPropNameInitial].Type == JTokenType.Object)
+                                    {
+                                        var properties = nestedProp.PropertyType.GetProperties();
+                                        FormEntityForDeserialize((JObject) entityNestedObject[nestedPropNameInitial], properties);
                                     }
                                     
                                     RenameProperty(entityNestedObject, nestedProp, nestedPropNameInitial, jsonPropAttrIsSet);
