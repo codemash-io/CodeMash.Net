@@ -19,5 +19,13 @@ namespace CodeMash.Repository
         public bool AddReferencesFirst { get; set; }
         
         public List<CollectionReferenceField> ReferencedFields { get; set; }
+        
+        public bool IncludeUserNames { get; set; }
+        
+        public bool IncludeRoleNames { get; set; }
+        
+        public bool IncludeCollectionNames { get; set; }
+        
+        public bool IncludeTermNames { get; set; }
     }
 }

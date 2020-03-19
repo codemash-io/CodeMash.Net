@@ -127,5 +127,17 @@ namespace CodeMash.Core.Tests
                 ReferencedFields = referencedFields
             });
         }
+        
+        [TestMethod]
+        public async Task Can_find_with_includes()
+        {
+            var client = new CodeMashClient(ApiKey, ProjectId);
+            var repository = new CodeMashRepository<IncludingEntity>(client);
+
+            var response = await repository.FindAsync(findOptions: new DatabaseFindOptions
+            {
+                IncludeTermNames = true
+            });
+        }
     }
 }

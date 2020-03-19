@@ -46,24 +46,9 @@ namespace CodeMash.Repository
                 throw new ArgumentNullException(nameof(filter), "Filter must be set");
             }
 
-            var request = new FindOneRequest
-            {
-                CollectionName = GetCollectionName(),
-                Filter = filter.FilterToJson(),
-                Projection = projection?.ProjectionToJson(),
-                CultureCode = findOneOptions?.CultureCode,
-                ExcludeCulture = findOneOptions?.ExcludeCulture ?? false,
-                IncludeSchema = findOneOptions?.IncludeSchema ?? false,
-            };
-
+            var request = FormRequest(filter, projection, findOneOptions);
             var clientResponse = await Client.PostAsync<FindOneResponse>(request);
-            if (clientResponse?.Result == null)
-            {
-                return default(TP);
-            }
-
-            var result = JsonConverterHelper.DeserializeEntity<TP>(clientResponse.Result, Client.Settings.CultureCode ?? findOneOptions?.CultureCode);
-            return result;
+            return FormResponse<TP>(clientResponse, findOneOptions);
         }
         
         
@@ -102,6 +87,13 @@ namespace CodeMash.Repository
                 throw new ArgumentNullException(nameof(filter), "Filter must be set");
             }
 
+            var request = FormRequest(filter, projection, findOneOptions);
+            var clientResponse = Client.Post<FindOneResponse>(request);
+            return FormResponse<TP>(clientResponse, findOneOptions);
+        }
+        
+         private FindOneRequest FormRequest<TP>(FilterDefinition<T> filter, ProjectionDefinition<T, TP> projection, DatabaseFindOneOptions findOneOptions = null)
+        {
             var request = new FindOneRequest
             {
                 CollectionName = GetCollectionName(),
@@ -110,9 +102,26 @@ namespace CodeMash.Repository
                 CultureCode = findOneOptions?.CultureCode,
                 ExcludeCulture = findOneOptions?.ExcludeCulture ?? false,
                 IncludeSchema = findOneOptions?.IncludeSchema ?? false,
+                ReferencedFields = findOneOptions?.ReferencedFields?.ConvertAll(x => new ReferencingField
+                {
+                    Name = x.Name,
+                    PageSize = x.PageSize,
+                    PageNumber = x.PageNumber,
+                    Projection = x.GetProjection,
+                    Sort = x.GetSort
+                }),
+                AddReferencesFirst = findOneOptions?.AddReferencesFirst ?? false,
+                IncludeCollectionNames = findOneOptions?.IncludeCollectionNames ?? false,
+                IncludeRoleNames = findOneOptions?.IncludeRoleNames ?? false,
+                IncludeTermNames = findOneOptions?.IncludeTermNames ?? false,
+                IncludeUserNames = findOneOptions?.IncludeUserNames ?? false,
             };
 
-            var clientResponse = Client.Post<FindOneResponse>(request);
+            return request;
+        }
+        
+        private TP FormResponse<TP>(FindOneResponse clientResponse, DatabaseFindOneOptions findOneOptions = null)
+        {
             if (clientResponse?.Result == null)
             {
                 return default(TP);
