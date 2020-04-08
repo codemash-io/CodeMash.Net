@@ -8,5 +8,7 @@ namespace CodeMash.Repository
         public bool IsUpsert { get; set; }
         
         public bool IgnoreTriggers { get; set; }
+        
+        public bool WaitForFileUpload { get; set; }
     }
 }

@@ -71,6 +71,7 @@ namespace CodeMash.Repository
                 CollectionName = GetCollectionName(),
                 Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
+                WaitForFileUpload = insertOneOptions?.WaitForFileUpload ?? false
             };
 
             return request;

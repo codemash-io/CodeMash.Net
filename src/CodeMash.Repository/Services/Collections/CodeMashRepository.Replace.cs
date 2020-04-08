@@ -37,7 +37,8 @@ namespace CodeMash.Repository
                 Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
-                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false
+                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
+                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false
             };
 
             var response = await Client.PutAsync<ReplaceOneResponse>(request);
@@ -85,7 +86,8 @@ namespace CodeMash.Repository
                 Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
-                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false
+                IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
+                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false
             };
 
             var response = Client.Put<ReplaceOneResponse>(request);
