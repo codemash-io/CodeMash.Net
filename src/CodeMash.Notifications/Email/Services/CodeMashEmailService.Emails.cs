@@ -14,16 +14,5 @@ namespace CodeMash.Notifications.Email.Services
         {
             return await Client.PostAsync<SendEmailNotificationResponse>(request);
         }
-
-        /*
-        public DeleteEmailResponse DeleteEmail(DeleteEmailRequest request)
-        {
-            return Client.Delete<DeleteEmailResponse>(request);
-        }
-
-        public async Task<DeleteEmailResponse> DeleteEmailAsync(DeleteEmailRequest request)
-        {
-            return await Client.DeleteAsync<DeleteEmailResponse>(request);
-        }*/
     }
 }
