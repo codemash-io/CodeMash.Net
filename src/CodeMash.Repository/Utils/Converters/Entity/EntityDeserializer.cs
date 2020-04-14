@@ -68,7 +68,7 @@ namespace CodeMash.Repository
                     }
                 }
                 // If some random object
-                else if (entity[propNameInitial].Type == JTokenType.Object)
+                else if (entity.ContainsKey(propNameInitial) && entity[propNameInitial].Type == JTokenType.Object)
                 {
                     var properties = property.PropertyType.GetProperties();
                     FormEntityForDeserialize((JObject) entity[propNameInitial], properties);
