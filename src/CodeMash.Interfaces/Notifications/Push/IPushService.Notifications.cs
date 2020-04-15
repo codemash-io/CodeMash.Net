@@ -24,5 +24,9 @@ namespace CodeMash.Interfaces.Notifications.Push
         MarkNotificationAsReadResponse ReadNotification(MarkNotificationAsReadRequest request);
         
         Task<MarkNotificationAsReadResponse> ReadNotificationAsync(MarkNotificationAsReadRequest request);
+        
+        MarkAllNotificationsAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request);
+        
+        Task<MarkAllNotificationsAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request);
     }
 }

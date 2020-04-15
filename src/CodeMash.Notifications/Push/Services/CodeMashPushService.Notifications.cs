@@ -54,5 +54,15 @@ namespace CodeMash.Notifications.Push.Services
         {
             return await Client.PatchAsync<MarkNotificationAsReadResponse>(request);
         }
+        
+        public MarkAllNotificationsAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request)
+        {
+            return Client.Patch<MarkAllNotificationsAsReadResponse>(request);
+        }
+
+        public async Task<MarkAllNotificationsAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request)
+        {
+            return await Client.PatchAsync<MarkAllNotificationsAsReadResponse>(request);
+        }
     }
 }
