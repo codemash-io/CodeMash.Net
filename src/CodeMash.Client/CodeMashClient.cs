@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using CodeMash.Exceptions;
 using CodeMash.Interfaces.Client;
-using CodeMash.Models.Exceptions;
 using CodeMash.Models.Requests;
 using ServiceStack;
 
@@ -211,13 +211,9 @@ namespace CodeMash.Client
             var responseStatus = e.ResponseStatus;
             if (responseStatus != null)
             {
-                var identifier = responseStatus.Meta != null && responseStatus.Meta.ContainsKey("identifier")
-                    ? responseStatus.Meta["identifier"]
-                    : null;
-            
                 var businessException = new BusinessException(responseStatus.Message)
                 {
-                    Identifier = identifier,
+                    ErrorCode = responseStatus.ErrorCode,
                     StatusCode = e.StatusCode,
                     Errors = responseStatus?.Errors?.ConvertAll(x => new ValidationError
                     {
@@ -232,7 +228,7 @@ namespace CodeMash.Client
             
             return new BusinessException(e.Message)
             {
-                Identifier = e.ErrorCode,
+                ErrorCode = e.ErrorCode,
                 StatusCode = e.StatusCode
             };
         }

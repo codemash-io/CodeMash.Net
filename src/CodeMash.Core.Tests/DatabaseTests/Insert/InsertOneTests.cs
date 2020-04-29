@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeMash.Client;
-using CodeMash.Models.Exceptions;
+using CodeMash.Exceptions;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -77,7 +77,7 @@ namespace CodeMash.Core.Tests
             }
             catch (BusinessException e)
             {
-                Assert.IsTrue(e.Identifier == "CollectionNotFound");
+                Assert.IsTrue(e.ErrorCode == "ResourceNotFound");
                 expectedException = e;
             }
             

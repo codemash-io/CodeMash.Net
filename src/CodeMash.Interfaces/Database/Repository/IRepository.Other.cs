@@ -11,24 +11,37 @@ namespace CodeMash.Interfaces.Database.Repository
     public partial interface IRepository<T> where T : IEntity
     {
         /* Count Async */
-        Task<long> CountAsync(FilterDefinition<T> filter, CountOptions countOptions = null);
+        Task<long> CountAsync(FilterDefinition<T> filter, DatabaseCountOptions countOptions = null);
         
-        Task<long> CountAsync(Expression<Func<T, bool>> filter, CountOptions countOptions = null);
+        Task<long> CountAsync(Expression<Func<T, bool>> filter, DatabaseCountOptions countOptions = null);
+        
+        Task<long> CountAsync(DatabaseCountOptions countOptions = null);
         
         
         
         /* Count */
-        long Count(FilterDefinition<T> filter, CountOptions countOptions = null);
+        long Count(FilterDefinition<T> filter, DatabaseCountOptions countOptions = null);
         
-        long Count(Expression<Func<T, bool>> filter, CountOptions countOptions = null);
+        long Count(Expression<Func<T, bool>> filter, DatabaseCountOptions countOptions = null);
         
-        long Count(CountOptions countOptions = null);
+        long Count(DatabaseCountOptions countOptions = null);
 
+        
+        
+        /* Distinct Async */
+        Task<List<object>> DistinctAsync(string field, FilterDefinition<T> filter);
 
+        Task<List<object>> DistinctAsync(string field, Expression<Func<T, bool>> filter);
+
+        Task<List<object>> DistinctAsync(string field);
+
+        
         
         /* Distinct */
-        List<string> Distinct(string field, FilterDefinition<T> filter, DistinctOptions options = null);
+        List<object> Distinct(string field, FilterDefinition<T> filter);
 
-        List<string> Distinct(string field, Expression<Func<T, bool>> filter, DistinctOptions options);
+        List<object> Distinct(string field, Expression<Func<T, bool>> filter);
+
+        List<object> Distinct(string field);
     }
 }
