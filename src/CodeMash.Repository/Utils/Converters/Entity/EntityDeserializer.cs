@@ -131,7 +131,7 @@ namespace CodeMash.Repository
                                             entityNestedObject[nestedPropNameInitial].Replace(new JObject(new JProperty("_id", entityNestedObject[nestedPropNameInitial].ToString())));
                                         }
                                         // When referencing
-                                        else if (entityNestedObject[nestedPropNameInitial] is JObject referencedNestedObject)
+                                        else if (entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial] is JObject referencedNestedObject)
                                         {
                                             var properties = nestedProp.PropertyType.GetProperties();
                                             ReplaceIdWithUnderscore(referencedNestedObject);
@@ -203,7 +203,7 @@ namespace CodeMash.Repository
                                         entityNestedObject[nestedPropNameInitial].Replace(new JValue(entityNestedObject[nestedPropNameInitial].ToString()));
                                     }
                                     // If some random object
-                                    else if (entityNestedObject[nestedPropNameInitial].Type == JTokenType.Object)
+                                    else if (entityNestedObject.ContainsKey(nestedPropNameInitial) && entityNestedObject[nestedPropNameInitial].Type == JTokenType.Object)
                                     {
                                         var properties = nestedProp.PropertyType.GetProperties();
                                         FormEntityForDeserialize((JObject) entityNestedObject[nestedPropNameInitial], properties);
