@@ -45,6 +45,16 @@ namespace CodeMash.Notifications.Push.Services
             return await Client.GetAsync<GetNotificationsResponse>(request);
         }
 
+        public GetNotificationsCountResponse GetNotificationsCount(GetNotificationsCountRequest request)
+        {
+            return Client.Get<GetNotificationsCountResponse>(request);
+        }
+
+        public async Task<GetNotificationsCountResponse> GetNotificationsCountAsync(GetNotificationsCountRequest request)
+        {
+            return await Client.GetAsync<GetNotificationsCountResponse>(request);
+        }
+
         public MarkNotificationAsReadResponse ReadNotification(MarkNotificationAsReadRequest request)
         {
             return Client.Patch<MarkNotificationAsReadResponse>(request);
@@ -53,6 +63,16 @@ namespace CodeMash.Notifications.Push.Services
         public async Task<MarkNotificationAsReadResponse> ReadNotificationAsync(MarkNotificationAsReadRequest request)
         {
             return await Client.PatchAsync<MarkNotificationAsReadResponse>(request);
+        }
+        
+        public MarkAllNotificationsAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request)
+        {
+            return Client.Patch<MarkAllNotificationsAsReadResponse>(request);
+        }
+
+        public async Task<MarkAllNotificationsAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request)
+        {
+            return await Client.PatchAsync<MarkAllNotificationsAsReadResponse>(request);
         }
     }
 }

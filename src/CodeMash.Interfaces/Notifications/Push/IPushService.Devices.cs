@@ -5,9 +5,9 @@ namespace CodeMash.Interfaces.Notifications.Push
 {
     public partial interface IPushService
     {
-        RegisterDeviceResponse RegisterDevice(RegisterDeviceRequest request);
+        CreateDeviceResponse RegisterDevice(CreateDeviceRequest request);
         
-        Task<RegisterDeviceResponse> RegisterDeviceAsync(RegisterDeviceRequest request);
+        Task<CreateDeviceResponse> RegisterDeviceAsync(CreateDeviceRequest request);
         
         GetDeviceResponse GetDevice(GetDeviceRequest request);
         

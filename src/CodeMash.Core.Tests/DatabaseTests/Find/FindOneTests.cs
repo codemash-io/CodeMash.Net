@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeMash.Client;
-using CodeMash.Models;
-using CodeMash.Models.Exceptions;
+using CodeMash.Exceptions;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
@@ -138,7 +136,7 @@ namespace CodeMash.Core.Tests
             }
             catch (BusinessException e)
             {
-                Assert.IsTrue(e.Identifier == "CollectionNotFound");
+                Assert.IsTrue(e.ErrorCode == "ResourceNotFound");
                 expectedException = e;
             }
             

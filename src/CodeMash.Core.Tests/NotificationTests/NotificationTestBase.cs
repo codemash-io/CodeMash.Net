@@ -21,7 +21,7 @@ namespace CodeMash.Core.Tests
         
         protected Dictionary<string, Guid> RegisteredUsers { get; set; } = new Dictionary<string, Guid>();
         
-        protected RegisterDeviceRequest _deviceRequest;
+        protected CreateDeviceRequest _deviceRequest;
         
         protected string _expoToken;
 
@@ -74,7 +74,8 @@ namespace CodeMash.Core.Tests
                 }).Result;
             }
             
-            return Service.RegisterDevice(_deviceRequest).Result;
+            var device = Service.RegisterDevice(_deviceRequest).Result;
+            return device.Id;
         }
         
         protected async Task<string> RegisterDeviceAsync(string userId, bool useExpo = false)
@@ -90,7 +91,8 @@ namespace CodeMash.Core.Tests
                     Token = _expoToken
                 })).Result;
             }
-            return (await Service.RegisterDeviceAsync(_deviceRequest)).Result;
+            var device = (await Service.RegisterDeviceAsync(_deviceRequest)).Result;
+            return device.Id;
         }
 
         public override void SetUp()
@@ -103,7 +105,7 @@ namespace CodeMash.Core.Tests
             MembershipService = new CodeMashMembershipService(client);
             
             
-            _deviceRequest = new RegisterDeviceRequest
+            _deviceRequest = new CreateDeviceRequest
             {
                 TimeZone = "Etc/UTC",
                 Meta = new Dictionary<string, string>

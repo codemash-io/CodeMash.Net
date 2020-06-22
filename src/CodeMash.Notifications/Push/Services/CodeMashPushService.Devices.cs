@@ -5,9 +5,9 @@ namespace CodeMash.Notifications.Push.Services
 {
     public partial class CodeMashPushService
     {
-        public RegisterDeviceResponse RegisterDevice(RegisterDeviceRequest request)
+        public CreateDeviceResponse RegisterDevice(CreateDeviceRequest request)
         {
-            return Client.Post<RegisterDeviceResponse>(request);
+            return Client.Post<CreateDeviceResponse>(request);
         }
         
         public GetDeviceResponse GetDevice(GetDeviceRequest request)
@@ -40,9 +40,9 @@ namespace CodeMash.Notifications.Push.Services
             return await Client.DeleteAsync<DeleteDeviceResponse>(request);
         }
 
-        public async Task<RegisterDeviceResponse> RegisterDeviceAsync(RegisterDeviceRequest request)
+        public async Task<CreateDeviceResponse> RegisterDeviceAsync(CreateDeviceRequest request)
         {
-            return await Client.PostAsync<RegisterDeviceResponse>(request);
+            return await Client.PostAsync<CreateDeviceResponse>(request);
         }
         
         public UpdateDeviceMetaResponse UpdateDeviceMeta(UpdateDeviceMetaRequest request)

@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CodeMash.Client;
 using CodeMash.Interfaces.Database.Terms;
 using CodeMash.Models;
-using CodeMash.Models.Exceptions;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Newtonsoft.Json;
 
 namespace CodeMash.Core.Tests
 {

@@ -21,8 +21,16 @@ namespace CodeMash.Interfaces.Notifications.Push
         
         Task<GetNotificationsResponse> GetNotificationsAsync(GetNotificationsRequest request);
         
+        GetNotificationsCountResponse GetNotificationsCount(GetNotificationsCountRequest request);
+        
+        Task<GetNotificationsCountResponse> GetNotificationsCountAsync(GetNotificationsCountRequest request);
+        
         MarkNotificationAsReadResponse ReadNotification(MarkNotificationAsReadRequest request);
         
         Task<MarkNotificationAsReadResponse> ReadNotificationAsync(MarkNotificationAsReadRequest request);
+        
+        MarkAllNotificationsAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request);
+        
+        Task<MarkAllNotificationsAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request);
     }
 }

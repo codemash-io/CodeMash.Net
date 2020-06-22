@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using CodeMash.Client;
+using CodeMash.Exceptions;
 using CodeMash.Membership.Services;
-using CodeMash.Models.Exceptions;
 using Isidos.CodeMash.ServiceContracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -182,7 +181,7 @@ namespace CodeMash.Core.Tests
             catch (BusinessException e)
             {
                 expectedException = e;
-                Assert.IsTrue(e.Identifier == "UserAlreadyBlocked");
+                Assert.IsTrue(e.ErrorCode == "UserAlreadyBlocked");
             }
             
             Assert.IsNotNull(expectedException);
