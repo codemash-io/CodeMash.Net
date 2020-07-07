@@ -1,6 +1,6 @@
 using CodeMash.Interfaces.Client;
 
-namespace CodeMash.Interfaces.Membership
+namespace CodeMash.Interfaces.Payments
 {
     public partial interface IPaymentService : IClientService
     {
