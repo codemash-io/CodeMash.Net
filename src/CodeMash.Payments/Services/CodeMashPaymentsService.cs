@@ -1,10 +1,7 @@
-using System.Threading.Tasks;
 using CodeMash.Interfaces.Client;
-using CodeMash.Interfaces.Logs;
-using CodeMash.Interfaces.Membership;
-using Isidos.CodeMash.ServiceContracts;
+using CodeMash.Interfaces.Payments;
 
-namespace CodeMash.Logs.Services
+namespace CodeMash.Payments.Services
 {
     public partial class CodeMashPaymentsService : IPaymentService
     {

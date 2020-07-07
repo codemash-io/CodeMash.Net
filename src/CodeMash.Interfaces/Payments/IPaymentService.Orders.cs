@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Isidos.CodeMash.ServiceContracts;
 
-namespace CodeMash.Interfaces.Membership
+namespace CodeMash.Interfaces.Payments
 {
     public partial interface IPaymentService
     {
