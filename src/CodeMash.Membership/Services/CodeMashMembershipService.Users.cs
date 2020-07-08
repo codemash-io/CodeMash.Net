@@ -15,6 +15,16 @@ namespace CodeMash.Membership.Services
             return await Client.GetAsync<GetUserResponse>(request);
         }
         
+        public GetProfileResponse GetProfile(GetProfileRequest request)
+        {
+            return Client.Get<GetProfileResponse>(request);
+        }
+
+        public async Task<GetProfileResponse> GetProfileAsync(GetProfileRequest request)
+        {
+            return await Client.GetAsync<GetProfileResponse>(request);
+        }
+        
         public GetUsersResponse GetUsersList(GetUsersRequest request)
         {
             return Client.Get<GetUsersResponse>(request);
@@ -33,6 +43,16 @@ namespace CodeMash.Membership.Services
         public async Task<UpdateUserResponse> UpdateUserAsync(UpdateUserRequest request)
         {
             return await Client.PutAsync<UpdateUserResponse>(request);
+        }
+        
+        public void UpdateProfile(UpdateProfileRequest request)
+        {
+            Client.Put<object>(request);
+        }
+
+        public async Task UpdateProfileAsync(UpdateProfileRequest request)
+        {
+            await Client.PutAsync<object>(request);
         }
 
         public DeleteUserResponse DeleteUser(DeleteUserRequest request)

@@ -9,6 +9,10 @@ namespace CodeMash.Interfaces.Membership
         
         Task<GetUserResponse> GetUserAsync(GetUserRequest request);
         
+        GetProfileResponse GetProfile(GetProfileRequest request);
+        
+        Task<GetProfileResponse> GetProfileAsync(GetProfileRequest request);
+        
         GetUsersResponse GetUsersList(GetUsersRequest request);
         
         Task<GetUsersResponse> GetUsersListAsync(GetUsersRequest request);
@@ -16,6 +20,10 @@ namespace CodeMash.Interfaces.Membership
         UpdateUserResponse UpdateUser(UpdateUserRequest request);
         
         Task<UpdateUserResponse> UpdateUserAsync(UpdateUserRequest request);
+        
+        void UpdateProfile(UpdateProfileRequest request);
+        
+        Task UpdateProfileAsync(UpdateProfileRequest request);
         
         DeleteUserResponse DeleteUser(DeleteUserRequest request);
         
