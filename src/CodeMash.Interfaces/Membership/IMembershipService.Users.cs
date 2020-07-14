@@ -25,6 +25,10 @@ namespace CodeMash.Interfaces.Membership
         
         Task UpdateProfileAsync(UpdateProfileRequest request);
         
+        void UpdatePassword(UpdatePasswordRequest request);
+        
+        Task UpdatePasswordAsync(UpdatePasswordRequest request);
+        
         DeleteUserResponse DeleteUser(DeleteUserRequest request);
         
         Task<DeleteUserResponse> DeleteUserAsync(DeleteUserRequest request);

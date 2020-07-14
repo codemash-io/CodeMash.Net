@@ -101,5 +101,37 @@ namespace CodeMash.Project.Services
             
             return await task;
         }
+        
+        
+        /* Payment File Upload */
+        public UploadOrderFileResponse UploadOrderFile(byte[] file, string fileName, UploadOrderFileRequest request)
+        {
+            var fileStream = new MemoryStream(file);
+            return UploadOrderFile(fileStream, fileName, request);
+        }
+
+        public async Task<UploadOrderFileResponse> UploadOrderFileAsync(byte[] file, string fileName, UploadOrderFileRequest request)
+        {
+            var fileStream = new MemoryStream(file);
+            return await UploadOrderFileAsync(fileStream, fileName, request);
+        }
+
+        public UploadOrderFileResponse UploadOrderFile(Stream file, string fileName, UploadOrderFileRequest request)
+        {
+            return Client.PostFile<UploadOrderFileResponse>(file, request, new CodeMashRequestOptions
+            {
+                FileName = fileName
+            });
+        }
+
+        public async Task<UploadOrderFileResponse> UploadOrderFileAsync(Stream file, string fileName, UploadOrderFileRequest request)
+        {
+            var task = Task.Run(() => Client.PostFile<UploadOrderFileResponse>(file, request, new CodeMashRequestOptions
+            {
+                FileName = fileName
+            }));
+            
+            return await task;
+        }
     }
 }

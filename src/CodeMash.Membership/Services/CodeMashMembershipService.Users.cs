@@ -55,6 +55,16 @@ namespace CodeMash.Membership.Services
             await Client.PutAsync<object>(request);
         }
 
+        public void UpdatePassword(UpdatePasswordRequest request)
+        {
+            Client.Put<object>(request);
+        }
+
+        public async Task UpdatePasswordAsync(UpdatePasswordRequest request)
+        {
+            await Client.PutAsync<object>(request);
+        }
+        
         public DeleteUserResponse DeleteUser(DeleteUserRequest request)
         {
             return Client.Delete<DeleteUserResponse>(request);
