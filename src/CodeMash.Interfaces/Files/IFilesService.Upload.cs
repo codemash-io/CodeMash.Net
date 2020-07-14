@@ -34,5 +34,15 @@ namespace CodeMash.Interfaces.Files
         UploadUserFileResponse UploadUserFile(Stream file, string fileName, UploadUserFileRequest request);
         
         Task<UploadUserFileResponse> UploadUserFileAsync(Stream file, string fileName, UploadUserFileRequest request);
+        
+        
+        /* Payments Upload */
+        UploadOrderFileResponse UploadOrderFile(byte[] file, string fileName, UploadOrderFileRequest request);
+        
+        Task<UploadOrderFileResponse> UploadOrderFileAsync(byte[] file, string fileName, UploadOrderFileRequest request);
+        
+        UploadOrderFileResponse UploadOrderFile(Stream file, string fileName, UploadOrderFileRequest request);
+        
+        Task<UploadOrderFileResponse> UploadOrderFileAsync(Stream file, string fileName, UploadOrderFileRequest request);
     }
 }
