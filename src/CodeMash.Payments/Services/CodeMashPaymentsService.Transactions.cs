@@ -14,5 +14,25 @@ namespace CodeMash.Payments.Services
         {
             return await Client.PostAsync<CreatePayseraTransactionResponse>(request);
         }
+
+        public CreateStripeTransactionResponse CreateStripeTransaction(CreateStripeTransactionRequest request)
+        {
+            return Client.Post<CreateStripeTransactionResponse>(request);
+        }
+
+        public async Task<CreateStripeTransactionResponse> CreateStripeTransactionAsync(CreateStripeTransactionRequest request)
+        {
+            return await Client.PostAsync<CreateStripeTransactionResponse>(request);
+        }
+
+        public CheckStripePaymentStatusResponse CheckStripePaymentStatus(CheckStripePaymentStatusRequest request)
+        {
+            return Client.Get<CheckStripePaymentStatusResponse>(request);
+        }
+
+        public async Task<CheckStripePaymentStatusResponse> CheckStripePaymentStatusAsync(CheckStripePaymentStatusRequest request)
+        {
+            return await Client.GetAsync<CheckStripePaymentStatusResponse>(request);
+        }
     }
 }
