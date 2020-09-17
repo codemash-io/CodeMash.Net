@@ -71,7 +71,9 @@ namespace CodeMash.Repository
                 CollectionName = GetCollectionName(),
                 Document = JsonConverterHelper.SerializeEntity(entity),
                 BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
-                WaitForFileUpload = insertOneOptions?.WaitForFileUpload ?? false
+                WaitForFileUpload = insertOneOptions?.WaitForFileUpload ?? false,
+                IgnoreTriggers = insertOneOptions?.IgnoreTriggers ?? false,
+                ResponsibleUserId = insertOneOptions?.ResponsibleUserId
             };
 
             return request;
@@ -92,7 +94,9 @@ namespace CodeMash.Repository
                     if (x.Id == ObjectId.Empty.ToString() || string.IsNullOrEmpty(x.Id)) x.Id = ObjectId.GenerateNewId().ToString();
                     return JsonConverterHelper.SerializeEntity(x);
                 }),
-                BypassDocumentValidation = insertManyOptions?.BypassDocumentValidation ?? false
+                BypassDocumentValidation = insertManyOptions?.BypassDocumentValidation ?? false,
+                IgnoreTriggers = insertManyOptions?.IgnoreTriggers ?? false,
+                ResponsibleUserId = insertManyOptions?.ResponsibleUserId
             };
 
             return request;
