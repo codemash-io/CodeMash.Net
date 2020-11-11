@@ -10,7 +10,7 @@ using MongoDB.Driver;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T> where T : IEntity
     {
         /* Find Async */
         public async Task<DatabaseFindResponse<T>> FindAsync(Expression<Func<T, bool>> filter = null, DatabaseFindOptions findOptions = null)

@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T> where T : IEntity
     {
         /* Find One Async */
         public async Task<T> FindOneByIdAsync(string id, DatabaseFindOneOptions findOneOptions = null)

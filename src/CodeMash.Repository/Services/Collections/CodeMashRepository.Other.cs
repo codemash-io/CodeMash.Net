@@ -10,7 +10,7 @@ using ServiceStack;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T> where T : IEntity
     {
         public async Task<long> CountAsync(FilterDefinition<T> filter, DatabaseCountOptions countOptions = null)
         {

@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T> where T : IEntity
     {
         /* Aggregate Async */
         public async Task<List<TA>> AggregateAsync<TA>(Guid aggregateId, AggregateOptions aggregateOptions = null)

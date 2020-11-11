@@ -10,9 +10,14 @@ using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T>
+    public partial class CodeMashRepository<T> where T : IEntity
     {
         /* Replace Async */
+        public async Task<DatabaseReplaceOneResponse> ReplaceOneAsync(string id, T entity, DatabaseReplaceOneOptions updateOptions = null)
+        {
+            return await ReplaceOneAsync(x => x.Id == id, entity, updateOptions);
+        }
+        
         public async Task<DatabaseReplaceOneResponse> ReplaceOneAsync(Expression<Func<T, bool>> filter, T entity, DatabaseReplaceOneOptions updateOptions = null)
         {
             if (filter == null)
@@ -62,6 +67,11 @@ namespace CodeMash.Repository
         
         
         /* Replace */
+        public DatabaseReplaceOneResponse ReplaceOne(string id, T entity, DatabaseReplaceOneOptions updateOptions = null)
+        {
+            return ReplaceOne(x => x.Id == id, entity, updateOptions);
+        }
+        
         public DatabaseReplaceOneResponse ReplaceOne(Expression<Func<T, bool>> filter, T entity, DatabaseReplaceOneOptions updateOptions = null)
         {
             if (filter == null)

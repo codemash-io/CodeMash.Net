@@ -12,31 +12,31 @@ namespace CodeMash.Interfaces.Database.Repository
     public partial interface IRepository<T> where T : IEntity
     {
         /* Delete Async */
-        Task<DatabaseDeleteOneResponse> DeleteOneAsync(string id);
+        Task<DatabaseDeleteOneResponse> DeleteOneAsync(string id, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        Task<DatabaseDeleteOneResponse> DeleteOneAsync(ObjectId id);
+        Task<DatabaseDeleteOneResponse> DeleteOneAsync(ObjectId id, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        Task<DatabaseDeleteOneResponse> DeleteOneAsync(FilterDefinition<T> filter);
+        Task<DatabaseDeleteOneResponse> DeleteOneAsync(FilterDefinition<T> filter, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        Task<DatabaseDeleteOneResponse> DeleteOneAsync(Expression<Func<T, bool>> filter);
+        Task<DatabaseDeleteOneResponse> DeleteOneAsync(Expression<Func<T, bool>> filter, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        Task<DatabaseDeleteManyResponse> DeleteManyAsync(FilterDefinition<T> filter);
+        Task<DatabaseDeleteManyResponse> DeleteManyAsync(FilterDefinition<T> filter, DatabaseDeleteManyOptions deleteManyOptions = null);
         
-        Task<DatabaseDeleteManyResponse> DeleteManyAsync(Expression<Func<T, bool>> filter);
+        Task<DatabaseDeleteManyResponse> DeleteManyAsync(Expression<Func<T, bool>> filter, DatabaseDeleteManyOptions deleteManyOptions = null);
         
         
         
         /* Delete */
-        DatabaseDeleteOneResponse DeleteOne(string id);
+        DatabaseDeleteOneResponse DeleteOne(string id, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        DatabaseDeleteOneResponse DeleteOne(ObjectId id);
+        DatabaseDeleteOneResponse DeleteOne(ObjectId id, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        DatabaseDeleteOneResponse DeleteOne(FilterDefinition<T> filter);
+        DatabaseDeleteOneResponse DeleteOne(FilterDefinition<T> filter, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        DatabaseDeleteOneResponse DeleteOne(Expression<Func<T, bool>> filter);
+        DatabaseDeleteOneResponse DeleteOne(Expression<Func<T, bool>> filter, DatabaseDeleteOneOptions deleteOneOptions = null);
         
-        DatabaseDeleteManyResponse DeleteMany(FilterDefinition<T> filter);
+        DatabaseDeleteManyResponse DeleteMany(FilterDefinition<T> filter, DatabaseDeleteManyOptions deleteManyOptions = null);
         
-        DatabaseDeleteManyResponse DeleteMany(Expression<Func<T, bool>> filter);
+        DatabaseDeleteManyResponse DeleteMany(Expression<Func<T, bool>> filter, DatabaseDeleteManyOptions deleteManyOptions = null);
     }
 }

@@ -13,14 +13,7 @@ namespace CodeMash.Repository
 {
     public class EntitySerializer
     {
-        private readonly PropertyInfo[] _properties;
-        
-        public EntitySerializer(PropertyInfo[] properties)
-        {
-            _properties = properties;
-        }
-
-        public void FormEntityForSerialize(JObject entity)
+        public void FormEntityForSerialize(JObject entity, PropertyInfo[] _properties)
         {
             foreach (var property in _properties)
             {
@@ -39,6 +32,12 @@ namespace CodeMash.Repository
                     {
                         entity[propName].Replace(new JValue(entity[propName]["_id"]?.ToString() ?? entity[propName]["id"]?.ToString()));
                     }
+                }
+                // If some random object
+                else if (entity.ContainsKey(propName) && entity[propName].Type == JTokenType.Object)
+                {
+                    var properties = property.PropertyType.GetProperties();
+                    FormEntityForSerialize((JObject) entity[propName], properties);
                 }
                 // Nested
                 else if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))

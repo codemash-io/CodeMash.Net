@@ -10,7 +10,7 @@ using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T>
+    public partial class CodeMashRepository<T> where T : IEntity
     { 
         /* Update Async */
         public async Task<UpdateResult> UpdateManyAsync(Expression<Func<T, bool>> filter, UpdateDefinition<T> update,

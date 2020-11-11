@@ -12,40 +12,41 @@ using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
 
 namespace CodeMash.Repository
 {
-    public partial class CodeMashRepository<T> : IRepository<T> where T : IEntity
+    public partial class CodeMashRepository<T> where T : IEntity
     {
         /* Delete Async */
-        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(ObjectId id)
+        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(ObjectId id, DatabaseDeleteOneOptions deleteOneOptions = null)
         {
-            return await DeleteOneAsync(id.ToString());
+            return await DeleteOneAsync(id.ToString(), deleteOneOptions);
         }
         
-        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(string id)
+        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(string id, DatabaseDeleteOneOptions deleteOneOptions = null)
         {
             if (id.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(id), "id cannot be empty");
             }
             
-            return await DeleteOneAsync(new ExpressionFilterDefinition<T>(x => x.Id == id));
+            return await DeleteOneAsync(new ExpressionFilterDefinition<T>(x => x.Id == id), deleteOneOptions);
         }
 
-        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(Expression<Func<T, bool>> filter)
+        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(Expression<Func<T, bool>> filter, DatabaseDeleteOneOptions deleteOneOptions = null)
         {
             if (filter == null)
             {
                 filter = _ => true;
             }
 
-            return await DeleteOneAsync(new ExpressionFilterDefinition<T>(filter));
+            return await DeleteOneAsync(new ExpressionFilterDefinition<T>(filter), deleteOneOptions);
         }
 
-        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(FilterDefinition<T> filter)
+        public async Task<DatabaseDeleteOneResponse> DeleteOneAsync(FilterDefinition<T> filter, DatabaseDeleteOneOptions deleteOneOptions = null)
         {
             var request = new DeleteOneRequest
             {
                 Filter = filter?.FilterToJson(),
                 CollectionName = GetCollectionName(),
+                IgnoreTriggers = deleteOneOptions?.IgnoreTriggers ?? false
             };
 
             var response = await Client.DeleteAsync<DeleteOneResponse>(request);
@@ -58,12 +59,12 @@ namespace CodeMash.Repository
             };
         }
 
-        public async Task<DatabaseDeleteManyResponse> DeleteManyAsync(Expression<Func<T, bool>> filter)
+        public async Task<DatabaseDeleteManyResponse> DeleteManyAsync(Expression<Func<T, bool>> filter, DatabaseDeleteManyOptions deleteManyOptions = null)
         {
-            return await DeleteManyAsync(new ExpressionFilterDefinition<T>(filter));
+            return await DeleteManyAsync(new ExpressionFilterDefinition<T>(filter), deleteManyOptions);
         }
 
-        public async Task<DatabaseDeleteManyResponse> DeleteManyAsync(FilterDefinition<T> filter)
+        public async Task<DatabaseDeleteManyResponse> DeleteManyAsync(FilterDefinition<T> filter, DatabaseDeleteManyOptions deleteManyOptions = null)
         {
             if (filter == null)
             {
@@ -74,6 +75,7 @@ namespace CodeMash.Repository
             {
                 Filter = filter.FilterToJson(),
                 CollectionName = GetCollectionName(),
+                IgnoreTriggers = deleteManyOptions?.IgnoreTriggers ?? false,
             };
 
             var response = await Client.DeleteAsync<DeleteManyResponse>(request);
@@ -91,37 +93,38 @@ namespace CodeMash.Repository
         
         
         /* Delete */
-        public DatabaseDeleteOneResponse DeleteOne(ObjectId id) 
+        public DatabaseDeleteOneResponse DeleteOne(ObjectId id, DatabaseDeleteOneOptions deleteOneOptions = null) 
         {
-            return DeleteOne(id.ToString());
+            return DeleteOne(id.ToString(), deleteOneOptions);
         }
         
-        public DatabaseDeleteOneResponse DeleteOne(string id) 
+        public DatabaseDeleteOneResponse DeleteOne(string id, DatabaseDeleteOneOptions deleteOneOptions = null) 
         {
             if (id.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(id), "id cannot be empty");
             }
             
-            return DeleteOne(new ExpressionFilterDefinition<T>(x => x.Id == id));
+            return DeleteOne(new ExpressionFilterDefinition<T>(x => x.Id == id), deleteOneOptions);
         }
 
-        public DatabaseDeleteOneResponse DeleteOne(Expression<Func<T, bool>> filter)
+        public DatabaseDeleteOneResponse DeleteOne(Expression<Func<T, bool>> filter, DatabaseDeleteOneOptions deleteOneOptions = null)
         {
             if (filter == null)
             {
                 filter = _ => true;
             }
 
-            return DeleteOne(new ExpressionFilterDefinition<T>(filter));
+            return DeleteOne(new ExpressionFilterDefinition<T>(filter), deleteOneOptions);
         }
         
-        public DatabaseDeleteOneResponse DeleteOne(FilterDefinition<T> filter)
+        public DatabaseDeleteOneResponse DeleteOne(FilterDefinition<T> filter, DatabaseDeleteOneOptions deleteOneOptions = null)
         {
             var request = new DeleteOneRequest
             {
                 Filter = filter?.FilterToJson(),
                 CollectionName = GetCollectionName(),
+                IgnoreTriggers = deleteOneOptions?.IgnoreTriggers ?? false,
             };
 
             var response = Client.Delete<DeleteOneResponse>(request);
@@ -133,12 +136,12 @@ namespace CodeMash.Repository
                 DeletedCount = response.Result.DeletedCount
             };
         }
-        public DatabaseDeleteManyResponse DeleteMany(Expression<Func<T, bool>> filter) 
+        public DatabaseDeleteManyResponse DeleteMany(Expression<Func<T, bool>> filter, DatabaseDeleteManyOptions deleteManyOptions = null) 
         {
-            return DeleteMany(new ExpressionFilterDefinition<T>(filter));
+            return DeleteMany(new ExpressionFilterDefinition<T>(filter), deleteManyOptions);
         }
         
-        public DatabaseDeleteManyResponse DeleteMany(FilterDefinition<T> filter) 
+        public DatabaseDeleteManyResponse DeleteMany(FilterDefinition<T> filter, DatabaseDeleteManyOptions deleteManyOptions = null) 
         {
             if (filter == null)
             {
@@ -149,6 +152,7 @@ namespace CodeMash.Repository
             {
                 Filter = filter.FilterToJson(),
                 CollectionName = GetCollectionName(),
+                IgnoreTriggers = deleteManyOptions?.IgnoreTriggers ?? false,
             };
 
             var response = Client.Delete<DeleteManyResponse>(request);
