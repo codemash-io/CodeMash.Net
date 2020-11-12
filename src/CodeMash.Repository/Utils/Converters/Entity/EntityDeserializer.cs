@@ -13,13 +13,10 @@ namespace CodeMash.Repository
 {
     public class EntityDeserializer
     {
-        //private readonly PropertyInfo[] _properties;
-
         private readonly string _cultureCode;
         
-        public EntityDeserializer(/* PropertyInfo[] properties,*/ string cultureCode = null)
+        public EntityDeserializer(string cultureCode = null)
         {
-            //_properties = properties;
             _cultureCode = cultureCode;
         }
 

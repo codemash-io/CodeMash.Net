@@ -11,14 +11,18 @@ namespace CodeMash.Interfaces.Database.Repository
 {
     public partial interface IRepository<T> where T : IEntity
     {
-        /* Replace Async */ 
+        /* Replace Async */
+        Task<DatabaseReplaceOneResponse> ReplaceOneAsync(string id, T entity, DatabaseReplaceOneOptions updateOptions = null);
+        
         Task<DatabaseReplaceOneResponse> ReplaceOneAsync(FilterDefinition<T> filter, T entity, DatabaseReplaceOneOptions updateOptions = null);
         
         Task<DatabaseReplaceOneResponse> ReplaceOneAsync(Expression<Func<T, bool>> filter, T entity, DatabaseReplaceOneOptions updateOptions = null);
         
         
         
-        /* Replace */ 
+        /* Replace */
+        DatabaseReplaceOneResponse ReplaceOne(string id, T entity, DatabaseReplaceOneOptions updateOptions = null);
+        
         DatabaseReplaceOneResponse ReplaceOne(FilterDefinition<T> filter, T entity, DatabaseReplaceOneOptions updateOptions = null);
         
         DatabaseReplaceOneResponse ReplaceOne(Expression<Func<T, bool>> filter, T entity, DatabaseReplaceOneOptions updateOptions = null);

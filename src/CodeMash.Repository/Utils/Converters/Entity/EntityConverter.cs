@@ -30,11 +30,11 @@ namespace CodeMash.Repository
                 var listItemType = typeof(T).GetGenericArguments().FirstOrDefault();
                 var properties = listItemType?.GetProperties();
                 
-                var entitySerializer = new EntitySerializer(properties);
+                var entitySerializer = new EntitySerializer();
                 foreach (var entityArrayItem in entityToken)
                 {
                     var entity = (JObject) entityArrayItem;
-                    entitySerializer.FormEntityForSerialize(entity);
+                    entitySerializer.FormEntityForSerialize(entity, properties);
                 }
                 
                 entityToken.WriteTo(writer);
@@ -44,8 +44,8 @@ namespace CodeMash.Repository
                 var properties = typeof(T).GetProperties();
                 var entity = (JObject) entityToken;
 
-                var entitySerializer = new EntitySerializer(properties);
-                entitySerializer.FormEntityForSerialize(entity);
+                var entitySerializer = new EntitySerializer();
+                entitySerializer.FormEntityForSerialize(entity, properties);
                 
                 entity.WriteTo(writer);
             }

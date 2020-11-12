@@ -164,7 +164,6 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(dateObject.DateTimeField, deserialized.DateTimeField);
         }
         
-        
         [TestMethod]
         public void Can_serialize_date_to_time_stamp_with_nested()
         {
@@ -186,6 +185,26 @@ namespace CodeMash.Core.Tests
             Assert.AreEqual(deserialized.Id, "123");
             Assert.AreEqual(dateObject.NonNested, deserialized.NonNested);
             Assert.AreEqual(dateObject.NestedDateTime[0].DateTimeField, deserialized.NestedDateTime[0].DateTimeField);
+        }
+        
+        [TestMethod]
+        public void Can_serialize_currency_object_and_rename()
+        {
+            var dateObject = new CurrencyEntity
+            {
+                Id = "123",
+                Currency = new CurrencyField
+                {
+                    Currency = "EUR",
+                    Value = 10m
+                },
+                Currencies = new List<CurrencyField>
+                {
+                    new CurrencyField { Currency = "EUR", Value = 5m }
+                }
+            };
+            
+            var serialized = JsonConverterHelper.SerializeEntity(dateObject);
         }
         
         [TestMethod]
