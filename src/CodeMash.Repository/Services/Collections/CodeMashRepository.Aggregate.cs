@@ -34,6 +34,7 @@ namespace CodeMash.Repository
                 CollectionName = GetCollectionName(),
                 Id = aggregateId,
                 Tokens = aggregateOptions?.Tokens,
+                Cluster = Cluster
             };
         }
         

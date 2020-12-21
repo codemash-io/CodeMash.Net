@@ -234,7 +234,7 @@ namespace CodeMash.Core.Tests
             
             var response = Service.DeleteDevice(new DeleteDeviceRequest
             {
-                Id = Guid.Parse(deviceIdResponse),
+                Id = deviceIdResponse,
             });
             
             Assert.IsTrue(response.Result);
@@ -248,7 +248,7 @@ namespace CodeMash.Core.Tests
             
             var response = await Service.DeleteDeviceAsync(new DeleteDeviceRequest
             {
-                Id = Guid.Parse(deviceIdResponse),
+                Id = deviceIdResponse,
             });
             
             Assert.IsTrue(response.Result);
@@ -264,7 +264,7 @@ namespace CodeMash.Core.Tests
             
             var response = Service.GetDevice(new GetDeviceRequest
             {
-                Id = Guid.Parse(deviceIdResponse),
+                Id = deviceIdResponse,
             });
             
             Assert.AreEqual(response.Result.Id, deviceIdResponse);
@@ -280,7 +280,7 @@ namespace CodeMash.Core.Tests
             
             var response = await Service.GetDeviceAsync(new GetDeviceRequest
             {
-                Id = Guid.Parse(deviceIdResponse),
+                Id = deviceIdResponse,
             });
             
             Assert.AreEqual(response.Result.Id, deviceIdResponse);

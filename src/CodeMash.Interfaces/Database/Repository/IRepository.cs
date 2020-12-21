@@ -6,6 +6,6 @@ namespace CodeMash.Interfaces.Database.Repository
 {
     public partial interface IRepository<T> : IClientService where T : IEntity 
     {
-        IRepository<T> WithCollection(string collectionName);
+        string Cluster { get; set; }
     }
 }

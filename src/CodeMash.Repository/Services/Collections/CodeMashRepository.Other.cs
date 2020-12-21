@@ -55,7 +55,8 @@ namespace CodeMash.Repository
                 CollectionName = GetCollectionName(),
                 Filter = filter?.FilterToJson(),
                 Limit = countOptions?.Limit,
-                Skip = countOptions?.Skip
+                Skip = countOptions?.Skip,
+                Cluster = Cluster
             };
 
             return request;
@@ -103,7 +104,8 @@ namespace CodeMash.Repository
             {
                 CollectionName = GetCollectionName(),
                 Filter = filter?.FilterToJson(),
-                Field = field
+                Field = field,
+                Cluster = Cluster
             };
 
             return request;

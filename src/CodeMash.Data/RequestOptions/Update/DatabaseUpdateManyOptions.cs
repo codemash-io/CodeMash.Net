@@ -5,8 +5,6 @@ namespace CodeMash.Repository
     {
         public bool BypassDocumentValidation { get; set; }
         
-        public bool IsUpsert { get; set; }
-        
         public bool IgnoreTriggers { get; set; }
     }
 }

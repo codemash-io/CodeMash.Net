@@ -46,7 +46,8 @@ namespace CodeMash.Repository
             {
                 Filter = filter?.FilterToJson(),
                 CollectionName = GetCollectionName(),
-                IgnoreTriggers = deleteOneOptions?.IgnoreTriggers ?? false
+                IgnoreTriggers = deleteOneOptions?.IgnoreTriggers ?? false,
+                Cluster = Cluster
             };
 
             var response = await Client.DeleteAsync<DeleteOneResponse>(request);
@@ -76,6 +77,7 @@ namespace CodeMash.Repository
                 Filter = filter.FilterToJson(),
                 CollectionName = GetCollectionName(),
                 IgnoreTriggers = deleteManyOptions?.IgnoreTriggers ?? false,
+                Cluster = Cluster
             };
 
             var response = await Client.DeleteAsync<DeleteManyResponse>(request);
@@ -125,6 +127,7 @@ namespace CodeMash.Repository
                 Filter = filter?.FilterToJson(),
                 CollectionName = GetCollectionName(),
                 IgnoreTriggers = deleteOneOptions?.IgnoreTriggers ?? false,
+                Cluster = Cluster
             };
 
             var response = Client.Delete<DeleteOneResponse>(request);
@@ -153,6 +156,7 @@ namespace CodeMash.Repository
                 Filter = filter.FilterToJson(),
                 CollectionName = GetCollectionName(),
                 IgnoreTriggers = deleteManyOptions?.IgnoreTriggers ?? false,
+                Cluster = Cluster
             };
 
             var response = Client.Delete<DeleteManyResponse>(request);
