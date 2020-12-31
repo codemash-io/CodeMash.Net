@@ -14,6 +14,16 @@ namespace CodeMash.Membership.Services
         {
             return await Client.PostAsync<RegisterUserResponse>(registerUserData);
         }
+        
+        public RegisterGuestUserResponse RegisterGuestUser(RegisterGuestUserRequest registerUserData)
+        {
+            return Client.Post<RegisterGuestUserResponse>(registerUserData);
+        }
+
+        public async Task<RegisterGuestUserResponse> RegisterGuestUserAsync(RegisterGuestUserRequest registerUserData)
+        {
+            return await Client.PostAsync<RegisterGuestUserResponse>(registerUserData);
+        }
 
         public InviteUserResponse InviteUser(InviteUserRequest inviteUserData)
         {
