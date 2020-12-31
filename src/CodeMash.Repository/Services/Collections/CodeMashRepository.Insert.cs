@@ -73,7 +73,8 @@ namespace CodeMash.Repository
                 BypassDocumentValidation = insertOneOptions?.BypassDocumentValidation ?? false,
                 WaitForFileUpload = insertOneOptions?.WaitForFileUpload ?? false,
                 IgnoreTriggers = insertOneOptions?.IgnoreTriggers ?? false,
-                ResponsibleUserId = insertOneOptions?.ResponsibleUserId
+                ResponsibleUserId = insertOneOptions?.ResponsibleUserId,
+                Cluster = Cluster
             };
 
             return request;
@@ -96,7 +97,8 @@ namespace CodeMash.Repository
                 }),
                 BypassDocumentValidation = insertManyOptions?.BypassDocumentValidation ?? false,
                 IgnoreTriggers = insertManyOptions?.IgnoreTriggers ?? false,
-                ResponsibleUserId = insertManyOptions?.ResponsibleUserId
+                ResponsibleUserId = insertManyOptions?.ResponsibleUserId,
+                Cluster = Cluster
             };
 
             return request;

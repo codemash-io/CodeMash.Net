@@ -8,6 +8,10 @@ namespace CodeMash.Interfaces.Membership
         RegisterUserResponse RegisterUser(RegisterUserRequest registerUserData);
         
         Task<RegisterUserResponse> RegisterUserAsync(RegisterUserRequest registerUserData);
+
+        RegisterGuestUserResponse RegisterGuestUser(RegisterGuestUserRequest registerUserData);
+
+        Task<RegisterGuestUserResponse> RegisterGuestUserAsync(RegisterGuestUserRequest registerUserData);
         
         InviteUserResponse InviteUser(InviteUserRequest inviteUserData);
         

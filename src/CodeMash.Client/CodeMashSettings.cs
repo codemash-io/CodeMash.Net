@@ -11,7 +11,7 @@ namespace CodeMash.Client
         
         public string CultureCode { get; set; }
 
-        public string Version { get; set; } = "v1";
+        public string Version { get; set; } = "v2";
 
         public string SecretKey { get; }
 

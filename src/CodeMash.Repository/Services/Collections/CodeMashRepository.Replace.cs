@@ -43,7 +43,8 @@ namespace CodeMash.Repository
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
                 IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
-                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false
+                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false,
+                Cluster = Cluster
             };
 
             var response = await Client.PutAsync<ReplaceOneResponse>(request);
@@ -97,7 +98,8 @@ namespace CodeMash.Repository
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IsUpsert = updateOptions?.IsUpsert ?? false,
                 IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
-                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false
+                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false,
+                Cluster = Cluster
             };
 
             var response = Client.Put<ReplaceOneResponse>(request);

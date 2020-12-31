@@ -9,14 +9,17 @@ namespace CodeMash.Repository
     {
         public ICodeMashClient Client { get; }
         
+        public string Cluster { get; set; }
+        
         public CodeMashRepository(ICodeMashClient client)
         {
             Client = client;
         }
-
-        public IRepository<T> WithCollection(string collectionName)
+        
+        public CodeMashRepository(ICodeMashClient client, string cluster)
         {
-            throw new NotImplementedException();
+            Client = client;
+            Cluster = cluster;
         }
     }
 }

@@ -87,9 +87,9 @@ namespace CodeMash.Repository
                 Filter = filter?.FilterToJson(),
                 Update = update?.UpdateToJson(),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
-                IsUpsert = updateOptions?.IsUpsert ?? false,
                 IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
-                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false
+                WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false,
+                Cluster = Cluster
             };
         }
         
