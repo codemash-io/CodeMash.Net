@@ -26,3 +26,4 @@ jobs:
       - name: Nuget restore
         run: nuget restore $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln
       - name: Pack nuget package
+        run: $GITHUB_WORKSPACE/build.sh
