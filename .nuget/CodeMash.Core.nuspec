@@ -5,8 +5,8 @@
 	<title>CodeMash.Core</title>
 	<version>2.0.22</version>  
 	<releaseNotes>SDK for calling CodeMash API from .NET Core project</releaseNotes>	
-    <authors>Domantas Jovaisas - CodeMash</authors>
-    <owners>Domantas</owners>
+    <authors>CodeMash Co</authors>
+    <owners>Isidos, UAB</owners>
 	<language>en-US</language>
 	<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/codemash-io/CodeMash.Net</projectUrl>
