@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using CodeMash.Interfaces.Client;
 using CodeMash.Interfaces.Project;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Project.Services
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeMash.Interfaces.Membership;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Core.Tests
 {

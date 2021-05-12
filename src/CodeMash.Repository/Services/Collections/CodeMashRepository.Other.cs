@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Models;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 using MongoDB.Driver;
-using ServiceStack;
 
 namespace CodeMash.Repository
 {

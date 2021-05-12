@@ -4,7 +4,6 @@ using CodeMash.Client;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
-using ServiceStack;
 
 namespace CodeMash.Core.Tests
 {

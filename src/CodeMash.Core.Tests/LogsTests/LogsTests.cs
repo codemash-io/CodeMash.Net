@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using CodeMash.Client;
-using CodeMash.Notifications.Push.Services;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeMash.Core.Tests

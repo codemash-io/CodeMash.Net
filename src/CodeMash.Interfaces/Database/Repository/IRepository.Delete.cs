@@ -5,7 +5,6 @@ using CodeMash.Models;
 using CodeMash.Repository;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using DeleteResult = Isidos.CodeMash.ServiceContracts.DeleteResult;
 
 namespace CodeMash.Interfaces.Database.Repository
 {

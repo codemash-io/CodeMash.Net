@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Models;
-using Isidos.CodeMash.ServiceContracts;
-using MongoDB.Driver;
+using Isidos.CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Repository
 {

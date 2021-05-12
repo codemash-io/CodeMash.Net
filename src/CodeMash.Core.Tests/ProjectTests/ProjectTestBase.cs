@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Interfaces.Project;
 
 namespace CodeMash.Core.Tests

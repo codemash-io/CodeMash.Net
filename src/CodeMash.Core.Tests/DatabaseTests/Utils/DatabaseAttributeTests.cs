@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using CodeMash.Repository;
-using Isidos.CodeMash.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
-using Newtonsoft.Json.Linq;
 
 namespace CodeMash.Core.Tests
 {

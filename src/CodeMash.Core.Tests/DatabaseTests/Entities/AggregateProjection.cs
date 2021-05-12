@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CodeMash.Models;
-using CodeMash.Repository;
-using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace CodeMash.Core.Tests
