@@ -18,7 +18,7 @@ jobs:
         with:
           dotnet-version: "3.1.200"
       - name: Build sdk
-        run: dotnet build $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln --configuration $config
+        run: dotnet build /src/CodeMash.Sdk.sln --configuration $config
       # Publish
       - name: publish on version change
         id: publish_nuget
