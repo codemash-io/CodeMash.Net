@@ -31,11 +31,6 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: package
-          path: ./
+          path: ./CodeMash.Core.2.1.0.nupkg
       - name: Allow download artifacts
         uses: actions/download-artifact@v2
-        # with:
-        #   name: codemash-js-artifact
-      - name: ZIP Assets
-        run: |
-          zip -r build.zip ./
