@@ -43,6 +43,6 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: package
-          path: ./CodeMash.Core.${VERSION}.nupkg
+          path: ./CodeMash.Core.${{ env.VERSION }}.nupkg
       - name: Allow download artifacts
         uses: actions/download-artifact@v2
