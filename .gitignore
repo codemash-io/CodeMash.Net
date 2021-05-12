@@ -16,6 +16,7 @@ x64/
 [Oo]bj/
 .[Ii]dea/
 NextGenMain/Source/Deploy/
+packages/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -175,4 +176,3 @@ $RECYCLE.BIN/
 
 .idea/
 .vs/
-.nuget/
