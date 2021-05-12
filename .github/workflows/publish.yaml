@@ -31,11 +31,11 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: package
-          path: $GITHUB_WORKSPACE
+          path: ./
       - name: Allow download artifacts
         uses: actions/download-artifact@v2
         # with:
         #   name: codemash-js-artifact
       - name: ZIP Assets
         run: |
-          zip -r build.zip $GITHUB_WORKSPACE/
+          zip -r build.zip ./
