@@ -27,8 +27,6 @@ jobs:
         run: nuget restore $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln
       - name: Nuget pack
         run: nuget pack $GITHUB_WORKSPACE/NuGet.Core/CodeMash.Core.nuspec -Version 2.1.0
-      - name: Pack nuget package
-        run: $GITHUB_WORKSPACE/build.sh $GITHUB_WORKSPACE
       - name: Upload build folder
         uses: actions/upload-artifact@v1
         with:
