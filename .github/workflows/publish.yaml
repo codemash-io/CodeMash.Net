@@ -1,7 +1,6 @@
 name: publish to nuget
 on:
   push:
-    branches: [nuget]
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+-preview[0-9][0-9][0-9]"
 
