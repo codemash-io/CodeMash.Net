@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CodeMash.Core</id>
+	<title>CodeMash.Core</title>
+	<version>2.0.22</version>  
+	<releaseNotes>SDK for calling CodeMash API from .NET Core project</releaseNotes>	
+    <authors>CodeMash Co</authors>
+    <owners>Domantas</owners>
+	<language>en-US</language>
+	<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/codemash-io/CodeMash.Net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>CodeMash tools for .NET developers. Access codemash.io tools from .NET Core</description>    
+	 <summary>
+		CodeMash is a vital toolset for each developer which wants to achive daily development tasks in a rapid way : Database as a Service, Notifications of any Kind, Centric File Storage, Multilingual Apps, Application Insights, Centric Payments Approach, One Identity Provider, Application Builder,... More about that http://codemash.io
+    </summary>
+    <copyright>Copyright 2021 codemash.io</copyright>
+	<dependencies> 
+		<group targetFramework=".NETStandard2.0">
+			<dependency id="MongoDB.Driver" version="[2.10.1, )"/>
+			<dependency id="ServiceStack" version="[5.7.0, )" />
+			<dependency id="Newtonsoft.Json" version="[12.0.3, )" />
+			<dependency id="Microsoft.Extensions.Configuration" version="[2.2.0, )" />
+			<dependency id="Microsoft.Extensions.Configuration.Abstractions" version="[2.2.0, )" />
+			<dependency id="Microsoft.Extensions.Configuration.FileExtensions" version="[2.2.0, )" />
+			<dependency id="Microsoft.Extensions.Configuration.Json" version="[2.2.0, )" />							
+		</group>
+	</dependencies>
+	<tags>repository notifications logging emails sms payments</tags>
+	</metadata>
+	 <files>
+		<file src="../src/CodeMash.Client/bin/Release/netstandard2.0/CodeMash.Client.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Code/bin/Release/netstandard2.0/CodeMash.Code.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Data/bin/Release/netstandard2.0/CodeMash.Data.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Files/bin/Release/netstandard2.0/CodeMash.Files.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Logs/bin/Release/netstandard2.0/CodeMash.Logs.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Membership/bin/Release/netstandard2.0/CodeMash.Membership.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Project/bin/Release/netstandard2.0/CodeMash.Project.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Interfaces/bin/Release/netstandard2.0/CodeMash.Interfaces.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Notifications/bin/Release/netstandard2.0/CodeMash.Notifications.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.Repository/bin/Release/netstandard2.0/CodeMash.Repository.dll" target="lib\netstandard2.0" />
+	    <file src="../src/CodeMash.Payments/bin/Release/netstandard2.0/CodeMash.Payments.dll" target="lib\netstandard2.0" />
+		<file src="../lib/ServiceContracts.Api.dll" target="lib\netstandard2.0" />
+		<file src="../lib/CodeMash.Models.dll" target="lib\netstandard2.0" />
+	</files>
+</package>

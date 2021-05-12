@@ -1,0 +1,50 @@
+name: publish to nuget
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+env:
+  config: "Release"
+
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "3.1.200"
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{secrets.NUGET_API_KEY}}
+          nuget-version: "5.3.1"
+      # this workflow will run whenever a tag is pushed to the repository that matches
+      # the v#.#.# pattern
+      # The verify step ensures that the commit tagged with the version number exists in the master branch
+      - name: Verify commit exists in origin/main
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+          git branch --remote --contains | grep origin/nuget
+      # The version (without the v prefix) is extracted from the tag and used
+      # to set the VERSION environment variable for the remaining steps
+      - name: Set VERSION variable from tag
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+      - name: Build sdk
+        run: dotnet build $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln --configuration $config /p:Version=${VERSION}
+      - name: Nuget restore
+        run: nuget restore $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln
+      - name: Nuget pack
+        run: nuget pack $GITHUB_WORKSPACE/.nuget/CodeMash.Core.nuspec -Version ${VERSION}
+      - name: Upload build folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: package
+          path: ./CodeMash.Core.${{ env.VERSION }}.nupkg
+      - name: Allow download artifacts
+        uses: actions/download-artifact@v2
+      - name: Nuget publish
+        run: nuget push ./CodeMash.Core.${{ env.VERSION }}.nupkg -ConfigFile $GITHUB_WORKSPACE/.nuget/NuGet.config
