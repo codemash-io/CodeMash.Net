@@ -22,8 +22,6 @@ jobs:
           nuget-api-key: ${{secrets.NUGET_API_KEY}}
           nuget-version: "5.3.1"
       - name: Build sdk
-        run: dotnet build /src/CodeMash.Sdk.sln --configuration $config
-      - name: Nuget restore
-        run: nuget restore $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln
+        run: dotnet build $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln --configuration $config
       - name: Pack nuget package
         run: $GITHUB_WORKSPACE/build.sh
