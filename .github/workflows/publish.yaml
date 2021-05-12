@@ -29,3 +29,15 @@ jobs:
         run: nuget pack $GITHUB_WORKSPACE/NuGet.Core/CodeMash.Core.nuspec -Version 2.1.0
       - name: Pack nuget package
         run: $GITHUB_WORKSPACE/build.sh $GITHUB_WORKSPACE
+      - name: Upload build folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: package
+          path: $GITHUB_WORKSPACE
+      - name: Allow download artifacts
+        uses: actions/download-artifact@v2
+        # with:
+        #   name: codemash-js-artifact
+      - name: ZIP Assets
+        run: |
+          zip -r build.zip $GITHUB_WORKSPACE/
