@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
-using CodeMash.Client;
-using CodeMash.Notifications.Push.Services;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
 using File = System.IO.File;
 
 namespace CodeMash.Core.Tests

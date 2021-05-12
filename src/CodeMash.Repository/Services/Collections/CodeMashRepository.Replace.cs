@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Models;
-using Isidos.CodeMash.ServiceContracts;
-using MongoDB.Bson;
+using Isidos.CodeMash.ServiceContracts.Api;
 using MongoDB.Driver;
-using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Repository
 {

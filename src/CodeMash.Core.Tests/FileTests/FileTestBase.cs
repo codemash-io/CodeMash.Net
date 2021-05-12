@@ -1,26 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using CodeMash.Client;
-using CodeMash.Code.Services;
-using CodeMash.Interfaces.Code;
-using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Interfaces.Files;
-using CodeMash.Interfaces.Logs;
-using CodeMash.Interfaces.Membership;
-using CodeMash.Interfaces.Notifications.Email;
-using CodeMash.Interfaces.Notifications.Push;
-using CodeMash.Interfaces.Project;
-using CodeMash.Logs.Services;
-using CodeMash.Membership.Services;
-using CodeMash.Notifications.Email.Services;
-using CodeMash.Notifications.Push.Services;
 using CodeMash.Project.Services;
-using Isidos.CodeMash.ServiceContracts;
-using File = Isidos.CodeMash.ServiceContracts.File;
+using Isidos.CodeMash.ServiceContracts.Api;
+using File = Isidos.CodeMash.ServiceContracts.Api.File;
 
 namespace CodeMash.Core.Tests
 {

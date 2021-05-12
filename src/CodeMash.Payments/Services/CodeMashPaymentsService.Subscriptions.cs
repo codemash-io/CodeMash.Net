@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
-using CodeMash.Interfaces.Payments;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Payments.Services
 {

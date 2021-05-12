@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CodeMash.Models;
 using CodeMash.Repository;
-using Isidos.CodeMash.ServiceContracts;
 using MongoDB.Driver;
 
 namespace CodeMash.Interfaces.Database.Terms

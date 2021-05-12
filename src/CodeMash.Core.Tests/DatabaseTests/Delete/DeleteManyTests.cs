@@ -1,9 +1,7 @@
-using System.Linq;
 using System.Threading.Tasks;
 using CodeMash.Client;
 using CodeMash.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
 
 namespace CodeMash.Core.Tests
 {

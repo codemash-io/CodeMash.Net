@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CodeMash.Interfaces.Client;
-using CodeMash.Interfaces.Database.Terms;
 using CodeMash.Models;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 using MongoDB.Driver;
 using ServiceStack;
 

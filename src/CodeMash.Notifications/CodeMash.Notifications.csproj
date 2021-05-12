@@ -20,7 +20,10 @@
       <HintPath>..\..\..\test\lib\CodeMash.Models.dll</HintPath>
     </Reference>
     <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\lib\ServiceContracts.dll</HintPath>
+      <HintPath>..\..\lib\ServiceContracts.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceContracts.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\lib\ServiceContracts.Api.dll</HintPath>
     </Reference>
   </ItemGroup> 
   

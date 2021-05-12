@@ -1,6 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Interfaces.Files
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using CodeMash.Interfaces.Client;
+﻿using CodeMash.Interfaces.Client;
 using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Models;
 

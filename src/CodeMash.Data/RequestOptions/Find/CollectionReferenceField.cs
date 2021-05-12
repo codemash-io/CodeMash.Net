@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using CodeMash.Models;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 

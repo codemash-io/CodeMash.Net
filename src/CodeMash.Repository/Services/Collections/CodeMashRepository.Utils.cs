@@ -1,5 +1,4 @@
 ﻿using System;
-using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Models;
 
 namespace CodeMash.Repository

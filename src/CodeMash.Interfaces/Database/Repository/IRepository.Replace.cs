@@ -3,9 +3,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CodeMash.Models;
 using CodeMash.Repository;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using UpdateResult = Isidos.CodeMash.ServiceContracts.UpdateResult;
 
 namespace CodeMash.Interfaces.Database.Repository
 {

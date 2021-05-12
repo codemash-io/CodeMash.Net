@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using CodeMash.Models;
-using CodeMash.Repository;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace CodeMash.Core.Tests
 {

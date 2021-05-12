@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using CodeMash.Models;
-using Isidos.CodeMash.ServiceContracts;
 
 namespace CodeMash.Repository
 {

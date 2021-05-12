@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CodeMash.Client;
 using CodeMash.Exceptions;
 using CodeMash.Membership.Services;
-using Isidos.CodeMash.ServiceContracts;
+using Isidos.CodeMash.ServiceContracts.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeMash.Core.Tests

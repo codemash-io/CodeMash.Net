@@ -1,6 +1,5 @@
 using CodeMash.Interfaces.Client;
 using CodeMash.Models;
-using CodeMash.Repository;
 
 namespace CodeMash.Interfaces.Database.Repository
 {

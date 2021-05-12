@@ -1,5 +1,3 @@
-using System;
-
 namespace CodeMash.Repository
 {
     /// <summary>Options for deleting documents using DeleteOne and DeleteOneAsync methods.</summary>
