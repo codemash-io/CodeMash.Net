@@ -25,9 +25,7 @@ jobs:
         run: dotnet build $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln --configuration $config
       - name: Nuget restore
         run: nuget restore $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln
-      - name: DEBUG Workaround GitHub-Actions-MacOS Issue with env.TMPDIR
-        run: |
-          echo "TMPDIR=$TMPDIR"
-          echo "TMPDIR using ENV.TMPDIR=${{ env.TMPDIR }}"
+      - name: Nuget pack
+        run: nuget pack --configuration=release $GITHUB_WORKSPACE/src/CodeMash.Sdk.sln -p:Version=2.1.0 -p:NuspecFile=$GITHUB_WORKSPACE/Nuget.Core/CodeMash.Core.nuspec
       - name: Pack nuget package
         run: $GITHUB_WORKSPACE/build.sh $GITHUB_WORKSPACE

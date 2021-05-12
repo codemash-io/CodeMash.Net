@@ -11,4 +11,4 @@ nuget restore $SRC_DIR/CodeMash.Sdk.sln
 nuget pack --configuration=release $SRC_DIR/CodeMash.Sdk.sln -p:Version=2.1.0 -p:NuspecFile=../../Nuget.Core/CodeMash.Core.nuspec  
 
 # dotnet build --configuration=release $SRC_DIR/CodeMash.Sdk.sln
-cp $SRC_DIR/**/bin/release/*.nupkg $PKG_DIR
+cp ./**/bin/release/*.nupkg $PKG_DIR
