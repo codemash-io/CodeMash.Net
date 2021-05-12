@@ -47,4 +47,4 @@ jobs:
       - name: Allow download artifacts
         uses: actions/download-artifact@v2
       - name: Nuget publish
-        run: nuget push ./CodeMash.Core.${{ env.VERSION }}.nupkg
+        run: nuget push ./CodeMash.Core.${{ env.VERSION }}.nupkg -ConfigFile $GITHUB_WORKSPACE/.nuget/NuGet.Config
