@@ -138,6 +138,7 @@ namespace CodeMash.Repository
                 IncludeRoleNames = findOptions?.IncludeRoleNames ?? false,
                 IncludeTermNames = findOptions?.IncludeTermNames ?? false,
                 IncludeUserNames = findOptions?.IncludeUserNames ?? false,
+                Cluster = Cluster,
             };
 
             return request;
