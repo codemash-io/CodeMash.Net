@@ -124,6 +124,7 @@ namespace CodeMash.Repository
                 PageSize = findOptions?.PageSize ?? 1000,
                 PageNumber = findOptions?.PageNumber ?? 0,
                 CultureCode = findOptions?.CultureCode,
+                ExcludeCulture = findOptions?.ExcludeCulture ?? false,
                 ReferencedFields = findOptions?.ReferencedFields?.ConvertAll(x => new ReferencingField
                 {
                     Name = x.Name,
@@ -137,7 +138,7 @@ namespace CodeMash.Repository
                 IncludeRoleNames = findOptions?.IncludeRoleNames ?? false,
                 IncludeTermNames = findOptions?.IncludeTermNames ?? false,
                 IncludeUserNames = findOptions?.IncludeUserNames ?? false,
-                Cluster = Cluster
+                Cluster = Cluster,
             };
 
             return request;

@@ -28,5 +28,7 @@ namespace CodeMash.Repository
         public bool IncludeCollectionNames { get; set; }
         
         public bool IncludeTermNames { get; set; }
+        
+        public bool ExcludeCulture { get; set; }
     }
 }
