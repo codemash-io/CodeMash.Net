@@ -6,5 +6,7 @@ namespace CodeMash.Repository
         public bool BypassDocumentValidation { get; set; }
         
         public bool IgnoreTriggers { get; set; }
+        
+        public bool ResolveProviderFiles { get; set; }
     }
 }
