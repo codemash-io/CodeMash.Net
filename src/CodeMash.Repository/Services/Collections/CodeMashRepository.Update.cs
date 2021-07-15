@@ -88,6 +88,7 @@ namespace CodeMash.Repository
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
                 WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false,
+                ResolveProviderFiles = updateOptions?.ResolveProviderFiles ?? false,
                 Cluster = Cluster
             };
         }

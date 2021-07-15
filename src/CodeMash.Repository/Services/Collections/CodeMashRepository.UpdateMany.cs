@@ -66,6 +66,7 @@ namespace CodeMash.Repository
                 Update = update?.UpdateToJson(),
                 BypassDocumentValidation = updateOptions?.BypassDocumentValidation ?? false,
                 IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
+                ResolveProviderFiles = updateOptions?.ResolveProviderFiles ?? false,
                 Cluster = Cluster
             };
         }

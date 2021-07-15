@@ -41,6 +41,7 @@ namespace CodeMash.Repository
                 IsUpsert = updateOptions?.IsUpsert ?? false,
                 IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
                 WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false,
+                ResolveProviderFiles = updateOptions?.ResolveProviderFiles ?? false,
                 Cluster = Cluster
             };
 
@@ -96,6 +97,7 @@ namespace CodeMash.Repository
                 IsUpsert = updateOptions?.IsUpsert ?? false,
                 IgnoreTriggers = updateOptions?.IgnoreTriggers ?? false,
                 WaitForFileUpload = updateOptions?.WaitForFileUpload ?? false,
+                ResolveProviderFiles = updateOptions?.ResolveProviderFiles ?? false,
                 Cluster = Cluster
             };
 

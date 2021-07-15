@@ -8,5 +8,7 @@ namespace CodeMash.Repository
         public bool IgnoreTriggers { get; set; }
         
         public bool WaitForFileUpload { get; set; }
+        
+        public bool ResolveProviderFiles { get; set; }
     }
 }

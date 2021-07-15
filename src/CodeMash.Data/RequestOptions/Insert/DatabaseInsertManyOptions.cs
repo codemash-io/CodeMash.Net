@@ -10,5 +10,7 @@ namespace CodeMash.Repository
         public bool IgnoreTriggers { get; set; }
         
         public Guid? ResponsibleUserId { get; set; }
+        
+        public bool ResolveProviderFiles { get; set; }
     }
 }
