@@ -201,7 +201,7 @@ namespace CodeMash.Core.Tests
             var user2Response = RegisterUser("Can_update_device_user", 1);
             var response = Service.UpdateDeviceUser(new UpdateDeviceUserRequest
             {
-                Id = Guid.Parse(deviceIdResponse),
+                Id = deviceIdResponse,
                 UserId = Guid.Parse(user2Response)
             });
             
@@ -217,7 +217,7 @@ namespace CodeMash.Core.Tests
             var user2Response = RegisterUser("Can_update_device_user_async", 1);
             var response = await Service.UpdateDeviceUserAsync(new UpdateDeviceUserRequest
             {
-                Id = Guid.Parse(deviceIdResponse),
+                Id = deviceIdResponse,
                 UserId = Guid.Parse(user2Response)
             });
             
