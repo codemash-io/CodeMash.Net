@@ -6,18 +6,26 @@
         <LangVersion>default</LangVersion>
     </PropertyGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
       <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Reference Include="ServiceContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\lib\ServiceContracts.Api.dll</HintPath>
-      </Reference>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+        <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
       <Reference Include="ServiceContracts.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\lib\ServiceContracts.Api.dll</HintPath>
+        <HintPath>..\..\lib\netstandard2.0\ServiceContracts.Api.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+        <Reference Include="ServiceContracts.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>..\..\lib\net6.0\ServiceContracts.Api.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>
