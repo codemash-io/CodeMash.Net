@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CodeMash.Client\CodeMash.Client.csproj" />
+      <ProjectReference Include="..\CodeMash.Data\CodeMash.Data.csproj" />
+      <ProjectReference Include="..\CodeMash.Interfaces\CodeMash.Interfaces.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+      <Reference Include="ServiceContracts.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\lib\netstandard2.0\ServiceContracts.Api.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+        <Reference Include="ServiceContracts.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>..\..\lib\net6.0\ServiceContracts.Api.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>

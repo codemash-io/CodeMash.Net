@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Data", "CodeMash.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Payments", "CodeMash.Payments\CodeMash.Payments.csproj", "{ED153446-CB92-4FF9-8EF3-09296E3B0B6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.ServerEvents", "CodeMash.ServerEvents\CodeMash.ServerEvents.csproj", "{30C4C274-4DB8-4CBE-88C2-B4470DC3957F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{ED153446-CB92-4FF9-8EF3-09296E3B0B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED153446-CB92-4FF9-8EF3-09296E3B0B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED153446-CB92-4FF9-8EF3-09296E3B0B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C4C274-4DB8-4CBE-88C2-B4470DC3957F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C4C274-4DB8-4CBE-88C2-B4470DC3957F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30C4C274-4DB8-4CBE-88C2-B4470DC3957F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C4C274-4DB8-4CBE-88C2-B4470DC3957F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

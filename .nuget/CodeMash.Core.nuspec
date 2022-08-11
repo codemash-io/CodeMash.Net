@@ -50,6 +50,7 @@
 		<file src="../src/CodeMash.Notifications/bin/Release/netstandard2.0/CodeMash.Notifications.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Repository/bin/Release/netstandard2.0/CodeMash.Repository.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Payments/bin/Release/netstandard2.0/CodeMash.Payments.dll" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.ServerEvents/bin/Release/netstandard2.0/CodeMash.ServerEvents.dll" target="lib\netstandard2.0" />
 		<file src="../lib/netstandard2.0/**" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Client/bin/Release/net6.0/CodeMash.Client.dll" target="lib\net6.0" />
 		<file src="../src/CodeMash.Code/bin/Release/net6.0/CodeMash.Code.dll" target="lib\net6.0" />
@@ -62,6 +63,7 @@
 		<file src="../src/CodeMash.Notifications/bin/Release/net6.0/CodeMash.Notifications.dll" target="lib\net6.0" />
 		<file src="../src/CodeMash.Repository/bin/Release/net6.0/CodeMash.Repository.dll" target="lib\net6.0" />
 		<file src="../src/CodeMash.Payments/bin/Release/net6.0/CodeMash.Payments.dll" target="lib\net6.0" />
+		<file src="../src/CodeMash.ServerEvents/bin/Release/net6.0/CodeMash.ServerEvents.dll" target="lib\net6.0" />
 		<file src="../lib/net6.0/**" target="lib\net6.0" />
 	</files>
 </package>
