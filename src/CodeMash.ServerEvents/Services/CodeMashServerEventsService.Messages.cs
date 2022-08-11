@@ -7,22 +7,22 @@ namespace CodeMash.ServerEvents.Services
     {
         public void SendMessage(SendSseMessageRequest request)
         {
-            Client.Post<SendSseMessageRequest>(request);
+            Client.Post<object>(request);
         }
 
         public async Task SendMessageAsync(SendSseMessageRequest request)
         {
-            await Client.PostAsync<RegisterUserResponse>(request);
+            await Client.PostAsync<object>(request);
         }
         
         public void ReadMessages(ReadSseMessagesRequest request)
         {
-            Client.Post<ReadSseMessagesRequest>(request);
+            Client.Post<object>(request);
         }
 
         public async Task ReadMessagesAsync(ReadSseMessagesRequest request)
         {
-            await Client.PostAsync<ReadSseMessagesRequest>(request);
+            await Client.PostAsync<object>(request);
         }
         
         public GetSseMessagesResponse GetMessages(GetSseMessagesRequest request)
