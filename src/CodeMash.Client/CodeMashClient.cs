@@ -16,46 +16,43 @@ namespace CodeMash.Client
 
         public ICodeMashResponse Response { get; private set; }
         
-        private IServiceClient Gateway
+        private IServiceClient GetServiceClient(string baseUrl)
         {
-            get
+            AssertSettingsAreSet();
+            var client = new JsonServiceClient(string.IsNullOrWhiteSpace(baseUrl) ? CodeMashSettings.ApiUrl : baseUrl)
             {
-                AssertSettingsAreSet();
-                var client = new JsonServiceClient(CodeMashSettings.ApiUrl)
-                {
-                    ResponseFilter = (res) =>
-                        {
-                            Response = new CodeMashResponse
-                            {
-                                ResponseUri = res.ResponseUri.ToString(),
-                                Method = res.Method,
-                                Headers = res.Headers.ToDictionary()
-                            };
-                        },
-                    RequestFilter = (req) =>
+                ResponseFilter = (res) =>
                     {
-                        Request = new CodeMashRequest
+                        Response = new CodeMashResponse
                         {
-                            RequestUri = req.RequestUri.ToString(),
-                            Host = req.Host,
-                            Method = req.Method,
-                            Headers = req.Headers.ToDictionary()
+                            ResponseUri = res.ResponseUri.ToString(),
+                            Method = res.Method,
+                            Headers = res.Headers.ToDictionary()
                         };
-                    }
-                };
-                
-                if (Settings.ProjectId != Guid.Empty)
+                    },
+                RequestFilter = (req) =>
                 {
-                    client.Headers.Add("X-CM-ProjectId", Settings.ProjectId.ToString());
+                    Request = new CodeMashRequest
+                    {
+                        RequestUri = req.RequestUri.ToString(),
+                        Host = req.Host,
+                        Method = req.Method,
+                        Headers = req.Headers.ToDictionary()
+                    };
                 }
-
-                if (!string.IsNullOrEmpty(Settings.SecretKey))
-                {
-                    client.BearerToken = Settings.SecretKey;
-                }
-                  
-                return client.WithCache();
+            };
+            
+            if (Settings.ProjectId != Guid.Empty)
+            {
+                client.Headers.Add("X-CM-ProjectId", Settings.ProjectId.ToString());
             }
+
+            if (!string.IsNullOrEmpty(Settings.SecretKey))
+            {
+                client.BearerToken = Settings.SecretKey;
+            }
+              
+            return client.WithCache();
         }
         
         public CodeMashClient(string settingsFileName = "appsettings.json")
@@ -162,7 +159,7 @@ namespace CodeMash.Client
         {
             AssertRequestIsFormed(requestDto);
 
-            var gateWay = Gateway;
+            var gateWay = GetServiceClient(requestOptions?.BaseUrl);
 
             if (requestOptions != null)
             {
