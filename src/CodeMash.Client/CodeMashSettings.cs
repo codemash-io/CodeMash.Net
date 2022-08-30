@@ -8,6 +8,7 @@ namespace CodeMash.Client
     public class CodeMashSettings : ICodeMashSettings
     {
         public const string ApiUrl = "https://api.codemash.io/";
+        public const string EventsApiUrl = "https://server-events.codemash.io/";
         
         public string CultureCode { get; set; }
 

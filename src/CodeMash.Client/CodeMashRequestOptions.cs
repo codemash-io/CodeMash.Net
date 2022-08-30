@@ -4,6 +4,8 @@ namespace CodeMash.Client
 {
     public class CodeMashRequestOptions : ICodeMashRequestOptions
     {
+        public string BaseUrl { get; set; }
+        
         public string BearerToken { get; set; }
         
         public bool UnauthenticatedRequest { get; set; }
