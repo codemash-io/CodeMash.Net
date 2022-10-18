@@ -7,7 +7,7 @@ namespace CodeMash.Client
 {
     public class CodeMashSettings : ICodeMashSettings
     {
-        public const string ApiUrl = "https://api.codemash.io/";
+        public string ApiBaseUrl { get; }
         
         public string CultureCode { get; set; }
 
@@ -17,14 +17,13 @@ namespace CodeMash.Client
 
         public Guid ProjectId { get; }
         
-        public CodeMashSettings(IConfigurationRoot config, string settingsFileName = "appsettings.json")
+        public CodeMashSettings(IConfigurationRoot config = null, string settingsFileName = "appsettings.json")
         {
-            if (config == null)
-            {
-                config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile(settingsFileName).Build();
-            }
+            config ??= new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile(settingsFileName)
+                .Build();
             
             SecretKey = config["CodeMash:ApiKey"];
+            ApiBaseUrl = config["CodeMash:ApiBaseUri"] ?? "https://api.codemash.io/";
 
             var projectIdParsed = Guid.TryParse(config["CodeMash:ProjectId"], out var parsedProjectId);
             if (projectIdParsed) ProjectId = parsedProjectId;
@@ -34,8 +33,9 @@ namespace CodeMash.Client
             }
         }
         
-        public CodeMashSettings(string apiKey, Guid projectId)
+        public CodeMashSettings(string apiBaseUrl, string apiKey, Guid projectId)
         {
+            ApiBaseUrl = apiBaseUrl ?? "https://api.codemash.io/";
             SecretKey = apiKey;
             ProjectId = projectId;
         }

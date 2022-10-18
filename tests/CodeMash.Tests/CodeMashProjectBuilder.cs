@@ -17,14 +17,16 @@ public record Schema
 
 public class CodeMashProjectBuilder
 {
+
     public class ProjectOutput
     {
 
         public Guid AccountId { get; set; }
         public Guid ProjectId { get; set; }
+        public Guid ApiUserId { get; set; }
+        public string ApiAdminToken { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public Guid UserId { get; set; }
         public Guid DatabaseClusterId { get; set; }
 
         // Cookies are not necessary to pass to each request,
@@ -123,8 +125,7 @@ public class CodeMashProjectBuilder
                     BaseAddress = new Uri(AppSettings.HubBaseUri),
                     DefaultRequestHeaders =
                     {
-                        Accept = {{new MediaTypeWithQualityHeaderValue("application/json")}},
-                        // Authorization = new AuthenticationHeaderValue("Bearer", AppSettings.SysAdminToken)
+                        Accept = {{new MediaTypeWithQualityHeaderValue("application/json")}}
                     }
                 };
 
@@ -175,6 +176,68 @@ public class CodeMashProjectBuilder
 
                 Output.ProjectId = responseDto.Result;
                 Thread.Sleep(1000);
+
+            }, cancellationToken));
+            return this;
+        }
+        
+        public Builder CreateAdminAsServiceUser()
+        {
+            builderQueue.Enqueue(() => Task.Run(async () =>
+            {
+                var request = new RegisterServiceUser
+                {
+                    DisplayName = "Project Administrator",
+                    ProjectId = Output.ProjectId,
+                    RolesTree = new List<UserRoleUpdateInput>{ new UserRoleUpdateInput { Role = "Administrator ", Policies = null}}
+                };
+
+                var postData = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+
+                var response = await RestClient.Hub(new RequestContext {Cookies = Output.Cookies})
+                    .PostAsync("/membership/users/service/register", postData, cancellationToken);
+                
+                response.EnsureSuccessStatusCode();
+
+                var responseDto =
+                    await response.Content.ReadFromJsonAsync<RegisterServiceUserResponse>(
+                        cancellationToken: cancellationToken);
+
+                if (responseDto == null)
+                {
+                    throw new Exception("Cannot create a admin user as a service account");
+                }
+                
+                
+                    
+                Output.ApiUserId = Guid.Parse(responseDto.Result);
+                    
+                var regenerateUserTokenRequest = new RegenerateServiceUserToken
+                {
+                    Id = Output.ApiUserId,
+                    ProjectId = Output.ProjectId
+                };
+                
+                
+                var regenerateTokenPostData = new StringContent(JsonSerializer.Serialize(regenerateUserTokenRequest), Encoding.UTF8, "application/json");
+
+                var regenerateResponse = await RestClient.Hub(new RequestContext {Cookies = Output.Cookies})
+                    .PutAsync($"/membership/users/service/{responseDto.Result}/key/regenerate", regenerateTokenPostData, cancellationToken);
+                
+                regenerateResponse.EnsureSuccessStatusCode();
+
+                var regenerateResponseDto =
+                    await regenerateResponse.Content.ReadFromJsonAsync<RegenerateServiceUserTokenResponse>(
+                        cancellationToken: cancellationToken);
+
+                if (regenerateResponseDto == null)
+                {
+                    throw new Exception("Cannot regenerate token for newly created admin");
+                }
+
+                Output.ApiAdminToken = regenerateResponseDto.Result;
+                
+                Thread.Sleep(500);
 
             }, cancellationToken));
             return this;
@@ -249,8 +312,5 @@ public class CodeMashProjectBuilder
             return Output;
         }
     }
-
-
-
 
 }

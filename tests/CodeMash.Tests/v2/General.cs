@@ -13,7 +13,7 @@ public class GeneralTests: TestBase
             BaseAddress = new Uri("http://localhost:5019"),
             DefaultRequestHeaders =
             {
-                Authorization = new AuthenticationHeaderValue("Bearer", AppSettings.ApiAdminToken)
+                Authorization = new AuthenticationHeaderValue("Bearer", "someFakeToken")
             }
         };
         Assert.ThrowsAsync<HttpRequestException>(async () => await client.GetAsync($"/v2/projects/{AppSettings.ProjectId}"));

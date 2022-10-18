@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Notifications", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Interfaces", "CodeMash.Interfaces\CodeMash.Interfaces.csproj", "{73D1FB67-9427-467D-B297-497C8C48C3B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Core.Tests", "CodeMash.Core.Tests\CodeMash.Core.Tests.csproj", "{C65A356E-6C31-4F2C-97E5-377825ACE105}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{920D997A-849E-4C9D-93E6-3605BBB7A3E9}"
 ProjectSection(SolutionItems) = preProject
 	..\lib\netstandard2.0\CodeMash.Models.dll = ..\lib\netstandard2.0\CodeMash.Models.dll

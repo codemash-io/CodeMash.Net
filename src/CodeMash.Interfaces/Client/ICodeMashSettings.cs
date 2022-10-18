@@ -4,6 +4,7 @@ namespace CodeMash.Interfaces.Client
 {
     public interface ICodeMashSettings
     {
+        string ApiBaseUrl { get; }
         string SecretKey { get; }
 
         Guid ProjectId { get; }

@@ -21,7 +21,7 @@ namespace CodeMash.Client
             get
             {
                 AssertSettingsAreSet();
-                var client = new JsonServiceClient(CodeMashSettings.ApiUrl)
+                var client = new JsonServiceClient(Settings.ApiBaseUrl)
                 {
                     ResponseFilter = (res) =>
                         {
@@ -63,9 +63,9 @@ namespace CodeMash.Client
             Settings = new CodeMashSettings(null, settingsFileName);
         }
         
-        public CodeMashClient(string apiKey, Guid projectId, string cultureCode = null)
+        public CodeMashClient(string apiBaseUrl, string apiKey, Guid projectId, string cultureCode = null)
         {
-            Settings = new CodeMashSettings(apiKey, projectId)
+            Settings = new CodeMashSettings(apiBaseUrl, apiKey, projectId)
             {
                 CultureCode = cultureCode
             };
@@ -73,7 +73,7 @@ namespace CodeMash.Client
         
         public CodeMashClient(ICodeMashSettings settings)
         {
-            Settings = settings ?? throw new ArgumentNullException(nameof(Settings), "CodeMash settings undefined.");
+            Settings = settings ?? throw new ArgumentNullException(nameof(settings), "CodeMash settings undefined.");
         }
         
         private void AssertSettingsAreSet()
