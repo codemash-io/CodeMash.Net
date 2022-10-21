@@ -1,9 +1,7 @@
-using System.Reflection;
 using CodeMash.Client;
 using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Repository;
-using Microsoft.Extensions.DependencyInjection;
-using ServiceStack;
+using Isidos.CodeMash.Tests.ServiceLevel;
 
 namespace CodeMash.Tests;
 
@@ -60,24 +58,5 @@ public class TestBase
             settings.ScrubMember("ProjectId");
             return settings;
         }
-    }
-}
-
-
-public static class TestBaseExtensions
-{
-    public static Schema ToSchema(this string source, string collectionName)
-    {
-        var buildDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        
-        var jsonSchema = File.ReadAllText($"{buildDir}{source}/schema.json");
-        var uiSchema = File.ReadAllText($"{buildDir}{source}/ui.json");
-        
-        return new Schema
-        {
-            JsonSchema = jsonSchema,
-            UiSchema = uiSchema,
-            CollectionName = collectionName.ToLower()
-        };
     }
 }

@@ -1,19 +1,11 @@
 using System.Net;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json;
+using CodeMash.Tests.Types.Api;
 using CodeMash.Tests.Types.Hub;
+using Isidos.CodeMash.Tests.ServiceLevel;
+using UserRoleUpdateInput = CodeMash.Tests.Types.Hub.UserRoleUpdateInput;
 
 namespace CodeMash.Tests;
-
-public record Schema
-{
-    public string UiSchema { get; set; }
-    public string JsonSchema { get; set; }
-    public string CollectionName { get; set; }
-}
-
 
 public class CodeMashProjectBuilder
 {
@@ -69,35 +61,21 @@ public class CodeMashProjectBuilder
                 };
 
 
-                var postData = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
-
-                var response = await RestClient.Hub().PostAsync("/account", postData, cancellationToken);
+                var response = await RestClient.Hub().PostAsync("/account", request.Serialize(), cancellationToken);
                 response.EnsureSuccessStatusCode();
 
-                var responseDto =
-                    await response.Content.ReadFromJsonAsync<CreateAccountResponse>(
-                        cancellationToken: cancellationToken);
+                var responseDto = await response.Deserialize<CreateAccountResponse>(cancellationToken);
 
                 if (responseDto == null)
                 {
                     throw new Exception("Cannot create an account");
                 }
 
-                var registrationSession =
-                    new StringContent(
-                        JsonSerializer.Serialize(
-                            new CompleteRegisterAuthentication {SessionSecret = responseDto.Session}), Encoding.UTF8,
-                        "application/json");
-                await RestClient.Hub().PostAsync("/account/complete-register", registrationSession, cancellationToken);
-
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
-
                 Output.Password = request.Password;
                 Output.Email = request.Email;
                 Output.AccountId = responseDto.Result;
+
+                Thread.Sleep(500);
 
             }, cancellationToken));
             return this;
@@ -107,14 +85,12 @@ public class CodeMashProjectBuilder
         {
             builderQueue.Enqueue(() => Task.Run(async () =>
             {
-                var request = new StringContent(
-                    JsonSerializer.Serialize(
-                        new AuthenticateToAccount
-                        {
-                            UserName = Output.Email,
-                            Password = Output.Password,
-                            AccountId = Output.AccountId
-                        }), Encoding.UTF8, "application/json");
+                var request = new AuthenticateToAccount
+                {
+                    UserName = Output.Email,
+                    Password = Output.Password,
+                    AccountId = Output.AccountId
+                };
 
 
                 var cookies = new CookieContainer();
@@ -129,12 +105,11 @@ public class CodeMashProjectBuilder
                     }
                 };
 
-                var response = await client.PostAsync("/account/auth", request, cancellationToken);
+                var response = await client.PostAsync("/account/auth", request.Serialize(), cancellationToken);
                 response.EnsureSuccessStatusCode();
 
                 var responseDto =
-                    await response.Content.ReadFromJsonAsync<AuthenticateToAccountResponse>(
-                        cancellationToken: cancellationToken);
+                    await response.Deserialize<AuthenticateToAccountResponse>(cancellationToken);
 
                 if (responseDto == null)
                 {
@@ -142,6 +117,8 @@ public class CodeMashProjectBuilder
                 }
 
                 Output.Cookies = cookies.GetCookies(new Uri(AppSettings.HubBaseUri));
+
+                Thread.Sleep(500);
 
             }, cancellationToken));
             return this;
@@ -159,15 +136,12 @@ public class CodeMashProjectBuilder
                 };
 
 
-                var postData = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
-
-                var response = await RestClient.Hub(new RequestContext {Cookies = Output.Cookies})
-                    .PostAsync("/projects", postData, cancellationToken);
+                // var response = await RestClient.Hub(new RequestContext {Cookies = Output.Cookies})
+                var response = await RestClient.Hub(Output.ToRequestContext())
+                    .PostAsync("/projects", request.Serialize(), cancellationToken);
                 response.EnsureSuccessStatusCode();
 
-                var responseDto =
-                    await response.Content.ReadFromJsonAsync<CreateProjectResponse>(
-                        cancellationToken: cancellationToken);
+                var responseDto = await response.Deserialize<CreateProjectResponse>(cancellationToken);
 
                 if (responseDto == null)
                 {
@@ -180,7 +154,7 @@ public class CodeMashProjectBuilder
             }, cancellationToken));
             return this;
         }
-        
+
         public Builder CreateAdminAsServiceUser()
         {
             builderQueue.Enqueue(() => Task.Run(async () =>
@@ -189,46 +163,42 @@ public class CodeMashProjectBuilder
                 {
                     DisplayName = "Project Administrator",
                     ProjectId = Output.ProjectId,
-                    RolesTree = new List<UserRoleUpdateInput>{ new UserRoleUpdateInput { Role = "Administrator ", Policies = null}}
+                    RolesTree = new List<UserRoleUpdateInput>
+                        {new UserRoleUpdateInput {Role = "Administrator ", Policies = null}}
                 };
 
-                var postData = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+                var response = await RestClient.Hub(Output.ToRequestContext())
+                    .PostAsync("/membership/users/service/register", request.Serialize(), cancellationToken);
 
-                var response = await RestClient.Hub(new RequestContext {Cookies = Output.Cookies})
-                    .PostAsync("/membership/users/service/register", postData, cancellationToken);
-                
                 response.EnsureSuccessStatusCode();
 
                 var responseDto =
-                    await response.Content.ReadFromJsonAsync<RegisterServiceUserResponse>(
-                        cancellationToken: cancellationToken);
+                    await response.Deserialize<RegisterServiceUserResponse>(cancellationToken);
 
                 if (responseDto == null)
                 {
                     throw new Exception("Cannot create a admin user as a service account");
                 }
-                
-                
-                    
+
+
+
                 Output.ApiUserId = Guid.Parse(responseDto.Result);
-                    
+
                 var regenerateUserTokenRequest = new RegenerateServiceUserToken
                 {
                     Id = Output.ApiUserId,
                     ProjectId = Output.ProjectId
                 };
-                
-                
-                var regenerateTokenPostData = new StringContent(JsonSerializer.Serialize(regenerateUserTokenRequest), Encoding.UTF8, "application/json");
 
-                var regenerateResponse = await RestClient.Hub(new RequestContext {Cookies = Output.Cookies})
-                    .PutAsync($"/membership/users/service/{responseDto.Result}/key/regenerate", regenerateTokenPostData, cancellationToken);
-                
+
+                var regenerateResponse = await RestClient.Hub(Output.ToRequestContext())
+                    .PutAsync($"/membership/users/service/{responseDto.Result}/key/regenerate",
+                        regenerateUserTokenRequest.Serialize(), cancellationToken);
+
                 regenerateResponse.EnsureSuccessStatusCode();
 
                 var regenerateResponseDto =
-                    await regenerateResponse.Content.ReadFromJsonAsync<RegenerateServiceUserTokenResponse>(
-                        cancellationToken: cancellationToken);
+                    await regenerateResponse.Deserialize<RegenerateServiceUserTokenResponse>(cancellationToken);
 
                 if (regenerateResponseDto == null)
                 {
@@ -236,7 +206,7 @@ public class CodeMashProjectBuilder
                 }
 
                 Output.ApiAdminToken = regenerateResponseDto.Result;
-                
+
                 Thread.Sleep(500);
 
             }, cancellationToken));
@@ -248,13 +218,12 @@ public class CodeMashProjectBuilder
             builderQueue.Enqueue(() => Task.Run(async () =>
             {
                 var response = await RestClient
-                    .Hub(new RequestContext {Cookies = Output.Cookies, ProjectId = Output.ProjectId})
+                    .Hub(Output.ToRequestContext())
                     .GetAsync("/db/enable?provider=CodeMash&freeRegion=eu-central-1", cancellationToken);
                 response.EnsureSuccessStatusCode();
 
                 var responseDto =
-                    await response.Content.ReadFromJsonAsync<EstablishDatabaseResponse>(
-                        cancellationToken: cancellationToken);
+                    await response.Deserialize<EstablishDatabaseResponse>(cancellationToken);
 
                 if (responseDto == null)
                 {
@@ -280,21 +249,64 @@ public class CodeMashProjectBuilder
                     JsonSchema = schema.JsonSchema,
                     UiSchema = schema.JsonSchema
                 };
-                var postData = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+
+
                 var response = await RestClient
-                    .Hub(new RequestContext {Cookies = Output.Cookies, ProjectId = Output.ProjectId})
-                    .PostAsync("/db/schema", postData, cancellationToken);
+                    .Hub(Output.ToRequestContext())
+                    .PostAsync("/db/schema", request.Serialize(), cancellationToken);
                 response.EnsureSuccessStatusCode();
 
                 var responseDto =
-                    await response.Content.ReadFromJsonAsync<CreateSchemaResponse>(
-                        cancellationToken: cancellationToken);
+                    await response.Deserialize<CreateSchemaResponse>(cancellationToken);
 
                 if (responseDto == null)
                 {
                     throw new Exception("Cannot create schema");
                 }
 
+                Thread.Sleep(500);
+
+            }, cancellationToken));
+            return this;
+        }
+
+        public Builder AddEmployeesTemplateSchema()
+        {
+            builderQueue.Enqueue(() => Task.Run(async () =>
+            {
+                var employeesSchemaTemplateId = "5e70ed82362de9480cc3598b";
+
+                var request = new CreateSchemaFromTemplate
+                {
+                    Id = employeesSchemaTemplateId,
+                    Names = new Dictionary<string, string>
+                    {
+                        {"employees", "Employees"},
+                        {"companies", "Companies"},
+                        {"addresses", "Addresses"},
+                        {"countries", "Countries"},
+                        {"cities", "Cities"},
+                        {"areas", "Areas"},
+                    },
+                    Created = new[] {"employees", "companies", "addresses", "countries", "cities", "areas"}.ToList()
+                };
+                var response = await RestClient
+                    .Hub(Output.ToRequestContext())
+                    .PostAsync("/db/schemas/system-templates/" + employeesSchemaTemplateId,
+                        request.Serialize(), cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                var responseDto =
+                    await response.Deserialize<CreateSchemaFromTemplateResponse>(cancellationToken);
+
+                if (responseDto == null)
+                {
+                    throw new Exception("Cannot create schemas from template" +
+                                        employeesSchemaTemplateId);
+                }
+
+                Thread.Sleep(3000);
             }, cancellationToken));
             return this;
         }
