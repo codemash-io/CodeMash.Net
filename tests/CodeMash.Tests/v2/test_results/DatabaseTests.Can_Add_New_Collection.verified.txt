@@ -1,8 +1,0 @@
-﻿{
-  AccountId: Guid_1,
-  ProjectId: {Scrubbed},
-  Email: {Scrubbed},
-  Password: aaa,
-  DatabaseClusterId: Guid_2,
-  Cookies: {Scrubbed}
-}

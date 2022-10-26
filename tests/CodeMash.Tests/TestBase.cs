@@ -1,3 +1,4 @@
+using System.Reflection;
 using CodeMash.Client;
 using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Repository;
@@ -15,7 +16,7 @@ public class TestBase
         AppSettings = new CodeMashConfiguration();
     }
     
-    [SetUp]
+    [OneTimeSetUp]
     public async Task SetUp()
     {
         var output = await CodeMashProjectBuilder.New 
@@ -23,7 +24,7 @@ public class TestBase
             .SignInToHub()
             .CreateNewProject()
             .EnableDatabase()
-            .AddNewCollection("/utils/db/schemas/employees".ToSchema("employees"))
+            .AddEmployeesTemplateSchema()
             .CreateAdminAsServiceUser()
             .Build();
 
@@ -51,7 +52,10 @@ public class TestBase
         {
             var settings = new VerifySettings();
             
-            settings.UseDirectory("test_results");
+            var buildDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var testResultsPath = Path.Combine(buildDir ?? "", "../../../", "test_results");
+            settings.UseDirectory(testResultsPath);
+            
             settings.ScrubMembers<HttpResponseMessage>(_ => _.Headers); 
             settings.ScrubLines(line => line.Contains("Bearer"));
             settings.ScrubMember("Id");

@@ -282,13 +282,15 @@ public class CodeMashProjectBuilder
                     Names = new Dictionary<string, string>
                     {
                         {"employees", "Employees"},
-                        {"companies", "Companies"},
-                        {"addresses", "Addresses"},
+                        {"absence-types", "Absence Types"},
                         {"countries", "Countries"},
                         {"cities", "Cities"},
-                        {"areas", "Areas"},
+                        {"departments", "Departments"},
+                        {"divisions", "Divisions"},
+                        {"job-titles", "Job Titles"},
+                        {"office-locations", "Office Locations"},
                     },
-                    Created = new[] {"employees", "companies", "addresses", "countries", "cities", "areas"}.ToList()
+                    Created = new[] {"employees", "absence-types", "countries", "cities", "departments", "divisions", "job-titles", "office-locations"}.ToList()
                 };
                 var response = await RestClient
                     .Hub(Output.ToRequestContext())

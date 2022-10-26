@@ -1,7 +1,0 @@
-﻿{
-  AccountId: Guid_1,
-  ProjectId: {Scrubbed},
-  Email: {Scrubbed},
-  Password: aaa,
-  Cookies: {Scrubbed}
-}

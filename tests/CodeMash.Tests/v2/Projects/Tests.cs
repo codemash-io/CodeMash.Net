@@ -1,7 +1,7 @@
 ﻿namespace CodeMash.Tests.v2;
 
 [TestFixture]
-public partial class ProjectTests: TestBase
+public class ProjectTests: TestBase
 {
     [Test]
     public async Task Cannot_Get_Project_Info_When_Bad_Format_ProjectId_Is_Provided()

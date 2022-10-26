@@ -32,12 +32,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="v2\test_results" />
+      <ProjectReference Include="..\..\src\CodeMash.Notifications\CodeMash.Notifications.csproj" />
+      <ProjectReference Include="..\..\src\CodeMash.Repository\CodeMash.Repository.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\CodeMash.Notifications\CodeMash.Notifications.csproj" />
-      <ProjectReference Include="..\..\src\CodeMash.Repository\CodeMash.Repository.csproj" />
+      <Folder Include="test_results" />
+      <Folder Include="v2\Database\Taxonomies" />
     </ItemGroup>
 
     
