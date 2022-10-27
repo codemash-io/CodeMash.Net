@@ -6,7 +6,7 @@ using CodeMash.Interfaces.Membership;
 using CodeMash.Interfaces.Notifications.Email;
 using CodeMash.Membership.Services;
 using CodeMash.Notifications.Email.Services;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Core.Tests
 {

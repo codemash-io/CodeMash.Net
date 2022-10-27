@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Notifications.Push.Services
 {
@@ -45,14 +45,14 @@ namespace CodeMash.Notifications.Push.Services
             return await Client.GetAsync<GetNotificationsResponse>(request);
         }
 
-        public GetNotificationsCountResponse GetNotificationsCount(GetNotificationsCountRequest request)
+        public GetNotificationsResponse GetNotificationsCount(GetNotificationsCountRequest request)
         {
-            return Client.Get<GetNotificationsCountResponse>(request);
+            return Client.Get<GetNotificationsResponse>(request);
         }
 
-        public async Task<GetNotificationsCountResponse> GetNotificationsCountAsync(GetNotificationsCountRequest request)
+        public async Task<GetNotificationsResponse> GetNotificationsCountAsync(GetNotificationsCountRequest request)
         {
-            return await Client.GetAsync<GetNotificationsCountResponse>(request);
+            return await Client.GetAsync<GetNotificationsResponse>(request);
         }
 
         public MarkNotificationAsReadResponse ReadNotification(MarkNotificationAsReadRequest request)
@@ -65,14 +65,14 @@ namespace CodeMash.Notifications.Push.Services
             return await Client.PatchAsync<MarkNotificationAsReadResponse>(request);
         }
         
-        public MarkAllNotificationsAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request)
+        public MarkNotificationAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request)
         {
-            return Client.Patch<MarkAllNotificationsAsReadResponse>(request);
+            return Client.Patch<MarkNotificationAsReadResponse>(request);
         }
 
-        public async Task<MarkAllNotificationsAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request)
+        public async Task<MarkNotificationAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request)
         {
-            return await Client.PatchAsync<MarkAllNotificationsAsReadResponse>(request);
+            return await Client.PatchAsync<MarkNotificationAsReadResponse>(request);
         }
     }
 }

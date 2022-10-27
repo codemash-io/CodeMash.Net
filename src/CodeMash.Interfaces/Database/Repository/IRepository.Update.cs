@@ -5,7 +5,7 @@ using CodeMash.Models;
 using CodeMash.Repository;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using UpdateResult = Isidos.CodeMash.ServiceContracts.Api.UpdateResult;
+using UpdateResult = CodeMash.ServiceContracts.Api.UpdateResult;
 
 namespace CodeMash.Interfaces.Database.Repository
 {

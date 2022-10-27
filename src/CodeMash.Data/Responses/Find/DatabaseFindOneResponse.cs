@@ -1,4 +1,4 @@
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Repository
 {

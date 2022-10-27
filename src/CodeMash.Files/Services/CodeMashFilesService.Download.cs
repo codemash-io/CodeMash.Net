@@ -1,7 +1,7 @@
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 using ServiceStack;
 
 namespace CodeMash.Project.Services

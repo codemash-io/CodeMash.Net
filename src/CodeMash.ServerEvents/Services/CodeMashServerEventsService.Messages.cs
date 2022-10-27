@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Events.Api;
 
 namespace CodeMash.ServerEvents.Services
 {

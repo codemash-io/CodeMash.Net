@@ -1,12 +1,13 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
+using ServiceStack;
 
 namespace CodeMash.Interfaces.Files
 {
     public partial interface IFilesService
     {
-        DeleteFileResponse DeleteFile(DeleteFileRequest request);
+        IReturnVoid DeleteFile(DeleteFileRequest request);
         
-        Task<DeleteFileResponse> DeleteFileAsync(DeleteFileRequest request);
+        Task<IReturnVoid> DeleteFileAsync(DeleteFileRequest request);
     }
 }

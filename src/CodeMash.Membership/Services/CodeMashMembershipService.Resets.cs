@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Membership.Services
 {
@@ -25,14 +25,14 @@ namespace CodeMash.Membership.Services
             return await Client.GetAsync<ValidatePasswordTokenResponse>(request);
         }
 
-        public ResetPasswordResponse ResetPassword(ResetPasswordRequest request)
+        public void ResetPassword(ResetPasswordRequest request)
         {
-            return Client.Post<ResetPasswordResponse>(request);
+            Client.Post(request);
         }
 
-        public async Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordRequest request)
+        public async Task ResetPasswordAsync(ResetPasswordRequest request)
         {
-            return await Client.PostAsync<ResetPasswordResponse>(request);
+            await Client.PostAsync(request);
         }
     }
 }

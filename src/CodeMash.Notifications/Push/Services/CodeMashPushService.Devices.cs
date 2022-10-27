@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
+using ServiceStack;
 
 namespace CodeMash.Notifications.Push.Services
 {
@@ -30,14 +31,14 @@ namespace CodeMash.Notifications.Push.Services
             return await Client.GetAsync<GetDevicesResponse>(request);
         }
 
-        public DeleteDeviceResponse DeleteDevice(DeleteDeviceRequest request)
+        public void DeleteDevice(DeleteDeviceRequest request)
         {
-            return Client.Delete<DeleteDeviceResponse>(request);
+            Client.Delete(request);
         }
 
-        public async Task<DeleteDeviceResponse> DeleteDeviceAsync(DeleteDeviceRequest request)
+        public async Task DeleteDeviceAsync(DeleteDeviceRequest request)
         {
-            return await Client.DeleteAsync<DeleteDeviceResponse>(request);
+            await Client.DeleteAsync(request);
         }
 
         public async Task<CreateDeviceResponse> RegisterDeviceAsync(CreateDeviceRequest request)

@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Notifications.Email.Services
 {
     public partial class CodeMashEmailService
     {
-        public SendEmailNotificationResponse SendEmail(SendEmailRequest request)
+        public SendEmailNotificationV2Response SendEmail(SendEmailRequest request)
         {
-            return Client.Post<SendEmailNotificationResponse>(request);
+            return Client.Post<SendEmailNotificationV2Response>(request);
         }
 
-        public async Task<SendEmailNotificationResponse> SendEmailAsync(SendEmailRequest request)
+        public async Task<SendEmailNotificationV2Response> SendEmailAsync(SendEmailRequest request)
         {
-            return await Client.PostAsync<SendEmailNotificationResponse>(request);
+            return await Client.PostAsync<SendEmailNotificationV2Response>(request);
         }
     }
 }

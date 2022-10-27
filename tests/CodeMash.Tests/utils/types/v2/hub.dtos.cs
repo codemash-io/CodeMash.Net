@@ -1,5 +1,5 @@
 /* Options:
-Date: 2022-10-13 21:12:11
+Date: 2022-10-27 09:15:38
 Version: 6.02
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://localhost:5001
@@ -609,16 +609,96 @@ namespace CodeMash.Tests.Types.Hub
         public virtual ModuleData Serverless { get; set; }
     }
 
-    public enum CustomerBillingType
+    public partial class AndroidBackgroundLayout
     {
-        Margin,
-        Fixed,
+        public virtual string Image { get; set; }
+        public virtual string HeadingColor { get; set; }
+        public virtual string ContentColor { get; set; }
     }
 
-    public enum CustomerMarginType
+    public partial class AppleOAuthSettings
+        : IOAuthSettings
     {
-        Percent,
-        Fixed,
+        public AppleOAuthSettings()
+        {
+            Modes = new List<AppleOAuthSettingsMode>{};
+            Scopes = new List<string>{};
+        }
+
+        public virtual string TeamId { get; set; }
+        public virtual string BundleId { get; set; }
+        public virtual string KeyId { get; set; }
+        public virtual string ClientId { get; set; }
+        public virtual string ClientSecret { get; set; }
+        public virtual string ClientSecretEnding { get; set; }
+        public virtual string FailureRedirectUrl { get; set; }
+        public virtual string CallbackUrl { get; set; }
+        public virtual string LogoutUrl { get; set; }
+        public virtual string Role { get; set; }
+        public virtual string Zone { get; set; }
+        public virtual string EncVersion { get; set; }
+        public virtual List<AppleOAuthSettingsMode> Modes { get; set; }
+        public virtual List<string> Scopes { get; set; }
+    }
+
+    public partial class AppleOAuthSettingsMode
+        : IOAuthModeSettings
+    {
+        public AppleOAuthSettingsMode()
+        {
+            Scopes = new List<string>{};
+        }
+
+        public virtual string Name { get; set; }
+        public virtual string CallbackUrl { get; set; }
+        public virtual string LogoutUrl { get; set; }
+        public virtual string FailureRedirectUrl { get; set; }
+        public virtual string Role { get; set; }
+        public virtual string Zone { get; set; }
+        public virtual bool OverrideDefaultScopes { get; set; }
+        public virtual List<string> Scopes { get; set; }
+    }
+
+    public partial class AzureActiveDirSettings
+        : IOAuthSettings
+    {
+        public AzureActiveDirSettings()
+        {
+            Modes = new List<AzureActiveDirSettingsMode>{};
+            Scopes = new List<string>{};
+        }
+
+        public virtual string TenantId { get; set; }
+        public virtual string ClientId { get; set; }
+        public virtual string ClientSecret { get; set; }
+        public virtual string ClientSecretEnding { get; set; }
+        public virtual string CallbackUrl { get; set; }
+        public virtual string LogoutUrl { get; set; }
+        public virtual string FailureRedirectUrl { get; set; }
+        public virtual string Role { get; set; }
+        public virtual string Zone { get; set; }
+        public virtual string EncVersion { get; set; }
+        public virtual List<AzureActiveDirSettingsMode> Modes { get; set; }
+        public virtual List<string> Scopes { get; set; }
+        public virtual string AppTenantId { get; set; }
+    }
+
+    public partial class AzureActiveDirSettingsMode
+        : IOAuthModeSettings
+    {
+        public AzureActiveDirSettingsMode()
+        {
+            Scopes = new List<string>{};
+        }
+
+        public virtual string Name { get; set; }
+        public virtual string CallbackUrl { get; set; }
+        public virtual string LogoutUrl { get; set; }
+        public virtual string FailureRedirectUrl { get; set; }
+        public virtual string Role { get; set; }
+        public virtual string Zone { get; set; }
+        public virtual bool OverrideDefaultScopes { get; set; }
+        public virtual List<string> Scopes { get; set; }
     }
 
     public partial class BaseInvoice
@@ -640,80 +720,10 @@ namespace CodeMash.Tests.Types.Hub
         public virtual string Status { get; set; }
     }
 
-    public partial class SubscriptionInvoice
-        : BaseInvoice
-    {
-        public virtual string SubscriptionId { get; set; }
-        public virtual SubscriptionPlan Plan { get; set; }
-    }
-
     public enum BillingType
     {
         Organization,
         Individual,
-    }
-
-    public enum SubscriptionPlan
-    {
-        Growth,
-        Standard,
-        Enterprise,
-    }
-
-    public enum SubscriptionStatus
-    {
-        Inactive,
-        Pending,
-        Active,
-        PendingCancel,
-        Expired,
-        Changed,
-        Unpaid,
-    }
-
-    public partial class DatabaseCredentials
-    {
-        public virtual string DbName { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string Password { get; set; }
-        public virtual string Region { get; set; }
-        public virtual string SrvClusterName { get; set; }
-        public virtual bool UseSrvName { get; set; }
-        public virtual string EncVersion { get; set; }
-    }
-
-    public partial class CodeMashDatabaseClusterUpgrade
-    {
-        public CodeMashDatabaseClusterUpgrade()
-        {
-            ReadOnlyRegions = new List<string>{};
-        }
-
-        public virtual string Tier { get; set; }
-        public virtual string Region { get; set; }
-        public virtual string RegionName { get; set; }
-        public virtual bool AutoScaling { get; set; }
-        public virtual bool MultiRegion { get; set; }
-        public virtual List<string> ReadOnlyRegions { get; set; }
-        public virtual long? StorageSize { get; set; }
-        public virtual DateTime? UpdateOn { get; set; }
-    }
-
-    public partial class FileAccountProperties
-    {
-        public virtual FileProvider Provider { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string PublicKey { get; set; }
-        public virtual string PrivateKey { get; set; }
-        public virtual string BucketName { get; set; }
-        public virtual string Region { get; set; }
-    }
-
-    public enum FileProvider
-    {
-        None,
-        CodeMash,
-        S3,
     }
 
     public partial class Campaign
@@ -786,42 +796,37 @@ namespace CodeMash.Tests.Types.Hub
         Recurrent = 3,
     }
 
-    public partial class Permission
+    public partial class CodeMashDatabaseClusterUpgrade
     {
-        public virtual string Title { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string Value { get; set; }
-        public virtual bool Disabled { get; set; }
-        public virtual Modules Module { get; set; }
-    }
-
-    public partial class Policy
-    {
-        public Policy()
+        public CodeMashDatabaseClusterUpgrade()
         {
-            Permissions = new List<Permission>{};
+            ReadOnlyRegions = new List<string>{};
         }
 
-        public virtual string Name { get; set; }
-        public virtual OwnerType Type { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual List<Permission> Permissions { get; set; }
-        public virtual bool Disabled { get; set; }
-        public virtual bool IsFullAccess { get; set; }
+        public virtual string Tier { get; set; }
+        public virtual string Region { get; set; }
+        public virtual string RegionName { get; set; }
+        public virtual bool AutoScaling { get; set; }
+        public virtual bool MultiRegion { get; set; }
+        public virtual List<string> ReadOnlyRegions { get; set; }
+        public virtual long? StorageSize { get; set; }
+        public virtual DateTime? UpdateOn { get; set; }
     }
 
-    public partial class Role
+    public partial class ConnectionProperties
     {
-        public Role()
+        public ConnectionProperties()
         {
-            Policies = new List<Policy>{};
+            Regions = new List<string>{};
+            Tags = new Dictionary<string, string>{};
         }
 
-        public virtual string Name { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual List<Policy> Policies { get; set; }
-        public virtual OwnerType Type { get; set; }
-        public virtual bool UserAbleModify { get; set; }
+        public virtual ServerlessProvider Provider { get; set; }
+        public virtual string AccessKey { get; set; }
+        public virtual string SecretKey { get; set; }
+        public virtual List<string> Regions { get; set; }
+        public virtual int RefreshRate { get; set; }
+        public virtual Dictionary<string, string> Tags { get; set; }
     }
 
     public partial class CredentialsSettings
@@ -842,114 +847,86 @@ namespace CodeMash.Tests.Types.Hub
         public virtual string LogoutUrl { get; set; }
     }
 
-    public partial interface IOAuthModeSettings
+    public enum CustomerBillingType
     {
-        string Name { get; set; }
-        string CallbackUrl { get; set; }
-        string LogoutUrl { get; set; }
-        string FailureRedirectUrl { get; set; }
-        string Role { get; set; }
-        string Zone { get; set; }
-        bool OverrideDefaultScopes { get; set; }
-        List<string> Scopes { get; set; }
+        Margin,
+        Fixed,
     }
 
-    public partial interface IOAuthSettings
+    public enum CustomerMarginType
     {
-        string ClientId { get; set; }
-        string ClientSecret { get; set; }
-        string FailureRedirectUrl { get; set; }
-        string CallbackUrl { get; set; }
-        string LogoutUrl { get; set; }
-        string Role { get; set; }
-        string Zone { get; set; }
-        string EncVersion { get; set; }
-        List<string> Scopes { get; set; }
+        Percent,
+        Fixed,
     }
 
-    public partial class AzureActiveDirSettings
-        : IOAuthSettings
+    public partial class DatabaseCredentials
     {
-        public AzureActiveDirSettings()
-        {
-            Modes = new List<AzureActiveDirSettingsMode>{};
-            Scopes = new List<string>{};
-        }
-
-        public virtual string TenantId { get; set; }
-        public virtual string ClientId { get; set; }
-        public virtual string ClientSecret { get; set; }
-        public virtual string ClientSecretEnding { get; set; }
-        public virtual string CallbackUrl { get; set; }
-        public virtual string LogoutUrl { get; set; }
-        public virtual string FailureRedirectUrl { get; set; }
-        public virtual string Role { get; set; }
-        public virtual string Zone { get; set; }
+        public virtual string DbName { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string Password { get; set; }
+        public virtual string Region { get; set; }
+        public virtual string SrvClusterName { get; set; }
+        public virtual bool UseSrvName { get; set; }
         public virtual string EncVersion { get; set; }
-        public virtual List<AzureActiveDirSettingsMode> Modes { get; set; }
-        public virtual List<string> Scopes { get; set; }
-        public virtual string AppTenantId { get; set; }
     }
 
-    public partial class AzureActiveDirSettingsMode
-        : IOAuthModeSettings
+    public partial class DisplayOption
     {
-        public AzureActiveDirSettingsMode()
-        {
-            Scopes = new List<string>{};
-        }
-
-        public virtual string Name { get; set; }
-        public virtual string CallbackUrl { get; set; }
-        public virtual string LogoutUrl { get; set; }
-        public virtual string FailureRedirectUrl { get; set; }
-        public virtual string Role { get; set; }
-        public virtual string Zone { get; set; }
-        public virtual bool OverrideDefaultScopes { get; set; }
-        public virtual List<string> Scopes { get; set; }
+        public virtual string Key { get; set; }
+        public virtual DisplayOption SubGroup { get; set; }
+        public virtual string Group { get; set; }
+        public virtual int GroupOrder { get; set; }
+        public virtual bool WithCustomPolicyOnly { get; set; }
     }
 
-    public partial class AppleOAuthSettings
-        : IOAuthSettings
+    public partial class EmailPreferencesForMembership
     {
-        public AppleOAuthSettings()
+        public virtual EmailPreferencesForMembership.OnNewUserRegistration NewUserRegistration { get; set; }
+        public virtual EmailPreferencesForMembership.OnNewUserRegistration NewUserVerification { get; set; }
+        public virtual EmailPreferencesForMembership.OnNewUserRegistration PasswordReset { get; set; }
+        public virtual EmailPreferencesForMembership.OnNewUserRegistration NewUserInvitation { get; set; }
+        public virtual EmailPreferencesForMembership.OnNewUserRegistration UserDeactivation { get; set; }
+        public partial class OnNewUserRegistration
         {
-            Modes = new List<AppleOAuthSettingsMode>{};
-            Scopes = new List<string>{};
+            public virtual bool SendEmail { get; set; }
+            public virtual MessageTemplate Template { get; set; }
+            public virtual string Callback { get; set; }
         }
 
-        public virtual string TeamId { get; set; }
-        public virtual string BundleId { get; set; }
-        public virtual string KeyId { get; set; }
-        public virtual string ClientId { get; set; }
-        public virtual string ClientSecret { get; set; }
-        public virtual string ClientSecretEnding { get; set; }
-        public virtual string FailureRedirectUrl { get; set; }
-        public virtual string CallbackUrl { get; set; }
-        public virtual string LogoutUrl { get; set; }
-        public virtual string Role { get; set; }
-        public virtual string Zone { get; set; }
-        public virtual string EncVersion { get; set; }
-        public virtual List<AppleOAuthSettingsMode> Modes { get; set; }
-        public virtual List<string> Scopes { get; set; }
     }
 
-    public partial class AppleOAuthSettingsMode
-        : IOAuthModeSettings
+    public partial class EmailPreferenceTexts
     {
-        public AppleOAuthSettingsMode()
-        {
-            Scopes = new List<string>{};
-        }
+        public virtual string Title { get; set; }
+        public virtual string Description { get; set; }
+        public virtual string UnsubAllTitle { get; set; }
+        public virtual string UnsubAllDescription { get; set; }
+        public virtual string UpdateButton { get; set; }
+    }
 
-        public virtual string Name { get; set; }
-        public virtual string CallbackUrl { get; set; }
-        public virtual string LogoutUrl { get; set; }
-        public virtual string FailureRedirectUrl { get; set; }
-        public virtual string Role { get; set; }
-        public virtual string Zone { get; set; }
-        public virtual bool OverrideDefaultScopes { get; set; }
-        public virtual List<string> Scopes { get; set; }
+    public partial class EmailProperties
+    {
+        public virtual EmailProvider EmailProvider { get; set; }
+        public virtual string EmailAddress { get; set; }
+        public virtual string EmailDisplayName { get; set; }
+        public virtual string Host { get; set; }
+        public virtual int Port { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string Password { get; set; }
+        public virtual bool UseSsl { get; set; }
+        public virtual bool UseCredentials { get; set; }
+        public virtual string Token { get; set; }
+        public virtual string WebHookSigningKey { get; set; }
+        public virtual string Domain { get; set; }
+        public virtual string AccessKey { get; set; }
+        public virtual string Region { get; set; }
+        public virtual string ConfigurationSetName { get; set; }
+    }
+
+    public enum EmailTemplateType
+    {
+        Transactional,
+        Marketing,
     }
 
     public partial class FacebookSettings
@@ -1007,6 +984,23 @@ namespace CodeMash.Tests.Types.Hub
 
         [DataMember]
         public virtual List<string> Scopes { get; set; }
+    }
+
+    public partial class FileAccountProperties
+    {
+        public virtual FileProvider Provider { get; set; }
+        public virtual string DisplayName { get; set; }
+        public virtual string PublicKey { get; set; }
+        public virtual string PrivateKey { get; set; }
+        public virtual string BucketName { get; set; }
+        public virtual string Region { get; set; }
+    }
+
+    public enum FileProvider
+    {
+        None,
+        CodeMash,
+        S3,
     }
 
     public partial class GoogleSettings
@@ -1069,6 +1063,270 @@ namespace CodeMash.Tests.Types.Hub
         public virtual List<string> Scopes { get; set; }
     }
 
+    public partial interface IAuthorizedModule
+        : IModule
+    {
+    }
+
+    public partial interface IModule
+    {
+        bool IsEnabled { get; set; }
+        bool IsEstablished { get; set; }
+        string Name { get; set; }
+    }
+
+    public partial interface IOAuthModeSettings
+    {
+        string Name { get; set; }
+        string CallbackUrl { get; set; }
+        string LogoutUrl { get; set; }
+        string FailureRedirectUrl { get; set; }
+        string Role { get; set; }
+        string Zone { get; set; }
+        bool OverrideDefaultScopes { get; set; }
+        List<string> Scopes { get; set; }
+    }
+
+    public partial interface IOAuthSettings
+    {
+        string ClientId { get; set; }
+        string ClientSecret { get; set; }
+        string FailureRedirectUrl { get; set; }
+        string CallbackUrl { get; set; }
+        string LogoutUrl { get; set; }
+        string Role { get; set; }
+        string Zone { get; set; }
+        string EncVersion { get; set; }
+        List<string> Scopes { get; set; }
+    }
+
+    public partial class MessageTemplate
+    {
+        public MessageTemplate()
+        {
+            PreferenceTags = new List<string>{};
+        }
+
+        public virtual Guid Id { get; set; }
+        public virtual string TemplateName { get; set; }
+        public virtual Guid? EmailAccountId { get; set; }
+        public virtual string Subject { get; set; }
+        public virtual string Body { get; set; }
+        public virtual string Code { get; set; }
+        public virtual bool IsActive { get; set; }
+        public virtual EmailTemplateType Type { get; set; }
+        public virtual List<string> PreferenceTags { get; set; }
+        public virtual bool IncludeSubscriptionLink { get; set; }
+    }
+
+    [Flags]
+    public enum Modules
+    {
+        None = 0,
+        Membership = 1,
+        Database = 2,
+        Email = 4,
+        Marketing = 8,
+        Logging = 16,
+        Files = 32,
+        Translation = 64,
+        Notification = 128,
+        Scheduler = 256,
+        Serverless = 512,
+        Payment = 1024,
+        ServerEvents = 2048,
+    }
+
+    public partial class PasswordComplexity
+    {
+        public virtual int? MinLength { get; set; }
+        public virtual int? MaxLength { get; set; }
+        public virtual int? MinNumbers { get; set; }
+        public virtual int? MaxNumbers { get; set; }
+        public virtual int? MinUpper { get; set; }
+        public virtual int? MaxUpper { get; set; }
+        public virtual int? MinLower { get; set; }
+        public virtual int? MaxLower { get; set; }
+        public virtual int? MinSpecial { get; set; }
+        public virtual int? MaxSpecial { get; set; }
+        public virtual string AllowedSpecial { get; set; }
+    }
+
+    public partial class PaymentAccountProperties
+    {
+        public virtual PaymentProvider Provider { get; set; }
+        public virtual string DisplayName { get; set; }
+        public virtual string ValidationToken { get; set; }
+        public virtual string SecretKey { get; set; }
+        public virtual string WebHookKey { get; set; }
+        public virtual string EndpointKey { get; set; }
+        public virtual string AccessKey { get; set; }
+        public virtual string AuthRedirectUrl { get; set; }
+        public virtual string PaymentRedirectUrl { get; set; }
+        public virtual string ReceiverName { get; set; }
+        public virtual string ReceiverIban { get; set; }
+    }
+
+    public partial class PaymentMode
+    {
+        public virtual string Name { get; set; }
+        public virtual bool IsDefault { get; set; }
+        public virtual string AcceptUrl { get; set; }
+        public virtual string CancelUrl { get; set; }
+        public virtual string PayText { get; set; }
+    }
+
+    public partial class PaymentOrderSchema
+    {
+        public PaymentOrderSchema()
+        {
+            Collections = new List<PaymentProductCollection>{};
+        }
+
+        public virtual Guid Id { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Currency { get; set; }
+        public virtual string Zone { get; set; }
+        public virtual string Cluster { get; set; }
+        public virtual List<PaymentProductCollection> Collections { get; set; }
+    }
+
+    public partial class PaymentPlanProperties
+    {
+        public PaymentPlanProperties()
+        {
+            Roles = new List<string>{};
+            RolesAfterExpire = new List<string>{};
+        }
+
+        public virtual Guid PaymentAccountId { get; set; }
+        public virtual string DisplayName { get; set; }
+        public virtual string ProductId { get; set; }
+        public virtual string PackageName { get; set; }
+        public virtual string PricingId { get; set; }
+        public virtual List<string> Roles { get; set; }
+        public virtual List<string> RolesAfterExpire { get; set; }
+    }
+
+    public partial class PaymentProductCollection
+    {
+        public virtual Guid SchemaId { get; set; }
+        public virtual string PriceField { get; set; }
+        public virtual string VariationField { get; set; }
+        public virtual string Variation { get; set; }
+    }
+
+    public partial class Permission
+    {
+        public virtual string Title { get; set; }
+        public virtual string Description { get; set; }
+        public virtual string Value { get; set; }
+        public virtual bool Disabled { get; set; }
+        public virtual Modules Module { get; set; }
+    }
+
+    public partial class Policy
+    {
+        public Policy()
+        {
+            Permissions = new List<Permission>{};
+        }
+
+        public virtual string Name { get; set; }
+        public virtual OwnerType Type { get; set; }
+        public virtual string DisplayName { get; set; }
+        public virtual List<Permission> Permissions { get; set; }
+        public virtual bool Disabled { get; set; }
+        public virtual bool IsFullAccess { get; set; }
+    }
+
+    public partial class PushAccountProperties
+    {
+        public virtual PushProvider PushProvider { get; set; }
+        public virtual string DisplayName { get; set; }
+        public virtual string AccessKey { get; set; }
+        public virtual string SecretKey { get; set; }
+    }
+
+    public partial class PushNotificationButtons
+    {
+        public virtual string Id { get; set; }
+        public virtual string Text { get; set; }
+        public virtual string Icon { get; set; }
+    }
+
+    public partial class Role
+    {
+        public Role()
+        {
+            Policies = new List<Policy>{};
+        }
+
+        public virtual string Name { get; set; }
+        public virtual string DisplayName { get; set; }
+        public virtual List<Policy> Policies { get; set; }
+        public virtual OwnerType Type { get; set; }
+        public virtual bool UserAbleModify { get; set; }
+    }
+
+    public enum SchedulerRepeatType
+    {
+        None,
+        Minutely,
+        Hourly,
+        Daily,
+        Weekly,
+        Monthly,
+        Yearly,
+    }
+
+    public enum SchedulerType
+    {
+        None,
+        Notification,
+        Custom,
+    }
+
+    public enum ServerlessProvider
+    {
+        None,
+        CodemashAmazon,
+        Amazon,
+        Azure,
+        Google,
+    }
+
+    public partial class SubscriptionInvoice
+        : BaseInvoice
+    {
+        public virtual string SubscriptionId { get; set; }
+        public virtual SubscriptionPlan Plan { get; set; }
+    }
+
+    public enum SubscriptionPlan
+    {
+        Growth,
+        Standard,
+        Enterprise,
+    }
+
+    public enum SubscriptionStatus
+    {
+        Inactive,
+        Pending,
+        Active,
+        PendingCancel,
+        Expired,
+        Changed,
+        Unpaid,
+    }
+
+    public partial class TokenResolverField
+    {
+        public virtual string Name { get; set; }
+        public virtual string Config { get; set; }
+    }
+
     public partial class TwitterSettings
         : IOAuthSettings
     {
@@ -1109,264 +1367,6 @@ namespace CodeMash.Tests.Types.Hub
         public virtual string Zone { get; set; }
         public virtual bool OverrideDefaultScopes { get; set; }
         public virtual List<string> Scopes { get; set; }
-    }
-
-    public partial class EmailPreferencesForMembership
-    {
-        public virtual EmailPreferencesForMembership.OnNewUserRegistration NewUserRegistration { get; set; }
-        public virtual EmailPreferencesForMembership.OnNewUserRegistration NewUserVerification { get; set; }
-        public virtual EmailPreferencesForMembership.OnNewUserRegistration PasswordReset { get; set; }
-        public virtual EmailPreferencesForMembership.OnNewUserRegistration NewUserInvitation { get; set; }
-        public virtual EmailPreferencesForMembership.OnNewUserRegistration UserDeactivation { get; set; }
-        public partial class OnNewUserRegistration
-        {
-            public virtual bool SendEmail { get; set; }
-            public virtual MessageTemplate Template { get; set; }
-            public virtual string Callback { get; set; }
-        }
-
-    }
-
-    public partial class PasswordComplexity
-    {
-        public virtual int? MinLength { get; set; }
-        public virtual int? MaxLength { get; set; }
-        public virtual int? MinNumbers { get; set; }
-        public virtual int? MaxNumbers { get; set; }
-        public virtual int? MinUpper { get; set; }
-        public virtual int? MaxUpper { get; set; }
-        public virtual int? MinLower { get; set; }
-        public virtual int? MaxLower { get; set; }
-        public virtual int? MinSpecial { get; set; }
-        public virtual int? MaxSpecial { get; set; }
-        public virtual string AllowedSpecial { get; set; }
-    }
-
-    public partial class EmailPreferenceTexts
-    {
-        public virtual string Title { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string UnsubAllTitle { get; set; }
-        public virtual string UnsubAllDescription { get; set; }
-        public virtual string UpdateButton { get; set; }
-    }
-
-    public partial class EmailProperties
-    {
-        public virtual EmailProvider EmailProvider { get; set; }
-        public virtual string EmailAddress { get; set; }
-        public virtual string EmailDisplayName { get; set; }
-        public virtual string Host { get; set; }
-        public virtual int Port { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string Password { get; set; }
-        public virtual bool UseSsl { get; set; }
-        public virtual bool UseCredentials { get; set; }
-        public virtual string Token { get; set; }
-        public virtual string WebHookSigningKey { get; set; }
-        public virtual string Domain { get; set; }
-        public virtual string AccessKey { get; set; }
-        public virtual string Region { get; set; }
-        public virtual string ConfigurationSetName { get; set; }
-    }
-
-    public enum EmailTemplateType
-    {
-        Transactional,
-        Marketing,
-    }
-
-    public partial class MessageTemplate
-    {
-        public MessageTemplate()
-        {
-            PreferenceTags = new List<string>{};
-        }
-
-        public virtual Guid Id { get; set; }
-        public virtual string TemplateName { get; set; }
-        public virtual Guid? EmailAccountId { get; set; }
-        public virtual string Subject { get; set; }
-        public virtual string Body { get; set; }
-        public virtual string Code { get; set; }
-        public virtual bool IsActive { get; set; }
-        public virtual EmailTemplateType Type { get; set; }
-        public virtual List<string> PreferenceTags { get; set; }
-        public virtual bool IncludeSubscriptionLink { get; set; }
-    }
-
-    public partial class AndroidBackgroundLayout
-    {
-        public virtual string Image { get; set; }
-        public virtual string HeadingColor { get; set; }
-        public virtual string ContentColor { get; set; }
-    }
-
-    public partial class PushNotificationButtons
-    {
-        public virtual string Id { get; set; }
-        public virtual string Text { get; set; }
-        public virtual string Icon { get; set; }
-    }
-
-    public partial class PushAccountProperties
-    {
-        public virtual PushProvider PushProvider { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string AccessKey { get; set; }
-        public virtual string SecretKey { get; set; }
-    }
-
-    public partial class PaymentAccountProperties
-    {
-        public virtual PaymentProvider Provider { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string ValidationToken { get; set; }
-        public virtual string SecretKey { get; set; }
-        public virtual string WebHookKey { get; set; }
-        public virtual string EndpointKey { get; set; }
-        public virtual string AccessKey { get; set; }
-        public virtual string AuthRedirectUrl { get; set; }
-        public virtual string PaymentRedirectUrl { get; set; }
-        public virtual string ReceiverName { get; set; }
-        public virtual string ReceiverIban { get; set; }
-    }
-
-    public partial class PaymentPlanProperties
-    {
-        public PaymentPlanProperties()
-        {
-            Roles = new List<string>{};
-            RolesAfterExpire = new List<string>{};
-        }
-
-        public virtual Guid PaymentAccountId { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string ProductId { get; set; }
-        public virtual string PackageName { get; set; }
-        public virtual string PricingId { get; set; }
-        public virtual List<string> Roles { get; set; }
-        public virtual List<string> RolesAfterExpire { get; set; }
-    }
-
-    public partial class PaymentMode
-    {
-        public virtual string Name { get; set; }
-        public virtual bool IsDefault { get; set; }
-        public virtual string AcceptUrl { get; set; }
-        public virtual string CancelUrl { get; set; }
-        public virtual string PayText { get; set; }
-    }
-
-    public partial class PaymentOrderSchema
-    {
-        public PaymentOrderSchema()
-        {
-            Collections = new List<PaymentProductCollection>{};
-        }
-
-        public virtual Guid Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Currency { get; set; }
-        public virtual string Zone { get; set; }
-        public virtual string Cluster { get; set; }
-        public virtual List<PaymentProductCollection> Collections { get; set; }
-    }
-
-    public partial class PaymentProductCollection
-    {
-        public virtual Guid SchemaId { get; set; }
-        public virtual string PriceField { get; set; }
-        public virtual string VariationField { get; set; }
-        public virtual string Variation { get; set; }
-    }
-
-    public enum ServerlessProvider
-    {
-        None,
-        CodemashAmazon,
-        Amazon,
-        Azure,
-        Google,
-    }
-
-    public partial class ConnectionProperties
-    {
-        public ConnectionProperties()
-        {
-            Regions = new List<string>{};
-            Tags = new Dictionary<string, string>{};
-        }
-
-        public virtual ServerlessProvider Provider { get; set; }
-        public virtual string AccessKey { get; set; }
-        public virtual string SecretKey { get; set; }
-        public virtual List<string> Regions { get; set; }
-        public virtual int RefreshRate { get; set; }
-        public virtual Dictionary<string, string> Tags { get; set; }
-    }
-
-    public partial class TokenResolverField
-    {
-        public virtual string Name { get; set; }
-        public virtual string Config { get; set; }
-    }
-
-    public enum SchedulerRepeatType
-    {
-        None,
-        Minutely,
-        Hourly,
-        Daily,
-        Weekly,
-        Monthly,
-        Yearly,
-    }
-
-    public enum SchedulerType
-    {
-        None,
-        Notification,
-        Custom,
-    }
-
-    public partial interface IAuthorizedModule
-        : IModule
-    {
-    }
-
-    public partial interface IModule
-    {
-        bool IsEnabled { get; set; }
-        bool IsEstablished { get; set; }
-        string Name { get; set; }
-    }
-
-    [Flags]
-    public enum Modules
-    {
-        None = 0,
-        Membership = 1,
-        Database = 2,
-        Email = 4,
-        Marketing = 8,
-        Logging = 16,
-        Files = 32,
-        Translation = 64,
-        Notification = 128,
-        Scheduler = 256,
-        Serverless = 512,
-        Payment = 1024,
-        ServerEvents = 2048,
-    }
-
-    public partial class DisplayOption
-    {
-        public virtual string Key { get; set; }
-        public virtual DisplayOption SubGroup { get; set; }
-        public virtual string Group { get; set; }
-        public virtual int GroupOrder { get; set; }
-        public virtual bool WithCustomPolicyOnly { get; set; }
     }
 
     [Route("/notifications/push/accounts", "POST")]

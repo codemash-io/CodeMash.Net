@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Interfaces.Notifications.Email
 {
     public partial interface IEmailService
     {
-        SendEmailNotificationResponse SendEmail(SendEmailRequest sendEmailOptions);
+        SendEmailNotificationV2Response SendEmail(SendEmailRequest sendEmailOptions);
         
-        Task<SendEmailNotificationResponse> SendEmailAsync(SendEmailRequest sendEmailOptions);
+        Task<SendEmailNotificationV2Response> SendEmailAsync(SendEmailRequest sendEmailOptions);
         
         /*
         DeleteEmailResponse DeleteEmail(DeleteEmailRequest emailId);

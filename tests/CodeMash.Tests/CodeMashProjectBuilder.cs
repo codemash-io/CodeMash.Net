@@ -1,6 +1,6 @@
 using System.Net;
 using System.Net.Http.Headers;
-using CodeMash.Tests.Types.Api;
+using CodeMash.ServiceContracts.Api;
 using CodeMash.Tests.Types.Hub;
 using Isidos.CodeMash.Tests.ServiceLevel;
 using UserRoleUpdateInput = CodeMash.Tests.Types.Hub.UserRoleUpdateInput;

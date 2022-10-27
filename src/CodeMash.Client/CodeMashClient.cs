@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using CodeMash.Exceptions;
 using CodeMash.Interfaces.Client;
-using CodeMash.Models.Requests;
 using ServiceStack;
 
 namespace CodeMash.Client
@@ -91,13 +90,22 @@ namespace CodeMash.Client
                 throw new ArgumentNullException(nameof(requestDto), "Request object is not set");
             }
 
-            if (requestDto is RequestBase requestBaseDto)
+            if (requestDto is ServiceContracts.Api.RequestBase requestBaseDto)
             {
                 if (string.IsNullOrEmpty(requestBaseDto.CultureCode))
                     requestBaseDto.CultureCode = Settings?.CultureCode;
 
                 if (string.IsNullOrEmpty(requestBaseDto.Version))
                     requestBaseDto.Version = Settings?.Version;
+            }
+            
+            if ( requestDto is ServiceContracts.Events.Api.RequestBase requestBaseEventsDto)
+            {
+                if (string.IsNullOrEmpty(requestBaseEventsDto.CultureCode))
+                    requestBaseEventsDto.CultureCode = Settings?.CultureCode;
+
+                if (string.IsNullOrEmpty(requestBaseEventsDto.Version))
+                    requestBaseEventsDto.Version = Settings?.Version;
             }
         }
         
@@ -110,15 +118,30 @@ namespace CodeMash.Client
         {
             return await CallAsync(async () => await FormGateway(requestDto, requestOptions).DeleteAsync<TResponse>(requestDto));
         }
+        
+        public async Task DeleteAsync(IReturnVoid requestDto, ICodeMashRequestOptions requestOptions = null)
+        {
+            await CallAsync(async () => await FormGateway(requestDto, requestOptions).DeleteAsync(requestDto));
+        }
 
         public async Task<TResponse> PostAsync<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
         {
             return await CallAsync(async () => await FormGateway(requestDto, requestOptions).PostAsync<TResponse>(requestDto));
         }
+        
+        public async Task PostAsync(IReturnVoid requestDto, ICodeMashRequestOptions requestOptions = null)
+        {
+            await CallAsync(async () => await FormGateway(requestDto, requestOptions).PostAsync(requestDto));
+        }
 
         public async Task<TResponse> PutAsync<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
         {
             return await CallAsync(async () => await FormGateway(requestDto, requestOptions).PutAsync<TResponse>(requestDto));
+        }
+        
+        public async Task PutAsync(IReturnVoid requestDto, ICodeMashRequestOptions requestOptions = null)
+        {
+            await CallAsync(async () => await FormGateway(requestDto, requestOptions).PutAsync(requestDto));
         }
         
         public async Task<TResponse> PatchAsync<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
@@ -133,19 +156,34 @@ namespace CodeMash.Client
             return Call(() => FormGateway(requestDto, requestOptions).Get<TResponse>(requestDto));
         }
 
-        public TResponse Delete<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
+        public TResponse Delete<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null) 
         {
             return Call(() => FormGateway(requestDto, requestOptions).Delete<TResponse>(requestDto));
+        }
+        
+        public void Delete(IReturnVoid requestDto, ICodeMashRequestOptions requestOptions = null) 
+        {
+            Call(() => FormGateway(requestDto, requestOptions).Delete(requestDto));
         }
 
         public TResponse Post<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
         {
             return Call(() => FormGateway(requestDto, requestOptions).Post<TResponse>(requestDto));
         }
+        
+        public void Post(IReturnVoid requestDto, ICodeMashRequestOptions requestOptions = null)
+        {
+            Call(() => FormGateway(requestDto, requestOptions).Post(requestDto));
+        }
 
         public TResponse Put<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
         {
             return Call(() => FormGateway(requestDto, requestOptions).Put<TResponse>(requestDto));
+        }
+        
+        public void Put(IReturnVoid requestDto, ICodeMashRequestOptions requestOptions = null)
+        {
+            Call(() => FormGateway(requestDto, requestOptions).Put(requestDto));
         }
 
         public TResponse Patch<TResponse>(object requestDto, ICodeMashRequestOptions requestOptions = null)
@@ -193,11 +231,38 @@ namespace CodeMash.Client
             }
         }
         
+        
+        private async Task CallAsync(Func<Task> callFunc)
+        {
+            try
+            {
+                await callFunc();
+            }
+            catch (WebServiceException e)
+            {
+                var businessException = ProcessWebServiceException(e);
+                throw businessException;
+            }
+        }
+        
         private TResponse Call<TResponse>(Func<TResponse> callFunc)
         {
             try
             {
                 return callFunc();
+            }
+            catch (WebServiceException e)
+            {
+                var businessException = ProcessWebServiceException(e);
+                throw businessException;
+            }
+        }
+        
+        private void Call(Action callFunc)
+        {
+            try
+            {
+                callFunc();
             }
             catch (WebServiceException e)
             {

@@ -3,7 +3,7 @@ using System.Reflection;
 using CodeMash.Client;
 using CodeMash.Interfaces.Files;
 using CodeMash.Project.Services;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 using File = Isidos.CodeMash.ServiceContracts.Api.File;
 
 namespace CodeMash.Core.Tests

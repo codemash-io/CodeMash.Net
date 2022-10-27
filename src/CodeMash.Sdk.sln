@@ -7,12 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMash.Notifications", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Interfaces", "CodeMash.Interfaces\CodeMash.Interfaces.csproj", "{73D1FB67-9427-467D-B297-497C8C48C3B4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{920D997A-849E-4C9D-93E6-3605BBB7A3E9}"
-ProjectSection(SolutionItems) = preProject
-	..\lib\netstandard2.0\CodeMash.Models.dll = ..\lib\netstandard2.0\CodeMash.Models.dll
-	..\lib\netstandard2.0\ServiceContracts.Api.dll = ..\lib\netstandard2.0\ServiceContracts.Api.dll
-EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Repository", "CodeMash.Repository\CodeMash.Repository.csproj", "{063C5DAB-39B7-44D6-8E63-AE85CCE75390}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Client", "CodeMash.Client\CodeMash.Client.csproj", "{53E7A69B-F158-489D-992D-5DF4F3890E36}"
@@ -34,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.ServerEvents", "CodeMash.ServerEvents\CodeMash.ServerEvents.csproj", "{30C4C274-4DB8-4CBE-88C2-B4470DC3957F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.Tests", "..\tests\CodeMash.Tests\CodeMash.Tests.csproj", "{57C2E54A-385B-4BCA-9AD0-F08B682F273E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMash.ServiceContracts.Api", "CodeMash.ServiceContracts.Api\CodeMash.ServiceContracts.Api.csproj", "{BE819D1B-05BE-43F8-8274-554973F667C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +97,10 @@ Global
 		{57C2E54A-385B-4BCA-9AD0-F08B682F273E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57C2E54A-385B-4BCA-9AD0-F08B682F273E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57C2E54A-385B-4BCA-9AD0-F08B682F273E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE819D1B-05BE-43F8-8274-554973F667C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE819D1B-05BE-43F8-8274-554973F667C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE819D1B-05BE-43F8-8274-554973F667C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE819D1B-05BE-43F8-8274-554973F667C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

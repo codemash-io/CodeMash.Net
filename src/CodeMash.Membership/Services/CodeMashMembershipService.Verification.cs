@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Membership.Services
 {
     public partial class CodeMashMembershipService
     {
-        public VerifyUserResponse VerifyUser(VerifyUserRequest request)
+        public void VerifyUser(VerifyUserRequest request)
         {
-            return Client.Put<VerifyUserResponse>(request);
+            Client.Put(request);
         }
 
-        public async Task<VerifyUserResponse> VerifyUserAsync(VerifyUserRequest request)
+        public async Task VerifyUserAsync(VerifyUserRequest request)
         {
-            return await Client.PutAsync<VerifyUserResponse>(request);
+            await Client.PutAsync(request);
         }
 
         public ValidateInvitationTokenResponse CheckUserInvitationToken(ValidateInvitationTokenRequest request)
@@ -25,14 +25,14 @@ namespace CodeMash.Membership.Services
             return await Client.GetAsync<ValidateInvitationTokenResponse>(request);
         }
 
-        public VerifyUserInvitationResponse VerifyUserInvitation(VerifyUserInvitationRequest request)
+        public void VerifyUserInvitation(VerifyUserInvitationRequest request)
         {
-            return Client.Put<VerifyUserInvitationResponse>(request);
+            Client.Put(request);
         }
 
-        public async Task<VerifyUserInvitationResponse> VerifyUserInvitationAsync(VerifyUserInvitationRequest request)
+        public async Task VerifyUserInvitationAsync(VerifyUserInvitationRequest request)
         {
-            return await Client.PutAsync<VerifyUserInvitationResponse>(request);
+            await Client.PutAsync(request);
         }
     }
 }

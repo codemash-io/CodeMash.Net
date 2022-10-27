@@ -2,8 +2,8 @@ using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using CodeMash.ServiceContracts.Api;
 using CodeMash.Tests;
-using CodeMash.Tests.Types.Api;
 using File = System.IO.File;
 
 namespace Isidos.CodeMash.Tests.ServiceLevel;

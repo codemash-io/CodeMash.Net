@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Interfaces.Membership
 {
@@ -17,9 +17,9 @@ namespace CodeMash.Interfaces.Membership
         
         Task<GetUsersResponse> GetUsersListAsync(GetUsersRequest request);
         
-        UpdateUserResponse UpdateUser(UpdateUserRequest request);
+        void UpdateUser(UpdateUserRequest request);
         
-        Task<UpdateUserResponse> UpdateUserAsync(UpdateUserRequest request);
+        Task UpdateUserAsync(UpdateUserRequest request);
         
         void UpdateProfile(UpdateProfileRequest request);
         
@@ -29,16 +29,16 @@ namespace CodeMash.Interfaces.Membership
         
         Task UpdatePasswordAsync(UpdatePasswordRequest request);
         
-        DeleteUserResponse DeleteUser(DeleteUserRequest request);
+        void DeleteUser(DeleteUserRequest request);
         
-        Task<DeleteUserResponse> DeleteUserAsync(DeleteUserRequest request);
+        Task DeleteUserAsync(DeleteUserRequest request);
         
-        BlockUserResponse BlockUser(BlockUserRequest request);
+        void BlockUser(BlockUserRequest request);
+         
+        Task BlockUserAsync(BlockUserRequest request);
         
-        Task<BlockUserResponse> BlockUserAsync(BlockUserRequest request);
+        void UnblockUser(UnblockUserRequest request);
         
-        UnblockUserResponse UnblockUser(UnblockUserRequest request);
-        
-        Task<UnblockUserResponse> UnblockUserAsync(UnblockUserRequest request);
+        Task UnblockUserAsync(UnblockUserRequest request);
     }
 }

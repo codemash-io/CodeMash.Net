@@ -2,7 +2,6 @@ using System.Reflection;
 using CodeMash.Client;
 using CodeMash.Interfaces.Database.Repository;
 using CodeMash.Repository;
-using Isidos.CodeMash.Tests.ServiceLevel;
 
 namespace CodeMash.Tests;
 

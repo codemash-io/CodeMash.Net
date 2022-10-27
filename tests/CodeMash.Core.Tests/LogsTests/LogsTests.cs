@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeMash.Core.Tests

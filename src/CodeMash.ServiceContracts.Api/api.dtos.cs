@@ -1,10 +1,10 @@
 /* Options:
-Date: 2022-10-13 21:12:11
+Date: 2022-10-27 09:15:37
 Version: 6.02
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://localhost:5002
 
-GlobalNamespace: CodeMash.Tests.Types.Api
+GlobalNamespace: CodeMash.ServiceContracts.Api
 MakePartial: False
 //MakeVirtual: True
 //MakeInternal: False
@@ -32,9 +32,9 @@ using ServiceStack;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Auth;
 using System.IO;
-using CodeMash.Tests.Types.Api;
+using CodeMash.ServiceContracts.Api;
 
-namespace CodeMash.Tests.Types.Api
+namespace CodeMash.ServiceContracts.Api
 {
     public interface IIdentityProvider
     {
@@ -422,6 +422,17 @@ namespace CodeMash.Tests.Types.Api
         public virtual int StaticCustomerInvoiceNumber { get; set; }
     }
 
+    public class DatabaseCredentials
+    {
+        public virtual string DbName { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string Password { get; set; }
+        public virtual string Region { get; set; }
+        public virtual string SrvClusterName { get; set; }
+        public virtual bool UseSrvName { get; set; }
+        public virtual string EncVersion { get; set; }
+    }
+
     public class RefundInvoice
         : BaseInvoice
     {
@@ -431,16 +442,13 @@ namespace CodeMash.Tests.Types.Api
         public virtual string RefundedInvoiceId { get; set; }
     }
 
-    public class SubscriptionInvoice
-        : BaseInvoice
+    public enum ServerlessProvider
     {
-        public virtual string SubscriptionId { get; set; }
-        public virtual SubscriptionPlan Plan { get; set; }
-    }
-
-    public class UsageInvoice
-        : BaseInvoice
-    {
+        None,
+        CodemashAmazon,
+        Amazon,
+        Azure,
+        Google,
     }
 
     public class Subscription
@@ -458,6 +466,13 @@ namespace CodeMash.Tests.Types.Api
         public virtual DateTime? SuspendOn { get; set; }
         public virtual bool IsTrialPeriod { get; set; }
         public virtual bool IsCurrentAndActive { get; set; }
+    }
+
+    public class SubscriptionInvoice
+        : BaseInvoice
+    {
+        public virtual string SubscriptionId { get; set; }
+        public virtual SubscriptionPlan Plan { get; set; }
     }
 
     public enum SubscriptionPlan
@@ -478,30 +493,15 @@ namespace CodeMash.Tests.Types.Api
         Unpaid,
     }
 
-    public class DatabaseCredentials
-    {
-        public virtual string DbName { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string Password { get; set; }
-        public virtual string Region { get; set; }
-        public virtual string SrvClusterName { get; set; }
-        public virtual bool UseSrvName { get; set; }
-        public virtual string EncVersion { get; set; }
-    }
-
-    public enum ServerlessProvider
-    {
-        None,
-        CodemashAmazon,
-        Amazon,
-        Azure,
-        Google,
-    }
-
     public class TokenResolverField
     {
         public virtual string Name { get; set; }
         public virtual string Config { get; set; }
+    }
+
+    public class UsageInvoice
+        : BaseInvoice
+    {
     }
 
     ///<summary>
@@ -869,7 +869,7 @@ namespace CodeMash.Tests.Types.Api
     }
 
     public class CancelSubscriptionResponse
-        : ResponseBase<PaymentSubscription>
+        : ResponseBase<Subscription>
     {
     }
 
@@ -950,7 +950,7 @@ namespace CodeMash.Tests.Types.Api
     }
 
     public class ChangeSubscriptionResponse
-        : ResponseBase<PaymentSubscription>
+        : ResponseBase<Subscription>
     {
     }
 
@@ -1733,7 +1733,7 @@ namespace CodeMash.Tests.Types.Api
     }
 
     public class CreateSubscriptionResponse
-        : ResponseBase<PaymentSubscription>
+        : ResponseBase<Subscription>
     {
     }
 
@@ -1784,7 +1784,7 @@ namespace CodeMash.Tests.Types.Api
         public Customer()
         {
             PaymentMethods = new List<PaymentMethod>{};
-            Subscriptions = new List<PaymentSubscription>{};
+            Subscriptions = new List<Subscription>{};
             Meta = new Dictionary<string, string>{};
         }
 
@@ -1807,7 +1807,7 @@ namespace CodeMash.Tests.Types.Api
         public virtual string ProjectId { get; set; }
         public virtual string PaymentAccountId { get; set; }
         public virtual List<PaymentMethod> PaymentMethods { get; set; }
-        public virtual List<PaymentSubscription> Subscriptions { get; set; }
+        public virtual List<Subscription> Subscriptions { get; set; }
         public virtual Dictionary<string, string> Meta { get; set; }
     }
 
@@ -4005,23 +4005,6 @@ namespace CodeMash.Tests.Types.Api
         public virtual string Status { get; set; }
     }
 
-    public class PaymentSubscription
-    {
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string CurrentPeriodStart { get; set; }
-        public virtual string CurrentPeriodEnd { get; set; }
-        public virtual string CanceledAt { get; set; }
-        public virtual bool CancelAtPeriodEnd { get; set; }
-        public virtual string TrialStart { get; set; }
-        public virtual string TrialEnd { get; set; }
-        public virtual string Status { get; set; }
-        public virtual string PlanId { get; set; }
-        public virtual string AppliedCoupon { get; set; }
-        public virtual string PaymentMethodId { get; set; }
-        public virtual string CustomerId { get; set; }
-    }
-
     public class Policy
     {
         public Policy()
@@ -5311,6 +5294,23 @@ namespace CodeMash.Tests.Types.Api
         public virtual string Status { get; set; }
         public virtual decimal Amount { get; set; }
         public virtual string TransactionId { get; set; }
+    }
+
+    public class PaymentSubscription
+    {
+        public virtual string Id { get; set; }
+        public virtual string CreatedOn { get; set; }
+        public virtual string CurrentPeriodStart { get; set; }
+        public virtual string CurrentPeriodEnd { get; set; }
+        public virtual string CanceledAt { get; set; }
+        public virtual bool CancelAtPeriodEnd { get; set; }
+        public virtual string TrialStart { get; set; }
+        public virtual string TrialEnd { get; set; }
+        public virtual string Status { get; set; }
+        public virtual string PlanId { get; set; }
+        public virtual string AppliedCoupon { get; set; }
+        public virtual string PaymentMethodId { get; set; }
+        public virtual string CustomerId { get; set; }
     }
 
     public class Taxonomy
@@ -6939,7 +6939,7 @@ namespace CodeMash.Tests.Types.Api
     }
 
     public class VerifyAppleAppStoreSubscriptionResponse
-        : ResponseBase<List<PaymentSubscription>>
+        : ResponseBase<List<Subscription>>
     {
     }
 
@@ -6976,7 +6976,7 @@ namespace CodeMash.Tests.Types.Api
     }
 
     public class VerifyGooglePlayStoreSubscriptionResponse
-        : ResponseBase<List<PaymentSubscription>>
+        : ResponseBase<List<Subscription>>
     {
     }
 

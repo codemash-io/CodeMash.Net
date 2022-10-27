@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Interfaces.Notifications.Push
 {
@@ -21,16 +21,16 @@ namespace CodeMash.Interfaces.Notifications.Push
         
         Task<GetNotificationsResponse> GetNotificationsAsync(GetNotificationsRequest request);
         
-        GetNotificationsCountResponse GetNotificationsCount(GetNotificationsCountRequest request);
+        GetNotificationsResponse GetNotificationsCount(GetNotificationsCountRequest request);
         
-        Task<GetNotificationsCountResponse> GetNotificationsCountAsync(GetNotificationsCountRequest request);
+        Task<GetNotificationsResponse> GetNotificationsCountAsync(GetNotificationsCountRequest request);
         
         MarkNotificationAsReadResponse ReadNotification(MarkNotificationAsReadRequest request);
         
         Task<MarkNotificationAsReadResponse> ReadNotificationAsync(MarkNotificationAsReadRequest request);
         
-        MarkAllNotificationsAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request);
+        MarkNotificationAsReadResponse ReadAllNotifications(MarkAllNotificationsAsReadRequest request);
         
-        Task<MarkAllNotificationsAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request);
+        Task<MarkNotificationAsReadResponse> ReadAllNotificationsAsync(MarkAllNotificationsAsReadRequest request);
     }
 }

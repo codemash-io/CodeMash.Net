@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using CodeMash.Client;
 using CodeMash.Project.Services;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeMash.Core.Tests

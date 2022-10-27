@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Membership.Services
 {
     public partial class CodeMashMembershipService
     {
-        public RegisterUserResponse RegisterUser(RegisterUserRequest registerUserData)
+        public RegisterUserV2Response RegisterUser(RegisterUserRequest registerUserData)
         {
-            return Client.Post<RegisterUserResponse>(registerUserData);
+            return Client.Post<RegisterUserV2Response>(registerUserData);
         }
 
-        public async Task<RegisterUserResponse> RegisterUserAsync(RegisterUserRequest registerUserData)
+        public async Task<RegisterUserV2Response> RegisterUserAsync(RegisterUserRequest registerUserData)
         {
-            return await Client.PostAsync<RegisterUserResponse>(registerUserData);
+            return await Client.PostAsync<RegisterUserV2Response>(registerUserData);
         }
         
         public RegisterGuestUserResponse RegisterGuestUser(RegisterGuestUserRequest registerUserData)
@@ -25,14 +25,14 @@ namespace CodeMash.Membership.Services
             return await Client.PostAsync<RegisterGuestUserResponse>(registerUserData);
         }
 
-        public InviteUserResponse InviteUser(InviteUserRequest inviteUserData)
+        public InviteUserV2Response InviteUser(InviteUserRequest inviteUserData)
         {
-            return Client.Post<InviteUserResponse>(inviteUserData);
+            return Client.Post<InviteUserV2Response>(inviteUserData);
         }
 
-        public async Task<InviteUserResponse> InviteUserAsync(InviteUserRequest inviteUserData)
+        public async Task<InviteUserV2Response> InviteUserAsync(InviteUserRequest inviteUserData)
         {
-            return await Client.PostAsync<InviteUserResponse>(inviteUserData);
+            return await Client.PostAsync<InviteUserV2Response>(inviteUserData);
         }
     }
 }

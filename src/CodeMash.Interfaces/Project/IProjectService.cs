@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using CodeMash.Interfaces.Client;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Interfaces.Project
 {

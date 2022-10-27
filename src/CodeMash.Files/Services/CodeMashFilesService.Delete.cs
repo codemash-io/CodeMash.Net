@@ -1,18 +1,19 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
+using ServiceStack;
 
 namespace CodeMash.Project.Services
 {
     public partial class CodeMashFilesService
     {
-        public DeleteFileResponse DeleteFile(DeleteFileRequest request)
+        public IReturnVoid DeleteFile(DeleteFileRequest request)
         {
-            return Client.Delete<DeleteFileResponse>(request);
+            return Client.Delete<IReturnVoid>(request);
         }
 
-        public async Task<DeleteFileResponse> DeleteFileAsync(DeleteFileRequest request)
+        public async Task<IReturnVoid> DeleteFileAsync(DeleteFileRequest request)
         {
-            return await Client.DeleteAsync<DeleteFileResponse>(request);
+            return await Client.DeleteAsync<IReturnVoid>(request);
         }
     }
 }

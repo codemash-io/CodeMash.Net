@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CodeMash.Models;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ServiceStack;

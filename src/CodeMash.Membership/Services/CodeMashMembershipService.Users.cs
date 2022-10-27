@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Isidos.CodeMash.ServiceContracts.Api;
+using CodeMash.ServiceContracts.Api;
 
 namespace CodeMash.Membership.Services
 {
@@ -35,14 +35,14 @@ namespace CodeMash.Membership.Services
             return await Client.GetAsync<GetUsersResponse>(request);
         }
 
-        public UpdateUserResponse UpdateUser(UpdateUserRequest request)
+        public void UpdateUser(UpdateUserRequest request)
         {
-            return Client.Put<UpdateUserResponse>(request);
+            Client.Put(request);
         }
 
-        public async Task<UpdateUserResponse> UpdateUserAsync(UpdateUserRequest request)
+        public async Task UpdateUserAsync(UpdateUserRequest request)
         {
-            return await Client.PutAsync<UpdateUserResponse>(request);
+            await Client.PutAsync(request);
         }
         
         public void UpdateProfile(UpdateProfileRequest request)
@@ -65,34 +65,34 @@ namespace CodeMash.Membership.Services
             await Client.PutAsync<object>(request);
         }
         
-        public DeleteUserResponse DeleteUser(DeleteUserRequest request)
+        public void DeleteUser(DeleteUserRequest request)
         {
-            return Client.Delete<DeleteUserResponse>(request);
+            Client.Delete(request);
         }
 
-        public async Task<DeleteUserResponse> DeleteUserAsync(DeleteUserRequest request)
+        public async Task DeleteUserAsync(DeleteUserRequest request)
         {
-            return await Client.DeleteAsync<DeleteUserResponse>(request);
+            await Client.DeleteAsync(request);
         }
 
-        public BlockUserResponse BlockUser(BlockUserRequest request)
+        public void BlockUser(BlockUserRequest request)
         {
-            return Client.Put<BlockUserResponse>(request);
+            Client.Put(request);
         }
 
-        public async Task<BlockUserResponse> BlockUserAsync(BlockUserRequest request)
+        public async Task BlockUserAsync(BlockUserRequest request)
         {
-            return await Client.PutAsync<BlockUserResponse>(request);
+            await Client.PutAsync(request);
         }
 
-        public UnblockUserResponse UnblockUser(UnblockUserRequest request)
+        public void UnblockUser(UnblockUserRequest request)
         {
-            return Client.Put<UnblockUserResponse>(request);
+            Client.Put(request);
         }
 
-        public async Task<UnblockUserResponse> UnblockUserAsync(UnblockUserRequest request)
+        public async Task UnblockUserAsync(UnblockUserRequest request)
         {
-            return await Client.PutAsync<UnblockUserResponse>(request);
+            await Client.PutAsync(request);
         }
     }
 }
