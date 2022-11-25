@@ -19,7 +19,7 @@
 	<dependencies> 
 		<group targetFramework="netstandard2.0">
 			<dependency id="MongoDB.Driver" version="[2.11.4, )"/>
-			<dependency id="ServiceStack" version="[6.0.2, )" />
+			<dependency id="ServiceStack" version="[6.4.0, )" />
 			<dependency id="Newtonsoft.Json" version="[12.0.3, )" />
 			<dependency id="Microsoft.Extensions.Configuration" version="[2.2.0, )" />
 			<dependency id="Microsoft.Extensions.Configuration.Abstractions" version="[2.2.0, )" />
@@ -28,7 +28,7 @@
 		</group>
 		<group targetFramework="net6.0">
 			<dependency id="MongoDB.Driver" version="[2.11.4, )"/>
-			<dependency id="ServiceStack" version="[6.0.2, )" />
+			<dependency id="ServiceStack" version="[6.4.0, )" />
 			<dependency id="Newtonsoft.Json" version="[12.0.3, )" />
 			<dependency id="Microsoft.Extensions.Configuration" version="[2.2.0, )" />
 			<dependency id="Microsoft.Extensions.Configuration.Abstractions" version="[2.2.0, )" />
@@ -50,8 +50,7 @@
 		<file src="../src/CodeMash.Notifications/bin/Release/netstandard2.0/CodeMash.Notifications.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Repository/bin/Release/netstandard2.0/CodeMash.Repository.dll" target="lib\netstandard2.0" />
 		<file src="../src/CodeMash.Payments/bin/Release/netstandard2.0/CodeMash.Payments.dll" target="lib\netstandard2.0" />
-		<file src="../src/CodeMash.ServerEvents/bin/Release/netstandard2.0/CodeMash.ServerEvents.dll" target="lib\netstandard2.0" />
-		<file src="../lib/netstandard2.0/**" target="lib\netstandard2.0" />
+		<file src="../src/CodeMash.ServerEvents/bin/Release/netstandard2.0/CodeMash.ServerEvents.dll" target="lib\netstandard2.0" />		
 		<file src="../src/CodeMash.Client/bin/Release/net6.0/CodeMash.Client.dll" target="lib\net6.0" />
 		<file src="../src/CodeMash.Code/bin/Release/net6.0/CodeMash.Code.dll" target="lib\net6.0" />
 		<file src="../src/CodeMash.Data/bin/Release/net6.0/CodeMash.Data.dll" target="lib\net6.0" />
@@ -64,6 +63,5 @@
 		<file src="../src/CodeMash.Repository/bin/Release/net6.0/CodeMash.Repository.dll" target="lib\net6.0" />
 		<file src="../src/CodeMash.Payments/bin/Release/net6.0/CodeMash.Payments.dll" target="lib\net6.0" />
 		<file src="../src/CodeMash.ServerEvents/bin/Release/net6.0/CodeMash.ServerEvents.dll" target="lib\net6.0" />
-		<file src="../lib/net6.0/**" target="lib\net6.0" />
 	</files>
 </package>

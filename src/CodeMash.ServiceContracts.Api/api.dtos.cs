@@ -1,19 +1,19 @@
 /* Options:
-Date: 2022-10-27 09:15:37
+Date: 2022-11-25 17:27:31
 Version: 6.02
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://localhost:5002
 
 GlobalNamespace: CodeMash.ServiceContracts.Api
 MakePartial: False
-//MakeVirtual: True
+MakeVirtual: False
 //MakeInternal: False
 //MakeDataContractsExtensible: False
 //AddReturnMarker: True
 AddDescriptionAsComments: True
 AddDataContractAttributes: False
 //AddIndexesToDataMembers: False
-//AddGeneratedCodeAttributes: False
+AddGeneratedCodeAttributes: False
 //AddResponseStatus: False
 //AddImplicitVersion: 
 //InitializeCollections: True
@@ -52,54 +52,57 @@ namespace CodeMash.ServiceContracts.Api
         ///Amount of records to return
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="integer", Description="Amount of records to return", Format="int32", Name="PageSize", ParameterType="query")]
-        public virtual int PageSize { get; set; }
+        [ApiMember(DataType="integer", Description="Amount of records to return", Format="int32", Name="PageSize", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="integer", Description="Amount of records to return", Format="int32", Name="PageSize", ParameterType="form", Verb="POST")]
+        public int PageSize { get; set; }
 
         ///<summary>
         ///Page of records to return
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="integer", Description="Page of records to return", Format="int32", Name="PageNumber", ParameterType="query")]
-        public virtual int PageNumber { get; set; }
+        [ApiMember(DataType="integer", Description="Page of records to return", Format="int32", Name="PageNumber", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="integer", Description="Page of records to return", Format="int32", Name="PageNumber", ParameterType="form", Verb="POST")]
+        public int PageNumber { get; set; }
 
         ///<summary>
         ///A query that specifies which records to return
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="A query that specifies which records to return", Name="Filter", ParameterType="query")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="A query that specifies which records to return", Name="Filter", ParameterType="body", Verb="POST")]
+        public string Filter { get; set; }
 
         ///<summary>
         ///A query that specifies how to sort filtered records
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="A query that specifies how to sort filtered records", Name="Sort", ParameterType="query")]
-        public virtual string Sort { get; set; }
+        [ApiMember(DataType="string", Description="A query that specifies how to sort filtered records", Name="Sort", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="string", Description="A query that specifies how to sort filtered records", Name="Sort", ParameterType="form", Verb="POST")]
+        public string Sort { get; set; }
 
         ///<summary>
         ///A query that specifies what fields in records to return
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="A query that specifies what fields in records to return", Name="Projection", ParameterType="query")]
-        public virtual string Projection { get; set; }
+        [ApiMember(DataType="string", Description="A query that specifies what fields in records to return", Name="Projection", ParameterType="body", Verb="POST")]
+        public string Projection { get; set; }
     }
 
     public class CodeMashDbRequestBase
         : CodeMashRequestBase
     {
         ///<summary>
-        ///Collection name - unique table name without whitespaces
+        ///Collection name - unique, lowercased, collection name without whitespace. E.g., if your collection title you have entered in the CodeMash dashboard is "Business Trips" then collection name would be "business-trips".
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Collection name - unique table name without whitespaces", IsRequired=true, Name="CollectionName", ParameterType="path")]
-        public virtual string CollectionName { get; set; }
+        [ApiMember(DataType="string", Description="Collection name - unique, lowercased, collection name without whitespace. E.g., if your collection title you have entered in the CodeMash dashboard is \"Business Trips\" then collection name would be \"business-trips\".", IsRequired=true, Name="CollectionName", ParameterType="path")]
+        public string CollectionName { get; set; }
 
         ///<summary>
         ///API key of your cluster. Can be passed in a header as X-CM-Cluster.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="API key of your cluster. Can be passed in a header as X-CM-Cluster.", Name="Cluster", ParameterType="query")]
-        public virtual string Cluster { get; set; }
+        [ApiMember(DataType="string", Description="API key of your cluster. Can be passed in a header as X-CM-Cluster.", Name="X-CM-Cluster", ParameterType="header")]
+        public string Cluster { get; set; }
     }
 
     public class CodeMashListRequestBase
@@ -110,35 +113,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="integer", Description="Amount of records to return", Format="int32", Name="PageSize", ParameterType="form")]
-        public virtual int PageSize { get; set; }
+        public int PageSize { get; set; }
 
         ///<summary>
         ///Page of records to return
         ///</summary>
         [DataMember]
         [ApiMember(DataType="integer", Description="Page of records to return", Format="int32", Name="PageNumber", ParameterType="form")]
-        public virtual int PageNumber { get; set; }
+        public int PageNumber { get; set; }
 
         ///<summary>
         ///A query that specifies which records to return
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="A query that specifies which records to return", Name="Filter", ParameterType="body")]
-        public virtual string Filter { get; set; }
+        public string Filter { get; set; }
 
         ///<summary>
         ///A query that specifies how to sort filtered records
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="A query that specifies how to sort filtered records", Name="Sort", ParameterType="body")]
-        public virtual string Sort { get; set; }
+        public string Sort { get; set; }
 
         ///<summary>
         ///A query that specifies what fields in records to return
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="A query that specifies what fields in records to return", Name="Projection", ParameterType="body")]
-        public virtual string Projection { get; set; }
+        public string Projection { get; set; }
     }
 
     public class CodeMashRequestBase
@@ -149,7 +152,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of your project. Can be passed in a header as X-CM-ProjectId.", IsRequired=true, Name="X-CM-ProjectId", ParameterType="header")]
-        public virtual Guid ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
     }
 
     public interface ICultureBasedRequest
@@ -196,35 +199,36 @@ namespace CodeMash.ServiceContracts.Api
         : ICultureBasedRequest, IVersionBasedRequest
     {
         ///<summary>
-        ///Specify culture code when your output should be localised. E.g.: en
+        ///Specify culture code when your response from the API should be localised. E.g.: en
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Specify culture code when your output should be localised. E.g.: en", Name="CultureCode", ParameterType="header")]
-        public virtual string CultureCode { get; set; }
+        [ApiMember(DataType="string", Description="Specify culture code when your response from the API should be localised. E.g.: en", Name="CultureCode", ParameterType="header")]
+        public string CultureCode { get; set; }
 
         ///<summary>
-        ///Specify culture code when your output should be localised. E.g.: en
+        ///The CodeMash API version used to fetch data from the API. If not specified, the last version will be used.  E.g.: v2
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Specify culture code when your output should be localised. E.g.: en", Name="CultureCode", ParameterType="header")]
-        public virtual string Version { get; set; }
+        [ApiMember(DataType="string", Description="The CodeMash API version used to fetch data from the API. If not specified, the last version will be used.  E.g.: v2", Name="version", ParameterType="path")]
+        public string Version { get; set; }
     }
 
     public class ResponseBase<T>
     {
         [DataMember]
-        public virtual ResponseStatus ResponseStatus { get; set; }
+        public ResponseStatus ResponseStatus { get; set; }
 
         [DataMember(Name="result")]
-        public virtual T Result { get; set; }
+        public T Result { get; set; }
     }
 
     public class AadFunctionExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     [Route("/notifications/email/aws/events", "POST")]
+    [Route("/{version}/notifications/email/aws/events", "POST")]
     public class AwsSesEndpoint
         : IReturn<HttpResult>
     {
@@ -232,40 +236,41 @@ namespace CodeMash.ServiceContracts.Api
 
     public class BarCodeExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     public class CollectionFindExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     public class CollectionUpdateExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     public class DocxTemplateExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     public class GoogleFunctionExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     public class HtmlToPdfExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     public class ImageResizeExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     [Route("/notifications/email/mailgun/events", "POST")]
+    [Route("/{version}/notifications/email/mailgun/events", "POST")]
     public class MailGunEndpoint
         : IReturn<HttpResult>
     {
@@ -273,28 +278,34 @@ namespace CodeMash.ServiceContracts.Api
 
     public class QrCodeExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     public class RegisterOAuthUser
         : IReturn<RegisterOAuthUserResponse>
     {
-        public virtual Guid ProjectId { get; set; }
-        public virtual string ProviderUserId { get; set; }
-        public virtual ProjectUserProviders Provider { get; set; }
-        public virtual CustomUserSession OnRegistersSession { get; set; }
-        public virtual string Mode { get; set; }
+        public Guid ProjectId { get; set; }
+        public string ProviderUserId { get; set; }
+        public ProjectUserProviders Provider { get; set; }
+        public CustomUserSession OnRegistersSession { get; set; }
+        public string Mode { get; set; }
     }
 
     public class RegisterOAuthUserResponse
         : ResponseBase<bool>
     {
-        public virtual Guid UserId { get; set; }
-        public virtual string AccountId { get; set; }
-        public virtual IUserAuth UserAuth { get; set; }
+        public Guid UserId { get; set; }
+        public string AccountId { get; set; }
+        public IUserAuth UserAuth { get; set; }
     }
 
+    ///<summary>
+    ///Email services
+    ///</summary>
     [Route("/notifications/email/sendgrid/events", "POST")]
+    [Route("/{version}/notifications/email/sendgrid/events", "POST")]
+    [Api(Description="Email services")]
+    [DataContract]
     public class SendGridEndpoint
         : IReturn<HttpResult>
     {
@@ -308,22 +319,22 @@ namespace CodeMash.ServiceContracts.Api
             Tokens = new Dictionary<string, string>{};
         }
 
-        public virtual ProjectContextDto ProjectContext { get; set; }
-        public virtual ServerlessFunctionDto Function { get; set; }
-        public virtual ServerlessProviderDto Connection { get; set; }
-        public virtual string Template { get; set; }
-        public virtual string Data { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
-        public virtual Dictionary<string, string> Tokens { get; set; }
-        public virtual ProjectSmallDto Project { get; set; }
-        public virtual Guid? ActivatorId { get; set; }
-        public virtual string CultureCode { get; set; }
-        public virtual string Version { get; set; }
+        public ProjectContextDto ProjectContext { get; set; }
+        public ServerlessFunctionDto Function { get; set; }
+        public ServerlessProviderDto Connection { get; set; }
+        public string Template { get; set; }
+        public string Data { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Tokens { get; set; }
+        public ProjectSmallDto Project { get; set; }
+        public Guid? ActivatorId { get; set; }
+        public string CultureCode { get; set; }
+        public string Version { get; set; }
     }
 
     public class UsersFindExecutorRequest
     {
-        public virtual SystemFunctionExecutorData Data { get; set; }
+        public SystemFunctionExecutorData Data { get; set; }
     }
 
     [Flags]
@@ -351,8 +362,8 @@ namespace CodeMash.ServiceContracts.Api
 
     public class ModuleData
     {
-        public virtual string WidgetType { get; set; }
-        public virtual ModuleWidget Settings { get; set; }
+        public string WidgetType { get; set; }
+        public ModuleWidget Settings { get; set; }
     }
 
     public class ModuleWidget
@@ -361,14 +372,14 @@ namespace CodeMash.ServiceContracts.Api
 
     public class ProjectModulesData
     {
-        public virtual ModuleData Database { get; set; }
-        public virtual ModuleData Membership { get; set; }
-        public virtual ModuleData Emails { get; set; }
-        public virtual ModuleData Notifications { get; set; }
-        public virtual ModuleData Files { get; set; }
-        public virtual ModuleData Logging { get; set; }
-        public virtual ModuleData Scheduler { get; set; }
-        public virtual ModuleData Serverless { get; set; }
+        public ModuleData Database { get; set; }
+        public ModuleData Membership { get; set; }
+        public ModuleData Emails { get; set; }
+        public ModuleData Notifications { get; set; }
+        public ModuleData Files { get; set; }
+        public ModuleData Logging { get; set; }
+        public ModuleData Scheduler { get; set; }
+        public ModuleData Serverless { get; set; }
     }
 
     public class CustomUserSession
@@ -379,67 +390,67 @@ namespace CodeMash.ServiceContracts.Api
             AllowedProjects = new List<string>{};
         }
 
-        public virtual Guid? ProjectId { get; set; }
-        public virtual bool IsProjectAdmin { get; set; }
-        public virtual string ApiKey { get; set; }
-        public virtual string UserId { get; set; }
-        public virtual string SessionId { get; set; }
-        public virtual string TenantId { get; set; }
-        public virtual string ApplicationId { get; set; }
-        public virtual List<string> AllowedProjects { get; set; }
-        public virtual bool IsAccountUser { get; set; }
-        public virtual AccountStatus Status { get; set; }
-        public virtual bool IsTokenUser { get; set; }
+        public Guid? ProjectId { get; set; }
+        public bool IsProjectAdmin { get; set; }
+        public string ApiKey { get; set; }
+        public string UserId { get; set; }
+        public string SessionId { get; set; }
+        public string TenantId { get; set; }
+        public string ApplicationId { get; set; }
+        public List<string> AllowedProjects { get; set; }
+        public bool IsAccountUser { get; set; }
+        public AccountStatus Status { get; set; }
+        public bool IsTokenUser { get; set; }
     }
 
     public class BaseInvoice
     {
-        public virtual DateTime Created { get; set; }
-        public virtual string GeneratedInvoiceId { get; set; }
-        public virtual string InvoiceId { get; set; }
-        public virtual string InvoiceNumber { get; set; }
-        public virtual string CustomInvoiceNumber { get; set; }
-        public virtual long? CmInvoiceNo { get; set; }
-        public virtual string CmInvoiceNumber { get; set; }
-        public virtual long AmountPaid { get; set; }
-        public virtual long AmountRemaining { get; set; }
-        public virtual long AttemptCount { get; set; }
-        public virtual string Currency { get; set; }
-        public virtual string InvoiceUrl { get; set; }
-        public virtual string InvoicePdf { get; set; }
-        public virtual bool Paid { get; set; }
-        public virtual string Status { get; set; }
+        public DateTime Created { get; set; }
+        public string GeneratedInvoiceId { get; set; }
+        public string InvoiceId { get; set; }
+        public string InvoiceNumber { get; set; }
+        public string CustomInvoiceNumber { get; set; }
+        public long? CmInvoiceNo { get; set; }
+        public string CmInvoiceNumber { get; set; }
+        public long AmountPaid { get; set; }
+        public long AmountRemaining { get; set; }
+        public long AttemptCount { get; set; }
+        public string Currency { get; set; }
+        public string InvoiceUrl { get; set; }
+        public string InvoicePdf { get; set; }
+        public bool Paid { get; set; }
+        public string Status { get; set; }
     }
 
     public class CustomerInvoice
         : BaseInvoice
     {
-        public virtual string CustomerId { get; set; }
-        public virtual Guid ProjectId { get; set; }
-        public virtual bool IsStaticInvoice { get; set; }
-        public virtual string StaticProjectName { get; set; }
-        public virtual string StaticToken { get; set; }
-        public virtual int StaticCustomerInvoiceNumber { get; set; }
+        public string CustomerId { get; set; }
+        public Guid ProjectId { get; set; }
+        public bool IsStaticInvoice { get; set; }
+        public string StaticProjectName { get; set; }
+        public string StaticToken { get; set; }
+        public int StaticCustomerInvoiceNumber { get; set; }
     }
 
     public class DatabaseCredentials
     {
-        public virtual string DbName { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string Password { get; set; }
-        public virtual string Region { get; set; }
-        public virtual string SrvClusterName { get; set; }
-        public virtual bool UseSrvName { get; set; }
-        public virtual string EncVersion { get; set; }
+        public string DbName { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Region { get; set; }
+        public string SrvClusterName { get; set; }
+        public bool UseSrvName { get; set; }
+        public string EncVersion { get; set; }
     }
 
     public class RefundInvoice
         : BaseInvoice
     {
-        public virtual string SubscriptionId { get; set; }
-        public virtual SubscriptionPlan Plan { get; set; }
-        public virtual int? DaysUnused { get; set; }
-        public virtual string RefundedInvoiceId { get; set; }
+        public string SubscriptionId { get; set; }
+        public SubscriptionPlan Plan { get; set; }
+        public int? DaysUnused { get; set; }
+        public string RefundedInvoiceId { get; set; }
     }
 
     public enum ServerlessProvider
@@ -451,28 +462,28 @@ namespace CodeMash.ServiceContracts.Api
         Google,
     }
 
-    public class Subscription
+    public class SubscriptionDomain
     {
-        public virtual string SubscriptionId { get; set; }
-        public virtual SubscriptionPlan Plan { get; set; }
-        public virtual SubscriptionStatus Status { get; set; }
-        public virtual DateTime SubscribeDate { get; set; }
-        public virtual DateTime From { get; set; }
-        public virtual DateTime To { get; set; }
-        public virtual bool PeriodPaid { get; set; }
-        public virtual int PayAttemptCount { get; set; }
-        public virtual bool PayAttempted { get; set; }
-        public virtual DateTime? Canceled { get; set; }
-        public virtual DateTime? SuspendOn { get; set; }
-        public virtual bool IsTrialPeriod { get; set; }
-        public virtual bool IsCurrentAndActive { get; set; }
+        public string SubscriptionId { get; set; }
+        public SubscriptionPlan Plan { get; set; }
+        public SubscriptionStatus Status { get; set; }
+        public DateTime SubscribeDate { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
+        public bool PeriodPaid { get; set; }
+        public int PayAttemptCount { get; set; }
+        public bool PayAttempted { get; set; }
+        public DateTime? Canceled { get; set; }
+        public DateTime? SuspendOn { get; set; }
+        public bool IsTrialPeriod { get; set; }
+        public bool IsCurrentAndActive { get; set; }
     }
 
     public class SubscriptionInvoice
         : BaseInvoice
     {
-        public virtual string SubscriptionId { get; set; }
-        public virtual SubscriptionPlan Plan { get; set; }
+        public string SubscriptionId { get; set; }
+        public SubscriptionPlan Plan { get; set; }
     }
 
     public enum SubscriptionPlan
@@ -495,8 +506,8 @@ namespace CodeMash.ServiceContracts.Api
 
     public class TokenResolverField
     {
-        public virtual string Name { get; set; }
-        public virtual string Config { get; set; }
+        public string Name { get; set; }
+        public string Config { get; set; }
     }
 
     public class UsageInvoice
@@ -519,28 +530,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Mode to use for authentication", Name="Mode", ParameterType="query")]
-        public virtual string Mode { get; set; }
+        public string Mode { get; set; }
 
         ///<summary>
         ///Code received from Microsoft services
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Code received from Microsoft services", Name="Code", ParameterType="query")]
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
         ///<summary>
         ///State received with a code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="State received with a code", Name="State", ParameterType="query")]
-        public virtual string State { get; set; }
+        public string State { get; set; }
 
         ///<summary>
         ///When transferring access token from client app
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="When transferring access token from client app", Name="AccessToken", ParameterType="query")]
-        public virtual string AccessToken { get; set; }
+        public string AccessToken { get; set; }
     }
 
     public class AadAuthenticationResponse
@@ -564,18 +575,18 @@ namespace CodeMash.ServiceContracts.Api
         }
 
         ///<summary>
-        ///ID of an aggregate. Required of Pipeline is empty.
+        ///Id of an aggregate
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="Guid", Description="ID of an aggregate. Required of Pipeline is empty.", Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        [ApiMember(DataType="string", Description="Id of an aggregate", Name="Id", ParameterType="path")]
+        public Guid Id { get; set; }
 
         ///<summary>
         ///Tokens that should be injected into aggregation document
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="json", Description="Tokens that should be injected into aggregation document", Name="Tokens", ParameterType="query")]
-        public virtual Dictionary<string, string> Tokens { get; set; }
+        [ApiMember(DataType="string", Description="Tokens that should be injected into aggregation document", Name="Tokens", ParameterType="body")]
+        public Dictionary<string, string> Tokens { get; set; }
     }
 
     public class AggregateResponse
@@ -585,9 +596,9 @@ namespace CodeMash.ServiceContracts.Api
 
     public class AndroidBackgroundLayout
     {
-        public virtual string Image { get; set; }
-        public virtual string HeadingColor { get; set; }
-        public virtual string ContentColor { get; set; }
+        public string Image { get; set; }
+        public string HeadingColor { get; set; }
+        public string ContentColor { get; set; }
     }
 
     ///<summary>
@@ -610,35 +621,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Mode to use for authentication", Name="Mode", ParameterType="query")]
-        public virtual string Mode { get; set; }
+        public string Mode { get; set; }
 
         ///<summary>
         ///Code received from Google services
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Code received from Google services", Name="Code", ParameterType="query")]
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
         ///<summary>
         ///State received with a code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="State received with a code", Name="State", ParameterType="query")]
-        public virtual string State { get; set; }
+        public string State { get; set; }
 
         ///<summary>
         ///When transferring access token from client app
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="When transferring access token from client app", Name="AccessToken", ParameterType="query")]
-        public virtual string AccessToken { get; set; }
+        public string AccessToken { get; set; }
 
         ///<summary>
         ///Attach any data to the request
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Attach any data to the request", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class AppleAuthenticationResponse
@@ -654,20 +665,20 @@ namespace CodeMash.ServiceContracts.Api
             CategoryDiscounts = new List<DiscountCategory>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string Code { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string ValidFrom { get; set; }
-        public virtual string ValidUntil { get; set; }
-        public virtual string Type { get; set; }
-        public virtual string TargetType { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string CollectionName { get; set; }
-        public virtual string Cluster { get; set; }
-        public virtual List<DiscountIndividualLine> IndividualDiscounts { get; set; }
-        public virtual List<DiscountCategory> CategoryDiscounts { get; set; }
-        public virtual DiscountAll AllDiscount { get; set; }
+        public string Id { get; set; }
+        public string Code { get; set; }
+        public string CreatedOn { get; set; }
+        public string ValidFrom { get; set; }
+        public string ValidUntil { get; set; }
+        public string Type { get; set; }
+        public string TargetType { get; set; }
+        public string DisplayName { get; set; }
+        public string Description { get; set; }
+        public string CollectionName { get; set; }
+        public string Cluster { get; set; }
+        public List<DiscountIndividualLine> IndividualDiscounts { get; set; }
+        public List<DiscountCategory> CategoryDiscounts { get; set; }
+        public DiscountAll AllDiscount { get; set; }
     }
 
     ///<summary>
@@ -685,35 +696,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", Name="CustomerId", ParameterType="body")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Setup intent ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Setup intent ID.", Name="SetupId", ParameterType="body")]
-        public virtual string SetupId { get; set; }
+        public string SetupId { get; set; }
 
         ///<summary>
         ///Client secret got from creating setup intent.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Client secret got from creating setup intent.", Name="SetupClientSecret", ParameterType="body")]
-        public virtual string SetupClientSecret { get; set; }
+        public string SetupClientSecret { get; set; }
 
         ///<summary>
         ///Should this payment method be default.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should this payment method be default.", Name="AsDefault", ParameterType="body")]
-        public virtual bool AsDefault { get; set; }
+        public bool AsDefault { get; set; }
 
         ///<summary>
         ///Should current payment methods be detached.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should current payment methods be detached.", Name="DetachOthers", ParameterType="body")]
-        public virtual bool DetachOthers { get; set; }
+        public bool DetachOthers { get; set; }
     }
 
     public class AttachPaymentMethodResponse
@@ -748,49 +759,49 @@ namespace CodeMash.ServiceContracts.Api
             Meta = new Dictionary<string, string>{};
         }
 
-        public virtual string UserId { get; set; }
-        public virtual string UserAuthId { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string SessionId { get; set; }
-        public virtual string ReferrerUrl { get; set; }
-        public virtual string BearerToken { get; set; }
-        public virtual string Email { get; set; }
-        public virtual List<Role> Roles { get; set; }
-        public virtual List<string> Permissions { get; set; }
-        public virtual string Company { get; set; }
-        public virtual string PhoneNumber { get; set; }
-        public virtual DateTime? BirthDate { get; set; }
-        public virtual string BirthDateRaw { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Address2 { get; set; }
-        public virtual string City { get; set; }
-        public virtual string Country { get; set; }
-        public virtual string Culture { get; set; }
-        public virtual string FullName { get; set; }
-        public virtual string Gender { get; set; }
-        public virtual string Language { get; set; }
-        public virtual string ProfileUrl { get; set; }
-        public virtual long Tag { get; set; }
-        public virtual string AuthProvider { get; set; }
-        public virtual string MailAddress { get; set; }
-        public virtual string Nickname { get; set; }
-        public virtual string PostalCode { get; set; }
-        public virtual string TimeZone { get; set; }
-        public virtual DateTime CreatedAt { get; set; }
-        public virtual DateTime LastModified { get; set; }
-        public virtual string Status { get; set; }
-        public virtual List<IAuthTokens> AuthTokens { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public string UserId { get; set; }
+        public string UserAuthId { get; set; }
+        public string UserName { get; set; }
+        public string DisplayName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string SessionId { get; set; }
+        public string ReferrerUrl { get; set; }
+        public string BearerToken { get; set; }
+        public string Email { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<string> Permissions { get; set; }
+        public string Company { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string BirthDateRaw { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Culture { get; set; }
+        public string FullName { get; set; }
+        public string Gender { get; set; }
+        public string Language { get; set; }
+        public string ProfileUrl { get; set; }
+        public long Tag { get; set; }
+        public string AuthProvider { get; set; }
+        public string MailAddress { get; set; }
+        public string Nickname { get; set; }
+        public string PostalCode { get; set; }
+        public string TimeZone { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime LastModified { get; set; }
+        public string Status { get; set; }
+        public List<IAuthTokens> AuthTokens { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class Base64FileUpload
     {
-        public virtual string Data { get; set; }
-        public virtual string ContentType { get; set; }
-        public virtual string FileName { get; set; }
+        public string Data { get; set; }
+        public string ContentType { get; set; }
+        public string FileName { get; set; }
     }
 
     ///<summary>
@@ -808,7 +819,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="ID of user to be blocked", IsRequired=true, Name="Id", ParameterType="body")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
     }
 
     ///<summary>
@@ -826,7 +837,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment account token ID.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
     }
 
     ///<summary>
@@ -844,28 +855,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Subscription ID.", IsRequired=true, Name="SubscriptionId", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Customer's ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", IsRequired=true, Name="CustomerId", ParameterType="path")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Should cancel instantly. Overrides payment settings
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should cancel instantly. Overrides payment settings", Name="CancelInstantly", ParameterType="query")]
-        public virtual bool? CancelInstantly { get; set; }
+        public bool? CancelInstantly { get; set; }
 
         ///<summary>
         ///Should refund on cancel instantly. Overrides payment settings
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should refund on cancel instantly. Overrides payment settings", Name="RefundOnCancelInstantly", ParameterType="query")]
-        public virtual bool? RefundOnCancelInstantly { get; set; }
+        public bool? RefundOnCancelInstantly { get; set; }
     }
 
     public class CancelSubscriptionResponse
@@ -876,8 +887,8 @@ namespace CodeMash.ServiceContracts.Api
     ///<summary>
     ///Database services
     ///</summary>
-    [Route("/db/{collectionName}/responsibility", "POST")]
-    [Route("/{version}/db/{collectionName}/responsibility", "POST")]
+    [Route("/db/{CollectionName}/responsibility", "POST")]
+    [Route("/{version}/db/{CollectionName}/responsibility", "POST")]
     [Api(Description="Database services")]
     [DataContract]
     public class ChangeResponsibilityRequest
@@ -887,15 +898,15 @@ namespace CodeMash.ServiceContracts.Api
         ///Id of a record to change responsibility for
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Id of a record to change responsibility for", IsRequired=true, Name="Id", ParameterType="body")]
-        public virtual string Id { get; set; }
+        [ApiMember(DataType="string", Description="Id of a record to change responsibility for", IsRequired=true, Name="Id", ParameterType="form")]
+        public string Id { get; set; }
 
         ///<summary>
         ///New responsible user for this record
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="Guid", Description="New responsible user for this record", IsRequired=true, Name="NewResponsibleUserId", ParameterType="body")]
-        public virtual Guid NewResponsibleUserId { get; set; }
+        [ApiMember(DataType="string", Description="New responsible user for this record", IsRequired=true, Name="NewResponsibleUserId", ParameterType="form")]
+        public Guid NewResponsibleUserId { get; set; }
     }
 
     public class ChangeResponsibilityResponse
@@ -918,35 +929,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Subscription ID.", IsRequired=true, Name="SubscriptionId", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Customer's ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", IsRequired=true, Name="CustomerId", ParameterType="path")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Subscription plan ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Subscription plan ID.", IsRequired=true, Name="PlanId", ParameterType="body")]
-        public virtual Guid NewPlanId { get; set; }
+        public Guid NewPlanId { get; set; }
 
         ///<summary>
         ///Payment method's ID. If not provided will use default.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's ID. If not provided will use default.", Name="PaymentMethodId", ParameterType="body")]
-        public virtual string PaymentMethodId { get; set; }
+        public string PaymentMethodId { get; set; }
 
         ///<summary>
         ///Discount coupon ID if supported.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Discount coupon ID if supported.", Name="Coupon", ParameterType="body")]
-        public virtual string Coupon { get; set; }
+        public string Coupon { get; set; }
     }
 
     public class ChangeSubscriptionResponse
@@ -969,7 +980,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Kevin payment ID.", IsRequired=true, Name="PaymentId", ParameterType="query")]
-        public virtual string PaymentId { get; set; }
+        public string PaymentId { get; set; }
     }
 
     public class CheckKevinPaymentStatusResponse
@@ -992,28 +1003,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Order ID.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Payment account ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Payment account ID.", IsRequired=true, Name="AccountId", ParameterType="query")]
-        public virtual Guid AccountId { get; set; }
+        public Guid AccountId { get; set; }
 
         ///<summary>
         ///Transaction ID which was used with this order and client secret.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Transaction ID which was used with this order and client secret.", IsRequired=true, Name="TransactionId", ParameterType="query")]
-        public virtual string TransactionId { get; set; }
+        public string TransactionId { get; set; }
 
         ///<summary>
         ///ClientSecret got from creating stripe transaction.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ClientSecret got from creating stripe transaction.", IsRequired=true, Name="ClientSecret", ParameterType="query")]
-        public virtual string ClientSecret { get; set; }
+        public string ClientSecret { get; set; }
     }
 
     public class CheckStripePaymentStatusResponse
@@ -1032,25 +1043,28 @@ namespace CodeMash.ServiceContracts.Api
         : CodeMashDbRequestBase, IReturn<CountResponse>
     {
         ///<summary>
-        ///A query that specifies which records to count
+        ///Filter cannot be passed as query string, use POST method instead.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="A query that specifies which records to count", Name="Filter", ParameterType="query")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="Filter cannot be passed as query string, use POST method instead.", Name="Filter", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="string", Description="A query (in JSON format) that specifies which records to count", Name="Filter", ParameterType="form", Verb="POST")]
+        public string Filter { get; set; }
 
         ///<summary>
-        ///The maximum number of records to count
+        ///A limit on the number of objects to be returned, between 1 and 100.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="integer", Description="The maximum number of records to count", Format="int32", Name="Limit", ParameterType="query")]
-        public virtual int? Limit { get; set; }
+        [ApiMember(DataType="integer", Description="A limit on the number of objects to be returned, between 1 and 100.", Format="int32", Name="Limit", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="integer", Description="A limit on the number of objects to be returned, between 1 and 100.", Format="int32", Name="Limit", ParameterType="form", Verb="POST")]
+        public int? Limit { get; set; }
 
         ///<summary>
         ///The number of records to skip before counting
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="integer", Description="The number of records to skip before counting", Format="int32", Name="Skip", ParameterType="query")]
-        public virtual int? Skip { get; set; }
+        [ApiMember(DataType="integer", Description="The number of records to skip before counting", Format="int32", Name="Skip", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="integer", Description="The number of records to skip before counting", Format="int32", Name="Skip", ParameterType="form", Verb="POST")]
+        public int? Skip { get; set; }
     }
 
     public class CountResponse
@@ -1078,91 +1092,91 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Payment account ID.", IsRequired=true, Name="AccountId", ParameterType="body")]
-        public virtual Guid AccountId { get; set; }
+        public Guid AccountId { get; set; }
 
         ///<summary>
         ///User's ID to whom to attach this customer.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User's ID to whom to attach this customer.", Name="UserId", ParameterType="body")]
-        public virtual Guid UserId { get; set; }
+        public Guid UserId { get; set; }
 
         ///<summary>
         ///Customer's phone. Overrides user's phone.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's phone. Overrides user's phone.", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///Customer's full name. Overrides user's name.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's full name. Overrides user's name.", Name="Name", ParameterType="body")]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         ///<summary>
         ///Customer's description.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's description.", Name="Description", ParameterType="body")]
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
         ///<summary>
         ///Customer's email. Overrides user's email.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's email. Overrides user's email.", Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Customer's city. Overrides user's city.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's city. Overrides user's city.", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///Customer's country. Overrides user's country.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's country. Overrides user's country.", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///Customer's address 1. Overrides user's address 1.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's address 1. Overrides user's address 1.", Name="Address1", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///Customer's address 2. Overrides user's address 2.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's address 2. Overrides user's address 2.", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///Customer's postal code. Overrides user's postal code.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's postal code. Overrides user's postal code.", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///Customer's state. Overrides user's area.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's state. Overrides user's area.", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///Additional key, value data.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Additional key, value data.", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class CreateCustomerResponse
@@ -1185,21 +1199,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Order ID to pay for.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Customer ID to whom belongs this payment method.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer ID to whom belongs this payment method.", IsRequired=true, Name="CustomerId", ParameterType="body")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Should try to charge default card
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should try to charge default card", Name="ChargeCard", ParameterType="body")]
-        public virtual bool ChargeCard { get; set; }
+        public bool ChargeCard { get; set; }
     }
 
     public class CreateDectaTransactionResponse
@@ -1227,56 +1241,56 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="UserId. Parameter can be nullable, but if you provide it, device will be combined with the one of membership users.", Name="UserId", ParameterType="form")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///Device operating system
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device operating system", Name="OperatingSystem", ParameterType="body")]
-        public virtual string OperatingSystem { get; set; }
+        public string OperatingSystem { get; set; }
 
         ///<summary>
         ///Device brand
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device brand", Name="Brand", ParameterType="body")]
-        public virtual string Brand { get; set; }
+        public string Brand { get; set; }
 
         ///<summary>
         ///Device name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device name", Name="DeviceName", ParameterType="body")]
-        public virtual string DeviceName { get; set; }
+        public string DeviceName { get; set; }
 
         ///<summary>
         ///Device timezone, expects to get a TZ database name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device timezone, expects to get a TZ database name", Name="TimeZone", ParameterType="body")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Device language, expects to get a 2 letter identifier
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device language, expects to get a 2 letter identifier", Name="Language", ParameterType="body")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///Device locale
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device locale", Name="Locale", ParameterType="body")]
-        public virtual string Locale { get; set; }
+        public string Locale { get; set; }
 
         ///<summary>
         ///Meta information that comes from device.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Meta information that comes from device.", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class CreateDeviceResponse
@@ -1309,133 +1323,133 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Type of the discount (Coupon or Discount).", IsRequired=true, Name="Type", ParameterType="body")]
-        public virtual string Type { get; set; }
+        public string Type { get; set; }
 
         ///<summary>
         ///Unique discount code.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Unique discount code.", Name="Code", ParameterType="body")]
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
         ///<summary>
         ///Display name of the discount.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Display name of the discount.", Name="DisplayName", ParameterType="body")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Start date of being active.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="long", Description="Start date of being active.", Name="ValidFrom", ParameterType="body")]
-        public virtual long? ValidFrom { get; set; }
+        public long? ValidFrom { get; set; }
 
         ///<summary>
         ///End date of being active.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="long", Description="End date of being active.", Name="ValidUntil", ParameterType="body")]
-        public virtual long? ValidUntil { get; set; }
+        public long? ValidUntil { get; set; }
 
         ///<summary>
         ///Restriction type of discount. Can be Fixed, Percentage, Price or Quantity.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Restriction type of discount. Can be Fixed, Percentage, Price or Quantity.", Name="RestrictionType", ParameterType="body")]
-        public virtual string RestrictionType { get; set; }
+        public string RestrictionType { get; set; }
 
         ///<summary>
         ///Discount amount for Fixed or Percentage restriction types.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="double", Description="Discount amount for Fixed or Percentage restriction types.", Name="Amount", ParameterType="body")]
-        public virtual double? Amount { get; set; }
+        public double? Amount { get; set; }
 
         ///<summary>
         ///Discount amounts for Price or Quantity restriction types.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Discount amounts for Price or Quantity restriction types.", Name="Boundaries", ParameterType="body")]
-        public virtual List<PaymentDiscountBoundary> Boundaries { get; set; }
+        public List<PaymentDiscountBoundary> Boundaries { get; set; }
 
         ///<summary>
         ///Target type for specific records. Can be All, Category, Individual.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Target type for specific records. Can be All, Category, Individual.", Name="TargetType", ParameterType="body")]
-        public virtual string TargetType { get; set; }
+        public string TargetType { get; set; }
 
         ///<summary>
         ///Records for Individual target type.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Records for Individual target type.", Name="Records", ParameterType="body")]
-        public virtual List<string> Records { get; set; }
+        public List<string> Records { get; set; }
 
         ///<summary>
         ///Collection field for Category target type.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Collection field for Category target type.", Name="CategoryField", ParameterType="body")]
-        public virtual string CategoryField { get; set; }
+        public string CategoryField { get; set; }
 
         ///<summary>
         ///Values for Category target type.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Values for Category target type.", Name="CategoryValues", ParameterType="body")]
-        public virtual List<string> CategoryValues { get; set; }
+        public List<string> CategoryValues { get; set; }
 
         ///<summary>
         ///Limitations for discounts to be used only with certain payment accounts.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Limitations for discounts to be used only with certain payment accounts.", Name="PaymentAccounts", ParameterType="body")]
-        public virtual List<string> PaymentAccounts { get; set; }
+        public List<string> PaymentAccounts { get; set; }
 
         ///<summary>
         ///Users who can redeem this discount.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Users who can redeem this discount.", Name="Users", ParameterType="body")]
-        public virtual List<string> Users { get; set; }
+        public List<string> Users { get; set; }
 
         ///<summary>
         ///Emails for potential users who can redeem this discount. When user registers with one of the provided emails, he will be allowed to use this discount. Doesn't work with existing users.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Emails for potential users who can redeem this discount. When user registers with one of the provided emails, he will be allowed to use this discount. Doesn't work with existing users.", Name="Users", ParameterType="body")]
-        public virtual List<string> Emails { get; set; }
+        public List<string> Emails { get; set; }
 
         ///<summary>
         ///Amount of times that the same user can redeem. Default - 1.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="integer", Description="Amount of times that the same user can redeem. Default - 1.", Format="int32", Name="UserCanRedeem", ParameterType="body")]
-        public virtual int? UserCanRedeem { get; set; }
+        public int? UserCanRedeem { get; set; }
 
         ///<summary>
         ///Amount of times in total this discount can be redeemed.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="integer", Description="Amount of times in total this discount can be redeemed.", Format="int32", Name="TotalCanRedeem", ParameterType="body")]
-        public virtual int? TotalCanRedeem { get; set; }
+        public int? TotalCanRedeem { get; set; }
 
         ///<summary>
         ///Should the discount be enabled. Default - true.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should the discount be enabled. Default - true.", Name="Enabled", ParameterType="body")]
-        public virtual bool Enabled { get; set; }
+        public bool Enabled { get; set; }
 
         ///<summary>
         ///Should the discount be combined with other discounts. Default - true.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should the discount be combined with other discounts. Default - true.", Name="CombineDiscounts", ParameterType="body")]
-        public virtual bool CombineDiscounts { get; set; }
+        public bool CombineDiscounts { get; set; }
     }
 
     public class CreateDiscountResponse
@@ -1458,21 +1472,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Order ID to pay for.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Id of the payment method.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Id of the payment method.", Name="PaymentMethodId", ParameterType="body")]
-        public virtual string PaymentMethodId { get; set; }
+        public string PaymentMethodId { get; set; }
 
         ///<summary>
         ///Available values: 'card' or 'bank'. Used if payment method not selected
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Available values: 'card' or 'bank'. Used if payment method not selected", Name="PreferredPaymentMethod", ParameterType="body")]
-        public virtual string PreferredPaymentMethod { get; set; }
+        public string PreferredPaymentMethod { get; set; }
     }
 
     ///<summary>
@@ -1495,21 +1509,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Message to log.", IsRequired=true, Name="Message", ParameterType="body")]
-        public virtual string Message { get; set; }
+        public string Message { get; set; }
 
         ///<summary>
         ///Custom items providing information.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Custom items providing information.", Name="Items", ParameterType="body")]
-        public virtual Dictionary<string, string> Items { get; set; }
+        public Dictionary<string, string> Items { get; set; }
 
         ///<summary>
         ///Severity level of the log.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Severity level of the log.", Name="Level", ParameterType="body")]
-        public virtual string Level { get; set; }
+        public string Level { get; set; }
     }
 
     public class CreateLogResponse
@@ -1539,63 +1553,63 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Payment account ID.", IsRequired=true, Name="AccountId", ParameterType="body")]
-        public virtual Guid AccountId { get; set; }
+        public Guid AccountId { get; set; }
 
         ///<summary>
         ///Order schema ID. Must match one of your order schemas including user zone.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Order schema ID. Must match one of your order schemas including user zone.", IsRequired=true, Name="OrderSchemaId", ParameterType="body")]
-        public virtual Guid OrderSchemaId { get; set; }
+        public Guid OrderSchemaId { get; set; }
 
         ///<summary>
         ///User ID. Requires administrator permission.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User ID. Requires administrator permission.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///Order lines.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Order lines.", IsRequired=true, Name="Lines", ParameterType="body")]
-        public virtual List<OrderLineInput> Lines { get; set; }
+        public List<OrderLineInput> Lines { get; set; }
 
         ///<summary>
         ///Coupon discounts.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Coupon discounts.", Name="Coupons", ParameterType="body")]
-        public virtual List<string> Coupons { get; set; }
+        public List<string> Coupons { get; set; }
 
         ///<summary>
         ///If true, will consider a buyer as a guest user.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, will consider a buyer as a guest user.", Name="AsGuest", ParameterType="body")]
-        public virtual bool AsGuest { get; set; }
+        public bool AsGuest { get; set; }
 
         ///<summary>
         ///Customer details. Should be provided if this is a guest. If this is a user, then this will override user details.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Object", Description="Customer details. Should be provided if this is a guest. If this is a user, then this will override user details.", Name="BuyerDetails", ParameterType="body")]
-        public virtual OrderCustomerInput CustomerDetails { get; set; }
+        public OrderCustomerInput CustomerDetails { get; set; }
 
         ///<summary>
         ///Consider this as a test order
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Consider this as a test order", Name="IsTest", ParameterType="body")]
-        public virtual bool IsTest { get; set; }
+        public bool IsTest { get; set; }
 
         ///<summary>
         ///Additional information for order
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Object", Description="Additional information for order", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class CreateOrderResponse
@@ -1618,7 +1632,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User login email", IsRequired=true, Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
     }
 
     public class CreatePasswordResetResponse
@@ -1641,14 +1655,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Order ID to pay for.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///To choose which mode to use from payment settings.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="To choose which mode to use from payment settings.", IsRequired=true, Name="Mode", ParameterType="body")]
-        public virtual string Mode { get; set; }
+        public string Mode { get; set; }
     }
 
     public class CreatePayseraTransactionResponse
@@ -1671,21 +1685,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Order ID to pay for.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Payment method ID to use.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method ID to use.", IsRequired=true, Name="PaymentMethodId", ParameterType="body")]
-        public virtual string PaymentMethodId { get; set; }
+        public string PaymentMethodId { get; set; }
 
         ///<summary>
         ///Customer ID to whom belongs this payment method.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer ID to whom belongs this payment method.", IsRequired=true, Name="CustomerId", ParameterType="body")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
     }
 
     public class CreateStripeTransactionResponse
@@ -1708,28 +1722,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", IsRequired=true, Name="CustomerId", ParameterType="path")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Subscription plan ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Subscription plan ID.", IsRequired=true, Name="PlanId", ParameterType="body")]
-        public virtual Guid PlanId { get; set; }
+        public Guid PlanId { get; set; }
 
         ///<summary>
         ///Payment method's ID. If not provided will use default.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's ID. If not provided will use default.", Name="PaymentMethodId", ParameterType="body")]
-        public virtual string PaymentMethodId { get; set; }
+        public string PaymentMethodId { get; set; }
 
         ///<summary>
         ///Discount coupon ID if supported.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Discount coupon ID if supported.", Name="Coupon", ParameterType="body")]
-        public virtual string Coupon { get; set; }
+        public string Coupon { get; set; }
     }
 
     public class CreateSubscriptionResponse
@@ -1764,14 +1778,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's login e-mail address.", IsRequired=true, Name="UserName", ParameterType="body")]
-        public virtual string UserName { get; set; }
+        public string UserName { get; set; }
 
         ///<summary>
         ///User's login password.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's login password.", IsRequired=true, Name="Password", ParameterType="body")]
-        public virtual string Password { get; set; }
+        public string Password { get; set; }
     }
 
     public class CredentialsAuthenticationResponse
@@ -1788,27 +1802,27 @@ namespace CodeMash.ServiceContracts.Api
             Meta = new Dictionary<string, string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string Provider { get; set; }
-        public virtual string ProviderId { get; set; }
-        public virtual string Phone { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string Email { get; set; }
-        public virtual string City { get; set; }
-        public virtual string CountryCode { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Address2 { get; set; }
-        public virtual string PostalCode { get; set; }
-        public virtual string Area { get; set; }
-        public virtual string UserId { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string ProjectId { get; set; }
-        public virtual string PaymentAccountId { get; set; }
-        public virtual List<PaymentMethod> PaymentMethods { get; set; }
-        public virtual List<Subscription> Subscriptions { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public string Provider { get; set; }
+        public string ProviderId { get; set; }
+        public string Phone { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Email { get; set; }
+        public string City { get; set; }
+        public string CountryCode { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string PostalCode { get; set; }
+        public string Area { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string ProjectId { get; set; }
+        public string PaymentAccountId { get; set; }
+        public List<PaymentMethod> PaymentMethods { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     ///<summary>
@@ -1826,23 +1840,23 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Secret token received by email for deactivation", IsRequired=true, Name="Token", ParameterType="body")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///Password for confirmation
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Password for confirmation", IsRequired=true, Name="Password", ParameterType="body")]
-        public virtual string Password { get; set; }
+        public string Password { get; set; }
     }
 
     public class DectaOrder
     {
-        public virtual string Id { get; set; }
-        public virtual bool Paid { get; set; }
-        public virtual string FullPageCheckout { get; set; }
-        public virtual string IframeCheckout { get; set; }
-        public virtual string DirectPost { get; set; }
+        public string Id { get; set; }
+        public bool Paid { get; set; }
+        public string FullPageCheckout { get; set; }
+        public string IframeCheckout { get; set; }
+        public string DirectPost { get; set; }
     }
 
     ///<summary>
@@ -1860,7 +1874,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID to delete.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
     }
 
     ///<summary>
@@ -1883,21 +1897,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device Id", Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         ///<summary>
         ///Keys to be deleted
         ///</summary>
         [DataMember]
         [ApiMember(DataType="List", Description="Keys to be deleted", Name="Keys", ParameterType="body")]
-        public virtual List<string> Keys { get; set; }
+        public List<string> Keys { get; set; }
 
         ///<summary>
         ///Delete all keys
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Delete all keys", Name="DeleteAllKeys", ParameterType="form")]
-        public virtual bool DeleteAllKeys { get; set; }
+        public bool DeleteAllKeys { get; set; }
     }
 
     public class DeleteDeviceMetaResponse
@@ -1920,7 +1934,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device Id or device key", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
     }
 
     ///<summary>
@@ -1938,14 +1952,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device Id", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         ///<summary>
         ///Device key
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device key", Name="DeviceKey", ParameterType="query")]
-        public virtual string DeviceKey { get; set; }
+        public string DeviceKey { get; set; }
     }
 
     public class DeleteDeviceTokenResponse
@@ -1968,7 +1982,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Id of discount.", IsRequired=true, Name="Id", ParameterType="body")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
     }
 
     ///<summary>
@@ -1987,7 +2001,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of an email to delete", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
     }
 
     public class DeleteEmailResponse
@@ -2010,7 +2024,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of a file to delete", IsRequired=true, Name="FileId", ParameterType="path")]
-        public virtual string FileId { get; set; }
+        public string FileId { get; set; }
     }
 
     ///<summary>
@@ -2024,18 +2038,18 @@ namespace CodeMash.ServiceContracts.Api
         : CodeMashDbRequestBase, IReturn<DeleteManyResponse>
     {
         ///<summary>
-        ///Specifies deletion criteria using query operators. To delete all documents in a collection, pass in an empty document "{}"
+        ///Deletes all the documents by a specified filter (in JSON format).
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Specifies deletion criteria using query operators. To delete all documents in a collection, pass in an empty document \"{}\"", Name="Filter", ParameterType="query")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="Deletes all the documents by a specified filter (in JSON format).", Name="Filter", ParameterType="form")]
+        public string Filter { get; set; }
 
         ///<summary>
-        ///If true, does not activate triggers
+        ///Ignore the delete trigger when executing mass deletion. When this property is set to "true", all delete triggers won't be executed.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="query")]
-        public virtual bool IgnoreTriggers { get; set; }
+        [ApiMember(DataType="boolean", Description="Ignore the delete trigger when executing mass deletion. When this property is set to \"true\", all delete triggers won't be executed.", Name="IgnoreTriggers", ParameterType="form")]
+        public bool IgnoreTriggers { get; set; }
     }
 
     public class DeleteManyResponse
@@ -2058,14 +2072,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Notification Id", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Device key
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device key", Name="DeviceKey", ParameterType="query")]
-        public virtual string DeviceKey { get; set; }
+        public string DeviceKey { get; set; }
     }
 
     public class DeleteNotificationResponse
@@ -2077,33 +2091,33 @@ namespace CodeMash.ServiceContracts.Api
     ///Database services
     ///</summary>
     [Route("/db/{CollectionName}", "DELETE")]
-    [Route("/{version}/db/{collectionName}", "DELETE")]
-    [Route("/{version}/db/{collectionName}/{id}", "DELETE")]
+    [Route("/{version}/db/{CollectionName}", "DELETE")]
+    [Route("/{version}/db/{CollectionName}/{Id}", "DELETE")]
     [Api(Description="Database services")]
     [DataContract]
     public class DeleteOneRequest
         : CodeMashDbRequestBase, IReturn<DeleteOneResponse>
     {
         ///<summary>
-        ///ID of a record to delete. Required if Filter is empty.
+        ///Id of a record to delete. Required if filter is empty.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="ID of a record to delete. Required if Filter is empty.", Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        [ApiMember(DataType="string", Description="Id of a record to delete. Required if filter is empty.", IsRequired=true, Name="Id", ParameterType="path", Route="/{version}/db/{CollectionName}/{Id}")]
+        public string Id { get; set; }
 
         ///<summary>
-        ///Specifies deletion criteria using query operators. Specify an empty document "{}" to delete the first document returned in the collection. Required if Id is not set.
+        ///Set the filter (in JSON format) to delete the first document found in the collection. Required when Id is not set.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Specifies deletion criteria using query operators. Specify an empty document \"{}\" to delete the first document returned in the collection. Required if Id is not set.", Name="Filter", ParameterType="query")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="Set the filter (in JSON format) to delete the first document found in the collection. Required when Id is not set.", Name="Filter", ParameterType="form", Route="/{version}/db/{CollectionName}")]
+        public string Filter { get; set; }
 
         ///<summary>
-        ///If true, does not activate triggers
+        ///Ignore the delete trigger when executing one document deletion. When this property is set to "true", all delete triggers won't be executed.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="query")]
-        public virtual bool IgnoreTriggers { get; set; }
+        [ApiMember(DataType="boolean", Description="Ignore the delete trigger when executing one document deletion. When this property is set to \"true\", all delete triggers won't be executed.", Name="IgnoreTriggers", ParameterType="form")]
+        public bool IgnoreTriggers { get; set; }
     }
 
     public class DeleteOneResponse
@@ -2115,10 +2129,10 @@ namespace CodeMash.ServiceContracts.Api
     public class DeleteResult
     {
         [DataMember(Name="deletedCount")]
-        public virtual long DeletedCount { get; set; }
+        public long DeletedCount { get; set; }
 
         [DataMember(Name="isAcknowledged")]
-        public virtual bool IsAcknowledged { get; set; }
+        public bool IsAcknowledged { get; set; }
     }
 
     ///<summary>
@@ -2136,7 +2150,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="ID of user to be deleted", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
     }
 
     ///<summary>
@@ -2154,14 +2168,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's ID.", IsRequired=true, Name="Id", ParameterType="query")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Customer's ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", Name="CustomerId", ParameterType="query")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
     }
 
     public class Device
@@ -2171,21 +2185,21 @@ namespace CodeMash.ServiceContracts.Api
             Meta = new Dictionary<string, string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual PushNotificationToken Token { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string UserId { get; set; }
-        public virtual string OperatingSystem { get; set; }
-        public virtual string Brand { get; set; }
-        public virtual string DeviceName { get; set; }
-        public virtual string TimeZone { get; set; }
-        public virtual string Language { get; set; }
-        public virtual string Locale { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
-        public virtual long TotalNotifications { get; set; }
-        public virtual string DeviceKey { get; set; }
-        public virtual string AccountId { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public PushNotificationToken Token { get; set; }
+        public string UserName { get; set; }
+        public string UserId { get; set; }
+        public string OperatingSystem { get; set; }
+        public string Brand { get; set; }
+        public string DeviceName { get; set; }
+        public string TimeZone { get; set; }
+        public string Language { get; set; }
+        public string Locale { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
+        public long TotalNotifications { get; set; }
+        public string DeviceKey { get; set; }
+        public string AccountId { get; set; }
     }
 
     public class Discount
@@ -2200,30 +2214,30 @@ namespace CodeMash.ServiceContracts.Api
             Emails = new List<string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string ModifiedOn { get; set; }
-        public virtual string Type { get; set; }
-        public virtual string Code { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string ValidFrom { get; set; }
-        public virtual string ValidUntil { get; set; }
-        public virtual string SchemaId { get; set; }
-        public virtual string Cluster { get; set; }
-        public virtual string RestrictionType { get; set; }
-        public virtual double? Amount { get; set; }
-        public virtual List<PaymentDiscountBoundary> Boundaries { get; set; }
-        public virtual string TargetType { get; set; }
-        public virtual List<string> Records { get; set; }
-        public virtual string CategoryField { get; set; }
-        public virtual List<string> CategoryValues { get; set; }
-        public virtual List<string> PaymentAccounts { get; set; }
-        public virtual List<string> Users { get; set; }
-        public virtual List<string> Emails { get; set; }
-        public virtual int? UserCanRedeem { get; set; }
-        public virtual int? TotalCanRedeem { get; set; }
-        public virtual bool Enabled { get; set; }
-        public virtual bool CombineDiscounts { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public string ModifiedOn { get; set; }
+        public string Type { get; set; }
+        public string Code { get; set; }
+        public string DisplayName { get; set; }
+        public string ValidFrom { get; set; }
+        public string ValidUntil { get; set; }
+        public string SchemaId { get; set; }
+        public string Cluster { get; set; }
+        public string RestrictionType { get; set; }
+        public double? Amount { get; set; }
+        public List<PaymentDiscountBoundary> Boundaries { get; set; }
+        public string TargetType { get; set; }
+        public List<string> Records { get; set; }
+        public string CategoryField { get; set; }
+        public List<string> CategoryValues { get; set; }
+        public List<string> PaymentAccounts { get; set; }
+        public List<string> Users { get; set; }
+        public List<string> Emails { get; set; }
+        public int? UserCanRedeem { get; set; }
+        public int? TotalCanRedeem { get; set; }
+        public bool Enabled { get; set; }
+        public bool CombineDiscounts { get; set; }
     }
 
     public class DiscountAll
@@ -2233,8 +2247,8 @@ namespace CodeMash.ServiceContracts.Api
             Lines = new List<DiscountLine>{};
         }
 
-        public virtual List<DiscountLine> Lines { get; set; }
-        public virtual decimal Discount { get; set; }
+        public List<DiscountLine> Lines { get; set; }
+        public decimal Discount { get; set; }
     }
 
     public class DiscountCategory
@@ -2244,22 +2258,22 @@ namespace CodeMash.ServiceContracts.Api
             Lines = new List<DiscountLine>{};
         }
 
-        public virtual string Category { get; set; }
-        public virtual List<DiscountLine> Lines { get; set; }
-        public virtual decimal Discount { get; set; }
+        public string Category { get; set; }
+        public List<DiscountLine> Lines { get; set; }
+        public decimal Discount { get; set; }
     }
 
     public class DiscountIndividualLine
     {
-        public virtual string RecordId { get; set; }
-        public virtual string Variation { get; set; }
-        public virtual decimal Discount { get; set; }
+        public string RecordId { get; set; }
+        public string Variation { get; set; }
+        public decimal Discount { get; set; }
     }
 
     public class DiscountLine
     {
-        public virtual string RecordId { get; set; }
-        public virtual string Variation { get; set; }
+        public string RecordId { get; set; }
+        public string Variation { get; set; }
     }
 
     ///<summary>
@@ -2276,15 +2290,16 @@ namespace CodeMash.ServiceContracts.Api
         ///The field for which to return distinct values
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="The field for which to return distinct values", IsRequired=true, Name="Field", ParameterType="query")]
-        public virtual string Field { get; set; }
+        [ApiMember(DataType="string", Description="The field for which to return distinct values", IsRequired=true, Name="Field", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="string", Description="The field for which to return distinct values", IsRequired=true, Name="Field", ParameterType="form", Verb="POST")]
+        public string Field { get; set; }
 
         ///<summary>
         ///A query that specifies the documents from which to retrieve the distinct values
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="A query that specifies the documents from which to retrieve the distinct values", Name="Filter", ParameterType="query")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="A query that specifies the documents from which to retrieve the distinct values", Name="Filter", ParameterType="form", Verb="POST")]
+        public string Filter { get; set; }
     }
 
     public class DistinctResponse
@@ -2307,14 +2322,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of a file to download", IsRequired=true, Name="FileId", ParameterType="query")]
-        public virtual string FileId { get; set; }
+        public string FileId { get; set; }
 
         ///<summary>
         ///Optimization code of optimized image
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Optimization code of optimized image", Name="Optimization", ParameterType="query")]
-        public virtual string Optimization { get; set; }
+        public string Optimization { get; set; }
     }
 
     ///<summary>
@@ -2338,35 +2353,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Function Id", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         ///<summary>
         ///Parameters of to pass into function
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Parameters of to pass into function", Name="Template", ParameterType="body")]
-        public virtual string Data { get; set; }
+        public string Data { get; set; }
 
         ///<summary>
         ///Additional parameters for specific functions
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Additional parameters for specific functions", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
 
         ///<summary>
         ///Tokens to inject into queries
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Tokens to inject into queries", Name="Tokens", ParameterType="body")]
-        public virtual Dictionary<string, string> Tokens { get; set; }
+        public Dictionary<string, string> Tokens { get; set; }
 
         ///<summary>
         ///Version or Alias of a function
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Version or Alias of a function", Name="Qualifier", ParameterType="body")]
-        public virtual string Qualifier { get; set; }
+        public string Qualifier { get; set; }
     }
 
     public class ExecuteFunctionResponse
@@ -2389,28 +2404,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Mode to use for authentication", Name="Mode", ParameterType="query")]
-        public virtual string Mode { get; set; }
+        public string Mode { get; set; }
 
         ///<summary>
         ///Code received from Facebook services
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Code received from Facebook services", Name="Code", ParameterType="query")]
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
         ///<summary>
         ///State received with a code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="State received with a code", Name="State", ParameterType="query")]
-        public virtual string State { get; set; }
+        public string State { get; set; }
 
         ///<summary>
         ///When transferring access token from client app
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="When transferring access token from client app", Name="AccessToken", ParameterType="query")]
-        public virtual string AccessToken { get; set; }
+        public string AccessToken { get; set; }
     }
 
     public class FacebookAuthenticationResponse
@@ -2420,30 +2435,30 @@ namespace CodeMash.ServiceContracts.Api
 
     public class File
     {
-        public virtual string Id { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string ModifiedOn { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string UniqueName { get; set; }
-        public virtual int Enumerator { get; set; }
-        public virtual string OriginalName { get; set; }
-        public virtual string Directory { get; set; }
-        public virtual string ContentType { get; set; }
-        public virtual long Size { get; set; }
-        public virtual bool IsPublic { get; set; }
-        public virtual bool IsParentPublic { get; set; }
-        public virtual string PublicUrl { get; set; }
+        public string Id { get; set; }
+        public string Description { get; set; }
+        public string ModifiedOn { get; set; }
+        public string CreatedOn { get; set; }
+        public string UniqueName { get; set; }
+        public int Enumerator { get; set; }
+        public string OriginalName { get; set; }
+        public string Directory { get; set; }
+        public string ContentType { get; set; }
+        public long Size { get; set; }
+        public bool IsPublic { get; set; }
+        public bool IsParentPublic { get; set; }
+        public string PublicUrl { get; set; }
     }
 
     public class FileDetails
     {
-        public virtual string Id { get; set; }
-        public virtual string Directory { get; set; }
-        public virtual string OriginalFileName { get; set; }
-        public virtual string FileName { get; set; }
-        public virtual string FilePath { get; set; }
-        public virtual string ContentType { get; set; }
-        public virtual long ContentLength { get; set; }
+        public string Id { get; set; }
+        public string Directory { get; set; }
+        public string OriginalFileName { get; set; }
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
+        public string ContentType { get; set; }
+        public long ContentLength { get; set; }
     }
 
     ///<summary>
@@ -2451,8 +2466,9 @@ namespace CodeMash.ServiceContracts.Api
     ///</summary>
     [Route("/db/{CollectionName}/{Id}", "GET POST")]
     [Route("/db/{CollectionName}/findOne", "GET POST")]
+    [Route("/{version}/db/{CollectionName}/findOne", "GET")]
     [Route("/{version}/db/{CollectionName}/{Id}", "GET POST")]
-    [Route("/{version}/db/{CollectionName}/findOne", "GET POST")]
+    [Route("/{version}/db/{CollectionName}/findOne", "POST")]
     [Api(Description="Database services")]
     [DataContract]
     public class FindOneRequest
@@ -2464,87 +2480,94 @@ namespace CodeMash.ServiceContracts.Api
         }
 
         ///<summary>
-        ///ID of a record. Required if filter is not set.
+        ///Id of a record. Required if filter is not set.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="ID of a record. Required if filter is not set.", Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        [ApiMember(DataType="string", Description="Id of a record. Required if filter is not set.", IsRequired=true, Name="Id", ParameterType="path", Route="/{version}/db/{CollectionName}/{Id}")]
+        public string Id { get; set; }
 
         ///<summary>
-        ///The selection criteria for the find one operation. Required if Id is not set.
+        ///Set the filter (in JSON format) to find the first document that match search criteria in the collection. Required when Id is not set.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="The selection criteria for the find one operation. Required if Id is not set.", Name="Filter", ParameterType="query")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="Set the filter (in JSON format) to find the first document that match search criteria in the collection. Required when Id is not set.", IsRequired=true, Name="Filter", ParameterType="form", Route="/{version}/db/{CollectionName}/findOne", Verb="POST")]
+        public string Filter { get; set; }
 
         ///<summary>
-        ///A query that specifies what fields in record to return
+        ///Use projection (in JSON format) to return only fields that are required to work with. This is useful to reduce the amount of the returned fields, have less complexity on the frontend and lower network traffic.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="A query that specifies what fields in record to return", Name="Projection", ParameterType="query")]
-        public virtual string Projection { get; set; }
+        [ApiMember(DataType="string", Description="Use projection (in JSON format) to return only fields that are required to work with. This is useful to reduce the amount of the returned fields, have less complexity on the frontend and lower network traffic.", Name="Projection", ParameterType="form", Verb="POST")]
+        public string Projection { get; set; }
 
         ///<summary>
-        ///By default schema is excluded in response. To get schema together with the record set this property to true.
+        ///Use the IncludeSchema  property when you want to have schema definition in the API response as well. This is useful when you have dynamic data rendering and want to have context over your data structure and how it should be displayed. By default schema is excluded.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default schema is excluded in response. To get schema together with the record set this property to true.", Name="ExcludeSchema", ParameterType="query")]
-        public virtual bool IncludeSchema { get; set; }
+        [ApiMember(DataType="boolean", Description="Use the IncludeSchema  property when you want to have schema definition in the API response as well. This is useful when you have dynamic data rendering and want to have context over your data structure and how it should be displayed. By default schema is excluded.", Name="ExcludeSchema", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="Use the IncludeSchema  property when you want to have schema definition in the API response as well. This is useful when you have dynamic data rendering and want to have context over your data structure and how it should be displayed. By default schema is excluded.", Name="ExcludeSchema", ParameterType="form", Verb="POST")]
+        public bool IncludeSchema { get; set; }
 
         ///<summary>
-        ///Prevent setting culture code from headers
+        ///Set ExcludeCulture property to "true" when you want to return all the data translations from translatable fields. This is useful when you want to take care about translations in the front-end side. E.g.: when you want to enter product description in your project supported languages.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Prevent setting culture code from headers", Name="ExcludeCulture", ParameterType="query")]
-        public virtual bool ExcludeCulture { get; set; }
+        [ApiMember(DataType="boolean", Description="Set ExcludeCulture property to \"true\" when you want to return all the data translations from translatable fields. This is useful when you want to take care about translations in the front-end side. E.g.: when you want to enter product description in your project supported languages.", Name="ExcludeCulture", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="Set ExcludeCulture property to \"true\" when you want to return all the data translations from translatable fields. This is useful when you want to take care about translations in the front-end side. E.g.: when you want to enter product description in your project supported languages.", Name="ExcludeCulture", ParameterType="form", Verb="POST")]
+        public bool ExcludeCulture { get; set; }
 
         ///<summary>
-        ///Includes names of referenced users
+        ///If your collection record has relationship with the Users collection from the Membership module, you can set IncludeUserNames property to "true" to get full user name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced users", Name="IncludeUserNames", ParameterType="query")]
-        public virtual bool IncludeUserNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the Users collection from the Membership module, you can set IncludeUserNames property to \"true\" to get full user name and id information altogether without making any extra roundtrip to the server.", Name="IncludeUserNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the Users collection from the Membership module, you can set IncludeUserNames property to \"true\" to get full user name and id information altogether without making any extra roundtrip to the server.", Name="IncludeUserNames", ParameterType="form", Verb="POST")]
+        public bool IncludeUserNames { get; set; }
 
         ///<summary>
-        ///Includes names of referenced roles
+        ///If your collection record has relationship with the system Roles from the Membership module, you can set IncludeRoleNames property to "true" to get full role name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced roles", Name="IncludeRoleNames", ParameterType="query")]
-        public virtual bool IncludeRoleNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the system Roles from the Membership module, you can set IncludeRoleNames property to \"true\" to get full role name and id information altogether without making any extra roundtrip to the server.", Name="IncludeRoleNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the system Roles from the Membership module, you can set IncludeRoleNames property to \"true\" to get full role name and id information altogether without making any extra roundtrip to the server.", Name="IncludeRoleNames", ParameterType="form", Verb="POST")]
+        public bool IncludeRoleNames { get; set; }
 
         ///<summary>
-        ///Includes names of referenced records
+        ///If your collection record has relationship with other collections from the Database module, you can set IncludeCollectionNames property to "true" to get display name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced records", Name="IncludeCollectionNames", ParameterType="query")]
-        public virtual bool IncludeCollectionNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with other collections from the Database module, you can set IncludeCollectionNames property to \"true\" to get display name and id information altogether without making any extra roundtrip to the server.", Name="IncludeCollectionNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with other collections from the Database module, you can set IncludeCollectionNames property to \"true\" to get display name and id information altogether without making any extra roundtrip to the server.", Name="IncludeCollectionNames", ParameterType="form", Verb="POST")]
+        public bool IncludeCollectionNames { get; set; }
 
         ///<summary>
-        ///Includes names of referenced terms
+        ///If your collection record has relationship with the taxonomy terms from the Database module, you can set IncludeTermNames property to "true" to get term name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced terms", Name="IncludeTermNames", ParameterType="query")]
-        public virtual bool IncludeTermNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the taxonomy terms from the Database module, you can set IncludeTermNames property to \"true\" to get term name and id information altogether without making any extra roundtrip to the server.", Name="IncludeTermNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the taxonomy terms from the Database module, you can set IncludeTermNames property to \"true\" to get term name and id information altogether without making any extra roundtrip to the server.", Name="IncludeTermNames", ParameterType="query", Verb="POST")]
+        public bool IncludeTermNames { get; set; }
 
         ///<summary>
-        ///Includes data of referenced records
+        ///If your collection record has relationship with other collections from the Database module, and you want to specify which fields should be returned from that referenced collection, you can pass projection (in JSON format) and return that information in one single roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="object", Description="Includes data of referenced records", Name="ReferencedFields", ParameterType="query")]
-        public virtual List<ReferencingField> ReferencedFields { get; set; }
+        [ApiMember(DataType="string", Description="If your collection record has relationship with other collections from the Database module, and you want to specify which fields should be returned from that referenced collection, you can pass projection (in JSON format) and return that information in one single roundtrip to the server.", Name="ReferencedFields", ParameterType="body", Verb="POST")]
+        public List<ReferencingField> ReferencedFields { get; set; }
 
         ///<summary>
         ///If true, then references are injected before your list queries are applied
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, then references are injected before your list queries are applied", Name="AddReferencesFirst", ParameterType="query")]
-        public virtual bool AddReferencesFirst { get; set; }
+        [ApiMember(DataType="boolean", Description="If true, then references are injected before your list queries are applied", Name="AddReferencesFirst", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If true, then references are injected before your list queries are applied", Name="AddReferencesFirst", ParameterType="query", Verb="POST")]
+        public bool AddReferencesFirst { get; set; }
     }
 
     public class FindOneResponse
         : ResponseBase<string>
     {
-        public virtual Schema Schema { get; set; }
+        public Schema Schema { get; set; }
     }
 
     ///<summary>
@@ -2563,75 +2586,82 @@ namespace CodeMash.ServiceContracts.Api
         }
 
         ///<summary>
-        ///Includes schema in response
+        ///Use the IncludeSchema  property when you want to have schema definition in the API response as well. This is useful when you have dynamic data rendering and want to have context over your data structure and how it should be displayed. By default schema is excluded.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes schema in response", Name="IncludeSchema", ParameterType="query")]
-        public virtual bool IncludeSchema { get; set; }
+        [ApiMember(DataType="boolean", Description="Use the IncludeSchema  property when you want to have schema definition in the API response as well. This is useful when you have dynamic data rendering and want to have context over your data structure and how it should be displayed. By default schema is excluded.", Name="IncludeSchema", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="Use the IncludeSchema  property when you want to have schema definition in the API response as well. This is useful when you have dynamic data rendering and want to have context over your data structure and how it should be displayed. By default schema is excluded.", Name="IncludeSchema", ParameterType="form", Verb="POST")]
+        public bool IncludeSchema { get; set; }
 
         ///<summary>
-        ///Includes names of referenced users
+        ///If your collection record has relationship with the Users collection from the Membership module, you can set IncludeUserNames property to "true" to get full user name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced users", Name="IncludeUserNames", ParameterType="query")]
-        public virtual bool IncludeUserNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the Users collection from the Membership module, you can set IncludeUserNames property to \"true\" to get full user name and id information altogether without making any extra roundtrip to the server.", Name="IncludeUserNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the Users collection from the Membership module, you can set IncludeUserNames property to \"true\" to get full user name and id information altogether without making any extra roundtrip to the server.", Name="IncludeUserNames", ParameterType="form", Verb="POST")]
+        public bool IncludeUserNames { get; set; }
 
         ///<summary>
-        ///Includes names of referenced roles
+        ///If your collection record has relationship with the system Roles from the Membership module, you can set IncludeRoleNames property to "true" to get full role name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced roles", Name="IncludeRoleNames", ParameterType="query")]
-        public virtual bool IncludeRoleNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the system Roles from the Membership module, you can set IncludeRoleNames property to \"true\" to get full role name and id information altogether without making any extra roundtrip to the server.", Name="IncludeRoleNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the system Roles from the Membership module, you can set IncludeRoleNames property to \"true\" to get full role name and id information altogether without making any extra roundtrip to the server.", Name="IncludeRoleNames", ParameterType="form", Verb="POST")]
+        public bool IncludeRoleNames { get; set; }
 
         ///<summary>
-        ///Includes names of referenced records
+        ///If your collection record has relationship with other collections from the Database module, you can set IncludeCollectionNames property to "true" to get display name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced records", Name="IncludeCollectionNames", ParameterType="query")]
-        public virtual bool IncludeCollectionNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with other collections from the Database module, you can set IncludeCollectionNames property to \"true\" to get display name and id information altogether without making any extra roundtrip to the server.", Name="IncludeCollectionNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with other collections from the Database module, you can set IncludeCollectionNames property to \"true\" to get display name and id information altogether without making any extra roundtrip to the server.", Name="IncludeCollectionNames", ParameterType="form", Verb="POST")]
+        public bool IncludeCollectionNames { get; set; }
 
         ///<summary>
-        ///Includes names of referenced terms
+        ///If your collection record has relationship with the taxonomy terms from the Database module, you can set IncludeTermNames property to "true" to get term name and id information altogether without making any extra roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Includes names of referenced terms", Name="IncludeTermNames", ParameterType="query")]
-        public virtual bool IncludeTermNames { get; set; }
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the taxonomy terms from the Database module, you can set IncludeTermNames property to \"true\" to get term name and id information altogether without making any extra roundtrip to the server.", Name="IncludeTermNames", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If your collection record has relationship with the taxonomy terms from the Database module, you can set IncludeTermNames property to \"true\" to get term name and id information altogether without making any extra roundtrip to the server.", Name="IncludeTermNames", ParameterType="query", Verb="POST")]
+        public bool IncludeTermNames { get; set; }
 
         ///<summary>
-        ///Prevent setting culture code from headers
+        ///Set ExcludeCulture property to "true" when you want to return all the data translations from translatable fields. This is useful when you want to take care about translations in the front-end side. E.g.: when you want to enter product description in your project supported languages.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="Prevent setting culture code from headers", Name="ExcludeCulture", ParameterType="query")]
-        public virtual bool ExcludeCulture { get; set; }
+        [ApiMember(DataType="boolean", Description="Set ExcludeCulture property to \"true\" when you want to return all the data translations from translatable fields. This is useful when you want to take care about translations in the front-end side. E.g.: when you want to enter product description in your project supported languages.", Name="ExcludeCulture", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="Set ExcludeCulture property to \"true\" when you want to return all the data translations from translatable fields. This is useful when you want to take care about translations in the front-end side. E.g.: when you want to enter product description in your project supported languages.", Name="ExcludeCulture", ParameterType="form", Verb="POST")]
+        public bool ExcludeCulture { get; set; }
 
         ///<summary>
-        ///Includes data of referenced records
+        ///If your collection record has relationship with other collections from the Database module, and you want to specify which fields should be returned from that referenced collection, you can pass projection (in JSON format) and return that information in one single roundtrip to the server.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="object", Description="Includes data of referenced records", Name="ReferencedFields", ParameterType="query")]
-        public virtual List<ReferencingField> ReferencedFields { get; set; }
+        [ApiMember(DataType="string", Description="If your collection record has relationship with other collections from the Database module, and you want to specify which fields should be returned from that referenced collection, you can pass projection (in JSON format) and return that information in one single roundtrip to the server.", Name="ReferencedFields", ParameterType="body", Verb="POST")]
+        public List<ReferencingField> ReferencedFields { get; set; }
 
         ///<summary>
         ///If true, then references are injected before your list queries are applied
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, then references are injected before your list queries are applied", Name="AddReferencesFirst", ParameterType="query")]
-        public virtual bool AddReferencesFirst { get; set; }
+        [ApiMember(DataType="boolean", Description="If true, then references are injected before your list queries are applied", Name="AddReferencesFirst", ParameterType="query", Verb="GET")]
+        [ApiMember(DataType="boolean", Description="If true, then references are injected before your list queries are applied", Name="AddReferencesFirst", ParameterType="query", Verb="POST")]
+        public bool AddReferencesFirst { get; set; }
     }
 
     public class FindResponse
         : ResponseBase<string>
     {
-        public virtual long TotalCount { get; set; }
-        public virtual Schema Schema { get; set; }
+        public long TotalCount { get; set; }
+        public Schema Schema { get; set; }
     }
 
     ///<summary>
     ///Database services
     ///</summary>
     [Route("/db/taxonomies/{CollectionName}/terms/{id}/children", "GET POST")]
-    [Route("/{version}/db/taxonomies/{CollectionName}/terms/{id}/children", "GET POST")]
     [Route("/db/taxonomies/{CollectionName}/terms/children", "GET POST")]
+    [Route("/{version}/db/taxonomies/{CollectionName}/terms/{id}/children", "GET POST")]
     [Route("/{version}/db/taxonomies/{CollectionName}/terms/children", "GET POST")]
     [Api(Description="Database services")]
     [DataContract]
@@ -2643,27 +2673,27 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of a parent term. Required if filter is not set.", Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///The selection criteria for the parent terms. Required if Id is not set.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="The selection criteria for the parent terms. Required if Id is not set.", Name="ParentFilter", ParameterType="query")]
-        public virtual string ParentFilter { get; set; }
+        public string ParentFilter { get; set; }
 
         ///<summary>
         ///Prevent setting culture code from headers
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Prevent setting culture code from headers", Name="ExcludeCulture", ParameterType="query")]
-        public virtual bool ExcludeCulture { get; set; }
+        public bool ExcludeCulture { get; set; }
     }
 
     public class FindTermsChildrenResponse
         : ResponseBase<List<Term>>
     {
-        public virtual long TotalCount { get; set; }
+        public long TotalCount { get; set; }
     }
 
     ///<summary>
@@ -2681,21 +2711,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Includes taxonomy to response", Name="IncludeTaxonomy", ParameterType="query")]
-        public virtual bool IncludeTaxonomy { get; set; }
+        public bool IncludeTaxonomy { get; set; }
 
         ///<summary>
         ///Prevent setting culture code from headers
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Prevent setting culture code from headers", Name="ExcludeCulture", ParameterType="query")]
-        public virtual bool ExcludeCulture { get; set; }
+        public bool ExcludeCulture { get; set; }
     }
 
     public class FindTermsResponse
         : ResponseBase<List<Term>>
     {
-        public virtual long TotalCount { get; set; }
-        public virtual Taxonomy Taxonomy { get; set; }
+        public long TotalCount { get; set; }
+        public Taxonomy Taxonomy { get; set; }
     }
 
     ///<summary>
@@ -2719,35 +2749,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Unique code of a discount.", IsRequired=true, Name="Code", ParameterType="query")]
-        public virtual List<string> Codes { get; set; }
+        public List<string> Codes { get; set; }
 
         ///<summary>
         ///Order schema ID. Must match one of your order schemas including user zone.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Order schema ID. Must match one of your order schemas including user zone.", Name="OrderSchemaId", ParameterType="query")]
-        public virtual Guid OrderSchemaId { get; set; }
+        public Guid OrderSchemaId { get; set; }
 
         ///<summary>
         ///User ID. Requires administrator permission.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User ID. Requires administrator permission.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///If true, will consider a buyer as a guest user.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, will consider a buyer as a guest user.", Name="AsGuest", ParameterType="body")]
-        public virtual bool AsGuest { get; set; }
+        public bool AsGuest { get; set; }
 
         ///<summary>
         ///Order lines. Check which records are applicable for discount.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Order lines. Check which records are applicable for discount.", IsRequired=true, Name="Lines", ParameterType="query")]
-        public virtual List<OrderLineInput> Lines { get; set; }
+        public List<OrderLineInput> Lines { get; set; }
     }
 
     public class GetApplicableCouponsResponse
@@ -2775,28 +2805,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Order schema ID. Must match one of your order schemas including user zone.", IsRequired=true, Name="OrderSchemaId", ParameterType="query")]
-        public virtual Guid OrderSchemaId { get; set; }
+        public Guid OrderSchemaId { get; set; }
 
         ///<summary>
         ///User ID. Requires administrator permission.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User ID. Requires administrator permission.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///If true, will consider a buyer as a guest user.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, will consider a buyer as a guest user.", Name="AsGuest", ParameterType="body")]
-        public virtual bool AsGuest { get; set; }
+        public bool AsGuest { get; set; }
 
         ///<summary>
         ///Order lines. Check which records are applicable for discount.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Order lines. Check which records are applicable for discount.", IsRequired=true, Name="Lines", ParameterType="query")]
-        public virtual List<OrderLineInput> Lines { get; set; }
+        public List<OrderLineInput> Lines { get; set; }
     }
 
     public class GetApplicableDiscountsResponse
@@ -2819,28 +2849,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID to get.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///If true, id should be customer's provider Id.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, id should be customer's provider Id.", Name="UseProviderId", ParameterType="query")]
-        public virtual bool UseProviderId { get; set; }
+        public bool UseProviderId { get; set; }
 
         ///<summary>
         ///If true, id should be customer's user Id.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, id should be customer's user Id.", Name="UseUserId", ParameterType="query")]
-        public virtual bool UseUserId { get; set; }
+        public bool UseUserId { get; set; }
 
         ///<summary>
         ///Required if UseUserId is set to true.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Required if UseUserId is set to true.", Name="PaymentProvider", ParameterType="query")]
-        public virtual string PaymentProvider { get; set; }
+        public string PaymentProvider { get; set; }
     }
 
     public class GetCustomerResponse
@@ -2863,13 +2893,13 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User's ID whose customers to get.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
     }
 
     public class GetCustomersResponse
         : ResponseBase<List<Customer>>
     {
-        public virtual long TotalCount { get; set; }
+        public long TotalCount { get; set; }
     }
 
     ///<summary>
@@ -2887,7 +2917,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device Id or device key", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
     }
 
     public class GetDeviceResponse
@@ -2910,13 +2940,13 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User ID of who's devices to get.", Name="UserId", ParameterType="query")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
     }
 
     public class GetDevicesResponse
         : ResponseBase<List<Device>>
     {
-        public virtual long TotalCount { get; set; }
+        public long TotalCount { get; set; }
     }
 
     ///<summary>
@@ -2934,22 +2964,22 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of a file to download", IsRequired=true, Name="FileId", ParameterType="query")]
-        public virtual string FileId { get; set; }
+        public string FileId { get; set; }
 
         ///<summary>
         ///Optimization code of optimized image
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Optimization code of optimized image", Name="Optimization", ParameterType="query")]
-        public virtual string Optimization { get; set; }
+        public string Optimization { get; set; }
     }
 
     public class GetFileResponse
         : ResponseBase<string>
     {
-        public virtual string FileName { get; set; }
-        public virtual bool IsImage { get; set; }
-        public virtual File File { get; set; }
+        public string FileName { get; set; }
+        public bool IsImage { get; set; }
+        public File File { get; set; }
     }
 
     ///<summary>
@@ -2967,14 +2997,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Notification Id.", Name="Id", ParameterType="body")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Device key
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device key", Name="DeviceKey", ParameterType="query")]
-        public virtual string DeviceKey { get; set; }
+        public string DeviceKey { get; set; }
     }
 
     public class GetNotificationResponse
@@ -2997,35 +3027,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Notifications delivered to specified user.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///Notifications delivered to specified device.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Notifications delivered to specified device.", Name="DeviceId", ParameterType="body")]
-        public virtual Guid? DeviceId { get; set; }
+        public Guid? DeviceId { get; set; }
 
         ///<summary>
         ///Device key
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device key", Name="DeviceKey", ParameterType="query")]
-        public virtual string DeviceKey { get; set; }
+        public string DeviceKey { get; set; }
 
         ///<summary>
         ///Optional filter to count only matched notifications.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Optional filter to count only matched notifications.", IsRequired=true, Name="Filter", ParameterType="body")]
-        public virtual string Filter { get; set; }
+        public string Filter { get; set; }
 
         ///<summary>
         ///Optional filter to count only matched notifications.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Optional filter to count only matched notifications.", IsRequired=true, Name="Filter", ParameterType="body")]
-        public virtual string GroupBy { get; set; }
+        public string GroupBy { get; set; }
     }
 
     ///<summary>
@@ -3043,27 +3073,27 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Notifications delivered to specified user.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///Notifications delivered to specified device.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Notifications delivered to specified device.", Name="DeviceId", ParameterType="body")]
-        public virtual Guid? DeviceId { get; set; }
+        public Guid? DeviceId { get; set; }
 
         ///<summary>
         ///Device key
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device key", Name="DeviceKey", ParameterType="query")]
-        public virtual string DeviceKey { get; set; }
+        public string DeviceKey { get; set; }
     }
 
     public class GetNotificationsResponse
         : ResponseBase<List<PushNotification>>
     {
-        public virtual long TotalCount { get; set; }
+        public long TotalCount { get; set; }
     }
 
     ///<summary>
@@ -3081,7 +3111,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="ID of push notification template", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
     }
 
     public class GetNotificationTemplateResponse
@@ -3121,14 +3151,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Order ID.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///If true, includes paid transactions to response.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, includes paid transactions to response.", Name="IncludePaidTransactions", ParameterType="query")]
-        public virtual bool IncludePaidTransactions { get; set; }
+        public bool IncludePaidTransactions { get; set; }
     }
 
     public class GetOrderResponse
@@ -3151,27 +3181,27 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User ID. Requires administrator permission.", IsRequired=true, Name="UserId", ParameterType="query")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///If true, includes paid transactions to response.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, includes paid transactions to response.", Name="IncludePaidTransactions", ParameterType="query")]
-        public virtual bool IncludePaidTransactions { get; set; }
+        public bool IncludePaidTransactions { get; set; }
 
         ///<summary>
         ///API key of your cluster. Can be passed in a header as X-CM-Cluster.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="API key of your cluster. Can be passed in a header as X-CM-Cluster.", IsRequired=true, Name="Cluster", ParameterType="query")]
-        public virtual string Cluster { get; set; }
+        public string Cluster { get; set; }
     }
 
     public class GetOrdersResponse
         : ResponseBase<List<Order>>
     {
-        public virtual long TotalCount { get; set; }
+        public long TotalCount { get; set; }
     }
 
     ///<summary>
@@ -3189,14 +3219,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Payment account ID.", IsRequired=true, Name="AccountId", ParameterType="query")]
-        public virtual Guid AccountId { get; set; }
+        public Guid AccountId { get; set; }
 
         ///<summary>
         ///Can payment method be used without a user.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Can payment method be used without a user.", Name="AllowOffline", ParameterType="query")]
-        public virtual bool AllowOffline { get; set; }
+        public bool AllowOffline { get; set; }
     }
 
     public class GetPaymentMethodSetupResponse
@@ -3219,28 +3249,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if permissions should be returned", Name="IncludePermissions", ParameterType="query")]
-        public virtual bool IncludePermissions { get; set; }
+        public bool IncludePermissions { get; set; }
 
         ///<summary>
         ///Set true if user devices should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user devices should be returned", Name="IncludeDevices", ParameterType="query")]
-        public virtual bool IncludeDevices { get; set; }
+        public bool IncludeDevices { get; set; }
 
         ///<summary>
         ///Set true if user unread notifications count should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user unread notifications count should be returned", Name="IncludeNotificationsCount", ParameterType="query")]
-        public virtual bool IncludeUnreadNotifications { get; set; }
+        public bool IncludeUnreadNotifications { get; set; }
 
         ///<summary>
         ///Set true if user meta data should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user meta data should be returned", Name="IncludeMeta", ParameterType="query")]
-        public virtual bool IncludeMeta { get; set; }
+        public bool IncludeMeta { get; set; }
     }
 
     public class GetProfileResponse
@@ -3263,7 +3293,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of your project. Can be passed in a header as X-CM-ProjectId.", Name="projectId", ParameterType="path")]
-        public virtual Guid ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
     }
 
     public class GetProjectResponse
@@ -3287,56 +3317,56 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User identifier ID", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         ///<summary>
         ///Email of user
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Email of user", Name="Email", ParameterType="query")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///User phone number, only viable if user registered with phone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User phone number, only viable if user registered with phone", Name="Phone", ParameterType="query")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///Provider of user
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Provider of user", Name="Provider", ParameterType="query")]
-        public virtual string Provider { get; set; }
+        public string Provider { get; set; }
 
         ///<summary>
         ///Set true if permissions should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if permissions should be returned", Name="IncludePermissions", ParameterType="query")]
-        public virtual bool IncludePermissions { get; set; }
+        public bool IncludePermissions { get; set; }
 
         ///<summary>
         ///Set true if user devices should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user devices should be returned", Name="IncludeDevices", ParameterType="query")]
-        public virtual bool IncludeDevices { get; set; }
+        public bool IncludeDevices { get; set; }
 
         ///<summary>
         ///Set true if user unread notifications count should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user unread notifications count should be returned", Name="IncludeNotificationsCount", ParameterType="query")]
-        public virtual bool IncludeUnreadNotifications { get; set; }
+        public bool IncludeUnreadNotifications { get; set; }
 
         ///<summary>
         ///Set true if user meta data should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user meta data should be returned", Name="IncludeMeta", ParameterType="query")]
-        public virtual bool IncludeMeta { get; set; }
+        public bool IncludeMeta { get; set; }
     }
 
     public class GetUserResponse
@@ -3359,27 +3389,27 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if permissions should be returned", Name="IncludePermissions", ParameterType="path")]
-        public virtual bool IncludePermissions { get; set; }
+        public bool IncludePermissions { get; set; }
 
         ///<summary>
         ///Set true if user devices should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user devices should be returned", Name="IncludeDevices", ParameterType="path")]
-        public virtual bool IncludeDevices { get; set; }
+        public bool IncludeDevices { get; set; }
 
         ///<summary>
         ///Set true if user meta data should be returned
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Set true if user meta data should be returned", Name="IncludeMeta", ParameterType="path")]
-        public virtual bool IncludeMeta { get; set; }
+        public bool IncludeMeta { get; set; }
     }
 
     public class GetUsersResponse
         : ResponseBase<List<User>>
     {
-        public virtual long TotalCount { get; set; }
+        public long TotalCount { get; set; }
     }
 
     ///<summary>
@@ -3397,28 +3427,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Mode to use for authentication", Name="Mode", ParameterType="query")]
-        public virtual string Mode { get; set; }
+        public string Mode { get; set; }
 
         ///<summary>
         ///Code received from Google services
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Code received from Google services", Name="Code", ParameterType="query")]
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
         ///<summary>
         ///State received with a code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="State received with a code", Name="State", ParameterType="query")]
-        public virtual string State { get; set; }
+        public string State { get; set; }
 
         ///<summary>
         ///When transferring access token from client app
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="When transferring access token from client app", Name="AccessToken", ParameterType="query")]
-        public virtual string AccessToken { get; set; }
+        public string AccessToken { get; set; }
     }
 
     public class GoogleAuthenticationResponse
@@ -3430,7 +3460,7 @@ namespace CodeMash.ServiceContracts.Api
     ///Database services
     ///</summary>
     [Route("/db/{collectionName}/bulk", "POST")]
-    [Route("/{version}/db/{collectionName}/bulk", "POST")]
+    [Route("/{version}/db/{CollectionName}/bulk", "POST")]
     [Api(Description="Database services")]
     [DataContract]
     public class InsertManyRequest
@@ -3445,36 +3475,36 @@ namespace CodeMash.ServiceContracts.Api
         ///Array of json records to insert
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="Array", Description="Array of json records to insert", IsRequired=true, Name="Document", ParameterType="body")]
-        public virtual List<string> Documents { get; set; }
+        [ApiMember(DataType="array", Description="Array of json records to insert", IsRequired=true, Name="Document", ParameterType="body")]
+        public List<string> Documents { get; set; }
 
         ///<summary>
-        ///By default records are validated before insert, set to true to prevent validation
+        ///Records are validated against CodeMash JSON Schema before each insert. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default records are validated before insert, set to true to prevent validation", Name="BypassDocumentValidation", ParameterType="body")]
-        public virtual bool BypassDocumentValidation { get; set; }
+        [ApiMember(DataType="boolean", Description="Records are validated against CodeMash JSON Schema before each insert. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.", Name="BypassDocumentValidation", ParameterType="form")]
+        public bool BypassDocumentValidation { get; set; }
 
         ///<summary>
-        ///If true, does not activate triggers
+        ///Triggers are called each time you insert the document. You can disable triggers if it's not needed. This is really important when you insert in database from trigger itself, so then you can avoid infinite loop.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="body")]
-        public virtual bool IgnoreTriggers { get; set; }
+        [ApiMember(DataType="boolean", Description="Triggers are called each time you insert the document. You can disable triggers if it's not needed. This is really important when you insert in database from trigger itself, so then you can avoid infinite loop.", Name="IgnoreTriggers", ParameterType="form")]
+        public bool IgnoreTriggers { get; set; }
 
         ///<summary>
-        ///When calling with full permission, can set responsible user ID
+        ///Set responsible user for document, but be sure the caller of API has right set of permissions.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="Guid", Description="When calling with full permission, can set responsible user ID", Name="ResponsibleUserId", ParameterType="body")]
-        public virtual Guid? ResponsibleUserId { get; set; }
+        [ApiMember(DataType="string", Description="Set responsible user for document, but be sure the caller of API has right set of permissions.", Name="ResponsibleUserId", ParameterType="form")]
+        public Guid? ResponsibleUserId { get; set; }
 
         ///<summary>
-        ///If true, file fields that are passed will expect file ids given from your storage providers.
+        ///If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, file fields that are passed will expect file ids given from your storage providers.", Name="ResolveProviderFiles", ParameterType="body")]
-        public virtual bool ResolveProviderFiles { get; set; }
+        [ApiMember(DataType="boolean", Description="If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.", Name="ResolveProviderFiles", ParameterType="form")]
+        public bool ResolveProviderFiles { get; set; }
     }
 
     public class InsertManyResponse
@@ -3485,8 +3515,8 @@ namespace CodeMash.ServiceContracts.Api
     ///<summary>
     ///Database services
     ///</summary>
-    [Route("/db/{collectionName}", "POST")]
-    [Route("/{version}/db/{collectionName}", "POST")]
+    [Route("/db/{CollectionName}", "POST")]
+    [Route("/{version}/db/{CollectionName}", "POST")]
     [Api(Description="Database services")]
     [DataContract]
     public class InsertOneRequest
@@ -3497,42 +3527,42 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Entity represented as json to insert", IsRequired=true, Name="Document", ParameterType="body")]
-        public virtual string Document { get; set; }
+        public string Document { get; set; }
 
         ///<summary>
-        ///By default records are validated before insert, set to true to prevent validation
+        ///Records are validated against CodeMash JSON Schema before each insert. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default records are validated before insert, set to true to prevent validation", Name="BypassDocumentValidation", ParameterType="body")]
-        public virtual bool BypassDocumentValidation { get; set; }
+        [ApiMember(DataType="boolean", Description="Records are validated against CodeMash JSON Schema before each insert. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.", Name="BypassDocumentValidation", ParameterType="form")]
+        public bool BypassDocumentValidation { get; set; }
 
         ///<summary>
         ///By default file uploads are done after the record is inserted, set to true in case you need to wait for files to be uploaded
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default file uploads are done after the record is inserted, set to true in case you need to wait for files to be uploaded", Name="WaitForFileUpload", ParameterType="body")]
-        public virtual bool WaitForFileUpload { get; set; }
+        [ApiMember(DataType="boolean", Description="By default file uploads are done after the record is inserted, set to true in case you need to wait for files to be uploaded", Name="WaitForFileUpload", ParameterType="form")]
+        public bool WaitForFileUpload { get; set; }
 
         ///<summary>
-        ///If true, does not activate triggers
+        ///Triggers are called each time you insert the document. You can disable triggers if it's not needed. This is really important when you insert in database from trigger itself, so then you can avoid infinite loop.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="body")]
-        public virtual bool IgnoreTriggers { get; set; }
+        [ApiMember(DataType="boolean", Description="Triggers are called each time you insert the document. You can disable triggers if it's not needed. This is really important when you insert in database from trigger itself, so then you can avoid infinite loop.", Name="IgnoreTriggers", ParameterType="form")]
+        public bool IgnoreTriggers { get; set; }
 
         ///<summary>
-        ///When calling with full permission, can set responsible user ID
+        ///Set responsible user for document, but be sure the caller of API has right set of permissions.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="Guid", Description="When calling with full permission, can set responsible user ID", Name="ResponsibleUserId", ParameterType="body")]
-        public virtual Guid? ResponsibleUserId { get; set; }
+        [ApiMember(DataType="string", Description="Set responsible user for document, but be sure the caller of API has right set of permissions.", Name="ResponsibleUserId", ParameterType="form")]
+        public Guid? ResponsibleUserId { get; set; }
 
         ///<summary>
-        ///If true, file fields that are passed will expect file ids given from your storage providers.
+        ///If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, file fields that are passed will expect file ids given from your storage providers.", Name="ResolveProviderFiles", ParameterType="body")]
-        public virtual bool ResolveProviderFiles { get; set; }
+        [ApiMember(DataType="boolean", Description="If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.", Name="ResolveProviderFiles", ParameterType="form")]
+        public bool ResolveProviderFiles { get; set; }
     }
 
     [DataContract]
@@ -3562,161 +3592,161 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member display name", Name="DisplayName", ParameterType="form")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Email address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Email address", IsRequired=true, Name="Email", ParameterType="form")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Member first name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member first name", Name="FirstName", ParameterType="form")]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         ///<summary>
         ///Member last name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member last name", Name="LastName", ParameterType="form")]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         ///<summary>
         ///Role names to be applied
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Role names to be applied", Name="Roles", ParameterType="form")]
-        public virtual List<string> Roles { get; set; }
+        public List<string> Roles { get; set; }
 
         ///<summary>
         ///Full permission tree
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Full permission tree", Name="RolesTree", ParameterType="body")]
-        public virtual List<UserRoleUpdateInput> RolesTree { get; set; }
+        public List<UserRoleUpdateInput> RolesTree { get; set; }
 
         ///<summary>
         ///Meta details as JSON object
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Meta details as JSON object", Name="Meta", ParameterType="form")]
-        public virtual string Meta { get; set; }
+        public string Meta { get; set; }
 
         ///<summary>
         ///Main user language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Main user language", Name="Language", ParameterType="form")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///User's time zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's time zone", Name="TimeZone", ParameterType="form")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Should user get marketing emails
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should user get marketing emails", Name="SubscribeToNews", ParameterType="form")]
-        public virtual bool? SubscribeToNews { get; set; }
+        public bool? SubscribeToNews { get; set; }
 
         ///<summary>
         ///User's country
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's country", Name="Country", ParameterType="body")]
-        public virtual string Country { get; set; }
+        public string Country { get; set; }
 
         ///<summary>
         ///User's 2 letter country code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's 2 letter country code", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///User's state / province
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's state / province", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///User's city
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's city", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///User's street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's street address", Name="Address", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///User's secondary street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's secondary street address", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///User's phone number
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's phone number", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///User's company
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company", Name="Company", ParameterType="body")]
-        public virtual string Company { get; set; }
+        public string Company { get; set; }
 
         ///<summary>
         ///User's company code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company code", Name="CompanyCode", ParameterType="body")]
-        public virtual string CompanyCode { get; set; }
+        public string CompanyCode { get; set; }
 
         ///<summary>
         ///User's postal code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's postal code", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///User's gender
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's gender", Name="Gender", ParameterType="body")]
-        public virtual string Gender { get; set; }
+        public string Gender { get; set; }
 
         ///<summary>
         ///User's birthdate
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's birthdate", Name="BirthDate", ParameterType="body")]
-        public virtual string BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         ///<summary>
         ///User's zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's zone", Name="Zone", ParameterType="body")]
-        public virtual string Zone { get; set; }
+        public string Zone { get; set; }
     }
 
     public class InviteUserV2Response
@@ -3726,16 +3756,16 @@ namespace CodeMash.ServiceContracts.Api
 
     public class KevinAuthorizationLink
     {
-        public virtual string AuthorizationLink { get; set; }
-        public virtual string State { get; set; }
-        public virtual string RequestId { get; set; }
+        public string AuthorizationLink { get; set; }
+        public string State { get; set; }
+        public string RequestId { get; set; }
     }
 
     public class KevinPaymentStatus
     {
-        public virtual string GroupStatus { get; set; }
-        public virtual string TransactionId { get; set; }
-        public virtual string OrderId { get; set; }
+        public string GroupStatus { get; set; }
+        public string TransactionId { get; set; }
+        public string OrderId { get; set; }
     }
 
     ///<summary>
@@ -3753,28 +3783,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="UserId - (Either userId or deviceId is required). The same massage can be spread across many users, so we need to identify which user read the message", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///DeviceId - (Either userId or deviceId is required). The same massage can be spread across many devices, so we need to identify in which device the message has been read
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="DeviceId - (Either userId or deviceId is required). The same massage can be spread across many devices, so we need to identify in which device the message has been read", IsRequired=true, Name="DeviceId", ParameterType="body")]
-        public virtual Guid? DeviceId { get; set; }
+        public Guid? DeviceId { get; set; }
 
         ///<summary>
         ///Device key
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device key", Name="DeviceKey", ParameterType="query")]
-        public virtual string DeviceKey { get; set; }
+        public string DeviceKey { get; set; }
 
         ///<summary>
         ///Optional filter to read only matched notifications.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Optional filter to read only matched notifications.", IsRequired=true, Name="Filter", ParameterType="body")]
-        public virtual string Filter { get; set; }
+        public string Filter { get; set; }
     }
 
     ///<summary>
@@ -3792,28 +3822,28 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="NotificationId - notification to be marked as read", IsRequired=true, Name="NotificationId", ParameterType="form")]
-        public virtual string NotificationId { get; set; }
+        public string NotificationId { get; set; }
 
         ///<summary>
         ///UserId - (Either userId or deviceId is required). The same massage can be spread across many users, so we need to identify which user read the message
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="UserId - (Either userId or deviceId is required). The same massage can be spread across many users, so we need to identify which user read the message", Name="UserId", ParameterType="form")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///DeviceId - (Either userId or deviceId is required). The same massage can be spread across many devices, so we need to identify in which device the message has been read
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="DeviceId - (Either userId or deviceId is required). The same massage can be spread across many devices, so we need to identify in which device the message has been read", IsRequired=true, Name="DeviceId", ParameterType="form")]
-        public virtual Guid? DeviceId { get; set; }
+        public Guid? DeviceId { get; set; }
 
         ///<summary>
         ///Device key
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device key", Name="DeviceKey", ParameterType="query")]
-        public virtual string DeviceKey { get; set; }
+        public string DeviceKey { get; set; }
     }
 
     public class MarkNotificationAsReadResponse
@@ -3832,60 +3862,60 @@ namespace CodeMash.ServiceContracts.Api
             Meta = new Dictionary<string, string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string ModifiedOn { get; set; }
-        public virtual string PaidOn { get; set; }
-        public virtual long Number { get; set; }
-        public virtual string NumberPrefix { get; set; }
-        public virtual string PaymentStatus { get; set; }
-        public virtual string PaymentProvider { get; set; }
-        public virtual string Currency { get; set; }
-        public virtual bool AsGuest { get; set; }
-        public virtual bool IsTest { get; set; }
-        public virtual OrderCustomer Customer { get; set; }
-        public virtual string Cluster { get; set; }
-        public virtual List<OrderLine> Lines { get; set; }
-        public virtual List<OrderFile> Files { get; set; }
-        public virtual List<OrderTransaction> Transactions { get; set; }
-        public virtual List<OrderDiscount> Discounts { get; set; }
-        public virtual string UserId { get; set; }
-        public virtual string PaymentAccountId { get; set; }
-        public virtual decimal Total { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public string ModifiedOn { get; set; }
+        public string PaidOn { get; set; }
+        public long Number { get; set; }
+        public string NumberPrefix { get; set; }
+        public string PaymentStatus { get; set; }
+        public string PaymentProvider { get; set; }
+        public string Currency { get; set; }
+        public bool AsGuest { get; set; }
+        public bool IsTest { get; set; }
+        public OrderCustomer Customer { get; set; }
+        public string Cluster { get; set; }
+        public List<OrderLine> Lines { get; set; }
+        public List<OrderFile> Files { get; set; }
+        public List<OrderTransaction> Transactions { get; set; }
+        public List<OrderDiscount> Discounts { get; set; }
+        public string UserId { get; set; }
+        public string PaymentAccountId { get; set; }
+        public decimal Total { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class OrderCustomer
     {
-        public virtual string Email { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string Phone { get; set; }
-        public virtual string Company { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Address2 { get; set; }
-        public virtual string Country { get; set; }
-        public virtual string CountryCode { get; set; }
-        public virtual string Area { get; set; }
-        public virtual string City { get; set; }
-        public virtual string PostalCode { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
+        public string Company { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Country { get; set; }
+        public string CountryCode { get; set; }
+        public string Area { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
     }
 
     public class OrderCustomerInput
     {
-        public virtual string Email { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string Phone { get; set; }
-        public virtual string Company { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Address2 { get; set; }
-        public virtual string Country { get; set; }
-        public virtual string CountryCode { get; set; }
-        public virtual string Area { get; set; }
-        public virtual string City { get; set; }
-        public virtual string PostalCode { get; set; }
-        public virtual string Language { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
+        public string Company { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Country { get; set; }
+        public string CountryCode { get; set; }
+        public string Area { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
+        public string Language { get; set; }
     }
 
     public class OrderDiscount
@@ -3896,26 +3926,26 @@ namespace CodeMash.ServiceContracts.Api
             CategoryDiscounts = new List<DiscountCategory>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string Code { get; set; }
-        public virtual string Type { get; set; }
-        public virtual string TargetType { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string Description { get; set; }
-        public virtual List<DiscountIndividualLine> IndividualDiscounts { get; set; }
-        public virtual List<DiscountCategory> CategoryDiscounts { get; set; }
-        public virtual DiscountAll AllDiscount { get; set; }
+        public string Id { get; set; }
+        public string Code { get; set; }
+        public string Type { get; set; }
+        public string TargetType { get; set; }
+        public string DisplayName { get; set; }
+        public string Description { get; set; }
+        public List<DiscountIndividualLine> IndividualDiscounts { get; set; }
+        public List<DiscountCategory> CategoryDiscounts { get; set; }
+        public DiscountAll AllDiscount { get; set; }
     }
 
     public class OrderFile
     {
-        public virtual string Category { get; set; }
-        public virtual string Id { get; set; }
-        public virtual string Directory { get; set; }
-        public virtual string OriginalFileName { get; set; }
-        public virtual string FileName { get; set; }
-        public virtual string ContentType { get; set; }
-        public virtual long ContentLength { get; set; }
+        public string Category { get; set; }
+        public string Id { get; set; }
+        public string Directory { get; set; }
+        public string OriginalFileName { get; set; }
+        public string FileName { get; set; }
+        public string ContentType { get; set; }
+        public long ContentLength { get; set; }
     }
 
     public class OrderLine
@@ -3925,51 +3955,51 @@ namespace CodeMash.ServiceContracts.Api
             PriceFields = new List<string>{};
         }
 
-        public virtual string SchemaId { get; set; }
-        public virtual string CollectionName { get; set; }
-        public virtual string RecordId { get; set; }
-        public virtual List<string> PriceFields { get; set; }
-        public virtual string Variation { get; set; }
-        public virtual string RecordData { get; set; }
-        public virtual decimal Price { get; set; }
-        public virtual int Quantity { get; set; }
+        public string SchemaId { get; set; }
+        public string CollectionName { get; set; }
+        public string RecordId { get; set; }
+        public List<string> PriceFields { get; set; }
+        public string Variation { get; set; }
+        public string RecordData { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
     }
 
     public class OrderLineInput
     {
-        public virtual string CollectionName { get; set; }
-        public virtual string RecordId { get; set; }
-        public virtual int Quantity { get; set; }
-        public virtual string Variation { get; set; }
+        public string CollectionName { get; set; }
+        public string RecordId { get; set; }
+        public int Quantity { get; set; }
+        public string Variation { get; set; }
     }
 
     public class OrderTransaction
     {
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string PayUntil { get; set; }
-        public virtual string PaidOn { get; set; }
-        public virtual string CallbackOn { get; set; }
-        public virtual string Provider { get; set; }
-        public virtual string EventStatus { get; set; }
-        public virtual string EventUniqueId { get; set; }
-        public virtual string Type { get; set; }
-        public virtual string Data { get; set; }
-        public virtual string PayerIpCountry { get; set; }
-        public virtual string PayerCountry { get; set; }
-        public virtual string PayerEmail { get; set; }
-        public virtual string PaymentType { get; set; }
-        public virtual string EventAccount { get; set; }
-        public virtual string PayText { get; set; }
-        public virtual string EventCurrency { get; set; }
-        public virtual decimal EventAmount { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public string PayUntil { get; set; }
+        public string PaidOn { get; set; }
+        public string CallbackOn { get; set; }
+        public string Provider { get; set; }
+        public string EventStatus { get; set; }
+        public string EventUniqueId { get; set; }
+        public string Type { get; set; }
+        public string Data { get; set; }
+        public string PayerIpCountry { get; set; }
+        public string PayerCountry { get; set; }
+        public string PayerEmail { get; set; }
+        public string PaymentType { get; set; }
+        public string EventAccount { get; set; }
+        public string PayText { get; set; }
+        public string EventCurrency { get; set; }
+        public decimal EventAmount { get; set; }
     }
 
     public class PaymentDiscountBoundary
     {
-        public virtual double Boundary { get; set; }
-        public virtual double Amount { get; set; }
-        public virtual string Type { get; set; }
+        public double Boundary { get; set; }
+        public double Amount { get; set; }
+        public string Type { get; set; }
     }
 
     public class PaymentMethod
@@ -3979,30 +4009,30 @@ namespace CodeMash.ServiceContracts.Api
             Meta = new Dictionary<string, string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string Type { get; set; }
-        public virtual string Data { get; set; }
-        public virtual string Email { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Phone { get; set; }
-        public virtual string CountryCode { get; set; }
-        public virtual string Area { get; set; }
-        public virtual string City { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Address2 { get; set; }
-        public virtual string PostalCode { get; set; }
-        public virtual string Last4 { get; set; }
-        public virtual int ExpMonth { get; set; }
-        public virtual int ExpYear { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public string Type { get; set; }
+        public string Data { get; set; }
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string CountryCode { get; set; }
+        public string Area { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string PostalCode { get; set; }
+        public string Last4 { get; set; }
+        public int ExpMonth { get; set; }
+        public int ExpYear { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class PaymentMethodSetup
     {
-        public virtual string SetupId { get; set; }
-        public virtual string SetupClientSecret { get; set; }
-        public virtual string Status { get; set; }
+        public string SetupId { get; set; }
+        public string SetupClientSecret { get; set; }
+        public string Status { get; set; }
     }
 
     public class Policy
@@ -4012,10 +4042,10 @@ namespace CodeMash.ServiceContracts.Api
             Permissions = new List<string>{};
         }
 
-        public virtual string Name { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual bool Disabled { get; set; }
-        public virtual List<string> Permissions { get; set; }
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public bool Disabled { get; set; }
+        public List<string> Permissions { get; set; }
     }
 
     public class Project
@@ -4026,15 +4056,15 @@ namespace CodeMash.ServiceContracts.Api
             Languages = new List<string>{};
         }
 
-        public virtual Guid Id { get; set; }
-        public virtual List<Token> Tokens { get; set; }
-        public virtual List<string> Languages { get; set; }
-        public virtual string DefaultLanguage { get; set; }
-        public virtual string DefaultTimeZone { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string SlugifiedName { get; set; }
-        public virtual string LogoUrl { get; set; }
+        public Guid Id { get; set; }
+        public List<Token> Tokens { get; set; }
+        public List<string> Languages { get; set; }
+        public string DefaultLanguage { get; set; }
+        public string DefaultTimeZone { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string SlugifiedName { get; set; }
+        public string LogoUrl { get; set; }
     }
 
     public class PushNotification
@@ -4044,18 +4074,18 @@ namespace CodeMash.ServiceContracts.Api
             Meta = new Dictionary<string, string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string ReceivedOn { get; set; }
-        public virtual string Status { get; set; }
-        public virtual string Title { get; set; }
-        public virtual string Body { get; set; }
-        public virtual string Data { get; set; }
-        public virtual string Subtitle { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
-        public virtual bool IsRead { get; set; }
-        public virtual string UserId { get; set; }
-        public virtual string DeviceId { get; set; }
-        public virtual string SenderId { get; set; }
+        public string Id { get; set; }
+        public string ReceivedOn { get; set; }
+        public string Status { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
+        public string Data { get; set; }
+        public string Subtitle { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
+        public bool IsRead { get; set; }
+        public string UserId { get; set; }
+        public string DeviceId { get; set; }
+        public string SenderId { get; set; }
     }
 
     public class PushNotificationTemplate
@@ -4066,64 +4096,64 @@ namespace CodeMash.ServiceContracts.Api
             Buttons = new List<PushNotificationTemplateButtons>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string TemplateName { get; set; }
-        public virtual string AccountName { get; set; }
-        public virtual string Title { get; set; }
-        public virtual string Body { get; set; }
-        public virtual string Code { get; set; }
-        public virtual string Priority { get; set; }
-        public virtual string Data { get; set; }
-        public virtual int? Ttl { get; set; }
-        public virtual string Url { get; set; }
-        public virtual string CollapseId { get; set; }
-        public virtual FileDetails Image { get; set; }
-        public virtual string AccountId { get; set; }
-        public virtual Guid? FileAccountId { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
-        public virtual List<PushNotificationTemplateButtons> Buttons { get; set; }
-        public virtual string Subtitle { get; set; }
-        public virtual int? IosBadge { get; set; }
-        public virtual string IosCategory { get; set; }
-        public virtual bool IosContentAvailable { get; set; }
-        public virtual string IosSound { get; set; }
-        public virtual string IosAppBundleId { get; set; }
-        public virtual string IosGroupId { get; set; }
-        public virtual string IosPushType { get; set; }
-        public virtual string IosLaunchImage { get; set; }
-        public virtual string IosAnalyticsLabel { get; set; }
-        public virtual string AndroidGroup { get; set; }
-        public virtual string AndroidGroupMessage { get; set; }
-        public virtual string RestrictedPackageName { get; set; }
-        public virtual string AndroidChannelId { get; set; }
-        public virtual string AndroidSound { get; set; }
-        public virtual string AndroidVisibility { get; set; }
-        public virtual bool AndroidDefaultVibration { get; set; }
-        public virtual string AndroidVibrateTimings { get; set; }
-        public virtual bool AndroidDefaultLight { get; set; }
-        public virtual string AndroidAccentColor { get; set; }
-        public virtual string AndroidLedColor { get; set; }
-        public virtual string AndroidLightOnDuration { get; set; }
-        public virtual string AndroidLightOffDuration { get; set; }
-        public virtual bool AndroidSticky { get; set; }
-        public virtual string AndroidSmallIcon { get; set; }
-        public virtual string AndroidLargeIcon { get; set; }
-        public virtual AndroidBackgroundLayout AndroidBackground { get; set; }
-        public virtual string AndroidAnalyticsLabel { get; set; }
+        public string Id { get; set; }
+        public string TemplateName { get; set; }
+        public string AccountName { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
+        public string Code { get; set; }
+        public string Priority { get; set; }
+        public string Data { get; set; }
+        public int? Ttl { get; set; }
+        public string Url { get; set; }
+        public string CollapseId { get; set; }
+        public FileDetails Image { get; set; }
+        public string AccountId { get; set; }
+        public Guid? FileAccountId { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
+        public List<PushNotificationTemplateButtons> Buttons { get; set; }
+        public string Subtitle { get; set; }
+        public int? IosBadge { get; set; }
+        public string IosCategory { get; set; }
+        public bool IosContentAvailable { get; set; }
+        public string IosSound { get; set; }
+        public string IosAppBundleId { get; set; }
+        public string IosGroupId { get; set; }
+        public string IosPushType { get; set; }
+        public string IosLaunchImage { get; set; }
+        public string IosAnalyticsLabel { get; set; }
+        public string AndroidGroup { get; set; }
+        public string AndroidGroupMessage { get; set; }
+        public string RestrictedPackageName { get; set; }
+        public string AndroidChannelId { get; set; }
+        public string AndroidSound { get; set; }
+        public string AndroidVisibility { get; set; }
+        public bool AndroidDefaultVibration { get; set; }
+        public string AndroidVibrateTimings { get; set; }
+        public bool AndroidDefaultLight { get; set; }
+        public string AndroidAccentColor { get; set; }
+        public string AndroidLedColor { get; set; }
+        public string AndroidLightOnDuration { get; set; }
+        public string AndroidLightOffDuration { get; set; }
+        public bool AndroidSticky { get; set; }
+        public string AndroidSmallIcon { get; set; }
+        public string AndroidLargeIcon { get; set; }
+        public AndroidBackgroundLayout AndroidBackground { get; set; }
+        public string AndroidAnalyticsLabel { get; set; }
     }
 
     public class PushNotificationTemplateButtons
     {
-        public virtual string Id { get; set; }
-        public virtual string Text { get; set; }
-        public virtual string Icon { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public string Icon { get; set; }
     }
 
     public class PushNotificationToken
     {
-        public virtual string Provider { get; set; }
-        public virtual string Token { get; set; }
-        public virtual string AccountId { get; set; }
+        public string Provider { get; set; }
+        public string Token { get; set; }
+        public string AccountId { get; set; }
     }
 
     ///<summary>
@@ -4141,23 +4171,23 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Authentication request ID.", IsRequired=true, Name="AuthorizationCode", ParameterType="body")]
-        public virtual string RequestId { get; set; }
+        public string RequestId { get; set; }
 
         ///<summary>
         ///Authorization code received from authenticating.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Authorization code received from authenticating.", IsRequired=true, Name="AuthorizationCode", ParameterType="body")]
-        public virtual string AuthorizationCode { get; set; }
+        public string AuthorizationCode { get; set; }
     }
 
     public class ReferencingField
     {
-        public virtual string Name { get; set; }
-        public virtual int PageSize { get; set; }
-        public virtual int PageNumber { get; set; }
-        public virtual string Sort { get; set; }
-        public virtual string Projection { get; set; }
+        public string Name { get; set; }
+        public int PageSize { get; set; }
+        public int PageNumber { get; set; }
+        public string Sort { get; set; }
+        public string Projection { get; set; }
     }
 
     ///<summary>
@@ -4180,35 +4210,35 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User Id", Name="UserId", ParameterType="form")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///Device Id
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device Id", Name="DeviceId", ParameterType="form")]
-        public virtual Guid? DeviceId { get; set; }
+        public Guid? DeviceId { get; set; }
 
         ///<summary>
         ///Token
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Token", IsRequired=true, Name="Token", ParameterType="form")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///TimeZone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="TimeZone", Name="TimeZone", ParameterType="form")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Meta information that comes from device.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Meta information that comes from device.", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class RegisterDeviceExpoTokenResponse
@@ -4236,84 +4266,84 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Notification provider. Can be \"Expo\", \"OneSignal\", \"Firebase\"", Name="Provider", ParameterType="body")]
-        public virtual string Provider { get; set; }
+        public string Provider { get; set; }
 
         ///<summary>
         ///Push account ID. If you have more than 1 account for provider pass this instead.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Push account ID. If you have more than 1 account for provider pass this instead.", Name="AccountId", ParameterType="body")]
-        public virtual Guid? AccountId { get; set; }
+        public Guid? AccountId { get; set; }
 
         ///<summary>
         ///Identifier for device depending on provider (device ID, player ID)
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Identifier for device depending on provider (device ID, player ID)", IsRequired=true, Name="Token", ParameterType="body")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///User ID to attach this token to.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User ID to attach this token to.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///Device ID to attach this token to. New device will be created if this is null.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device ID to attach this token to. New device will be created if this is null.", Name="DeviceId", ParameterType="body")]
-        public virtual Guid? DeviceId { get; set; }
+        public Guid? DeviceId { get; set; }
 
         ///<summary>
         ///Device operating system
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device operating system", Name="OperatingSystem", ParameterType="body")]
-        public virtual string OperatingSystem { get; set; }
+        public string OperatingSystem { get; set; }
 
         ///<summary>
         ///Device brand
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device brand", Name="Brand", ParameterType="body")]
-        public virtual string Brand { get; set; }
+        public string Brand { get; set; }
 
         ///<summary>
         ///Device name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device name", Name="DeviceName", ParameterType="body")]
-        public virtual string DeviceName { get; set; }
+        public string DeviceName { get; set; }
 
         ///<summary>
         ///Device timezone, expects to get a TZ database name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device timezone, expects to get a TZ database name", Name="TimeZone", ParameterType="body")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Device language, expects to get a 2 letter identifier
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device language, expects to get a 2 letter identifier", Name="Language", ParameterType="body")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///Device locale
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device locale", Name="Locale", ParameterType="body")]
-        public virtual string Locale { get; set; }
+        public string Locale { get; set; }
 
         ///<summary>
         ///Other device information
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Other device information", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class RegisterDeviceTokenResponse
@@ -4341,160 +4371,160 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member display name", Name="DisplayName", ParameterType="body")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Email address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Email address", IsRequired=true, Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Member first name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member first name", Name="FirstName", ParameterType="body")]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         ///<summary>
         ///Member last name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member last name", Name="LastName", ParameterType="body")]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         ///<summary>
         ///Meta details as JSON object
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Meta details as JSON object", Name="Meta", ParameterType="body")]
-        public virtual string Meta { get; set; }
+        public string Meta { get; set; }
 
         ///<summary>
         ///Main user language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Main user language", Name="Language", ParameterType="body")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///User's time zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's time zone", Name="TimeZone", ParameterType="body")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Should user get marketing emails
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should user get marketing emails", Name="SubscribeToNews", ParameterType="body")]
-        public virtual bool? SubscribeToNews { get; set; }
+        public bool? SubscribeToNews { get; set; }
 
         ///<summary>
         ///User's country
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's country", Name="Country", ParameterType="body")]
-        public virtual string Country { get; set; }
+        public string Country { get; set; }
 
         ///<summary>
         ///User's 2 letter country code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's 2 letter country code", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///User's state / province
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's state / province", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///User's city
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's city", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///User's street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's street address", Name="Address", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///User's secondary street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's secondary street address", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///User's phone number
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's phone number", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///User's company
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company", Name="Company", ParameterType="body")]
-        public virtual string Company { get; set; }
+        public string Company { get; set; }
 
         ///<summary>
         ///User's company code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company code", Name="CompanyCode", ParameterType="body")]
-        public virtual string CompanyCode { get; set; }
+        public string CompanyCode { get; set; }
 
         ///<summary>
         ///User's postal code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's postal code", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///User's gender
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's gender", Name="Gender", ParameterType="body")]
-        public virtual string Gender { get; set; }
+        public string Gender { get; set; }
 
         ///<summary>
         ///User's birthdate
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's birthdate", Name="BirthDate", ParameterType="body")]
-        public virtual string BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         ///<summary>
         ///Full permission tree
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Full permission tree", Name="RolesTree", ParameterType="body")]
-        public virtual List<UserRoleUpdateInput> RolesTree { get; set; }
+        public List<UserRoleUpdateInput> RolesTree { get; set; }
 
         ///<summary>
         ///User's zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's zone", Name="Zone", ParameterType="body")]
-        public virtual string Zone { get; set; }
+        public string Zone { get; set; }
     }
 
     public class RegisterGuestUserResponse
         : ResponseBase<User>
     {
-        public virtual string BearerToken { get; set; }
+        public string BearerToken { get; set; }
     }
 
     ///<summary>
@@ -4517,160 +4547,160 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's phone number", IsRequired=true, Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///Member display name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member display name", Name="DisplayName", ParameterType="body")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Email address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Email address", Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Member first name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member first name", Name="FirstName", ParameterType="body")]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         ///<summary>
         ///Member last name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member last name", Name="LastName", ParameterType="body")]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         ///<summary>
         ///Meta details as JSON object
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Meta details as JSON object", Name="Meta", ParameterType="body")]
-        public virtual string Meta { get; set; }
+        public string Meta { get; set; }
 
         ///<summary>
         ///Main user language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Main user language", Name="Language", ParameterType="body")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///User's time zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's time zone", Name="TimeZone", ParameterType="body")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Should user get marketing emails
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should user get marketing emails", Name="SubscribeToNews", ParameterType="body")]
-        public virtual bool? SubscribeToNews { get; set; }
+        public bool? SubscribeToNews { get; set; }
 
         ///<summary>
         ///User's country
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's country", Name="Country", ParameterType="body")]
-        public virtual string Country { get; set; }
+        public string Country { get; set; }
 
         ///<summary>
         ///User's 2 letter country code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's 2 letter country code", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///User's state / province
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's state / province", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///User's city
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's city", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///User's street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's street address", Name="Address", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///User's secondary street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's secondary street address", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///User's company
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company", Name="Company", ParameterType="body")]
-        public virtual string Company { get; set; }
+        public string Company { get; set; }
 
         ///<summary>
         ///User's company code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company code", Name="CompanyCode", ParameterType="body")]
-        public virtual string CompanyCode { get; set; }
+        public string CompanyCode { get; set; }
 
         ///<summary>
         ///User's postal code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's postal code", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///User's gender
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's gender", Name="Gender", ParameterType="body")]
-        public virtual string Gender { get; set; }
+        public string Gender { get; set; }
 
         ///<summary>
         ///User's birthdate
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's birthdate", Name="BirthDate", ParameterType="body")]
-        public virtual string BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         ///<summary>
         ///Full permission tree
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Full permission tree", Name="RolesTree", ParameterType="body")]
-        public virtual List<UserRoleUpdateInput> RolesTree { get; set; }
+        public List<UserRoleUpdateInput> RolesTree { get; set; }
 
         ///<summary>
         ///User's zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's zone", Name="Zone", ParameterType="body")]
-        public virtual string Zone { get; set; }
+        public string Zone { get; set; }
     }
 
     public class RegisterPhoneUserResponse
         : ResponseBase<User>
     {
-        public virtual string BearerToken { get; set; }
+        public string BearerToken { get; set; }
     }
 
     ///<summary>
@@ -4694,256 +4724,256 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member display name", Name="DisplayName", ParameterType="body")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Email address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Email address", Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Username
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Username", Name="UserName", ParameterType="body")]
-        public virtual string UserName { get; set; }
+        public string UserName { get; set; }
 
         ///<summary>
         ///Member first name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member first name", Name="FirstName", ParameterType="body")]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         ///<summary>
         ///Member last name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member last name", Name="LastName", ParameterType="body")]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         ///<summary>
         ///Password
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Password", IsRequired=true, Name="Password", ParameterType="body")]
-        public virtual string Password { get; set; }
+        public string Password { get; set; }
 
         ///<summary>
         ///Role names to be applied
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Role names to be applied", Name="Roles", ParameterType="body")]
-        public virtual List<string> Roles { get; set; }
+        public List<string> Roles { get; set; }
 
         ///<summary>
         ///Full permission tree
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Full permission tree", Name="RolesTree", ParameterType="body")]
-        public virtual List<UserRoleUpdateInput> RolesTree { get; set; }
+        public List<UserRoleUpdateInput> RolesTree { get; set; }
 
         ///<summary>
         ///Login immediately ?
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Login immediately ?", Name="AutoLogin", ParameterType="body")]
-        public virtual bool AutoLogin { get; set; }
+        public bool AutoLogin { get; set; }
 
         ///<summary>
         ///Meta details as JSON object
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Meta details as JSON object", Name="Meta", ParameterType="body")]
-        public virtual string Meta { get; set; }
+        public string Meta { get; set; }
 
         ///<summary>
         ///Main user language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Main user language", Name="Language", ParameterType="body")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///User's time zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's time zone", Name="TimeZone", ParameterType="body")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Should user get marketing emails
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should user get marketing emails", Name="SubscribeToNews", ParameterType="body")]
-        public virtual bool? SubscribeToNews { get; set; }
+        public bool? SubscribeToNews { get; set; }
 
         ///<summary>
         ///User's country
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's country", Name="Country", ParameterType="body")]
-        public virtual string Country { get; set; }
+        public string Country { get; set; }
 
         ///<summary>
         ///User's 2 letter country code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's 2 letter country code", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///User's state / province
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's state / province", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///User's city
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's city", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///User's street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's street address", Name="Address", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///User's secondary street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's secondary street address", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///User's phone number
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's phone number", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///User's company
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company", Name="Company", ParameterType="body")]
-        public virtual string Company { get; set; }
+        public string Company { get; set; }
 
         ///<summary>
         ///User's company code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company code", Name="CompanyCode", ParameterType="body")]
-        public virtual string CompanyCode { get; set; }
+        public string CompanyCode { get; set; }
 
         ///<summary>
         ///User's postal code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's postal code", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///User's gender
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's gender", Name="Gender", ParameterType="body")]
-        public virtual string Gender { get; set; }
+        public string Gender { get; set; }
 
         ///<summary>
         ///User's birthdate
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's birthdate", Name="BirthDate", ParameterType="body")]
-        public virtual string BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         ///<summary>
         ///User's zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's zone", Name="Zone", ParameterType="body")]
-        public virtual string Zone { get; set; }
+        public string Zone { get; set; }
     }
 
     public class RegisterUserV2Response
         : ResponseBase<User>
     {
-        public virtual string BearerToken { get; set; }
+        public string BearerToken { get; set; }
     }
 
     ///<summary>
     ///Database services
     ///</summary>
     [Route("/db/{CollectionName}/replaceOne", "PUT")]
-    [Route("/{version}/db/{collectionName}/replaceOne", "PUT")]
-    [Route("/{version}/db/{collectionName}/replaceOne/{id}", "PUT")]
+    [Route("/{version}/db/{CollectionName}/replaceOne", "PUT")]
+    [Route("/{version}/db/{CollectionName}/replaceOne/{id}", "PUT")]
     [Api(Description="Database services")]
     [DataContract]
     public class ReplaceOneRequest
         : CodeMashDbRequestBase, IReturn<ReplaceOneResponse>
     {
         ///<summary>
-        ///Entity represented as json to replace
+        ///Document to replace with.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Entity represented as json to replace", IsRequired=true, Name="Document", ParameterType="body")]
-        public virtual string Document { get; set; }
+        [ApiMember(DataType="string", Description="Document to replace with.", IsRequired=true, Name="Document", ParameterType="body")]
+        public string Document { get; set; }
 
         ///<summary>
-        ///ID of a record to replace. Required if Filter is empty.
+        ///Find document by Id and replace it.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="ID of a record to replace. Required if Filter is empty.", Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        [ApiMember(DataType="string", Description="Find document by Id and replace it.", Name="Id", ParameterType="path", Route="/{version}/db/{CollectionName}/replaceOne/{id}")]
+        public string Id { get; set; }
 
         ///<summary>
-        ///The selection criteria for the update. The same query selectors as in the Find method are available. - https://docs.mongodb.org/manual/reference/method/db.collection.replaceOne/ . Specify an empty document '{}' to update the first document returned in the collection
+        ///Set the filter (in JSON format) to replace the first document found in the collection. Required when Id is not set.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="The selection criteria for the update. The same query selectors as in the Find method are available. - https://docs.mongodb.org/manual/reference/method/db.collection.replaceOne/ . Specify an empty document '{}' to update the first document returned in the collection", Name="Filter", ParameterType="body")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="Set the filter (in JSON format) to replace the first document found in the collection. Required when Id is not set.", Name="Filter", ParameterType="body")]
+        public string Filter { get; set; }
 
         ///<summary>
-        ///By default file uploads are done after the record is inserted, set to true in case you need to wait for files to be uploaded
+        ///By default file uploads are done after the record is updated, set to true in case you need to wait for files to be uploaded.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default file uploads are done after the record is inserted, set to true in case you need to wait for files to be uploaded", Name="WaitForFileUpload", ParameterType="body")]
-        public virtual bool WaitForFileUpload { get; set; }
+        [ApiMember(DataType="boolean", Description="By default file uploads are done after the record is updated, set to true in case you need to wait for files to be uploaded.", Name="WaitForFileUpload", ParameterType="form")]
+        public bool WaitForFileUpload { get; set; }
 
         ///<summary>
         ///If true, inserts a new record if current record not found
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, inserts a new record if current record not found", Name="IsUpsert", ParameterType="body")]
-        public virtual bool IsUpsert { get; set; }
+        [ApiMember(DataType="boolean", Description="If true, inserts a new record if current record not found", Name="IsUpsert", ParameterType="form")]
+        public bool IsUpsert { get; set; }
 
         ///<summary>
-        ///By default records are validated before insert, set to true to prevent validation
+        ///Records are validated against CodeMash JSON Schema before each update. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default records are validated before insert, set to true to prevent validation", IsRequired=true, Name="BypassDocumentValidation", ParameterType="body")]
-        public virtual bool BypassDocumentValidation { get; set; }
+        [ApiMember(DataType="boolean", Description="Records are validated against CodeMash JSON Schema before each update. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.", IsRequired=true, Name="BypassDocumentValidation", ParameterType="form")]
+        public bool BypassDocumentValidation { get; set; }
 
         ///<summary>
-        ///If true, does not activate triggers
+        ///Triggers are called each time you update the document. You can disable triggers if it's not needed. This is really important when you update the database from trigger itself, so then you can avoid infinite loop.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="body")]
-        public virtual bool IgnoreTriggers { get; set; }
+        [ApiMember(DataType="boolean", Description="Triggers are called each time you update the document. You can disable triggers if it's not needed. This is really important when you update the database from trigger itself, so then you can avoid infinite loop.", Name="IgnoreTriggers", ParameterType="form")]
+        public bool IgnoreTriggers { get; set; }
 
         ///<summary>
-        ///If true, file fields that are passed will expect file ids given from your storage providers.
+        ///If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, file fields that are passed will expect file ids given from your storage providers.", Name="ResolveProviderFiles", ParameterType="body")]
-        public virtual bool ResolveProviderFiles { get; set; }
+        [ApiMember(DataType="boolean", Description="If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.", Name="ResolveProviderFiles", ParameterType="form")]
+        public bool ResolveProviderFiles { get; set; }
     }
 
     public class ReplaceOneResponse
@@ -4959,35 +4989,47 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember(Name="isAcknowledged")]
         [ApiMember(DataType="bool", Description="A boolean acknowledged as true if the operation ran with write concern or false if write concern was disabled", Name="IsAcknowledged")]
-        public virtual bool IsAcknowledged { get; set; }
+        public bool IsAcknowledged { get; set; }
 
         ///<summary>
         ///Checks if modifiedCount is available
         ///</summary>
         [DataMember(Name="isModifiedCountAvailable")]
         [ApiMember(DataType="bool", Description="Checks if modifiedCount is available", Name="IsModifiedCountAvailable")]
-        public virtual bool IsModifiedCountAvailable { get; set; }
+        public bool IsModifiedCountAvailable { get; set; }
 
         ///<summary>
         ///matchedCount containing the number of matched documents
         ///</summary>
         [DataMember(Name="matchedCount")]
         [ApiMember(DataType="bool", Description="matchedCount containing the number of matched documents", Name="MatchedCount")]
-        public virtual long MatchedCount { get; set; }
+        public long MatchedCount { get; set; }
 
         ///<summary>
         ///modifiedCount containing the number of modified documents
         ///</summary>
         [DataMember(Name="modifiedCount")]
         [ApiMember(DataType="long", Description="modifiedCount containing the number of modified documents", Name="ModifiedCount")]
-        public virtual long ModifiedCount { get; set; }
+        public long ModifiedCount { get; set; }
 
         ///<summary>
         ///upsertedId containing the _id for the upserted document
         ///</summary>
         [DataMember(Name="upsertedId")]
         [ApiMember(DataType="string", Description="upsertedId containing the _id for the upserted document", Name="UpsertedId")]
-        public virtual string UpsertedId { get; set; }
+        public string UpsertedId { get; set; }
+    }
+
+    ///<summary>
+    ///Gets one user
+    ///</summary>
+    [Route("/membership/users/verify/resend", "POST")]
+    [Route("/{version}/membership/users/verify/resend", "POST")]
+    [Api(Description="Gets one user")]
+    [DataContract]
+    public class ResendUserVerificationRequest
+        : CodeMashRequestBase, IReturn<GetProfileResponse>
+    {
     }
 
     ///<summary>
@@ -5005,21 +5047,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Secret token received by email for password reset", IsRequired=true, Name="Token", ParameterType="body")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///New user password
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="New user password", IsRequired=true, Name="Password", ParameterType="body")]
-        public virtual string Password { get; set; }
+        public string Password { get; set; }
 
         ///<summary>
         ///New repeated user password
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="New repeated user password", IsRequired=true, Name="RepeatedPassword", ParameterType="body")]
-        public virtual string RepeatedPassword { get; set; }
+        public string RepeatedPassword { get; set; }
     }
 
     public class Role
@@ -5029,9 +5071,9 @@ namespace CodeMash.ServiceContracts.Api
             Policies = new List<Policy>{};
         }
 
-        public virtual string Name { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual List<Policy> Policies { get; set; }
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public List<Policy> Policies { get; set; }
     }
 
     public class Schema
@@ -5041,13 +5083,13 @@ namespace CodeMash.ServiceContracts.Api
             TranslatableFields = new List<string>{};
         }
 
-        public virtual string CollectionNameAsTitle { get; set; }
-        public virtual string CollectionName { get; set; }
-        public virtual string UiSchema { get; set; }
-        public virtual string JsonSchema { get; set; }
-        public virtual List<string> TranslatableFields { get; set; }
-        public virtual Guid DatabaseId { get; set; }
-        public virtual Guid SchemaId { get; set; }
+        public string CollectionNameAsTitle { get; set; }
+        public string CollectionName { get; set; }
+        public string UiSchema { get; set; }
+        public string JsonSchema { get; set; }
+        public List<string> TranslatableFields { get; set; }
+        public Guid DatabaseId { get; set; }
+        public Guid SchemaId { get; set; }
     }
 
     public class SendEmailNotificationV2Response
@@ -5083,91 +5125,91 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="ID of a template to use", IsRequired=true, Name="TemplateId", ParameterType="body")]
-        public virtual Guid TemplateId { get; set; }
+        public Guid TemplateId { get; set; }
 
         ///<summary>
         ///Recipients' email addresses. Emails, Users or Roles are required.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Recipients' email addresses. Emails, Users or Roles are required.", Name="Emails", ParameterType="body")]
-        public virtual List<string> Emails { get; set; }
+        public List<string> Emails { get; set; }
 
         ///<summary>
         ///Recipients' user IDs. Emails, Users or Roles are required.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Recipients' user IDs. Emails, Users or Roles are required.", Name="Users", ParameterType="body")]
-        public virtual List<Guid> Users { get; set; }
+        public List<Guid> Users { get; set; }
 
         ///<summary>
         ///Recipients' roles. Emails, Users or Roles are required.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Recipients' roles. Emails, Users or Roles are required.", Name="Roles", ParameterType="body")]
-        public virtual List<string> Roles { get; set; }
+        public List<string> Roles { get; set; }
 
         ///<summary>
         ///CC recipients' email addresses
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="CC recipients' email addresses", Name="CcEmails", ParameterType="body")]
-        public virtual List<string> CcEmails { get; set; }
+        public List<string> CcEmails { get; set; }
 
         ///<summary>
         ///CC recipients' user IDs
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="CC recipients' user IDs", Name="CcUsers", ParameterType="body")]
-        public virtual List<Guid> CcUsers { get; set; }
+        public List<Guid> CcUsers { get; set; }
 
         ///<summary>
         ///BCC recipients' email addresses
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="BCC recipients' email addresses", Name="BccEmails", ParameterType="body")]
-        public virtual List<string> BccEmails { get; set; }
+        public List<string> BccEmails { get; set; }
 
         ///<summary>
         ///BCC recipients' user IDs
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="BCC recipients' user IDs", Name="BccUsers", ParameterType="body")]
-        public virtual List<Guid> BccUsers { get; set; }
+        public List<Guid> BccUsers { get; set; }
 
         ///<summary>
         ///Custom tokens to inject into template
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Object", Description="Custom tokens to inject into template", Name="Tokens", ParameterType="body")]
-        public virtual Dictionary<string, string> Tokens { get; set; }
+        public Dictionary<string, string> Tokens { get; set; }
 
         ///<summary>
         ///Amount of milliseconds to postpone sending the email
         ///</summary>
         [DataMember]
         [ApiMember(DataType="long", Description="Amount of milliseconds to postpone sending the email", Name="Postpone", ParameterType="body")]
-        public virtual long? Postpone { get; set; }
+        public long? Postpone { get; set; }
 
         ///<summary>
         ///If true, sends an email by recipient's time zone. Postpone needs to be set for this to have an effect. Requires Users or Roles recipients. Default - true
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, sends an email by recipient's time zone. Postpone needs to be set for this to have an effect. Requires Users or Roles recipients. Default - true", Name="RespectTimeZone", ParameterType="body")]
-        public virtual bool RespectTimeZone { get; set; }
+        public bool RespectTimeZone { get; set; }
 
         ///<summary>
         ///If true, will try to send an email using a language from CultureCode instead of user's language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, will try to send an email using a language from CultureCode instead of user's language", Name="ForceRequestLanguage", ParameterType="body")]
-        public virtual bool ForceRequestLanguage { get; set; }
+        public bool ForceRequestLanguage { get; set; }
 
         ///<summary>
         ///File IDs to attach to email message
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="File IDs to attach to email message", Name="Attachments", ParameterType="body")]
-        public virtual List<string> Attachments { get; set; }
+        public List<string> Attachments { get; set; }
     }
 
     ///<summary>
@@ -5193,63 +5235,63 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Template Id", IsRequired=true, Name="TemplateId", ParameterType="form")]
-        public virtual Guid TemplateId { get; set; }
+        public Guid TemplateId { get; set; }
 
         ///<summary>
         ///Recipients list. You can send messages by specifying CodeMash membership users which are combined with devices.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="List", Description="Recipients list. You can send messages by specifying CodeMash membership users which are combined with devices.", Name="Users", ParameterType="body")]
-        public virtual List<Guid> Users { get; set; }
+        public List<Guid> Users { get; set; }
 
         ///<summary>
         ///Messages to be delivered into specified devices.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="List", Description="Messages to be delivered into specified devices.", Name="Devices", ParameterType="body")]
-        public virtual List<Guid> Devices { get; set; }
+        public List<Guid> Devices { get; set; }
 
         ///<summary>
         ///Messages to be delivered to specified roles.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="List", Description="Messages to be delivered to specified roles.", Name="Roles", ParameterType="body")]
-        public virtual List<string> Roles { get; set; }
+        public List<string> Roles { get; set; }
 
         ///<summary>
         ///Custom tokens which are not provided in project
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Custom tokens which are not provided in project", Name="Tokens", ParameterType="body")]
-        public virtual Dictionary<string, string> Tokens { get; set; }
+        public Dictionary<string, string> Tokens { get; set; }
 
         ///<summary>
         ///Amount of milliseconds to postpone pushing the notification.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="long", Description="Amount of milliseconds to postpone pushing the notification.", Name="Postpone", ParameterType="body")]
-        public virtual long? Postpone { get; set; }
+        public long? Postpone { get; set; }
 
         ///<summary>
         ///Respects user's time zone. If false, send by project time zone. Default - true. Postpone needs to be set.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Respects user's time zone. If false, send by project time zone. Default - true. Postpone needs to be set.", Name="RespectTimeZone", ParameterType="body")]
-        public virtual bool RespectTimeZone { get; set; }
+        public bool RespectTimeZone { get; set; }
 
         ///<summary>
         ///If set to true, notification will not be pushed to user's device. Cannot be true if postpone is set.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If set to true, notification will not be pushed to user's device. Cannot be true if postpone is set.", Name="IsNonPushable", ParameterType="body")]
-        public virtual bool IsNonPushable { get; set; }
+        public bool IsNonPushable { get; set; }
 
         ///<summary>
         ///Will try to send a template for language from CultureCode over the user's language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Will try to send a template for language from CultureCode over the user's language", Name="ForceRequestLanguage", ParameterType="body")]
-        public virtual bool ForceRequestLanguage { get; set; }
+        public bool ForceRequestLanguage { get; set; }
     }
 
     public class SendPushNotificationResponse
@@ -5272,14 +5314,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Payment account ID.", IsRequired=true, Name="AccountId", ParameterType="body")]
-        public virtual Guid AccountId { get; set; }
+        public Guid AccountId { get; set; }
 
         ///<summary>
         ///Id of the bank to connect with.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Id of the bank to connect with.", Name="BankId", ParameterType="body")]
-        public virtual string BankId { get; set; }
+        public string BankId { get; set; }
     }
 
     public class StartKevinAuthResponse
@@ -5289,28 +5331,28 @@ namespace CodeMash.ServiceContracts.Api
 
     public class StripePaymentIntent
     {
-        public virtual string PaymentId { get; set; }
-        public virtual string PaymentClientSecret { get; set; }
-        public virtual string Status { get; set; }
-        public virtual decimal Amount { get; set; }
-        public virtual string TransactionId { get; set; }
+        public string PaymentId { get; set; }
+        public string PaymentClientSecret { get; set; }
+        public string Status { get; set; }
+        public decimal Amount { get; set; }
+        public string TransactionId { get; set; }
     }
 
-    public class PaymentSubscription
+    public class Subscription
     {
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string CurrentPeriodStart { get; set; }
-        public virtual string CurrentPeriodEnd { get; set; }
-        public virtual string CanceledAt { get; set; }
-        public virtual bool CancelAtPeriodEnd { get; set; }
-        public virtual string TrialStart { get; set; }
-        public virtual string TrialEnd { get; set; }
-        public virtual string Status { get; set; }
-        public virtual string PlanId { get; set; }
-        public virtual string AppliedCoupon { get; set; }
-        public virtual string PaymentMethodId { get; set; }
-        public virtual string CustomerId { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public string CurrentPeriodStart { get; set; }
+        public string CurrentPeriodEnd { get; set; }
+        public string CanceledAt { get; set; }
+        public bool CancelAtPeriodEnd { get; set; }
+        public string TrialStart { get; set; }
+        public string TrialEnd { get; set; }
+        public string Status { get; set; }
+        public string PlanId { get; set; }
+        public string AppliedCoupon { get; set; }
+        public string PaymentMethodId { get; set; }
+        public string CustomerId { get; set; }
     }
 
     public class Taxonomy
@@ -5321,17 +5363,17 @@ namespace CodeMash.ServiceContracts.Api
             TranslatableFields = new List<string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Title { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string ParentId { get; set; }
-        public virtual List<string> Dependencies { get; set; }
-        public virtual string TermsUiSchema { get; set; }
-        public virtual string TermsJsonSchema { get; set; }
-        public virtual List<string> TranslatableFields { get; set; }
-        public virtual Guid DatabaseId { get; set; }
-        public virtual Guid TaxonomyId { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ParentId { get; set; }
+        public List<string> Dependencies { get; set; }
+        public string TermsUiSchema { get; set; }
+        public string TermsJsonSchema { get; set; }
+        public List<string> TranslatableFields { get; set; }
+        public Guid DatabaseId { get; set; }
+        public Guid TaxonomyId { get; set; }
     }
 
     public class Term
@@ -5344,19 +5386,19 @@ namespace CodeMash.ServiceContracts.Api
             MultiParents = new List<TermMultiParent>{};
         }
 
-        public virtual string TaxonomyId { get; set; }
-        public virtual string TaxonomyName { get; set; }
-        public virtual string Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Description { get; set; }
-        public virtual Dictionary<string, string> Names { get; set; }
-        public virtual Dictionary<string, string> Descriptions { get; set; }
-        public virtual string ParentId { get; set; }
-        public virtual string ParentName { get; set; }
-        public virtual Dictionary<string, string> ParentNames { get; set; }
-        public virtual int? Order { get; set; }
-        public virtual List<TermMultiParent> MultiParents { get; set; }
-        public virtual string Meta { get; set; }
+        public string TaxonomyId { get; set; }
+        public string TaxonomyName { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Dictionary<string, string> Names { get; set; }
+        public Dictionary<string, string> Descriptions { get; set; }
+        public string ParentId { get; set; }
+        public string ParentName { get; set; }
+        public Dictionary<string, string> ParentNames { get; set; }
+        public int? Order { get; set; }
+        public List<TermMultiParent> MultiParents { get; set; }
+        public string Meta { get; set; }
     }
 
     public class TermMultiParent
@@ -5366,17 +5408,17 @@ namespace CodeMash.ServiceContracts.Api
             Names = new Dictionary<string, string>{};
         }
 
-        public virtual string ParentId { get; set; }
-        public virtual string TaxonomyId { get; set; }
-        public virtual string Name { get; set; }
-        public virtual Dictionary<string, string> Names { get; set; }
+        public string ParentId { get; set; }
+        public string TaxonomyId { get; set; }
+        public string Name { get; set; }
+        public Dictionary<string, string> Names { get; set; }
     }
 
     public class Token
     {
-        public virtual string Key { get; set; }
-        public virtual string Value { get; set; }
-        public virtual string Owner { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
+        public string Owner { get; set; }
     }
 
     ///<summary>
@@ -5394,49 +5436,49 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Mode to use for authentication", Name="Mode", ParameterType="query")]
-        public virtual string Mode { get; set; }
+        public string Mode { get; set; }
 
         ///<summary>
         ///Code received from Twitter services
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Code received from Twitter services", Name="Code", ParameterType="query")]
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
         ///<summary>
         ///State received with a code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="State received with a code", Name="State", ParameterType="query")]
-        public virtual string State { get; set; }
+        public string State { get; set; }
 
         ///<summary>
         ///When transferring access token from client app
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="When transferring access token from client app", Name="AccessToken", ParameterType="query")]
-        public virtual string AccessToken { get; set; }
+        public string AccessToken { get; set; }
 
         ///<summary>
         ///When transferring access token from client app
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="When transferring access token from client app", Name="AccessTokenSecret", ParameterType="query")]
-        public virtual string AccessTokenSecret { get; set; }
+        public string AccessTokenSecret { get; set; }
 
         ///<summary>
         ///Auth token
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Auth token", Name="OAuthToken", ParameterType="query")]
-        public virtual string OAuthToken { get; set; }
+        public string OAuthToken { get; set; }
 
         ///<summary>
         ///Auth verifier
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Auth verifier", Name="OAuthVerifier", ParameterType="query")]
-        public virtual string OAuthVerifier { get; set; }
+        public string OAuthVerifier { get; set; }
     }
 
     public class TwitterAuthenticationResponse
@@ -5459,7 +5501,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User Id", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
     }
 
     ///<summary>
@@ -5482,84 +5524,84 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Customer's phone. Overrides user's phone.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's phone. Overrides user's phone.", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///Customer's full name. Overrides user's name.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's full name. Overrides user's name.", Name="Name", ParameterType="body")]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         ///<summary>
         ///Customer's description.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's description.", Name="Description", ParameterType="body")]
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
         ///<summary>
         ///Customer's email. Overrides user's email.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's email. Overrides user's email.", Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Customer's city. Overrides user's city.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's city. Overrides user's city.", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///Customer's country. Overrides user's country.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's country. Overrides user's country.", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///Customer's address 1. Overrides user's address 1.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's address 1. Overrides user's address 1.", Name="Address1", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///Customer's address 2. Overrides user's address 2.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's address 2. Overrides user's address 2.", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///Customer's postal code. Overrides user's postal code.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's postal code. Overrides user's postal code.", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///Customer's state. Overrides user's area.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's state. Overrides user's area.", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///Additional key, value data.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Additional key, value data.", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     ///<summary>
@@ -5582,14 +5624,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device Id", IsRequired=true, Name="Id", ParameterType="form")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         ///<summary>
         ///Device Id
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Dictionary", Description="Device Id", IsRequired=true, Name="Id", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     public class UpdateDeviceMetaResponse
@@ -5617,56 +5659,56 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device id or device key", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Device operating system
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device operating system", Name="OperatingSystem", ParameterType="body")]
-        public virtual string OperatingSystem { get; set; }
+        public string OperatingSystem { get; set; }
 
         ///<summary>
         ///Device brand
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device brand", Name="Brand", ParameterType="body")]
-        public virtual string Brand { get; set; }
+        public string Brand { get; set; }
 
         ///<summary>
         ///Device name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device name", Name="DeviceName", ParameterType="body")]
-        public virtual string DeviceName { get; set; }
+        public string DeviceName { get; set; }
 
         ///<summary>
         ///Device timezone, expects to get a TZ database name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device timezone, expects to get a TZ database name", Name="TimeZone", ParameterType="body")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Device language, expects to get a 2 letter identifier
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device language, expects to get a 2 letter identifier", Name="Language", ParameterType="body")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///Device locale
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device locale", Name="Locale", ParameterType="body")]
-        public virtual string Locale { get; set; }
+        public string Locale { get; set; }
 
         ///<summary>
         ///Meta information that comes from device. Pass an empty object to delete.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Object", Description="Meta information that comes from device. Pass an empty object to delete.", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     ///<summary>
@@ -5684,14 +5726,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Device Id", IsRequired=true, Name="Id", ParameterType="form")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         ///<summary>
         ///In which time zone device is registered. If we are aware of location, we can provide notifications in right time frame.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="In which time zone device is registered. If we are aware of location, we can provide notifications in right time frame.", Name="TimeZone", ParameterType="form")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
     }
 
     public class UpdateDeviceTimeZoneResponse
@@ -5714,14 +5756,14 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Device Id or device key", IsRequired=true, Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///User Id
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User Id", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
     }
 
     public class UpdateDeviceUserResponse
@@ -5754,172 +5796,172 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Id of discount.", IsRequired=true, Name="Id", ParameterType="body")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Display name of the discount.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Display name of the discount.", Name="DisplayName", ParameterType="body")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Start date of being active.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="long", Description="Start date of being active.", Name="ValidFrom", ParameterType="body")]
-        public virtual long? ValidFrom { get; set; }
+        public long? ValidFrom { get; set; }
 
         ///<summary>
         ///End date of being active.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="long", Description="End date of being active.", Name="ValidUntil", ParameterType="body")]
-        public virtual long? ValidUntil { get; set; }
+        public long? ValidUntil { get; set; }
 
         ///<summary>
         ///Restriction type of discount. Can be Fixed, Percentage, Price or Quantity.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Restriction type of discount. Can be Fixed, Percentage, Price or Quantity.", Name="RestrictionType", ParameterType="body")]
-        public virtual string RestrictionType { get; set; }
+        public string RestrictionType { get; set; }
 
         ///<summary>
         ///Discount amount for Fixed or Percentage restriction types.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="double", Description="Discount amount for Fixed or Percentage restriction types.", Name="Amount", ParameterType="body")]
-        public virtual double? Amount { get; set; }
+        public double? Amount { get; set; }
 
         ///<summary>
         ///Discount amounts for Price or Quantity restriction types.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Discount amounts for Price or Quantity restriction types.", Name="Boundaries", ParameterType="body")]
-        public virtual List<PaymentDiscountBoundary> Boundaries { get; set; }
+        public List<PaymentDiscountBoundary> Boundaries { get; set; }
 
         ///<summary>
         ///Target type for specific records. Can be All, Category, Individual.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Target type for specific records. Can be All, Category, Individual.", Name="TargetType", ParameterType="body")]
-        public virtual string TargetType { get; set; }
+        public string TargetType { get; set; }
 
         ///<summary>
         ///Records for Individual target type.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Records for Individual target type.", Name="Records", ParameterType="body")]
-        public virtual List<string> Records { get; set; }
+        public List<string> Records { get; set; }
 
         ///<summary>
         ///Collection field for Category target type.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Collection field for Category target type.", Name="CategoryField", ParameterType="body")]
-        public virtual string CategoryField { get; set; }
+        public string CategoryField { get; set; }
 
         ///<summary>
         ///Values for Category target type.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Values for Category target type.", Name="CategoryValues", ParameterType="body")]
-        public virtual List<string> CategoryValues { get; set; }
+        public List<string> CategoryValues { get; set; }
 
         ///<summary>
         ///Limitations for discounts to be used only with certain payment accounts.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Limitations for discounts to be used only with certain payment accounts.", Name="PaymentAccounts", ParameterType="body")]
-        public virtual List<string> PaymentAccounts { get; set; }
+        public List<string> PaymentAccounts { get; set; }
 
         ///<summary>
         ///Users who can redeem this discount.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Users who can redeem this discount.", Name="Users", ParameterType="body")]
-        public virtual List<string> Users { get; set; }
+        public List<string> Users { get; set; }
 
         ///<summary>
         ///Emails for potential users who can redeem this discount. When user registers with one of the provided emails, he will be allowed to use this discount. Doesn't work with existing users.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="array", Description="Emails for potential users who can redeem this discount. When user registers with one of the provided emails, he will be allowed to use this discount. Doesn't work with existing users.", Name="Users", ParameterType="body")]
-        public virtual List<string> Emails { get; set; }
+        public List<string> Emails { get; set; }
 
         ///<summary>
         ///Amount of times that the same user can redeem.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="integer", Description="Amount of times that the same user can redeem.", Format="int32", Name="UserCanRedeem", ParameterType="body")]
-        public virtual int? UserCanRedeem { get; set; }
+        public int? UserCanRedeem { get; set; }
 
         ///<summary>
         ///Amount of times in total this discount can be redeemed.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="integer", Description="Amount of times in total this discount can be redeemed.", Format="int32", Name="TotalCanRedeem", ParameterType="body")]
-        public virtual int? TotalCanRedeem { get; set; }
+        public int? TotalCanRedeem { get; set; }
 
         ///<summary>
         ///Should the discount be enabled.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should the discount be enabled.", Name="Enabled", ParameterType="body")]
-        public virtual bool? Enabled { get; set; }
+        public bool? Enabled { get; set; }
 
         ///<summary>
         ///Should the discount be combined with other discounts
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should the discount be combined with other discounts", Name="CombineDiscounts", ParameterType="body")]
-        public virtual bool? CombineDiscounts { get; set; }
+        public bool? CombineDiscounts { get; set; }
     }
 
     ///<summary>
     ///Database services
     ///</summary>
-    [Route("/db/{collectionName}/bulk", "PATCH")]
-    [Route("/{version}/db/{collectionName}/bulk", "PATCH")]
+    [Route("/db/{CollectionName}/bulk", "PATCH")]
+    [Route("/{version}/db/{CollectionName}/bulk", "PATCH")]
     [Api(Description="Database services")]
     [DataContract]
     public class UpdateManyRequest
         : CodeMashDbRequestBase, IReturn<UpdateManyResponse>
     {
         ///<summary>
-        ///The modifications to apply. Use Update Operators such as $set, $unset, or $rename.
+        ///The modifications to apply. Use update operators such as $set, $unset, or $rename.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="The modifications to apply. Use Update Operators such as $set, $unset, or $rename.", IsRequired=true, Name="Update", ParameterType="body")]
-        public virtual string Update { get; set; }
+        [ApiMember(DataType="string", Description="The modifications to apply. Use update operators such as $set, $unset, or $rename.", IsRequired=true, Name="Update", ParameterType="body")]
+        public string Update { get; set; }
 
         ///<summary>
-        ///The selection criteria for the update. The same query selectors as in the Find method are available. - https://docs.mongodb.org/manual/reference/method/db.collection.updateMany/#db.collection.updateMany . Specify an empty document '{}' to update the first document returned in the collection
+        ///Specify filter (in JSON format) to filter out documents and update them all.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="The selection criteria for the update. The same query selectors as in the Find method are available. - https://docs.mongodb.org/manual/reference/method/db.collection.updateMany/#db.collection.updateMany . Specify an empty document '{}' to update the first document returned in the collection", IsRequired=true, Name="Filter", ParameterType="body")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="Specify filter (in JSON format) to filter out documents and update them all.", IsRequired=true, Name="Filter", ParameterType="body")]
+        public string Filter { get; set; }
 
         ///<summary>
-        ///By default records are validated before insert, set to true to prevent validation
+        ///Records are validated against CodeMash JSON Schema before each update. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default records are validated before insert, set to true to prevent validation", Name="BypassDocumentValidation", ParameterType="body")]
-        public virtual bool BypassDocumentValidation { get; set; }
+        [ApiMember(DataType="boolean", Description="Records are validated against CodeMash JSON Schema before each update. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.", Name="BypassDocumentValidation", ParameterType="form")]
+        public bool BypassDocumentValidation { get; set; }
 
         ///<summary>
-        ///If true, does not activate triggers
+        ///Triggers are called each time you update the document. You can disable triggers if it's not needed. This is really important when you update the database from trigger itself, so then you can avoid infinite loop.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="body")]
-        public virtual bool IgnoreTriggers { get; set; }
+        [ApiMember(DataType="boolean", Description="Triggers are called each time you update the document. You can disable triggers if it's not needed. This is really important when you update the database from trigger itself, so then you can avoid infinite loop.", Name="IgnoreTriggers", ParameterType="form")]
+        public bool IgnoreTriggers { get; set; }
 
         ///<summary>
-        ///If true, file fields that are passed will expect file ids given from your storage providers.
+        ///If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, file fields that are passed will expect file ids given from your storage providers.", Name="ResolveProviderFiles", ParameterType="body")]
-        public virtual bool ResolveProviderFiles { get; set; }
+        [ApiMember(DataType="boolean", Description="If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.", Name="ResolveProviderFiles", ParameterType="form")]
+        public bool ResolveProviderFiles { get; set; }
     }
 
     public class UpdateManyResponse
@@ -5930,63 +5972,63 @@ namespace CodeMash.ServiceContracts.Api
     ///<summary>
     ///Database services
     ///</summary>
-    [Route("/db/{collectionName}", "PATCH")]
-    [Route("/db/{collectionName}/{id}", "PATCH")]
-    [Route("/{version}/db/{collectionName}", "PATCH")]
-    [Route("/{version}/db/{collectionName}/{id}", "PATCH")]
+    [Route("/db/{CollectionName}", "PATCH")]
+    [Route("/db/{CollectionName}/{id}", "PATCH")]
+    [Route("/{version}/db/{CollectionName}", "PATCH")]
+    [Route("/{version}/db/{CollectionName}/{Id}", "PATCH")]
     [Api(Description="Database services")]
     [DataContract]
     public class UpdateOneRequest
         : CodeMashDbRequestBase, IReturn<UpdateOneResponse>
     {
         ///<summary>
-        ///ID of record to update. Required if Filter is empty.
+        ///Id of a record to update. Required if filter is empty.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="ID of record to update. Required if Filter is empty.", Name="Id", ParameterType="path")]
-        public virtual string Id { get; set; }
+        [ApiMember(DataType="string", Description="Id of a record to update. Required if filter is empty.", Name="Id", ParameterType="path", Route="/{version}/db/{CollectionName}/{Id}")]
+        public string Id { get; set; }
 
         ///<summary>
-        ///The modifications to apply. Use Update Operators such as $set, $unset, or $rename.
+        ///The modifications to apply. Use update operators such as $set, $unset, or $rename.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="The modifications to apply. Use Update Operators such as $set, $unset, or $rename.", IsRequired=true, Name="Update", ParameterType="body")]
-        public virtual string Update { get; set; }
+        [ApiMember(DataType="string", Description="The modifications to apply. Use update operators such as $set, $unset, or $rename.", IsRequired=true, Name="Update", ParameterType="body")]
+        public string Update { get; set; }
 
         ///<summary>
-        ///The selection criteria for the update. Required if Id is empty.
+        ///Set the filter (in JSON format) to update the first document found in the collection. Required when Id is not set.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="The selection criteria for the update. Required if Id is empty.", Name="Filter", ParameterType="body")]
-        public virtual string Filter { get; set; }
+        [ApiMember(DataType="string", Description="Set the filter (in JSON format) to update the first document found in the collection. Required when Id is not set.", Name="Filter", ParameterType="body", Route="/{version}/db/{CollectionName}")]
+        public string Filter { get; set; }
 
         ///<summary>
-        ///By default file uploads are done after the record is inserted, set to true in case you need to wait for files to be uploaded
+        ///By default file uploads are done after the record is updated, set to true in case you need to wait for files to be uploaded.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default file uploads are done after the record is inserted, set to true in case you need to wait for files to be uploaded", Name="WaitForFileUpload", ParameterType="body")]
-        public virtual bool WaitForFileUpload { get; set; }
+        [ApiMember(DataType="boolean", Description="By default file uploads are done after the record is updated, set to true in case you need to wait for files to be uploaded.", Name="WaitForFileUpload", ParameterType="form")]
+        public bool WaitForFileUpload { get; set; }
 
         ///<summary>
-        ///By default records are validated before insert, set to true to prevent validation
+        ///Records are validated against CodeMash JSON Schema before each update. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="By default records are validated before insert, set to true to prevent validation", IsRequired=true, Name="BypassDocumentValidation", ParameterType="body")]
-        public virtual bool BypassDocumentValidation { get; set; }
+        [ApiMember(DataType="boolean", Description="Records are validated against CodeMash JSON Schema before each update. That can slow down API performance. If you have already validated your data with JSON Schema and you can assure of data integrity, you can bypass document validation by setting this property to true.", IsRequired=true, Name="BypassDocumentValidation", ParameterType="form")]
+        public bool BypassDocumentValidation { get; set; }
 
         ///<summary>
-        ///If true, does not activate triggers
+        ///Triggers are called each time you update the document. You can disable triggers if it's not needed. This is really important when you update the database from trigger itself, so then you can avoid infinite loop.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="body")]
-        public virtual bool IgnoreTriggers { get; set; }
+        [ApiMember(DataType="boolean", Description="Triggers are called each time you update the document. You can disable triggers if it's not needed. This is really important when you update the database from trigger itself, so then you can avoid infinite loop.", Name="IgnoreTriggers", ParameterType="form")]
+        public bool IgnoreTriggers { get; set; }
 
         ///<summary>
-        ///If true, file fields that are passed will expect file ids given from your storage providers.
+        ///If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="bool", Description="If true, file fields that are passed will expect file ids given from your storage providers.", Name="ResolveProviderFiles", ParameterType="body")]
-        public virtual bool ResolveProviderFiles { get; set; }
+        [ApiMember(DataType="boolean", Description="If your document has file field(s), then you set field value with Id that comes from your file storage provider. E.g.: When your file provider is AWS S3, so then you can set field value to S3 file key, and this will be automatically combined between your file service provider and CodeMash.", Name="ResolveProviderFiles", ParameterType="form")]
+        public bool ResolveProviderFiles { get; set; }
     }
 
     public class UpdateOneResponse
@@ -6009,21 +6051,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User whose password to change.", Name="UserId", ParameterType="body")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///Current password
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Current password", Name="CurrentPassword", ParameterType="body")]
-        public virtual string CurrentPassword { get; set; }
+        public string CurrentPassword { get; set; }
 
         ///<summary>
         ///New password
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="New password", IsRequired=true, Name="Password", ParameterType="body")]
-        public virtual string Password { get; set; }
+        public string Password { get; set; }
     }
 
     ///<summary>
@@ -6046,91 +6088,91 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's ID.", IsRequired=true, Name="Id", ParameterType="query")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Customer's ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", Name="CustomerId", ParameterType="query")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Payment method's phone. Overrides user's phone.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's phone. Overrides user's phone.", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///Payment method's full name. Overrides user's name.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's full name. Overrides user's name.", Name="Name", ParameterType="body")]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         ///<summary>
         ///Payment method's description.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's description.", Name="Description", ParameterType="body")]
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
         ///<summary>
         ///Payment method's email. Overrides user's email.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's email. Overrides user's email.", Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Payment method's city. Overrides user's city.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's city. Overrides user's city.", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///Payment method's country. Overrides user's country.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's country. Overrides user's country.", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///Payment method's address 1. Overrides user's address 1.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's address 1. Overrides user's address 1.", Name="Address1", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///Payment method's address 2. Overrides user's address 2.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's address 2. Overrides user's address 2.", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///Payment method's postal code. Overrides user's postal code.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's postal code. Overrides user's postal code.", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///Payment method's state. Overrides user's area.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's state. Overrides user's area.", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///Additional key, value data.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Additional key, value data.", Name="Meta", ParameterType="body")]
-        public virtual Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
     }
 
     ///<summary>
@@ -6153,155 +6195,155 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Guest email. Will not work for normal user.", Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Member first name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member first name", Name="FirstName", ParameterType="form")]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         ///<summary>
         ///Member last name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member last name", Name="LastName", ParameterType="form")]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         ///<summary>
         ///Member display name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member display name", Name="DisplayName", ParameterType="form")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Meta details as JSON object
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Meta details as JSON object", Name="Meta", ParameterType="form")]
-        public virtual string Meta { get; set; }
+        public string Meta { get; set; }
 
         ///<summary>
         ///Main user language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Main user language", Name="Language", ParameterType="form")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///User's time zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's time zone", Name="TimeZone", ParameterType="form")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Should user get marketing emails
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should user get marketing emails", Name="SubscribeToNews", ParameterType="form")]
-        public virtual bool? SubscribeToNews { get; set; }
+        public bool? SubscribeToNews { get; set; }
 
         ///<summary>
         ///Marketing email types to unsubscribe from
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Marketing email types to unsubscribe from", Name="UnsubscribedNewsTags", ParameterType="form")]
-        public virtual List<string> UnsubscribedNewsTags { get; set; }
+        public List<string> UnsubscribedNewsTags { get; set; }
 
         ///<summary>
         ///User's country
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's country", Name="Country", ParameterType="body")]
-        public virtual string Country { get; set; }
+        public string Country { get; set; }
 
         ///<summary>
         ///User's 2 letter country code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's 2 letter country code", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///User's state / province
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's state / province", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///User's city
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's city", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///User's street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's street address", Name="Address", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///User's secondary street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's secondary street address", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///User's phone number
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's phone number", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///User's company
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company", Name="Company", ParameterType="body")]
-        public virtual string Company { get; set; }
+        public string Company { get; set; }
 
         ///<summary>
         ///User's company code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company code", Name="CompanyCode", ParameterType="body")]
-        public virtual string CompanyCode { get; set; }
+        public string CompanyCode { get; set; }
 
         ///<summary>
         ///User's postal code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's postal code", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///User's gender
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's gender", Name="Gender", ParameterType="body")]
-        public virtual string Gender { get; set; }
+        public string Gender { get; set; }
 
         ///<summary>
         ///User's birthdate
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's birthdate", Name="BirthDate", ParameterType="body")]
-        public virtual string BirthDate { get; set; }
+        public string BirthDate { get; set; }
     }
 
     public class UpdateResult
     {
-        public virtual bool IsAcknowledged { get; set; }
-        public virtual long MatchedCount { get; set; }
-        public virtual long ModifiedCount { get; set; }
-        public virtual string UpsertedId { get; set; }
+        public bool IsAcknowledged { get; set; }
+        public long MatchedCount { get; set; }
+        public long ModifiedCount { get; set; }
+        public string UpsertedId { get; set; }
     }
 
     ///<summary>
@@ -6319,43 +6361,43 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Subscription ID.", IsRequired=true, Name="SubscriptionId", ParameterType="path")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Customer's ID.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Customer's ID.", IsRequired=true, Name="CustomerId", ParameterType="path")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Discount coupon ID if supported.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Discount coupon ID if supported.", Name="Coupon", ParameterType="body")]
-        public virtual string Coupon { get; set; }
+        public string Coupon { get; set; }
 
         ///<summary>
         ///Payment method's ID to use for subscription.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment method's ID to use for subscription.", Name="PaymentMethodId", ParameterType="body")]
-        public virtual string PaymentMethodId { get; set; }
+        public string PaymentMethodId { get; set; }
 
         ///<summary>
         ///If subscription is set to cancel at period end, renews the subscription.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If subscription is set to cancel at period end, renews the subscription.", Name="RenewCanceled", ParameterType="body")]
-        public virtual bool RenewCanceled { get; set; }
+        public bool RenewCanceled { get; set; }
     }
 
     ///<summary>
     ///Membership
     ///</summary>
     [Route("/membership/users", "PATCH PUT")]
-    [Route("/{version}/membership/users", "PATCH PUT")]
     [Route("/membership/users/{id}", "PATCH PUT")]
+    [Route("/{version}/membership/users", "PATCH PUT")]
     [Route("/{version}/membership/users/{id}", "PATCH PUT")]
     [Api(Description="Membership")]
     [DataContract]
@@ -6374,175 +6416,175 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="User Id", IsRequired=true, Name="Id", ParameterType="body")]
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         ///<summary>
         ///Guest email. Will not work for normal user.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Guest email. Will not work for normal user.", Name="Email", ParameterType="body")]
-        public virtual string Email { get; set; }
+        public string Email { get; set; }
 
         ///<summary>
         ///Member first name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member first name", Name="FirstName", ParameterType="body")]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         ///<summary>
         ///Member last name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member last name", Name="LastName", ParameterType="body")]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         ///<summary>
         ///Member display name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Member display name", Name="DisplayName", ParameterType="body")]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         ///<summary>
         ///Role names to be applied
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Role names to be applied", Name="Roles", ParameterType="body")]
-        public virtual List<string> Roles { get; set; }
+        public List<string> Roles { get; set; }
 
         ///<summary>
         ///Full permission tree
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Full permission tree", Name="RolesTree", ParameterType="body")]
-        public virtual List<UserRoleUpdateInput> RolesTree { get; set; }
+        public List<UserRoleUpdateInput> RolesTree { get; set; }
 
         ///<summary>
         ///Meta details as JSON object
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Meta details as JSON object", Name="Meta", ParameterType="body")]
-        public virtual string Meta { get; set; }
+        public string Meta { get; set; }
 
         ///<summary>
         ///Main user language
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Main user language", Name="Language", ParameterType="body")]
-        public virtual string Language { get; set; }
+        public string Language { get; set; }
 
         ///<summary>
         ///User's time zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's time zone", Name="TimeZone", ParameterType="body")]
-        public virtual string TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         ///<summary>
         ///Should user get marketing emails
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="Should user get marketing emails", Name="SubscribeToNews", ParameterType="body")]
-        public virtual bool? SubscribeToNews { get; set; }
+        public bool? SubscribeToNews { get; set; }
 
         ///<summary>
         ///Marketing email types to unsubscribe from
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Array", Description="Marketing email types to unsubscribe from", Name="UnsubscribedNewsTags", ParameterType="body")]
-        public virtual List<string> UnsubscribedNewsTags { get; set; }
+        public List<string> UnsubscribedNewsTags { get; set; }
 
         ///<summary>
         ///User's country
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's country", Name="Country", ParameterType="body")]
-        public virtual string Country { get; set; }
+        public string Country { get; set; }
 
         ///<summary>
         ///User's 2 letter country code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's 2 letter country code", Name="CountryCode", ParameterType="body")]
-        public virtual string CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         ///<summary>
         ///User's state / province
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's state / province", Name="Area", ParameterType="body")]
-        public virtual string Area { get; set; }
+        public string Area { get; set; }
 
         ///<summary>
         ///User's city
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's city", Name="City", ParameterType="body")]
-        public virtual string City { get; set; }
+        public string City { get; set; }
 
         ///<summary>
         ///User's street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's street address", Name="Address", ParameterType="body")]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
         ///<summary>
         ///User's secondary street address
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's secondary street address", Name="Address2", ParameterType="body")]
-        public virtual string Address2 { get; set; }
+        public string Address2 { get; set; }
 
         ///<summary>
         ///User's phone number
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's phone number", Name="Phone", ParameterType="body")]
-        public virtual string Phone { get; set; }
+        public string Phone { get; set; }
 
         ///<summary>
         ///User's company
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company", Name="Company", ParameterType="body")]
-        public virtual string Company { get; set; }
+        public string Company { get; set; }
 
         ///<summary>
         ///User's company code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's company code", Name="CompanyCode", ParameterType="body")]
-        public virtual string CompanyCode { get; set; }
+        public string CompanyCode { get; set; }
 
         ///<summary>
         ///User's postal code
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's postal code", Name="PostalCode", ParameterType="body")]
-        public virtual string PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         ///<summary>
         ///User's gender
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's gender", Name="Gender", ParameterType="body")]
-        public virtual string Gender { get; set; }
+        public string Gender { get; set; }
 
         ///<summary>
         ///User's birthdate
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's birthdate", Name="BirthDate", ParameterType="body")]
-        public virtual string BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         ///<summary>
         ///User's zone
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User's zone", Name="Zone", ParameterType="body")]
-        public virtual string Zone { get; set; }
+        public string Zone { get; set; }
     }
 
     ///<summary>
@@ -6560,29 +6602,29 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Path of directory to store the file into. Leave it as empty to store file into root directory", IsRequired=true, Name="Path", ParameterType="form")]
-        public virtual string Path { get; set; }
+        public string Path { get; set; }
 
         ///<summary>
         ///Alternative way to upload a file by providing a base64 encoded string
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Alternative way to upload a file by providing a base64 encoded string", Name="Base64File", ParameterType="body")]
-        public virtual Base64FileUpload Base64File { get; set; }
+        public Base64FileUpload Base64File { get; set; }
 
         ///<summary>
         ///File account ID. If not provided, default account will be used.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="File account ID. If not provided, default account will be used.", Name="AccountId", ParameterType="body")]
-        public virtual Guid? AccountId { get; set; }
+        public Guid? AccountId { get; set; }
     }
 
     public class UploadFileResponse
         : ResponseBase<File>
     {
-        public virtual string Key { get; set; }
-        public virtual string Name { get; set; }
-        public virtual long UploadDate { get; set; }
+        public string Key { get; set; }
+        public string Name { get; set; }
+        public long UploadDate { get; set; }
     }
 
     ///<summary>
@@ -6600,27 +6642,27 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of an order to upload this file for.", IsRequired=true, Name="Id", ParameterType="form")]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         ///<summary>
         ///Category of a file inside order.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Category of a file inside order.", Name="Category", ParameterType="form")]
-        public virtual string Category { get; set; }
+        public string Category { get; set; }
 
         ///<summary>
         ///Alternative way to upload a file by providing a base64 encoded string
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Alternative way to upload a file by providing a base64 encoded string", Name="Base64File", ParameterType="body")]
-        public virtual Base64FileUpload Base64File { get; set; }
+        public Base64FileUpload Base64File { get; set; }
     }
 
     public class UploadOrderFileResponse
         : ResponseBase<File>
     {
-        public virtual string Key { get; set; }
+        public string Key { get; set; }
     }
 
     ///<summary>
@@ -6638,34 +6680,34 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of a record to upload this file for. If empty, creates a temporary file which then can be saved during record operations.", Name="RecordId", ParameterType="form")]
-        public virtual string RecordId { get; set; }
+        public string RecordId { get; set; }
 
         ///<summary>
         ///Record file field name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Record file field name", IsRequired=true, Name="UniqueFieldName", ParameterType="form")]
-        public virtual string UniqueFieldName { get; set; }
+        public string UniqueFieldName { get; set; }
 
         ///<summary>
         ///Alternative way to upload a file by providing a base64 encoded string
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Alternative way to upload a file by providing a base64 encoded string", Name="Base64File", ParameterType="body")]
-        public virtual Base64FileUpload Base64File { get; set; }
+        public Base64FileUpload Base64File { get; set; }
 
         ///<summary>
         ///If true, does not activate triggers
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, does not activate triggers", Name="IgnoreTriggers", ParameterType="body")]
-        public virtual bool IgnoreTriggers { get; set; }
+        public bool IgnoreTriggers { get; set; }
     }
 
     public class UploadRecordFileResponse
         : ResponseBase<File>
     {
-        public virtual string Key { get; set; }
+        public string Key { get; set; }
     }
 
     ///<summary>
@@ -6683,20 +6725,20 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Channel to send message to", IsRequired=true, Name="ChannelId", ParameterType="form")]
-        public virtual string ChannelId { get; set; }
+        public string ChannelId { get; set; }
 
         ///<summary>
         ///Alternative way to upload a file by providing a base64 encoded string
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Alternative way to upload a file by providing a base64 encoded string", Name="Base64File", ParameterType="body")]
-        public virtual Base64FileUpload Base64File { get; set; }
+        public Base64FileUpload Base64File { get; set; }
     }
 
     public class UploadSseMessageFileResponse
         : ResponseBase<File>
     {
-        public virtual string Key { get; set; }
+        public string Key { get; set; }
     }
 
     ///<summary>
@@ -6714,27 +6756,27 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of a user to upload this file for. If empty, creates a temporary file which then can be saved during user save operations.", Name="UserId", ParameterType="form")]
-        public virtual Guid? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         ///<summary>
         ///User meta file field name
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="User meta file field name", IsRequired=true, Name="MetaFieldName", ParameterType="form")]
-        public virtual string MetaFieldName { get; set; }
+        public string MetaFieldName { get; set; }
 
         ///<summary>
         ///Alternative way to upload a file by providing a base64 encoded string
         ///</summary>
         [DataMember]
         [ApiMember(DataType="object", Description="Alternative way to upload a file by providing a base64 encoded string", Name="Base64File", ParameterType="body")]
-        public virtual Base64FileUpload Base64File { get; set; }
+        public Base64FileUpload Base64File { get; set; }
     }
 
     public class UploadUserFileResponse
         : ResponseBase<File>
     {
-        public virtual string Key { get; set; }
+        public string Key { get; set; }
     }
 
     public class User
@@ -6747,46 +6789,46 @@ namespace CodeMash.ServiceContracts.Api
             UnsubscribedNewsTags = new List<string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string ModifiedOn { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string Email { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual List<Role> Roles { get; set; }
-        public virtual List<Device> Devices { get; set; }
-        public virtual bool RolesEditable { get; set; }
-        public virtual string Status { get; set; }
-        public virtual string Type { get; set; }
-        public virtual string Meta { get; set; }
-        public virtual string Language { get; set; }
-        public virtual string TimeZone { get; set; }
-        public virtual string Country { get; set; }
-        public virtual string CountryCode { get; set; }
-        public virtual string Area { get; set; }
-        public virtual string City { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Address2 { get; set; }
-        public virtual string Phone { get; set; }
-        public virtual string Company { get; set; }
-        public virtual string CompanyCode { get; set; }
-        public virtual string PostalCode { get; set; }
-        public virtual string Gender { get; set; }
-        public virtual string BirthDate { get; set; }
-        public virtual string Zone { get; set; }
-        public virtual List<UserAuthProvider> AuthProviders { get; set; }
-        public virtual bool HasCredentials { get; set; }
-        public virtual bool SubscribedToNews { get; set; }
-        public virtual List<string> UnsubscribedNewsTags { get; set; }
-        public virtual long? UnreadNotifications { get; set; }
+        public string Id { get; set; }
+        public string CreatedOn { get; set; }
+        public string ModifiedOn { get; set; }
+        public string DisplayName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string UserName { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<Device> Devices { get; set; }
+        public bool RolesEditable { get; set; }
+        public string Status { get; set; }
+        public string Type { get; set; }
+        public string Meta { get; set; }
+        public string Language { get; set; }
+        public string TimeZone { get; set; }
+        public string Country { get; set; }
+        public string CountryCode { get; set; }
+        public string Area { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Phone { get; set; }
+        public string Company { get; set; }
+        public string CompanyCode { get; set; }
+        public string PostalCode { get; set; }
+        public string Gender { get; set; }
+        public string BirthDate { get; set; }
+        public string Zone { get; set; }
+        public List<UserAuthProvider> AuthProviders { get; set; }
+        public bool HasCredentials { get; set; }
+        public bool SubscribedToNews { get; set; }
+        public List<string> UnsubscribedNewsTags { get; set; }
+        public long? UnreadNotifications { get; set; }
     }
 
     public class UserAuthProvider
     {
-        public virtual string Provider { get; set; }
-        public virtual string UserId { get; set; }
+        public string Provider { get; set; }
+        public string UserId { get; set; }
     }
 
     public class UserPolicyUpdateInput
@@ -6796,8 +6838,8 @@ namespace CodeMash.ServiceContracts.Api
             Permissions = new List<string>{};
         }
 
-        public virtual string Policy { get; set; }
-        public virtual List<string> Permissions { get; set; }
+        public string Policy { get; set; }
+        public List<string> Permissions { get; set; }
     }
 
     public class UserRoleUpdateInput
@@ -6807,8 +6849,8 @@ namespace CodeMash.ServiceContracts.Api
             Policies = new List<UserPolicyUpdateInput>{};
         }
 
-        public virtual string Role { get; set; }
-        public virtual List<UserPolicyUpdateInput> Policies { get; set; }
+        public string Role { get; set; }
+        public List<UserPolicyUpdateInput> Policies { get; set; }
     }
 
     ///<summary>
@@ -6826,21 +6868,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Secret token received by email for invitation", IsRequired=true, Name="Token", ParameterType="query")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///If true, includes project details in response
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, includes project details in response", IsRequired=true, Name="IncludeProject", ParameterType="query")]
-        public virtual bool IncludeProject { get; set; }
+        public bool IncludeProject { get; set; }
     }
 
     public class ValidateInvitationTokenResponse
         : ResponseBase<bool>
     {
-        public virtual Project Project { get; set; }
-        public virtual Guid UserId { get; set; }
+        public Project Project { get; set; }
+        public Guid UserId { get; set; }
     }
 
     ///<summary>
@@ -6858,20 +6900,20 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Secret token received by email for password reset", IsRequired=true, Name="Token", ParameterType="query")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///If true, includes project details in response
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, includes project details in response", IsRequired=true, Name="IncludeProject", ParameterType="query")]
-        public virtual bool IncludeProject { get; set; }
+        public bool IncludeProject { get; set; }
     }
 
     public class ValidatePasswordTokenResponse
         : ResponseBase<bool>
     {
-        public virtual Project Project { get; set; }
+        public Project Project { get; set; }
     }
 
     ///<summary>
@@ -6889,21 +6931,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Secret token received by email for user deactivation", IsRequired=true, Name="Token", ParameterType="query")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///If true, includes project details in response
         ///</summary>
         [DataMember]
         [ApiMember(DataType="bool", Description="If true, includes project details in response", IsRequired=true, Name="IncludeProject", ParameterType="query")]
-        public virtual bool IncludeProject { get; set; }
+        public bool IncludeProject { get; set; }
     }
 
     public class ValidateUserDeactivationTokenResponse
         : ResponseBase<bool>
     {
-        public virtual Project Project { get; set; }
-        public virtual bool HasCredentials { get; set; }
+        public Project Project { get; set; }
+        public bool HasCredentials { get; set; }
     }
 
     ///<summary>
@@ -6921,21 +6963,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment receipt.", IsRequired=true, Name="Receipt", ParameterType="body")]
-        public virtual string Receipt { get; set; }
+        public string Receipt { get; set; }
 
         ///<summary>
         ///ID of customer who subscribed. Required for first time calling this endpoint.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of customer who subscribed. Required for first time calling this endpoint.", Name="CustomerId", ParameterType="body")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Subscription plan ID. Required for first time calling this endpoint.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Subscription plan ID. Required for first time calling this endpoint.", Name="PlanId", ParameterType="body")]
-        public virtual Guid PlanId { get; set; }
+        public Guid PlanId { get; set; }
     }
 
     public class VerifyAppleAppStoreSubscriptionResponse
@@ -6958,21 +7000,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Payment receipt.", IsRequired=true, Name="Receipt", ParameterType="body")]
-        public virtual string Receipt { get; set; }
+        public string Receipt { get; set; }
 
         ///<summary>
         ///ID of customer who subscribed. Required for first time calling this endpoint.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="ID of customer who subscribed. Required for first time calling this endpoint.", Name="CustomerId", ParameterType="body")]
-        public virtual string CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         ///<summary>
         ///Subscription plan ID. Required for first time calling this endpoint.
         ///</summary>
         [DataMember]
         [ApiMember(DataType="Guid", Description="Subscription plan ID. Required for first time calling this endpoint.", Name="PlanId", ParameterType="body")]
-        public virtual Guid PlanId { get; set; }
+        public Guid PlanId { get; set; }
     }
 
     public class VerifyGooglePlayStoreSubscriptionResponse
@@ -6995,21 +7037,21 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Secret token received by email for invitation confirmation", IsRequired=true, Name="Token", ParameterType="body")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
 
         ///<summary>
         ///New user password
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="New user password", IsRequired=true, Name="Password", ParameterType="body")]
-        public virtual string Password { get; set; }
+        public string Password { get; set; }
 
         ///<summary>
         ///New repeated user password
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="New repeated user password", IsRequired=true, Name="RepeatedPassword", ParameterType="body")]
-        public virtual string RepeatedPassword { get; set; }
+        public string RepeatedPassword { get; set; }
     }
 
     ///<summary>
@@ -7027,7 +7069,7 @@ namespace CodeMash.ServiceContracts.Api
         ///</summary>
         [DataMember]
         [ApiMember(DataType="string", Description="Secret token received by email for registration confirmation", IsRequired=true, Name="Token", ParameterType="body")]
-        public virtual string Token { get; set; }
+        public string Token { get; set; }
     }
 
     public class AccountDto
@@ -7046,108 +7088,108 @@ namespace CodeMash.ServiceContracts.Api
             Discounts = new List<DiscountDto>{};
         }
 
-        public virtual Guid Id { get; set; }
-        public virtual string Email { get; set; }
-        public virtual AccountStatus Status { get; set; }
-        public virtual List<MemberDto> Members { get; set; }
-        public virtual List<Token> Tokens { get; set; }
-        public virtual DatabaseCredentials DatabaseCredentials { get; set; }
-        public virtual List<ProjectSmallDto> Projects { get; set; }
-        public virtual Dictionary<string, ProjectBillingSettingsDto> ProjectBilling { get; set; }
-        public virtual List<CustomerSettingsDto> Customers { get; set; }
-        public virtual Subscription Subscription { get; set; }
-        public virtual List<SubscriptionInvoice> SubscriptionInvoices { get; set; }
-        public virtual List<UsageInvoice> UsageInvoices { get; set; }
-        public virtual List<CustomerInvoice> CustomerInvoices { get; set; }
-        public virtual List<RefundInvoice> RefundInvoices { get; set; }
-        public virtual SubscriptionInvoice SubscriptionUnpaidInvoice { get; set; }
-        public virtual CardDto Card { get; set; }
-        public virtual BillingDto Billing { get; set; }
-        public virtual List<DiscountDto> Discounts { get; set; }
-        public virtual string CustomerId { get; set; }
+        public Guid Id { get; set; }
+        public string Email { get; set; }
+        public AccountStatus Status { get; set; }
+        public List<MemberDto> Members { get; set; }
+        public List<Token> Tokens { get; set; }
+        public DatabaseCredentials DatabaseCredentials { get; set; }
+        public List<ProjectSmallDto> Projects { get; set; }
+        public Dictionary<string, ProjectBillingSettingsDto> ProjectBilling { get; set; }
+        public List<CustomerSettingsDto> Customers { get; set; }
+        public Subscription Subscription { get; set; }
+        public List<SubscriptionInvoice> SubscriptionInvoices { get; set; }
+        public List<UsageInvoice> UsageInvoices { get; set; }
+        public List<CustomerInvoice> CustomerInvoices { get; set; }
+        public List<RefundInvoice> RefundInvoices { get; set; }
+        public SubscriptionInvoice SubscriptionUnpaidInvoice { get; set; }
+        public CardDto Card { get; set; }
+        public BillingDto Billing { get; set; }
+        public List<DiscountDto> Discounts { get; set; }
+        public string CustomerId { get; set; }
     }
 
     public class BillingDto
     {
-        public virtual string Type { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string Organization { get; set; }
-        public virtual string Vat { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Zip { get; set; }
-        public virtual string Country { get; set; }
-        public virtual string City { get; set; }
-        public virtual string Phone { get; set; }
-        public virtual string Iban { get; set; }
-        public virtual string BillingEmail { get; set; }
+        public string Type { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Organization { get; set; }
+        public string Vat { get; set; }
+        public string Address { get; set; }
+        public string Zip { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Phone { get; set; }
+        public string Iban { get; set; }
+        public string BillingEmail { get; set; }
     }
 
     public class CardDto
     {
-        public virtual long ExpMonth { get; set; }
-        public virtual long ExpYear { get; set; }
-        public virtual string Last4 { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Brand { get; set; }
-        public virtual string ZipCode { get; set; }
-        public virtual string Funding { get; set; }
+        public long ExpMonth { get; set; }
+        public long ExpYear { get; set; }
+        public string Last4 { get; set; }
+        public string Name { get; set; }
+        public string Brand { get; set; }
+        public string ZipCode { get; set; }
+        public string Funding { get; set; }
     }
 
     public class CustomerSettingsDto
     {
-        public virtual CardDto Card { get; set; }
-        public virtual string UserId { get; set; }
+        public CardDto Card { get; set; }
+        public string UserId { get; set; }
     }
 
     public class DiscountDto
     {
-        public virtual string Name { get; set; }
-        public virtual string Code { get; set; }
-        public virtual bool IsPercentDiscount { get; set; }
-        public virtual double PercentOff { get; set; }
-        public virtual decimal FixedDiscount { get; set; }
-        public virtual decimal UsedAmount { get; set; }
-        public virtual string DurationType { get; set; }
-        public virtual long AppliedOn { get; set; }
-        public virtual string AppliedOnString { get; set; }
-        public virtual long? ValidUntil { get; set; }
-        public virtual string ValidUntilString { get; set; }
-        public virtual string DiscountType { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public bool IsPercentDiscount { get; set; }
+        public double PercentOff { get; set; }
+        public decimal FixedDiscount { get; set; }
+        public decimal UsedAmount { get; set; }
+        public string DurationType { get; set; }
+        public long AppliedOn { get; set; }
+        public string AppliedOnString { get; set; }
+        public long? ValidUntil { get; set; }
+        public string ValidUntilString { get; set; }
+        public string DiscountType { get; set; }
     }
 
     public class MemberDto
     {
-        public virtual string Id { get; set; }
-        public virtual string FullName { get; set; }
+        public string Id { get; set; }
+        public string FullName { get; set; }
     }
 
     public class ProjectBillingChargeDto
     {
-        public virtual string BillingType { get; set; }
-        public virtual string MarginType { get; set; }
-        public virtual double MarginPercent { get; set; }
-        public virtual decimal FixedPrice { get; set; }
-        public virtual bool ChargeCustomer { get; set; }
+        public string BillingType { get; set; }
+        public string MarginType { get; set; }
+        public double MarginPercent { get; set; }
+        public decimal FixedPrice { get; set; }
+        public bool ChargeCustomer { get; set; }
     }
 
     public class ProjectBillingInvoiceDto
     {
-        public virtual string NumberPrefix { get; set; }
+        public string NumberPrefix { get; set; }
     }
 
     public class ProjectBillingSettingsDto
     {
-        public virtual bool Enabled { get; set; }
-        public virtual ProjectBillingChargeDto Charge { get; set; }
-        public virtual ProjectBillingInvoiceDto Invoice { get; set; }
-        public virtual BillingDto Billing { get; set; }
+        public bool Enabled { get; set; }
+        public ProjectBillingChargeDto Charge { get; set; }
+        public ProjectBillingInvoiceDto Invoice { get; set; }
+        public BillingDto Billing { get; set; }
     }
 
     public class ProjectContextDto
     {
-        public virtual ProjectSmallDto Project { get; set; }
-        public virtual AccountDto Account { get; set; }
+        public ProjectSmallDto Project { get; set; }
+        public AccountDto Account { get; set; }
     }
 
     public class ProjectSmallDto
@@ -7161,84 +7203,84 @@ namespace CodeMash.ServiceContracts.Api
             Widgets = new List<ProjectWidgetDto>{};
         }
 
-        public virtual Guid Id { get; set; }
-        public virtual bool DatabaseEstablished { get; set; }
-        public virtual bool DatabaseEnabled { get; set; }
-        public virtual int? DatabaseVersion { get; set; }
-        public virtual bool EmailEstablished { get; set; }
-        public virtual bool EmailEnabled { get; set; }
-        public virtual bool MembershipEstablished { get; set; }
-        public virtual bool MembershipEnabled { get; set; }
-        public virtual bool LoggingEstablished { get; set; }
-        public virtual bool LoggingEnabled { get; set; }
-        public virtual bool ServerEventsEstablished { get; set; }
-        public virtual bool ServerEventsEnabled { get; set; }
-        public virtual bool NotificationEstablished { get; set; }
-        public virtual bool NotificationEnabled { get; set; }
-        public virtual bool SchedulerEstablished { get; set; }
-        public virtual bool SchedulerEnabled { get; set; }
-        public virtual bool ServerlessEstablished { get; set; }
-        public virtual bool ServerlessEnabled { get; set; }
-        public virtual bool FilingEstablished { get; set; }
-        public virtual bool FilingEnabled { get; set; }
-        public virtual int? FilesVersion { get; set; }
-        public virtual bool PaymentEstablished { get; set; }
-        public virtual bool PaymentEnabled { get; set; }
-        public virtual bool AuthorizationEnabled { get; set; }
-        public virtual bool AuthenticationEnabled { get; set; }
-        public virtual bool BackupsEnabled { get; set; }
-        public virtual DatabaseCredentials DatabaseCredentials { get; set; }
-        public virtual List<Token> Tokens { get; set; }
-        public virtual string LogoUrl { get; set; }
-        public virtual string Url { get; set; }
-        public virtual string LogoId { get; set; }
-        public virtual List<string> Languages { get; set; }
-        public virtual string DefaultLanguage { get; set; }
-        public virtual ProjectZoneDto ProjectZone { get; set; }
-        public virtual List<string> UserZones { get; set; }
-        public virtual string DefaultTimeZone { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string SlugifiedName { get; set; }
-        public virtual ProjectModulesData ModuleData { get; set; }
-        public virtual List<string> AllowedOrigins { get; set; }
-        public virtual List<ProjectWidgetDto> Widgets { get; set; }
-        public virtual int Connections { get; set; }
-        public virtual int Members { get; set; }
-        public virtual bool CanCallDatabaseService { get; set; }
-        public virtual bool CanCallEmailService { get; set; }
-        public virtual bool CanCallMembershipService { get; set; }
-        public virtual bool CanCallFilingService { get; set; }
-        public virtual bool CanCallLoggingService { get; set; }
-        public virtual bool CanCallNotificationService { get; set; }
-        public virtual bool CanCallSchedulerService { get; set; }
-        public virtual bool CanCallServerlessService { get; set; }
-        public virtual bool CanCallPaymentService { get; set; }
-        public virtual bool CanCallServerEventsService { get; set; }
+        public Guid Id { get; set; }
+        public bool DatabaseEstablished { get; set; }
+        public bool DatabaseEnabled { get; set; }
+        public int? DatabaseVersion { get; set; }
+        public bool EmailEstablished { get; set; }
+        public bool EmailEnabled { get; set; }
+        public bool MembershipEstablished { get; set; }
+        public bool MembershipEnabled { get; set; }
+        public bool LoggingEstablished { get; set; }
+        public bool LoggingEnabled { get; set; }
+        public bool ServerEventsEstablished { get; set; }
+        public bool ServerEventsEnabled { get; set; }
+        public bool NotificationEstablished { get; set; }
+        public bool NotificationEnabled { get; set; }
+        public bool SchedulerEstablished { get; set; }
+        public bool SchedulerEnabled { get; set; }
+        public bool ServerlessEstablished { get; set; }
+        public bool ServerlessEnabled { get; set; }
+        public bool FilingEstablished { get; set; }
+        public bool FilingEnabled { get; set; }
+        public int? FilesVersion { get; set; }
+        public bool PaymentEstablished { get; set; }
+        public bool PaymentEnabled { get; set; }
+        public bool AuthorizationEnabled { get; set; }
+        public bool AuthenticationEnabled { get; set; }
+        public bool BackupsEnabled { get; set; }
+        public DatabaseCredentials DatabaseCredentials { get; set; }
+        public List<Token> Tokens { get; set; }
+        public string LogoUrl { get; set; }
+        public string Url { get; set; }
+        public string LogoId { get; set; }
+        public List<string> Languages { get; set; }
+        public string DefaultLanguage { get; set; }
+        public ProjectZoneDto ProjectZone { get; set; }
+        public List<string> UserZones { get; set; }
+        public string DefaultTimeZone { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string SlugifiedName { get; set; }
+        public ProjectModulesData ModuleData { get; set; }
+        public List<string> AllowedOrigins { get; set; }
+        public List<ProjectWidgetDto> Widgets { get; set; }
+        public int Connections { get; set; }
+        public int Members { get; set; }
+        public bool CanCallDatabaseService { get; set; }
+        public bool CanCallEmailService { get; set; }
+        public bool CanCallMembershipService { get; set; }
+        public bool CanCallFilingService { get; set; }
+        public bool CanCallLoggingService { get; set; }
+        public bool CanCallNotificationService { get; set; }
+        public bool CanCallSchedulerService { get; set; }
+        public bool CanCallServerlessService { get; set; }
+        public bool CanCallPaymentService { get; set; }
+        public bool CanCallServerEventsService { get; set; }
     }
 
     public class ProjectWidgetDto
     {
-        public virtual string WidgetType { get; set; }
-        public virtual string Module { get; set; }
+        public string WidgetType { get; set; }
+        public string Module { get; set; }
     }
 
     public class ProjectZoneDto
     {
-        public virtual string UniqueName { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Continent { get; set; }
+        public string UniqueName { get; set; }
+        public string Name { get; set; }
+        public string Continent { get; set; }
     }
 
     public class ServerlessFunctionAliasDto
     {
-        public virtual string Name { get; set; }
-        public virtual DateTime? CreatedOnDate { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string Version { get; set; }
-        public virtual string AdditionalVersion { get; set; }
-        public virtual double AdditionalVersionWeight { get; set; }
-        public virtual string Description { get; set; }
+        public string Name { get; set; }
+        public DateTime? CreatedOnDate { get; set; }
+        public string CreatedOn { get; set; }
+        public string Version { get; set; }
+        public string AdditionalVersion { get; set; }
+        public double AdditionalVersionWeight { get; set; }
+        public string Description { get; set; }
     }
 
     public class ServerlessFunctionDto
@@ -7255,54 +7297,54 @@ namespace CodeMash.ServiceContracts.Api
             ResourcesTriggerUsages = new List<string>{};
         }
 
-        public virtual string Id { get; set; }
-        public virtual long? ModifiedOn { get; set; }
-        public virtual long? RefreshOn { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string DisplayName { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string ShortDescription { get; set; }
-        public virtual string MainModule { get; set; }
-        public virtual string Runtime { get; set; }
-        public virtual long? CodeSize { get; set; }
-        public virtual string Region { get; set; }
-        public virtual ServerlessProvider Provider { get; set; }
-        public virtual string Template { get; set; }
-        public virtual bool IsCreated { get; set; }
-        public virtual string Handler { get; set; }
-        public virtual long Memory { get; set; }
-        public virtual int TimeoutMinutes { get; set; }
-        public virtual int TimeoutSeconds { get; set; }
-        public virtual Dictionary<string, string> Environment { get; set; }
-        public virtual List<ServerlessFunctionAliasDto> Aliases { get; set; }
-        public virtual List<ServerlessFunctionVersionDto> Versions { get; set; }
-        public virtual bool IsSystem { get; set; }
-        public virtual bool IsMultiple { get; set; }
-        public virtual bool MustConfigure { get; set; }
-        public virtual string SystemVersion { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
-        public virtual List<string> AvailableTokens { get; set; }
-        public virtual Dictionary<string, TokenResolverField> TokenResolvers { get; set; }
-        public virtual string DocsId { get; set; }
-        public virtual List<string> Tags { get; set; }
-        public virtual List<string> ResourcesTriggerUsages { get; set; }
-        public virtual string AuthProvider { get; set; }
-        public virtual string InvokeUrl { get; set; }
-        public virtual string ServiceAccount { get; set; }
+        public string Id { get; set; }
+        public long? ModifiedOn { get; set; }
+        public long? RefreshOn { get; set; }
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public string Description { get; set; }
+        public string ShortDescription { get; set; }
+        public string MainModule { get; set; }
+        public string Runtime { get; set; }
+        public long? CodeSize { get; set; }
+        public string Region { get; set; }
+        public ServerlessProvider Provider { get; set; }
+        public string Template { get; set; }
+        public bool IsCreated { get; set; }
+        public string Handler { get; set; }
+        public long Memory { get; set; }
+        public int TimeoutMinutes { get; set; }
+        public int TimeoutSeconds { get; set; }
+        public Dictionary<string, string> Environment { get; set; }
+        public List<ServerlessFunctionAliasDto> Aliases { get; set; }
+        public List<ServerlessFunctionVersionDto> Versions { get; set; }
+        public bool IsSystem { get; set; }
+        public bool IsMultiple { get; set; }
+        public bool MustConfigure { get; set; }
+        public string SystemVersion { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
+        public List<string> AvailableTokens { get; set; }
+        public Dictionary<string, TokenResolverField> TokenResolvers { get; set; }
+        public string DocsId { get; set; }
+        public List<string> Tags { get; set; }
+        public List<string> ResourcesTriggerUsages { get; set; }
+        public string AuthProvider { get; set; }
+        public string InvokeUrl { get; set; }
+        public string ServiceAccount { get; set; }
     }
 
     public class ServerlessFunctionVersionDto
     {
-        public virtual string Version { get; set; }
-        public virtual DateTime? CreatedOnDate { get; set; }
-        public virtual string CreatedOn { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string Runtime { get; set; }
-        public virtual string Handler { get; set; }
-        public virtual long Memory { get; set; }
-        public virtual int TimeoutMinutes { get; set; }
-        public virtual int TimeoutSeconds { get; set; }
-        public virtual long CodeSize { get; set; }
+        public string Version { get; set; }
+        public DateTime? CreatedOnDate { get; set; }
+        public string CreatedOn { get; set; }
+        public string Description { get; set; }
+        public string Runtime { get; set; }
+        public string Handler { get; set; }
+        public long Memory { get; set; }
+        public int TimeoutMinutes { get; set; }
+        public int TimeoutSeconds { get; set; }
+        public long CodeSize { get; set; }
     }
 
     public class ServerlessProviderDto
@@ -7314,22 +7356,22 @@ namespace CodeMash.ServiceContracts.Api
             SecretKeys = new Dictionary<string, string>{};
         }
 
-        public virtual string Provider { get; set; }
-        public virtual int TotalFunctions { get; set; }
-        public virtual int RefreshRate { get; set; }
-        public virtual long LastUpdated { get; set; }
-        public virtual bool IsSystem { get; set; }
-        public virtual string AccessKey { get; set; }
-        public virtual string SecretKey { get; set; }
-        public virtual string EncVersion { get; set; }
-        public virtual List<string> Regions { get; set; }
-        public virtual Dictionary<string, string> Tags { get; set; }
-        public virtual string ClientId { get; set; }
-        public virtual string PrivateKeyEnding { get; set; }
-        public virtual string SubscriptionId { get; set; }
-        public virtual string ResourceGroup { get; set; }
-        public virtual Dictionary<string, string> SecretKeys { get; set; }
-        public virtual string OrgId { get; set; }
+        public string Provider { get; set; }
+        public int TotalFunctions { get; set; }
+        public int RefreshRate { get; set; }
+        public long LastUpdated { get; set; }
+        public bool IsSystem { get; set; }
+        public string AccessKey { get; set; }
+        public string SecretKey { get; set; }
+        public string EncVersion { get; set; }
+        public List<string> Regions { get; set; }
+        public Dictionary<string, string> Tags { get; set; }
+        public string ClientId { get; set; }
+        public string PrivateKeyEnding { get; set; }
+        public string SubscriptionId { get; set; }
+        public string ResourceGroup { get; set; }
+        public Dictionary<string, string> SecretKeys { get; set; }
+        public string OrgId { get; set; }
     }
 
     public class SystemFunctionExecutorData
@@ -7340,17 +7382,17 @@ namespace CodeMash.ServiceContracts.Api
             Tokens = new Dictionary<string, string>{};
         }
 
-        public virtual Guid ProjectId { get; set; }
-        public virtual Guid AccountId { get; set; }
-        public virtual ServerlessFunctionDto Function { get; set; }
-        public virtual ServerlessProviderDto Connection { get; set; }
-        public virtual string Data { get; set; }
-        public virtual Dictionary<string, string> Meta { get; set; }
-        public virtual Dictionary<string, string> Tokens { get; set; }
-        public virtual Guid? ActivatorId { get; set; }
-        public virtual ProjectSmallDto Project { get; set; }
-        public virtual string CultureCode { get; set; }
-        public virtual string Version { get; set; }
+        public Guid ProjectId { get; set; }
+        public Guid AccountId { get; set; }
+        public ServerlessFunctionDto Function { get; set; }
+        public ServerlessProviderDto Connection { get; set; }
+        public string Data { get; set; }
+        public Dictionary<string, string> Meta { get; set; }
+        public Dictionary<string, string> Tokens { get; set; }
+        public Guid? ActivatorId { get; set; }
+        public ProjectSmallDto Project { get; set; }
+        public string CultureCode { get; set; }
+        public string Version { get; set; }
     }
 
 }

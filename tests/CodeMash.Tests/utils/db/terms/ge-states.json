@@ -1,0 +1,82 @@
+[
+  {
+    "document": {"name":{"en":"Baden-Wurttemberg"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },  
+  {
+    "document": {"name":{"en":"Bavaria"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Berlin"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Brandenburg"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Bremen"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Hamburg"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Hesse"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Lower Saxony"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Mecklenburg-Vorpommern"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"North Rhine-Westphalia"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Rhineland-Palatinate"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Saarland"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Saxony"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Saxony-Anhalt"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Schleswig-Holstein"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  },
+  {
+    "document": {"name":{"en":"Thuringia"},"description":{}},    
+    "meta": {"abbreviation":"" },
+    "parentTermName": "Germany"    
+  }  
+]

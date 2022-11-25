@@ -1,5 +1,5 @@
 /* Options:
-Date: 2022-10-27 09:15:38
+Date: 2022-11-25 17:27:31
 Version: 6.02
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://localhost:5001
@@ -43,17 +43,17 @@ namespace CodeMash.Tests.Types.Hub
         : CodeMashRequestBase
     {
         ///<summary>
-        ///Collection name - unique table name without whitespaces
+        ///Collection name - unique, lowercased, collection name without whitespace. E.g., if your collection title you have entered in the CodeMash dashboard is "Business Trips" then collection name would be "business-trips".
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Collection name - unique table name without whitespaces", IsRequired=true, Name="CollectionName", ParameterType="path")]
+        [ApiMember(DataType="string", Description="Collection name - unique, lowercased, collection name without whitespace. E.g., if your collection title you have entered in the CodeMash dashboard is \"Business Trips\" then collection name would be \"business-trips\".", IsRequired=true, Name="CollectionName", ParameterType="path")]
         public virtual string CollectionName { get; set; }
 
         ///<summary>
         ///API key of your cluster. Can be passed in a header as X-CM-Cluster.
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="API key of your cluster. Can be passed in a header as X-CM-Cluster.", Name="Cluster", ParameterType="query")]
+        [ApiMember(DataType="string", Description="API key of your cluster. Can be passed in a header as X-CM-Cluster.", Name="X-CM-Cluster", ParameterType="header")]
         public virtual string Cluster { get; set; }
     }
 
@@ -138,17 +138,17 @@ namespace CodeMash.Tests.Types.Hub
         : ICultureBasedRequest, IVersionBasedRequest
     {
         ///<summary>
-        ///Specify culture code when your output should be localised. E.g.: en
+        ///Specify culture code when your response from the API should be localised. E.g.: en
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Specify culture code when your output should be localised. E.g.: en", Name="CultureCode", ParameterType="header")]
+        [ApiMember(DataType="string", Description="Specify culture code when your response from the API should be localised. E.g.: en", Name="CultureCode", ParameterType="header")]
         public virtual string CultureCode { get; set; }
 
         ///<summary>
-        ///Specify culture code when your output should be localised. E.g.: en
+        ///The CodeMash API version used to fetch data from the API. If not specified, the last version will be used.  E.g.: v2
         ///</summary>
         [DataMember]
-        [ApiMember(DataType="string", Description="Specify culture code when your output should be localised. E.g.: en", Name="CultureCode", ParameterType="header")]
+        [ApiMember(DataType="string", Description="The CodeMash API version used to fetch data from the API. If not specified, the last version will be used.  E.g.: v2", Name="version", ParameterType="path")]
         public virtual string Version { get; set; }
     }
 
@@ -2519,6 +2519,7 @@ namespace CodeMash.Tests.Types.Hub
         : ResponseBase<Guid>
     {
         public virtual string TaxonomyName { get; set; }
+        public virtual string RecordId { get; set; }
     }
 
     [Route("/db/taxonomies/{collectionName}", "POST")]
@@ -4335,6 +4336,7 @@ namespace CodeMash.Tests.Types.Hub
     }
 
     [Route("/notifications/push", "GET")]
+    [Route("/{version}/notifications/push", "GET")]
     public partial class GetNotifications
         : CodeMashListRequestBase, IReturn<GetNotificationsResponse>
     {
@@ -5967,6 +5969,7 @@ namespace CodeMash.Tests.Types.Hub
         public virtual string Address { get; set; }
         public virtual string Zip { get; set; }
         public virtual string Country { get; set; }
+        public virtual string CountryDisplay { get; set; }
         public virtual string City { get; set; }
         public virtual string Phone { get; set; }
         public virtual string Iban { get; set; }
@@ -7171,6 +7174,18 @@ namespace CodeMash.Tests.Types.Hub
     }
 
     public partial class UpdateUserMetaSchemaResponse
+        : ResponseBase<bool>
+    {
+    }
+
+    [Route("/membership/users/{id}/verify", "POST")]
+    public partial class VerifyProjectUser
+        : CodeMashRequestBase, IReturn<VerifyProjectUserResponse>, IRequestBase
+    {
+        public virtual Guid Id { get; set; }
+    }
+
+    public partial class VerifyProjectUserResponse
         : ResponseBase<bool>
     {
     }

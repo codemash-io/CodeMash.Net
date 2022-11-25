@@ -1,0 +1,13 @@
+{
+  "country_code": {
+  },
+  "country_description": {
+    "ui:widget": "textarea"
+  },
+  "vat": {
+    "ui:placeholder": "Enter VAT",
+    "ui:widget": "updown"
+  },
+  "apply_vat": {
+  }
+}

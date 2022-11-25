@@ -96,3 +96,15 @@ public class RestClient
         }
     }
 }
+
+
+public static class RestClientExtensions
+{
+    public static async Task<HttpResponseMessage> DeleteAsync(this HttpClient client, string url, StringContent requestContent)
+    {
+        var requestMessage = new HttpRequestMessage(HttpMethod.Delete, client.BaseAddress + url);
+        requestMessage.Content = requestContent;
+        
+        return await client.SendAsync(requestMessage);
+    }
+}

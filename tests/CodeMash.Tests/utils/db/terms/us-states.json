@@ -1,0 +1,252 @@
+[
+  {
+    "document": {"name":{"en":"Alabama"},"description":{}},    
+    "meta": {"abbreviation":"AL" },
+    "parentTermName": "USA"    
+  },
+  {
+    "document": {"name":{"en":"Alaska"},"description":{}},
+    "meta": {"abbreviation":"AK" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Arizona"},"description":{}},
+    "meta": {"abbreviation":"AZ" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Arkansas"},"description":{}},
+    "meta": {"abbreviation":"AR" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"California"},"description":{}},
+    "meta": {"abbreviation":"CA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Colorado"},"description":{}},
+    "meta": {"abbreviation":"CO" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Connecticut"},"description":{}},
+    "meta": {"abbreviation":"CT" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Delaware"},"description":{}},
+    "meta": {"abbreviation":"DE" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Florida"},"description":{}},
+    "meta": {"abbreviation":"FL" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Georgia"},"description":{}},
+    "meta": {"abbreviation":"GA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Hawaii"},"description":{}},
+    "meta": {"abbreviation":"HI" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Idaho"},"description":{}},
+    "meta": {"abbreviation":"ID" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Illinois"},"description":{}},
+    "meta": {"abbreviation":"IL" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Indiana"},"description":{}},
+    "meta": {"abbreviation":"IN" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Iowa"},"description":{}},
+    "meta": {"abbreviation":"IA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Kansas"},"description":{}},
+    "meta": {"abbreviation":"KS" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Kentucky"},"description":{}},
+    "meta": {"abbreviation":"KY" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Louisiana"},"description":{}},
+    "meta": {"abbreviation":"LA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Maine"},"description":{}},
+    "meta": {"abbreviation":"ME" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Maryland"},"description":{}},
+    "meta": {"abbreviation":"MD" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Massachusetts"},"description":{}},
+    "meta": {"abbreviation":"MA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Michigan"},"description":{}},
+    "meta": {"abbreviation":"MI" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Minnesota"},"description":{}},
+    "meta": {"abbreviation":"MN" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Mississippi"},"description":{}},
+    "meta": {"abbreviation":"MS" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Missouri"},"description":{}},
+    "meta": {"abbreviation":"MO" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Montana"},"description":{}},
+    "meta": {"abbreviation":"MT" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Nebraska"},"description":{}},
+    "meta": {"abbreviation":"NE" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Nevada"},"description":{}},
+    "meta": {"abbreviation":"NV" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"New Hampshire"},"description":{}},
+    "meta": {"abbreviation":"NH" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"New Jersey"},"description":{}},
+    "meta": {"abbreviation":"NJ" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"New Mexico"},"description":{}},
+    "meta": {"abbreviation":"NM" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"New York"},"description":{}},
+    "meta": {"abbreviation":"NY" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"North Carolina"},"description":{}},
+    "meta": {"abbreviation":"NC" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"North Dakota"},"description":{}},
+    "meta": {"abbreviation":"ND" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Ohio"},"description":{}},
+    "meta": {"abbreviation":"OH" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Oklahoma"},"description":{}},
+    "meta": {"abbreviation":"OK" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Oregon"},"description":{}},
+    "meta": {"abbreviation":"OR" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Pennsylvania"},"description":{}},
+    "meta": {"abbreviation":"PA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Rhode Island"},"description":{}},
+    "meta": {"abbreviation":"RI" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"South Carolina"},"description":{}},
+    "meta": {"abbreviation":"SC" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"South Dakota"},"description":{}},
+    "meta": {"abbreviation":"SD" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Tennessee"},"description":{}},
+    "meta": {"abbreviation":"TN" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Texas"},"description":{}},
+    "meta": {"abbreviation":"TX" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Utah"},"description":{}},
+    "meta": {"abbreviation":"UT" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Vermont"},"description":{}},
+    "meta": {"abbreviation":"VT" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Virginia"},"description":{}},
+    "meta": {"abbreviation":"VA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Washington"},"description":{}},
+    "meta": {"abbreviation":"WA" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"West Virginia"},"description":{}},
+    "meta": {"abbreviation":"WV" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Wisconsin"},"description":{}},
+    "meta": {"abbreviation":"WI" },
+    "parentTermName": "USA"
+  },
+  {
+    "document": {"name":{"en":"Wyoming"},"description":{}},
+    "meta": {"abbreviation":"WY" },
+    "parentTermName": "USA"
+  }  
+]

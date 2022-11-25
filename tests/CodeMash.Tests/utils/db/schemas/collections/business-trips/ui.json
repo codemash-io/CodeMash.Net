@@ -1,0 +1,22 @@
+{
+  "from": {
+    "ui:widget": "date"
+  },
+  "to": {
+    "ui:widget": "date"
+  },
+  "where": {
+    "ui:widget": "autocomplete"
+  },
+  "employees": {
+    "ui:widget": "nested",
+    "items": {
+      "employee": {
+        "ui:widget": "autocomplete"
+      },
+      "notes": {
+        "ui:widget": "textarea"
+      }
+    }
+  }
+}

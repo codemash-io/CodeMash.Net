@@ -1,0 +1,15 @@
+{
+  "title": "",
+  "type": "object",
+  "required": [        
+  ],
+  "translatable": [
+  ],
+  "properties": {
+    "abbreviation": {
+      "type": "string",
+      "title": "Postal Abbreviation",
+      "order": "None"
+    }    
+  }
+}

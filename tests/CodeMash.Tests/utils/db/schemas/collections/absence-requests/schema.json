@@ -1,0 +1,102 @@
+{
+  "title": "Absence Requests",
+  "type": "object",
+  "required": [
+    "reason",
+    "to",
+    "from",
+    "employee"
+  ],
+  "translatable": [
+
+  ],
+  "properties": {
+    "employee": {
+      "type": "string",
+      "title": "Employee",
+      "order": "None",
+      "minLength": 1,
+      "source": {
+        "url": "http://localhost:5002/db/employees/find",
+        "key": "_id",
+        "label": "@first_name @last_name",
+        "type": "collections",
+        "method": "POST",
+        "collection": "employees"
+      },
+      "enum": [
+        "Data is loading..."
+      ]
+    },
+    "from": {
+      "type": "integer",
+      "title": "From",
+      "order": "None",
+      "minLength": 1,
+      "format": "utc-millisec"
+    },
+    "to": {
+      "type": "integer",
+      "title": "To",
+      "order": "None",
+      "minLength": 1,
+      "format": "utc-millisec"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Reason",
+      "order": "None",
+      "minLength": 1,
+      "source": {
+        "url": "http://localhost:5002/db/terms/filter",
+        "key": "_id",
+        "label": "Name",
+        "type": "taxonomy",
+        "method": "POST",
+        "taxonomy": "absence-requests"
+      },
+      "enum": [
+        "Data is loading..."
+      ]
+    },
+    "confirmed": {
+      "type": "boolean",
+      "title": "Confirmed",
+      "hint": "Confirmed by the responsible person (See \"Reports To\" under job information in Employee record) ",
+      "order": "None",
+      "default": false
+    },
+    "report_roles_about_absence": {
+      "type": "array",
+      "title": "Report roles about absence",
+      "order": "None",
+      "source": {
+        "key": "name",
+        "label": "displayName",
+        "type": "roles",
+        "method": "GET"
+      },
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "Data is loading..."
+        ]
+      }
+    },
+    "application_user": {
+      "type": "string",
+      "title": "Application User",
+      "order": "None",
+      "source": {
+        "url": "http://localhost:5002/membership/users/filter",
+        "key": "id",
+        "label": "displayName",
+        "type": "users",
+        "method": "GET"
+      },
+      "enum": [
+        "Data is loading..."
+      ]
+    }
+  }
+}

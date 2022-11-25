@@ -1,4 +1,4 @@
-﻿namespace CodeMash.Tests.v2;
+﻿namespace CodeMash.Tests;
 
 [TestFixture]
 public class ProjectTests: TestBase

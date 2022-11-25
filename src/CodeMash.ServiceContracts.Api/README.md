@@ -9,6 +9,12 @@ Generate types, run script from root directory of this repo
 Install x tool. See https://docs.servicestack.net/dotnet-tool
 
 
+TO UPDATE RUN:
+
+```bash
+x cs 
+```
+
 Get API
 
 ```bash
@@ -19,12 +25,6 @@ Get Events API
 
 ```bash
 x cs http://localhost:5010 ./src/CodeMash.ServiceContracts.Api/events.api 
-```
-
-TO UPDATE RUN:
-
-```bash
-x cs 
 ```
 
 

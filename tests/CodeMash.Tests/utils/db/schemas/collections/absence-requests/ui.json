@@ -1,0 +1,50 @@
+{
+  "employee": {
+    "tab": {
+      "name": "General",
+      "order": null
+    },
+    "ui:widget": "autocomplete"
+  },
+  "from": {
+    "tab": {
+      "name": "General",
+      "order": null
+    },
+    "ui:widget": "date"
+  },
+  "to": {
+    "tab": {
+      "name": "General",
+      "order": null
+    },
+    "ui:widget": "date"
+  },
+  "reason": {
+    "tab": {
+      "name": "General",
+      "order": null
+    },
+    "ui:widget": "autocomplete"
+  },
+  "confirmed": {
+    "tab": {
+      "name": "System Generated",
+      "order": null
+    }
+  },
+  "report_roles_about_absence": {
+    "tab": {
+      "name": "System Generated",
+      "order": null
+    },
+    "ui:widget": "autocomplete"
+  },
+  "application_user": {
+    "tab": {
+      "name": "System Generated",
+      "order": null
+    },
+    "ui:widget": "autocomplete"
+  }
+}

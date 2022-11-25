@@ -22,11 +22,81 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <None Remove="utils\db\schemas\employees\schema.json" />
-      <Content Include="utils\db\schemas\employees\schema.json">
+      <None Remove="utils\db\schemas\employees\ui.json" />
+      <None Remove="utils\db\schemas\collections\absence-requests\ui.json" />
+      <Content Include="utils\db\schemas\collections\absence-requests\ui.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <None Remove="utils\db\schemas\employees\ui.json" />
-      <Content Include="utils\db\schemas\employees\ui.json">
+      <None Remove="utils\db\schemas\collections\absence-requests\schema.json" />
+      <Content Include="utils\db\schemas\collections\absence-requests\schema.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\collections\business-trips\schema.json" />
+      <Content Include="utils\db\schemas\collections\business-trips\schema.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\collections\business-trips\ui.json" />
+      <Content Include="utils\db\schemas\collections\business-trips\ui.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\collections\employees\schema.json" />
+      <None Remove="utils\db\schemas\collections\employees\ui.json" />
+      <None Remove="utils\db\schemas\taxonomies\city\schema.json" />
+      <Content Include="utils\db\schemas\collections\employees\schema.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="utils\db\schemas\collections\employees\ui.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="utils\db\schemas\taxonomies\city\schema.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\taxonomies\city\ui.json" />
+      <Content Include="utils\db\schemas\taxonomies\city\ui.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\taxonomies\country\schema.json" />
+      <Content Include="utils\db\schemas\taxonomies\country\schema.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\taxonomies\country\ui.json" />
+      <Content Include="utils\db\schemas\taxonomies\country\ui.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\taxonomies\state\schema.json" />
+      <Content Include="utils\db\schemas\taxonomies\state\schema.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\schemas\taxonomies\state\ui.json" />
+      <Content Include="utils\db\schemas\taxonomies\state\ui.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\terms\absence-types.json" />
+      <Content Include="utils\db\terms\absence-types.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\terms\countries.json" />
+      <Content Include="utils\db\terms\countries.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\terms\dummy.json" />
+      <Content Include="utils\db\terms\dummy.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\terms\ge-cities.json" />
+      <Content Include="utils\db\terms\ge-cities.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\terms\ge-states.json" />
+      <Content Include="utils\db\terms\ge-states.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\terms\us-cities.json" />
+      <Content Include="utils\db\terms\us-cities.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="utils\db\terms\us-states.json" />
+      <Content Include="utils\db\terms\us-states.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

@@ -1,0 +1,99 @@
+{
+  "title": "Employees",
+  "type": "object",
+  "required": [
+  ],
+  "translatable": [
+  ],
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "order": "None"
+    },
+    "companies": {
+      "type": "array",
+      "title": "Companies",
+      "order": "None",
+      "source": {
+        "url": "http://localhost:5002/db/companies/find",
+        "key": "_id",
+        "label": "name",
+        "type": "collections",
+        "method": "POST",
+        "collection": "companies"
+      },
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "Data is loading..."
+        ]
+      }
+    },
+    "nest": {
+      "type": "array",
+      "multiple": true,
+      "nestable": true,
+      "title": "Nest",
+      "items": {
+        "type": "object",
+        "properties": {
+          "countries": {
+            "type": "string",
+            "title": "Countries",
+            "order": "None",
+            "source": {
+              "url": "http://localhost:5002/db/terms/filter",
+              "key": "_id",
+              "label": "Name",
+              "type": "taxonomy",
+              "method": "POST",
+              "taxonomy": "countries"
+            },
+            "enum": [
+              "Data is loading..."
+            ]
+          },
+          "cities": {
+            "type": "string",
+            "title": "Cities",
+            "order": "None",
+            "source": {
+              "url": "http://localhost:5002/db/terms/filter",
+              "key": "_id",
+              "label": "Name",
+              "type": "taxonomy",
+              "method": "POST",
+              "taxonomy": "cities"
+            },
+            "enum": [
+              "Data is loading..."
+            ]
+          },
+          "areas": {
+            "type": "array",
+            "title": "Areas",
+            "order": "None",
+            "source": {
+              "url": "http://localhost:5002/db/terms/filter",
+              "key": "_id",
+              "label": "Name",
+              "type": "taxonomy",
+              "method": "POST",
+              "taxonomy": "areas"
+            },
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "Data is loading..."
+              ]
+            }
+          }
+        },
+        "required": [
+          "areas"
+        ]
+      }
+    }
+  }
+}

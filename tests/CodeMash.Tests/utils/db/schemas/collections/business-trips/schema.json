@@ -1,0 +1,82 @@
+{
+  "title": "Business Trips",
+  "type": "object",
+  "required": [
+    "to",
+    "from",
+    "where"
+  ],
+  "translatable": [
+
+  ],
+  "properties": {
+    "where": {
+      "type": "string",
+      "title": "Where",
+      "order": "None",
+      "minLength": 1,
+      "source": {
+        "url": "http://localhost:5002/db/terms/filter",
+        "key": "_id",
+        "label": "Name",
+        "type": "taxonomy",
+        "method": "POST",
+        "taxonomy": "countries"
+      },
+      "enum": [
+        "Data is loading..."
+      ]
+    },
+    "from": {
+      "type": "integer",
+      "title": "From",
+      "order": "None",
+      "minLength": 1,
+      "format": "utc-millisec"
+    },
+    "to": {
+      "type": "integer",
+      "title": "To",
+      "order": "None",
+      "minLength": 1,
+      "format": "utc-millisec"
+    },
+    "employees": {
+      "type": "array",
+      "multiple": true,
+      "minItems": 1,
+      "nestable": true,
+      "title": "Employees",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee": {
+            "type": "string",
+            "title": "Employee",
+            "order": "None",
+            "minLength": 1,
+            "source": {
+              "url": "http://localhost:5002/db/employees/find",
+              "key": "_id",
+              "label": "@first_name @last_name",
+              "type": "collections",
+              "method": "POST",
+              "collection": "employees"
+            },
+            "enum": [
+              "Data is loading..."
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "title": "Notes",
+            "order": "None"
+          }
+        },
+        "required": [
+          "employee"
+        ]
+      }
+    }
+  }
+}

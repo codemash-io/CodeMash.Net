@@ -1,0 +1,22 @@
+{
+  "first_name": {
+
+  },
+  "companies": {
+    "ui:widget": "autocomplete"
+  },
+  "nest": {
+    "ui:widget": "nested",
+    "items": {
+      "countries": {
+        "ui:widget": "autocomplete"
+      },
+      "cities": {
+        "ui:widget": "autocomplete"
+      },
+      "areas": {
+        "ui:widget": "autocomplete"
+      }
+    }
+  }
+}

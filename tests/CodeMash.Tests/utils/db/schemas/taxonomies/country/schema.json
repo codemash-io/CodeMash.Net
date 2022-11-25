@@ -1,0 +1,38 @@
+{
+  "title": "",
+  "type": "object",
+  "required": [
+    "country_code",
+    "country_description"
+  ],
+  "translatable": [
+    "country_description"
+  ],
+  "properties": {
+    "country_code": {
+      "type": "string",
+      "title": "Country Code",
+      "order": "None",
+      "minLength": 1
+    },
+    "country_description": {
+      "type": "string",
+      "title": "Country Description",
+      "order": "None",
+      "minLength": 1,
+      "atLeastOneTranslation": true
+    },
+    "vat": {
+      "type": "integer",
+      "title": "VAT",
+      "hint": "Defaut VAT for country",
+      "order": "None"
+    },
+    "apply_vat": {
+      "type": "boolean",
+      "title": "Apply VAT",
+      "order": "None",
+      "default": false
+    }
+  }
+}

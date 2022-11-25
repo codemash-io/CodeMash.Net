@@ -1,0 +1,106 @@
+[
+  {
+    "document": {"name":{"en":"Montgomery"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Alabama"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Huntsville"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Alabama"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Juneau"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Alaska"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Anchorage"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Alaska"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Phoenix"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Arizona"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Little Rock"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Arkansas"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Sacramento"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "California"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Los Angeles"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "USA"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "California"
+      }
+    ]
+  }  
+]

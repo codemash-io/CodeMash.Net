@@ -1,0 +1,8 @@
+[
+  {"name":{"en":"Paid time off (PTO)", "lt": "Apmokama laisva diena"}, "description":  {"en":  "", "lt":  ""}},   
+  {"name":{"en":"Unpaid leave", "lt": "Laisva, neapmokama diena"}, "description":  {"en":  "", "lt":  ""}},   
+  {"name":{"en":"Paid vacation", "lt": "Apmokamos atostogos"}, "description":  {"en":  "", "lt":  ""}},   
+  {"name":{"en":"Medical leave", "lt": "Ligos atvejis"}, "description":  {"en":  "Sick leave, illness or injury, work-related injury, medical appointment", "lt":  "Liga, vizitas pas gydytoją"}},   
+  {"name":{"en":"Family leave", "lt": "Asmeniniai reikalai"}, "description":  {"en":  "", "lt":  "Paid Maternity/Paternity, Dependent Care"}},   
+  {"name":{"en":"Short-term disability", "lt": "Trumpalaikis nebuvimas"}, "description":  {"en":  "Certification Classes, Meeting Attendance, Personal Business", "lt":  ""}}
+]

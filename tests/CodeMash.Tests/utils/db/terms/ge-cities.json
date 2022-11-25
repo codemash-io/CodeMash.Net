@@ -1,0 +1,106 @@
+[
+  {
+    "document": {"name":{"en":"Stuttgart"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Baden-Württemberg"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Munich"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Bavaria"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Berlin"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Berlin"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Potsdam"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Brandenburg"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Bremen"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Bremen"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Hamburg"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Hamburg"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Dresden"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Saxony"
+      }
+    ]
+  },
+  {
+    "document": {"name":{"en":"Kiel"},"description":{}},    
+    "parents": [
+      {
+        "parentTaxonomy": "countries",
+        "parentTerm": "Germany"
+      },
+      {
+        "parentTaxonomy": "states",
+        "parentTerm": "Schleswig-Holstein"
+      }
+    ]
+  }  
+]

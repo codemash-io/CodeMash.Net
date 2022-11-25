@@ -1,0 +1,26 @@
+[
+  {
+    "document": {"name":{"en":"USA", "lt":  "Jungtinės Amerikos Valstijos"}, "order":1,"description":{}},
+    "meta": {"country_code":"us", "country_description": {"en":"USA description", "lt":  "Jungtinių Amerikos Valstijų aprašymas"},"vat":21,"apply_vat":true}
+  },
+  {
+    "document": {"name":{"en":"UK", "lt":  "Jungtinė Karalystė"}, "order":2,"description":{}},
+    "meta": {"country_code":"uk", "country_description": {"en":"UK description", "lt":  "Jungtinės Karalystės aprašymas"}, "vat":21,"apply_vat":false}
+  },
+  {
+    "document": {"name":{"en":"France", "lt":  "Prancūzija"}, "order": 3,"description":{}},
+    "meta": {"country_code":"fr", "country_description": {"en":"France description", "lt":  "Prancūzijos aprašymas"}, "vat":23,"apply_vat":true}
+  },
+  {
+    "document": {"name":{"en":"Lithuania", "lt":  "Lietuva"}, "order":4,"description":{}},
+    "meta": {"country_code":"lt", "country_description": {"en":"Lithuania description", "lt":  "Lietuvos aprašymas"}, "vat":21,"apply_vat":true}
+  },
+  {
+    "document": {"name":{"en":"Spain", "lt":  "Ispanija"}, "order":15,"description":{}},
+    "meta": {"country_code":"sp", "country_description": {"en":"Spain description", "lt":  "Ispanijos aprašymas"}, "vat":13,"apply_vat":false}
+  },
+  {
+    "document": {"name":{"en":"Germany", "lt":  "Vokietija"}, "description":{}},
+    "meta": {"country_code":"ge", "country_description": {"en":"Germany description", "lt":  "Vokietijos aprašymas"}, "vat":15,"apply_vat":true}
+  }  
+]
